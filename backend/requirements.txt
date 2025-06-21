@@ -1,0 +1,6 @@
+# Production dependencies for the FastAPI application.
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+# Add other production libraries like SQLAlchemy, httpx, etc. here

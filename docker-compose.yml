@@ -1,0 +1,63 @@
+# docker-compose.yml
+# Orchestrates all services for the brAInwav MAS project environment.
+# Run with: docker-compose up -d
+
+services:
+  # The Python backend service, where you will do most of your development.
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: brainwav-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/workspace
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+      - ollama
+    networks:
+      - brainwav-net
+    command: >
+      sh -c "uvicorn backend.src.main:app --host 0.0.0.0 --port 8000 --reload"
+
+  # A PostgreSQL database service for persistent data storage.
+  db:
+    image: postgres:15-alpine
+    container_name: brainwav-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./backend/.env
+    networks:
+      - brainwav-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # The Ollama service for running local LLMs.
+  ollama:
+    image: ollama/ollama:latest
+    container_name: brainwav-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - brainwav-net
+
+# Named volumes for persistent data storage.
+volumes:
+  postgres_data:
+  ollama_data:
+
+# A dedicated network for services to communicate with each other.
+networks:
+  brainwav-net:
+    driver: bridge

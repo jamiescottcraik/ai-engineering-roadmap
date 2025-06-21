@@ -1,0 +1,11 @@
+# Development-specific dependencies used for testing and interactive analysis.
+
+# For testing and coverage reports:
+pytest
+pytest-cov
+
+# For Jupyter / VS Code Interactive Window support:
+ipykernel
+
+# For pre-commit hooks
+pre-commit

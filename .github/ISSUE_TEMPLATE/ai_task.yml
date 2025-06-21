@@ -1,0 +1,11 @@
+name: AI Task
+description: Create a new AI agent task
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Task Description
+      description: Describe the AI agent task in detail.
+      placeholder: Task details here
+    validations:
+      required: true

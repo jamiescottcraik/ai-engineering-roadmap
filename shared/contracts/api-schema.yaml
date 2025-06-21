@@ -1,0 +1,6 @@
+# OpenAPI schema for contract-first development
+openapi: 3.0.0
+info:
+  title: MAS Project API
+  version: 1.0.0
+paths: {}

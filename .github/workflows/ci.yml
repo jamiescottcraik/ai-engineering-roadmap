@@ -1,0 +1,4 @@
+- name: Project Structure Validation
+  run: |
+    find . -maxdepth 1 -name "test_*.py" -exec echo "ERROR: Test file {} must be in tests/ directory" \; -exec exit 1 \;
+    find . -maxdepth 1 \( -name "*.html" -o -name "*.xml" \) | grep -E "(coverage|report)" && echo "ERROR: Reports must be in reports/ directory" && exit 1 || true

@@ -1,0 +1,31 @@
+name: Guardrails & Lint
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  guardrails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for RULES_FOR_AI.md and feature_plan.md
+        run: |
+          if [ -f RULES_FOR_AI.md ] && [ -f docs/feature_plan.md ]; then
+            echo "Guardrail files present"
+          else
+            echo "Optional files are missing, continuing..."
+          fi
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install requirements
+        run: python -m pip install -r requirements.txt
+      - name: Lint and Type Check
+        run: |
+          black --check src/ tests/
+          ruff check src/ tests/
+          mypy src/
+      - name: Run tests
+        run: pytest
