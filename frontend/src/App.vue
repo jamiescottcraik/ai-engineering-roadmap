@@ -1,8 +1,20 @@
 <template>
   <div id="app">
-    <!-- App root -->
+    <router-view />
   </div>
 </template>
-<script setup>
-// App logic
+
+<script setup lang="ts">
+// Main app component
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

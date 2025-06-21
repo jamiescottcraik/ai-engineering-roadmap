@@ -1,1 +1,58 @@
-# Backend CI/CD workflow
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+    
+    - name: Install dependencies
+      run: |
+        uv pip install --system -r requirements.txt -r dev-requirements.txt
+    
+    - name: Lint and format check
+      run: |
+        black --check src/ tests/
+        ruff check src/ tests/
+        ruff format --check src/ tests/
+    
+    - name: Type check
+      run: mypy src/
+    
+    - name: Create reports directory
+      run: mkdir -p ../reports
+    
+    - name: Run tests
+      run: pytest tests/ --cov=src --cov-fail-under=80 --cov-report=xml:../reports/coverage.xml
+    
+    - name: Upload coverage to codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./reports/coverage.xml
+        fail_ci_if_error: false
