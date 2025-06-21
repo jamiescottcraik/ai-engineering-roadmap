@@ -4,6 +4,11 @@
 pytest
 pytest-cov
 
+# For code quality and linting:
+black
+ruff
+mypy
+
 # For Jupyter / VS Code Interactive Window support:
 ipykernel
 
