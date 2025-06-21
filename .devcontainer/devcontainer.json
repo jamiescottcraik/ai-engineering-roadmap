@@ -2,7 +2,7 @@
   "name": "brAInwav MAS Project",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "backend",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/workspace/ai-engineering-roadmap",
   "customizations": {
     "vscode": {
       "extensions": [

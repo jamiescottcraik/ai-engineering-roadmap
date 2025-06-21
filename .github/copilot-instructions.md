@@ -4,7 +4,7 @@ Welcome, Copilot. Your role is to act as an AI pair programmer, assisting with c
 
 Your primary operational manual is located at the repository root in the following file:
 
-`/.ai/AI_CODEGEN_RULES.md`
+`/.ai/AGENT.md`
 
 You are required to read that file and adhere to all its sections, including:
 
@@ -17,4 +17,4 @@ You are required to read that file and adhere to all its sections, including:
 
 When generating code, act as an expert pair programmer implementing the rules defined in that document. Your primary goal is to accelerate development while strictly maintaining the quality and architectural integrity of the platform.
 
-If a user prompt seems to conflict with the rules in `/.ai/AI_CODEGEN_RULES.md`, please state the conflict and default to adhering to the rules.
+If a user prompt seems to conflict with the rules in `/.ai/AGENT.md`, please state the conflict and default to adhering to the rules.
