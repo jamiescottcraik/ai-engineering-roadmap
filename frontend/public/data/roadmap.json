@@ -4,16 +4,17 @@
     "description": "A comprehensive pathway from advanced foundations to AI leadership roles",
     "startDate": "2025-06-21",
     "estimatedDuration": "12-18 months",
-    "lastUpdated": "2025-06-22"
+    "lastUpdated": "2025-06-22",
+    "last_updated": "2025-06-22T22:53:52.452986Z"
   },
   "phases": [
     {
       "id": "phase1",
       "title": "Advanced Foundations",
       "subtitle": "Professional Engineering",
-      "icon": "1️⃣",
+      "icon": "1\ufe0f\u20e3",
       "status": "in_progress",
-      "progress": 25,
+      "progress": 16.666666666666668,
       "estimatedWeeks": 8,
       "description": "Master advanced programming, data analysis, and DevOps fundamentals",
       "color": "#1f4e79",
@@ -28,9 +29,21 @@
           "estimatedHours": 40,
           "description": "Master advanced Python concepts, data structures, algorithms, and mathematical foundations",
           "resources": [
-            {"title": "Python Data Structures Deep Dive", "url": "#", "type": "course"},
-            {"title": "Mathematical Foundations for AI", "url": "#", "type": "book"},
-            {"title": "Advanced Python Patterns", "url": "#", "type": "tutorial"}
+            {
+              "title": "Python Data Structures Deep Dive",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "Mathematical Foundations for AI",
+              "url": "#",
+              "type": "book"
+            },
+            {
+              "title": "Advanced Python Patterns",
+              "url": "#",
+              "type": "tutorial"
+            }
           ],
           "completionCriteria": [
             "Implement advanced data structures from scratch",
@@ -47,7 +60,11 @@
           "isUnlocked": true,
           "estimatedHours": 30,
           "description": "Apply algorithmic thinking to solve complex problems",
-          "deliverables": ["Algorithm implementations", "Performance analysis", "Code reviews"],
+          "deliverables": [
+            "Algorithm implementations",
+            "Performance analysis",
+            "Code reviews"
+          ],
           "completionCriteria": [
             "Complete 50+ algorithmic challenges",
             "Optimize time/space complexity",
@@ -63,7 +80,11 @@
           "isUnlocked": true,
           "estimatedHours": 20,
           "description": "Build a CLI tool that generates statistical analysis cards from data",
-          "deliverables": ["CLI application", "Test suite", "Documentation"],
+          "deliverables": [
+            "CLI application",
+            "Test suite",
+            "Documentation"
+          ],
           "completionCriteria": [
             "Functional CLI with multiple output formats",
             "Comprehensive test coverage",
@@ -80,9 +101,21 @@
           "estimatedHours": 35,
           "description": "Master complex SQL queries, optimization, and database design",
           "resources": [
-            {"title": "Advanced SQL Techniques", "url": "#", "type": "course"},
-            {"title": "Database Performance Tuning", "url": "#", "type": "book"},
-            {"title": "SQL Query Optimization", "url": "#", "type": "tutorial"}
+            {
+              "title": "Advanced SQL Techniques",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "Database Performance Tuning",
+              "url": "#",
+              "type": "book"
+            },
+            {
+              "title": "SQL Query Optimization",
+              "url": "#",
+              "type": "tutorial"
+            }
           ]
         },
         {
@@ -94,7 +127,10 @@
           "isUnlocked": false,
           "estimatedHours": 25,
           "description": "Practice with real-world complex SQL scenarios",
-          "deliverables": ["Query optimization reports", "Performance benchmarks"]
+          "deliverables": [
+            "Query optimization reports",
+            "Performance benchmarks"
+          ]
         },
         {
           "id": "p1_mini_sql",
@@ -105,7 +141,11 @@
           "isUnlocked": false,
           "estimatedHours": 25,
           "description": "Create an analytics dashboard powered by complex SQL queries",
-          "deliverables": ["Dashboard application", "SQL query library", "Performance report"]
+          "deliverables": [
+            "Dashboard application",
+            "SQL query library",
+            "Performance report"
+          ]
         },
         {
           "id": "p1_devtools",
@@ -117,8 +157,16 @@
           "estimatedHours": 30,
           "description": "Master modern development tools, testing, and CI/CD pipelines",
           "resources": [
-            {"title": "Modern DevOps Practices", "url": "#", "type": "course"},
-            {"title": "CI/CD Pipeline Design", "url": "#", "type": "tutorial"}
+            {
+              "title": "Modern DevOps Practices",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "CI/CD Pipeline Design",
+              "url": "#",
+              "type": "tutorial"
+            }
           ]
         },
         {
@@ -130,7 +178,11 @@
           "isUnlocked": false,
           "estimatedHours": 20,
           "description": "Implement comprehensive CI/CD pipelines with testing and deployment",
-          "deliverables": ["CI/CD pipeline", "Automated testing suite", "Deployment scripts"]
+          "deliverables": [
+            "CI/CD pipeline",
+            "Automated testing suite",
+            "Deployment scripts"
+          ]
         },
         {
           "id": "p1_portfolio",
@@ -141,7 +193,12 @@
           "isUnlocked": false,
           "estimatedHours": 40,
           "description": "Build a production-ready data analysis API with full CI/CD pipeline",
-          "deliverables": ["REST API", "Automated deployment", "Monitoring dashboard", "Documentation"],
+          "deliverables": [
+            "REST API",
+            "Automated deployment",
+            "Monitoring dashboard",
+            "Documentation"
+          ],
           "completionCriteria": [
             "API handles multiple data formats",
             "Comprehensive test coverage >90%",
@@ -155,9 +212,9 @@
       "id": "phase2",
       "title": "Applied AI & MLOps",
       "subtitle": "Build & Deploy AI",
-      "icon": "2️⃣",
+      "icon": "2\ufe0f\u20e3",
       "status": "not_started",
-      "progress": 0,
+      "progress": 0.0,
       "estimatedWeeks": 10,
       "description": "Master AI application development and deployment at scale",
       "color": "#4b8a36",
@@ -172,9 +229,21 @@
           "estimatedHours": 45,
           "description": "Master Retrieval-Augmented Generation architectures and implementations",
           "resources": [
-            {"title": "RAG Architecture Patterns", "url": "#", "type": "course"},
-            {"title": "Vector Databases Guide", "url": "#", "type": "book"},
-            {"title": "Advanced RAG Techniques", "url": "#", "type": "tutorial"}
+            {
+              "title": "RAG Architecture Patterns",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "Vector Databases Guide",
+              "url": "#",
+              "type": "book"
+            },
+            {
+              "title": "Advanced RAG Techniques",
+              "url": "#",
+              "type": "tutorial"
+            }
           ]
         },
         {
@@ -186,7 +255,11 @@
           "isUnlocked": false,
           "estimatedHours": 35,
           "description": "Build an AI system that reduces cognitive load by summarizing and contextualizing information",
-          "deliverables": ["RAG implementation", "Vector database setup", "Query optimization"]
+          "deliverables": [
+            "RAG implementation",
+            "Vector database setup",
+            "Query optimization"
+          ]
         },
         {
           "id": "p2_agents",
@@ -198,8 +271,16 @@
           "estimatedHours": 40,
           "description": "Design and implement collaborative AI agent systems",
           "resources": [
-            {"title": "Multi-Agent Frameworks", "url": "#", "type": "course"},
-            {"title": "Agent Communication Patterns", "url": "#", "type": "tutorial"}
+            {
+              "title": "Multi-Agent Frameworks",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "Agent Communication Patterns",
+              "url": "#",
+              "type": "tutorial"
+            }
           ]
         },
         {
@@ -211,7 +292,11 @@
           "isUnlocked": false,
           "estimatedHours": 30,
           "description": "Create an intelligent learning curator that personalizes educational content",
-          "deliverables": ["Agent architecture", "Personalization engine", "Content recommendation system"]
+          "deliverables": [
+            "Agent architecture",
+            "Personalization engine",
+            "Content recommendation system"
+          ]
         },
         {
           "id": "p2_mlops",
@@ -223,8 +308,16 @@
           "estimatedHours": 35,
           "description": "Master ML operations, monitoring, and lifecycle management",
           "resources": [
-            {"title": "MLOps Best Practices", "url": "#", "type": "course"},
-            {"title": "Model Monitoring Guide", "url": "#", "type": "book"}
+            {
+              "title": "MLOps Best Practices",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "Model Monitoring Guide",
+              "url": "#",
+              "type": "book"
+            }
           ]
         },
         {
@@ -236,7 +329,11 @@
           "isUnlocked": false,
           "estimatedHours": 25,
           "description": "Implement containerized AI deployments with monitoring and scaling",
-          "deliverables": ["Docker containers", "Kubernetes manifests", "Monitoring setup"]
+          "deliverables": [
+            "Docker containers",
+            "Kubernetes manifests",
+            "Monitoring setup"
+          ]
         },
         {
           "id": "p2_portfolio",
@@ -247,7 +344,12 @@
           "isUnlocked": false,
           "estimatedHours": 50,
           "description": "Deploy multiple AI applications with full MLOps pipeline",
-          "deliverables": ["Production AI apps", "MLOps pipeline", "Monitoring dashboard", "Performance reports"],
+          "deliverables": [
+            "Production AI apps",
+            "MLOps pipeline",
+            "Monitoring dashboard",
+            "Performance reports"
+          ],
           "completionCriteria": [
             "Multiple AI services running in production",
             "Automated model deployment and rollback",
@@ -261,9 +363,9 @@
       "id": "phase3",
       "title": "Architecture",
       "subtitle": "Architect & Design",
-      "icon": "3️⃣",
+      "icon": "3\ufe0f\u20e3",
       "status": "not_started",
-      "progress": 0,
+      "progress": 0.0,
       "estimatedWeeks": 8,
       "description": "Design scalable AI systems and ethical frameworks",
       "color": "#843c0c",
@@ -278,8 +380,16 @@
           "estimatedHours": 60,
           "description": "Study 'Designing Data-Intensive Applications' for system design mastery",
           "resources": [
-            {"title": "Designing Data-Intensive Applications", "url": "#", "type": "book"},
-            {"title": "DDIA Study Guide", "url": "#", "type": "guide"}
+            {
+              "title": "Designing Data-Intensive Applications",
+              "url": "#",
+              "type": "book"
+            },
+            {
+              "title": "DDIA Study Guide",
+              "url": "#",
+              "type": "guide"
+            }
           ]
         },
         {
@@ -292,8 +402,16 @@
           "estimatedHours": 40,
           "description": "Master large-scale AI system architecture patterns",
           "resources": [
-            {"title": "AI System Architecture", "url": "#", "type": "course"},
-            {"title": "Scalable AI Patterns", "url": "#", "type": "book"}
+            {
+              "title": "AI System Architecture",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "Scalable AI Patterns",
+              "url": "#",
+              "type": "book"
+            }
           ]
         },
         {
@@ -305,7 +423,11 @@
           "isUnlocked": false,
           "estimatedHours": 35,
           "description": "Design a hybrid AI system combining multiple model types",
-          "deliverables": ["Architecture document", "System design diagrams", "Technical specifications"]
+          "deliverables": [
+            "Architecture document",
+            "System design diagrams",
+            "Technical specifications"
+          ]
         },
         {
           "id": "p3_ethical",
@@ -316,7 +438,11 @@
           "isUnlocked": false,
           "estimatedHours": 30,
           "description": "Implement ethical AI frameworks and bias detection systems",
-          "deliverables": ["Ethical framework", "Bias detection tools", "Compliance documentation"]
+          "deliverables": [
+            "Ethical framework",
+            "Bias detection tools",
+            "Compliance documentation"
+          ]
         },
         {
           "id": "p3_portfolio",
@@ -327,7 +453,12 @@
           "isUnlocked": false,
           "estimatedHours": 45,
           "description": "Build an ethical AI service with comprehensive architecture documentation",
-          "deliverables": ["Production AI service", "Architecture documentation", "Ethical compliance report", "Technical blog post"],
+          "deliverables": [
+            "Production AI service",
+            "Architecture documentation",
+            "Ethical compliance report",
+            "Technical blog post"
+          ],
           "completionCriteria": [
             "AI service with built-in ethical safeguards",
             "Comprehensive system design documentation",
@@ -341,9 +472,9 @@
       "id": "phase4",
       "title": "Strategy & Leadership",
       "subtitle": "Strategize & Lead",
-      "icon": "4️⃣",
+      "icon": "4\ufe0f\u20e3",
       "status": "not_started",
-      "progress": 0,
+      "progress": 0.0,
       "estimatedWeeks": 10,
       "description": "Develop product strategy and leadership skills",
       "color": "#7030a0",
@@ -358,8 +489,16 @@
           "estimatedHours": 35,
           "description": "Master user experience design and product discovery methodologies",
           "resources": [
-            {"title": "UX for AI Products", "url": "#", "type": "course"},
-            {"title": "Product Discovery Methods", "url": "#", "type": "book"}
+            {
+              "title": "UX for AI Products",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "Product Discovery Methods",
+              "url": "#",
+              "type": "book"
+            }
           ]
         },
         {
@@ -371,7 +510,11 @@
           "isUnlocked": false,
           "estimatedHours": 25,
           "description": "Create comprehensive product briefs using discovery methodologies",
-          "deliverables": ["User research report", "Product brief document", "UX prototypes"]
+          "deliverables": [
+            "User research report",
+            "Product brief document",
+            "UX prototypes"
+          ]
         },
         {
           "id": "p4_entai",
@@ -383,8 +526,16 @@
           "estimatedHours": 40,
           "description": "Understand enterprise AI adoption, governance, and strategic planning",
           "resources": [
-            {"title": "Enterprise AI Strategy", "url": "#", "type": "course"},
-            {"title": "AI Governance Frameworks", "url": "#", "type": "guide"}
+            {
+              "title": "Enterprise AI Strategy",
+              "url": "#",
+              "type": "course"
+            },
+            {
+              "title": "AI Governance Frameworks",
+              "url": "#",
+              "type": "guide"
+            }
           ]
         },
         {
@@ -396,7 +547,11 @@
           "isUnlocked": false,
           "estimatedHours": 30,
           "description": "Lead community initiatives and mentor other developers",
-          "deliverables": ["Mentorship program", "Community contributions", "Leadership documentation"]
+          "deliverables": [
+            "Mentorship program",
+            "Community contributions",
+            "Leadership documentation"
+          ]
         },
         {
           "id": "p4_portfolio",
@@ -407,7 +562,12 @@
           "isUnlocked": false,
           "estimatedHours": 40,
           "description": "Deliver a comprehensive product brief and document mentorship activities",
-          "deliverables": ["Complete product brief", "Mentorship documentation", "Strategy presentation", "Leadership reflection"],
+          "deliverables": [
+            "Complete product brief",
+            "Mentorship documentation",
+            "Strategy presentation",
+            "Leadership reflection"
+          ],
           "completionCriteria": [
             "Product brief based on real user research",
             "Evidence of successful mentorship",
@@ -421,9 +581,9 @@
       "id": "phase5",
       "title": "Synthesis & Influence",
       "subtitle": "Launch & Influence",
-      "icon": "5️⃣",
+      "icon": "5\ufe0f\u20e3",
       "status": "not_started",
-      "progress": 0,
+      "progress": 0.0,
       "estimatedWeeks": 12,
       "description": "Launch capstone projects and build public influence",
       "color": "#c00000",
@@ -437,7 +597,12 @@
           "isUnlocked": false,
           "estimatedHours": 80,
           "description": "Develop and launch a comprehensive AI project that demonstrates all learned skills",
-          "deliverables": ["Capstone project", "Launch strategy", "User acquisition plan", "Impact metrics"]
+          "deliverables": [
+            "Capstone project",
+            "Launch strategy",
+            "User acquisition plan",
+            "Impact metrics"
+          ]
         },
         {
           "id": "p5_oss",
@@ -448,7 +613,11 @@
           "isUnlocked": false,
           "estimatedHours": 40,
           "description": "Make significant contributions to open source AI projects",
-          "deliverables": ["OSS contributions", "Community engagement", "Technical documentation"]
+          "deliverables": [
+            "OSS contributions",
+            "Community engagement",
+            "Technical documentation"
+          ]
         },
         {
           "id": "p5_portfolio",
@@ -459,7 +628,12 @@
           "isUnlocked": false,
           "estimatedHours": 60,
           "description": "Launch a live project and present it publicly to establish thought leadership",
-          "deliverables": ["Live production project", "Public presentation", "Technical blog series", "Industry recognition"],
+          "deliverables": [
+            "Live production project",
+            "Public presentation",
+            "Technical blog series",
+            "Industry recognition"
+          ],
           "completionCriteria": [
             "Project with real users and impact metrics",
             "Public speaking engagement completed",
