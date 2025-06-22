@@ -1046,7 +1046,7 @@ const getNodeRationale = (type: string): string => {
 
 const loadRoadmapData = async () => {
   try {
-    const response = await fetch('/roadmap.json')
+  const response = await fetch('./roadmap.json')
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }

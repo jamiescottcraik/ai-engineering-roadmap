@@ -27,7 +27,7 @@ export interface RoadmapPhase {
 export async function loadRoadmapData(): Promise<any> {
   try {
     // First try to load from GitHub API (for real-time data)
-    const response = await fetch('/data/roadmap.json')
+    const response = await fetch('./data/roadmap.json')
     return await response.json()
   } catch (error) {
     // Fallback to static data
