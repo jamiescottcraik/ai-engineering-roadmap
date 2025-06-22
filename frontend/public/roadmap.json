@@ -8,6 +8,7 @@
     "totalHours": 920,
     "totalDeliverables": 18,
     "checkpoints": 10,
+    "totalCheckpoints": 10,
     "totalResources": 150,
     "optionalResources": 75
   },
