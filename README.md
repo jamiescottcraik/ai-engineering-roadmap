@@ -1,8 +1,8 @@
-<div align="center">
-  <img src="assets/brAInwav.png" alt="brAInwav Logo" width="120" height="120" />
-</div>
-
 # AI Leadership Engineering Roadmap
+
+```html
+<img src="assets/brAInwav.png" alt="brAInwav Logo" width="120" height="120" />
+```
 
 ## A 34-Week, Self-Directed Journey to Master the Skills of a Modern AI Architect and Product Leader
 
@@ -10,8 +10,10 @@
 
 [![Roadmap Status](https://img.shields.io/badge/Status-Phase%201%20Active-1f4e79?style=for-the-badge&logo=github)](https://github.com/jamiescottcraik/ai-engineering-roadmap)
 [![Progress](https://img.shields.io/badge/Progress-25%25-4b8a36?style=for-the-badge&logo=target)](https://jamiescottcraik.github.io/ai-engineering-roadmap/)
-[![Duration](https://img.shields.io/badge/Duration-12--18%20Months-7030a0?style=for-the-badge&logo=calendar)](https://github.com/jamiescottcraik/ai-engineering-roadmap/blob/main/data/roadmap.json)
+[![Duration](https://img.shields.io/badge/Duration-12--18%20Months-7030a0?style=for-the-badge&logo=calendar)](https://github.com/jamiescottcraik/ai-engineering-roadmap/blob/main/frontend/public/roadmap.json)
 [![Focus Project](https://img.shields.io/badge/Focus-P.A.R.A.gon%20AI-c00000?style=for-the-badge&logo=rocket)](https://github.com/jamiescottcraik/ai-engineering-roadmap#project-focus)
+
+// cSpell:ignore architecting deeplearning Kleppmann Aurélien Géron Forsgren
 
 ---
 
@@ -109,13 +111,77 @@ Explore the complete roadmap with progress tracking, detailed descriptions, and 
 
 ---
 
+## 🎖️ From Military Leadership to AI Innovation
+
+This journey builds on a foundation of military leadership experience, translating strategic thinking, systematic execution, and ethical responsibility into the rapidly evolving field of artificial intelligence. Every phase is designed to bridge technical excellence with leadership capability.
+
+---
+
+**Ready to transform the future of AI?**
+
+[🚀 Start Your Journey](https://jamiescottcraik.github.io/ai-engineering-roadmap/) | [📚 View Documentation](docs/) | [🤝 Join the Community](https://github.com/jamiescottcraik/ai-engineering-roadmap/discussions)
+
+---
+
+**Last Updated:** June 22, 2025 &nbsp;|&nbsp; **Next Update:** June 29, 2025
+
+## 📊 Repository Structure
+
+```bash
+ai-engineering-roadmap/
+├── 📁 data/                    # Roadmap data and configurations
+├── 📁 docs/                    # Documentation and resources
+├── 📁 frontend/                # Interactive roadmap interface
+├── 📁 progress/                # Weekly reviews and tracking
+├── 📁 projects/                # Portfolio project code
+├── 📁 scripts/                 # Automation and CI/CD
+└── 📄 README.md               # This comprehensive overview
+```
+
+---
+
+## 🚀 Featured Portfolio Projects
+
+### 🛡️ Ethical AI Guardian
+
+#### Ensuring AI systems are safe, fair, and trustworthy - a critical requirement for enterprise adoption
+
+**Impact:** Automated bias detection and compliance frameworks for production AI systems
+
+- Real-time bias monitoring and mitigation
+- Compliance automation for enterprise requirements
+- Open-source components for community benefit
+
+### 🧠 Cognitive Load Reducer
+
+#### Directly addressing information overload to make knowledge accessible to everyone
+
+**Impact:** AI-powered system that intelligently summarizes and contextualizes information
+
+- Sub-2-second response times for complex queries
+- Multi-modal document processing capabilities
+- 90%+ user satisfaction in cognitive load reduction
+
+### 📊 Data Analysis API
+
+#### Production-ready foundation for data-driven decision making
+
+**Impact:** Scalable API with comprehensive CI/CD and monitoring
+
+- 99%+ uptime with automated deployment
+- 95%+ test coverage with quality gates
+- Real-time analytics and performance monitoring
+
+---
+
 ## 🎯 Project Focus: P.A.R.A.gon AI
 
-**Personal AI Research Assistant & Goal-oriented Navigator**
+### Personal AI Research Assistant & Goal-oriented Navigator
 
 A comprehensive AI system that helps users organize knowledge, discover learning paths, and achieve goals through intelligent assistance. This project serves as the central thread connecting all phases of the roadmap.
 
 ### Key Features
+
 - 🧠 Multi-modal knowledge processing and organization
 - 🎓 Personalized learning path recommendation
 - 🎯 Goal tracking and achievement optimization
@@ -123,6 +189,7 @@ A comprehensive AI system that helps users organize knowledge, discover learning
 - 🛡️ Ethical AI with built-in safety guardrails
 
 ### Development Timeline
+
 - **Phase 1-2:** Core AI components (RAG, agents, deployment)
 - **Phase 3:** Architecture design and safety frameworks
 - **Phase 4:** Product strategy and user experience
@@ -130,37 +197,10 @@ A comprehensive AI system that helps users organize knowledge, discover learning
 
 ---
 
-## 🚀 Featured Portfolio Projects
-
-### 🛡️ Ethical AI Guardian
-*Ensuring AI systems are safe, fair, and trustworthy - a critical requirement for enterprise adoption*
-
-**Impact:** Automated bias detection and compliance frameworks for production AI systems
-- Real-time bias monitoring and mitigation
-- Compliance automation for enterprise requirements
-- Open-source components for community benefit
-
-### 🧠 Cognitive Load Reducer
-*Directly addressing information overload to make knowledge accessible to everyone*
-
-**Impact:** AI-powered system that intelligently summarizes and contextualizes information
-- Sub-2-second response times for complex queries
-- Multi-modal document processing capabilities
-- 90%+ user satisfaction in cognitive load reduction
-
-### 📊 Data Analysis API
-*Production-ready foundation for data-driven decision making*
-
-**Impact:** Scalable API with comprehensive CI/CD and monitoring
-- 99%+ uptime with automated deployment
-- 95%+ test coverage with quality gates
-- Real-time analytics and performance monitoring
-
----
-
 ## 📚 Learning Resources
 
 ### Current Course Stack
+
 - **Mathematics:** Linear Algebra & Calculus for ML
 - **Programming:** Advanced Python Patterns & Algorithms
 - **AI/ML:** Deep Learning Specialization (deeplearning.ai)
@@ -168,6 +208,7 @@ A comprehensive AI system that helps users organize knowledge, discover learning
 - **Leadership:** AI Product Management & Strategy
 
 ### Key Books
+
 - 📖 "Designing Data-Intensive Applications" by Martin Kleppmann
 - 📖 "Hands-On Machine Learning" by Aurélien Géron
 - 📖 "The Design of Everyday Things" by Don Norman
@@ -210,20 +251,24 @@ This roadmap is a living document that evolves with real progress and insights:
 We welcome contributions to make this roadmap even better! Here's how you can help:
 
 #### 🛠️ Roadmap Improvements
+
 - **Resource Suggestions**: Know a great course, book, or tutorial? [Open an issue](https://github.com/jamiescottcraik/ai-engineering-roadmap/issues/new?template=resource-suggestion.md) with the resource details
 - **Learning Path Feedback**: Found a better sequence or missing milestone? [Share your insights](https://github.com/jamiescottcraik/ai-engineering-roadmap/discussions)
 - **Technical Corrections**: Spot an error or outdated information? [Submit a pull request](https://github.com/jamiescottcraik/ai-engineering-roadmap/pulls)
 
 #### 💡 Feature Requests
+
 - **UX Enhancements**: Ideas for improving the interactive roadmap? [Create a feature request](https://github.com/jamiescottcraik/ai-engineering-roadmap/issues/new?template=feature-request.md)
 - **Data Visualization**: Suggestions for better progress tracking or visualization? We'd love to hear from you!
 
 #### 🎯 Content Contributions
+
 - **Phase Expertise**: Expert in ML, cloud architecture, or AI ethics? Help improve specific phases
 - **Industry Insights**: Share real-world perspectives on AI engineering roles and requirements
 - **Learning Resources**: Curate and review learning materials for quality and relevance
 
 #### 📝 Documentation
+
 - **Tutorials**: Write guides for complex topics or tools
 - **Best Practices**: Share patterns and approaches that work in production
 - **Case Studies**: Document real implementation examples and lessons learned
@@ -244,46 +289,15 @@ We welcome contributions to make this roadmap even better! Here's how you can he
 - 🔄 **Iterative Improvement**: Small, focused contributions are preferred over large changes
 
 ### Get Involved
+
 - **Follow the Journey:** Star this repository for updates
 - **Share Insights:** Open issues for suggestions and discussions
 - **Collaborate:** Fork and adapt this roadmap for your journey
 
 ### Connect
+
 - 🔗 [LinkedIn](https://linkedin.com/in/jamiescottcraik)
 - 🐦 [Twitter](https://twitter.com/jamiescottcraik)
 - 💼 [Portfolio](https://jamiescottcraik.dev)
 
 ---
-
-## 📊 Repository Structure
-
-```
-ai-engineering-roadmap/
-├── 📁 data/                    # Roadmap data and configurations
-├── 📁 docs/                    # Documentation and resources
-├── 📁 frontend/                # Interactive roadmap interface
-├── 📁 progress/                # Weekly reviews and tracking
-├── 📁 projects/                # Portfolio project code
-├── 📁 scripts/                 # Automation and CI/CD
-└── 📄 README.md               # This comprehensive overview
-```
-
----
-
-## 🎖️ From Military Leadership to AI Innovation
-
-This journey builds on a foundation of military leadership experience, translating strategic thinking, systematic execution, and ethical responsibility into the rapidly evolving field of artificial intelligence. Every phase is designed to bridge technical excellence with leadership capability.
-
----
-
-<div align="center">
-
-**Ready to transform the future of AI?**
-
-[🚀 Start Your Journey](https://jamiescottcraik.github.io/ai-engineering-roadmap/) | [📚 View Documentation](docs/) | [🤝 Join the Community](https://github.com/jamiescottcraik/ai-engineering-roadmap/discussions)
-
----
-
-*Last Updated: June 22, 2025 | Next Update: June 29, 2025*
-
-</div>
