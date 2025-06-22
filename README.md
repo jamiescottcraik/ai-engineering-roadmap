@@ -23,7 +23,9 @@ Transforming from technical foundations to AI leadership through structured lear
 
 ## 🗺️ Interactive Roadmap
 
-![AI Leadership Engineering Roadmap](docs/roadmap-overview.png)
+![AI Leadership Engineering Roadmap](docs/roadmap.svg)
+
+**[📄 View Mermaid Source](docs/roadmap.mmd) | [🖼️ SVG Version](docs/roadmap.svg)**
 
 **[🚀 VIEW FULL INTERACTIVE ROADMAP](https://jamiescottcraik.github.io/ai-engineering-roadmap/)**
 
