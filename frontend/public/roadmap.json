@@ -32,9 +32,39 @@
           "estimatedHours": 40,
           "description": "Deep dive into advanced Python patterns, data structures, algorithms, and mathematical foundations for AI",
           "resources": [
-            {"title": "Python Data Structures & Algorithms Masterclass", "url": "https://realpython.com/python-data-structures/", "type": "course"},
-            {"title": "Mathematical Foundations for Machine Learning", "url": "https://mml-book.github.io/", "type": "book"},
-            {"title": "Advanced Python Patterns", "url": "https://python-patterns.guide/", "type": "tutorial"}
+            {
+              "title": "Python Data Structures & Algorithms Masterclass",
+              "url": "https://realpython.com/python-data-structures/",
+              "type": "course",
+              "description": "Comprehensive course on advanced Python data structures and algorithms, with hands-on coding exercises.",
+              "rationale": "Mastery of data structures and algorithms is foundational for AI engineering and technical interviews.",
+              "difficulty": "intermediate",
+              "estimatedTime": 480,
+              "skills": ["Python", "Algorithms", "Data Structures", "Problem Solving"],
+              "prerequisites": ["Basic Python"]
+            },
+            {
+              "title": "Mathematical Foundations for Machine Learning",
+              "url": "https://mml-book.github.io/",
+              "type": "book",
+              "description": "In-depth textbook covering linear algebra, calculus, probability, and statistics for machine learning.",
+              "rationale": "Mathematical fluency is essential for understanding and building AI models.",
+              "difficulty": "advanced",
+              "estimatedTime": 600,
+              "skills": ["Linear Algebra", "Calculus", "Probability", "Statistics"],
+              "prerequisites": ["High School Math", "Basic Python"]
+            },
+            {
+              "title": "Advanced Python Patterns",
+              "url": "https://python-patterns.guide/",
+              "type": "tutorial",
+              "description": "Guide to advanced Python programming patterns and idioms for clean, efficient code.",
+              "rationale": "Advanced Python skills enable more robust and maintainable AI codebases.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["Python", "Design Patterns", "Code Quality"],
+              "prerequisites": ["Basic Python"]
+            }
           ],
           "completionCriteria": [
             "Implement 10+ advanced data structures from scratch",
@@ -400,324 +430,323 @@
     },
     {
       "id": "phase3",
-      "title": "Architect for Scale & Safety",
-      "subtitle": "System Architecture & AI Safety",
-      "icon": "3️⃣",
+      "title": "AI Safety & Red Teaming",
+      "subtitle": "Build Safe, Reliable, and Secure AI Systems",
+      "icon": "🛡️",
       "status": "not_started",
       "progress": 0,
       "estimatedWeeks": 8,
-      "description": "Design scalable AI systems with built-in safety, ethics, and compliance frameworks",
-      "color": "#843c0c",
-      "checkpoint": "Checkpoint - AI Systems Architect",
+      "description": "Master the principles and hands-on skills for AI safety, red teaming, and adversarial robustness. Progress from foundational concepts to advanced attack/defense techniques and industry tools.",
+      "color": "#b91c1c",
+      "checkpoint": "Checkpoint - AI Safety Specialist",
       "nodes": [
         {
-          "id": "p3_ddia",
-          "title": "📎 Study 'Designing Data-Intensive Applications'",
-          "type": "keyresource",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 60,
-          "description": "Deep study of 'Designing Data-Intensive Applications' for system design mastery",
-          "resources": [
-            {"title": "Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "type": "book"},
-            {
-              "title": "DDIA Study Guide & Chapter Notes",
-              "url": "https://github.com/keyvanakbary/learning-notes/blob/master/books/designing-data-intensive-applications.md",
-              "type": "guide",
-              "description": "Comprehensive study notes and summaries for each chapter of DDIA.",
-              "rationale": "Study guides help reinforce key concepts from this foundational systems design book."
-            },
-            {
-              "title": "System Design Interview Course",
-              "url": "https://www.educative.io/courses/grokking-the-system-design-interview",
-              "type": "course",
-              "description": "Practical system design interview preparation with real-world examples.",
-              "rationale": "System design skills are essential for architecting scalable AI systems."
-            }
-          ],
-          "completionCriteria": [
-            "Complete all chapters with detailed notes",
-            "Implement 3+ system design concepts in practice",
-            "Pass system design mock interviews"
-          ],
-          "keyTopics": ["Distributed Systems", "Data Models", "Storage Systems", "Consistency", "Scalability"]
-        },
-        {
-          "id": "p3_arch_learn",
-          "title": "Master AI System Design Patterns",
+          "id": "p3_safety_basics",
+          "title": "AI Safety: Baseline Fluency",
           "type": "learn",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 40,
-          "description": "Master large-scale AI system architecture patterns and design principles",
+          "estimatedHours": 20,
+          "description": "Understand the fundamentals of AI safety, prompt injection, and societal risks.",
           "resources": [
             {
-              "title": "Building AI Systems: Architecture & Design Patterns",
-              "url": "https://www.manning.com/books/ai-systems-engineering",
+              "title": "Red Teaming LLM Applications",
+              "url": "https://www.coursera.org/learn/red-teaming-llm-applications",
               "type": "course",
-              "description": "Comprehensive course on designing and building production AI systems at scale.",
-              "rationale": "Learn proven patterns for architecting AI systems that scale and remain maintainable."
+              "description": "Intro to red teaming for LLMs: code labs, prompt injection, and LLM risks.",
+              "rationale": "Best intro: real code labs, prompt injection, LLM risks.",
+              "difficulty": "beginner",
+              "estimatedTime": 180,
+              "skills": ["Prompt Injection", "LLM Risks", "Red Teaming Basics"],
+              "prerequisites": ["Basic Python"]
             },
             {
-              "title": "Scalable Machine Learning Systems Design",
-              "url": "https://www.oreilly.com/library/view/building-machine-learning/9781492045106/",
-              "type": "book",
-              "description": "Practical guide to building ML systems that scale from prototype to production.",
-              "rationale": "Essential for understanding how to scale ML systems beyond proof-of-concept stage."
+              "title": "Generative AI Safety (Google Cloud Skill Boost)",
+              "url": "https://www.cloudskillsboost.google/paths/118",
+              "type": "course",
+              "description": "Covers prompt injection, data leakage, and GCP tools.",
+              "rationale": "Covers prompt injection, data leakage, and GCP tools.",
+              "difficulty": "beginner",
+              "estimatedTime": 120,
+              "skills": ["Prompt Injection", "Data Leakage", "Cloud AI Safety"],
+              "prerequisites": ["Basic Python"]
             },
             {
-              "title": "AI Infrastructure Patterns & Best Practices",
-              "url": "https://neptune.ai/blog/ml-infrastructure-tools",
-              "type": "tutorial",
-              "description": "Comprehensive guide to ML infrastructure tools and architectural patterns.",
-              "rationale": "Infrastructure choices significantly impact AI system performance and development velocity."
+              "title": "AI For Everyone (Coursera, Andrew Ng)",
+              "url": "https://www.coursera.org/learn/ai-for-everyone",
+              "type": "course",
+              "description": "Ethics and societal risks, for mindset.",
+              "rationale": "Ethics and societal risks, for mindset.",
+              "difficulty": "beginner",
+              "estimatedTime": 90,
+              "skills": ["AI Ethics", "Societal Risks"],
+              "prerequisites": []
             }
           ],
-          "keyTopics": ["Microservices", "Event-Driven Architecture", "Data Pipelines", "Model Serving", "System Integration"]
-        },
-        {
-          "id": "p3_arch_practice",
-          "title": "Architect the P.A.R.A.gon AI System",
-          "type": "practice",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 40,
-          "description": "Design a comprehensive AI system called P.A.R.A.gon (Personal AI Research Assistant & Goal-oriented Navigator)",
-          "deliverables": ["System architecture document", "Technical design diagrams", "API specifications", "Infrastructure plan", "Scalability analysis"],
-          "keyTopics": ["System Design", "Architecture Documentation", "Technical Specifications", "Infrastructure Planning"]
-        },
-        {
-          "id": "p3_deliverable_arch",
-          "title": "🏆 Deliver: P.A.R.A.gon AI Technical Blueprint",
-          "type": "portfolio",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 35,
-          "description": "Create a comprehensive technical blueprint for the P.A.R.A.gon AI system",
-          "deliverables": ["Complete architecture document", "System design diagrams", "Technology stack analysis", "Scalability roadmap", "Implementation timeline"],
+          "keyTopics": ["Prompt Injection", "AI Ethics", "Societal Risks"],
           "completionCriteria": [
-            "Architecture supports 100K+ users with 99.9% uptime",
-            "Comprehensive documentation with visual diagrams",
-            "Peer review and approval from 3+ engineers",
-            "Implementation plan with realistic timelines"
-          ],
-          "keyTopics": ["Technical Documentation", "System Architecture", "Peer Review", "Implementation Planning"],
-          "checkpoint": "Checkpoint - Architecture Design Mastery"
+            "Complete all code labs and quizzes",
+            "Demonstrate understanding of prompt injection and LLM risks"
+          ]
         },
         {
-          "id": "p3_safety_learn",
-          "title": "Master AI Safety & Security",
-          "type": "learn",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 35,
-          "description": "Master AI safety principles, security frameworks, and ethical AI implementation",
+          "id": "p3_safety_attacks",
+          "title": "AI Safety: Real-World Attacks & Defenses",
+          "type": "practice",
+          "estimatedHours": 24,
+          "description": "Hands-on adversarial attacks and defenses on transformers and LLM deployments.",
           "resources": [
             {
-              "title": "AI Safety Fundamentals Course",
-              "url": "https://course.aisafetyfundamentals.com/",
-              "type": "course",
-              "description": "Comprehensive introduction to AI safety concepts, alignment, and risk mitigation strategies.",
-              "rationale": "AI safety knowledge is crucial for building responsible AI systems that benefit humanity."
+              "title": "Hugging Face: Adversarial Attacks & Defenses",
+              "url": "https://huggingface.co/learn/nlp-course/chapter9/9?fw=pt",
+              "type": "tutorial",
+              "description": "Code adversarial attacks/defenses on transformers.",
+              "rationale": "Code adversarial attacks/defenses on transformers.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Adversarial Attacks", "Transformer Models", "Defense Techniques"],
+              "prerequisites": ["AI Safety: Baseline Fluency"]
             },
             {
-              "title": "Trustworthy AI Implementation Guidelines",
-              "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+              "title": "OpenAI Cookbook: Prompt Injection & Jailbreaks",
+              "url": "https://github.com/openai/openai-cookbook/blob/main/examples/How_to_prevent_prompt_injection.ipynb",
+              "type": "tutorial",
+              "description": "Actual code for attacking/defending GPT-4/LLM deployments.",
+              "rationale": "Actual code for attacking/defending GPT-4/LLM deployments.",
+              "difficulty": "intermediate",
+              "estimatedTime": 90,
+              "skills": ["Prompt Injection", "Jailbreaks", "LLM Security"],
+              "prerequisites": ["AI Safety: Baseline Fluency"]
+            }
+          ],
+          "keyTopics": ["Adversarial Attacks", "Prompt Injection", "LLM Security"],
+          "completionCriteria": [
+            "Implement at least one adversarial attack and defense",
+            "Document findings and mitigation strategies"
+          ]
+        },
+        {
+          "id": "p3_safety_specialist",
+          "title": "AI Safety: Specialization & Professional Tools",
+          "type": "portfolio",
+          "estimatedHours": 36,
+          "description": "Credential-focused and advanced tools for consultants and practitioners.",
+          "resources": [
+            {
+              "title": "AI Red Teaming Masterclass (LearnPrompting)",
+              "url": "https://learnprompting.org/docs/red-teaming/masterclass",
+              "type": "course",
+              "description": "Credential-focused, for consultants/advanced practitioners.",
+              "rationale": "Credential-focused, for consultants/advanced practitioners.",
+              "difficulty": "advanced",
+              "estimatedTime": 240,
+              "skills": ["Red Teaming", "Credentialing", "Consulting"],
+              "prerequisites": ["AI Safety: Real-World Attacks & Defenses"]
+            },
+            {
+              "title": "Adversarial Machine Learning (Coursera)",
+              "url": "https://www.coursera.org/learn/adversarial-machine-learning",
+              "type": "course",
+              "description": "Attacks, defenses, model vulnerabilities.",
+              "rationale": "Attacks, defenses, model vulnerabilities.",
+              "difficulty": "advanced",
+              "estimatedTime": 180,
+              "skills": ["Adversarial ML", "Model Vulnerabilities", "Defense Strategies"],
+              "prerequisites": ["AI Safety: Real-World Attacks & Defenses"]
+            },
+            {
+              "title": "NVIDIA: Exploring Adversarial ML",
+              "url": "https://courses.nvidia.com/courses/course-v1:DLI+S-RX-02+V1/",
+              "type": "course",
+              "description": "Deep technical weeds—use only if specializing.",
+              "rationale": "Deep technical weeds—use only if specializing.",
+              "difficulty": "advanced",
+              "estimatedTime": 120,
+              "skills": ["Adversarial ML", "NVIDIA Tools"],
+              "prerequisites": ["AI Safety: Real-World Attacks & Defenses"]
+            },
+            {
+              "title": "OWASP LLM Top 10 (Reference)",
+              "url": "https://owasp.org/www-project-llm-security/",
               "type": "guide",
-              "description": "NIST framework for managing AI risks and building trustworthy AI systems.",
-              "rationale": "Regulatory frameworks guide responsible AI development and deployment practices."
+              "description": "Reference for LLM security risks and best practices.",
+              "rationale": "Reference for LLM security risks and best practices.",
+              "difficulty": "intermediate",
+              "estimatedTime": 60,
+              "skills": ["LLM Security", "Best Practices"],
+              "prerequisites": ["AI Safety: Baseline Fluency"]
             },
             {
-              "title": "AI Security & Adversarial ML Best Practices",
-              "url": "https://adversarial-ml-tutorial.org/",
-              "type": "tutorial",
-              "description": "Practical guide to securing AI systems against adversarial attacks and vulnerabilities.",
-              "rationale": "AI systems face unique security challenges that require specialized defensive strategies."
+              "title": "Microsoft PyRIT (GitHub)",
+              "url": "https://github.com/microsoft/pyrit",
+              "type": "tool",
+              "description": "Open-source tool for red teaming and adversarial testing of LLMs.",
+              "rationale": "Open-source tool for red teaming and adversarial testing of LLMs.",
+              "difficulty": "advanced",
+              "estimatedTime": 90,
+              "skills": ["Red Teaming", "LLM Testing"],
+              "prerequisites": ["AI Safety: Real-World Attacks & Defenses"]
+            },
+            {
+              "title": "NVIDIA Garak (GitHub)",
+              "url": "https://github.com/leondz/garak",
+              "type": "tool",
+              "description": "Open-source tool for adversarial testing of LLMs.",
+              "rationale": "Open-source tool for adversarial testing of LLMs.",
+              "difficulty": "advanced",
+              "estimatedTime": 90,
+              "skills": ["Adversarial Testing", "LLM Security"],
+              "prerequisites": ["AI Safety: Real-World Attacks & Defenses"]
             }
           ],
-          "keyTopics": ["AI Safety", "Bias Detection", "Privacy Protection", "Security Frameworks", "Compliance"]
-        },
-        {
-          "id": "p3_safety_practice",
-          "title": "Build AI Guardrail Systems",
-          "type": "practice",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 30,
-          "description": "Implement comprehensive AI safety and ethics frameworks with automated guardrails",
-          "deliverables": ["AI safety framework", "Bias detection tools", "Privacy protection system", "Compliance automation", "Monitoring dashboard"],
-          "keyTopics": ["Safety Framework Implementation", "Automated Compliance", "Bias Mitigation", "Privacy Engineering"]
-        },
-        {
-          "id": "p3_deliverable_final",
-          "title": "🏆 DELIVERABLE: Ethical AI Guardian Service (Reusable Compliance Tool)",
-          "type": "portfolio",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 45,
-          "description": "Build a comprehensive ethical AI service with built-in safety guardrails and compliance tools",
-          "deliverables": ["Production AI ethics service", "Reusable compliance framework", "Safety monitoring dashboard", "Ethics documentation", "Public case study"],
+          "keyTopics": ["Red Teaming", "Adversarial ML", "LLM Security", "Credentialing"],
           "completionCriteria": [
-            "Service provides real-time bias detection and mitigation",
-            "Framework adopted by 2+ external teams/projects",
-            "Comprehensive safety testing with documented results",
-            "Public presentation of ethical AI implementation",
-            "Open-source components for community benefit"
+            "Complete a credential/masterclass or open-source tool project",
+            "Demonstrate advanced red teaming or adversarial ML skills"
           ],
-          "keyTopics": ["Ethical AI Implementation", "Compliance Automation", "Community Impact", "Open Source"],
-          "checkpoint": "Checkpoint - AI Safety & Architecture Complete"
+          "checkpoint": "Checkpoint - AI Safety Specialist"
         }
       ]
     },
     {
       "id": "phase4",
-      "title": "Lead Product & People",
-      "subtitle": "Strategy & Leadership",
-      "icon": "4️⃣",
+      "title": "Causal Inference & Modern Data Science",
+      "subtitle": "Causal Reasoning, Modern Data Science, and Real-World Impact",
+      "icon": "📈",
       "status": "not_started",
       "progress": 0,
       "estimatedWeeks": 10,
-      "description": "Develop product strategy expertise and leadership capabilities in AI contexts",
-      "color": "#7030a0",
-      "checkpoint": "Checkpoint - AI Product Leader",
+      "description": "Master causal inference, modern data science, and their application in real-world AI systems. Progress from foundational concepts to hands-on code labs and advanced research skills.",
+      "color": "#1e88e5",
+      "checkpoint": "Checkpoint - Causal Inference Specialist",
       "nodes": [
         {
-          "id": "p4_ux_learn",
-          "title": "Master UX & Product Discovery",
+          "id": "p4_causal_foundations",
+          "title": "Causal Inference Foundations",
           "type": "learn",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 35,
-          "description": "Master user experience design and product discovery methodologies for AI products",
+          "estimatedHours": 18,
+          "description": "Build a practical foundation in causal inference, DAGs, and real-world data analysis.",
           "resources": [
             {
-              "title": "UX for AI Products: Design Principles & Patterns",
-              "url": "https://www.oreilly.com/library/view/human-centered-ai/9781492056942/",
+              "title": "Causal Inference for Data Science (Yale/Coursera)",
+              "url": "https://www.coursera.org/learn/causal-inference-data-science",
               "type": "course",
-              "description": "Learn how to design user experiences for AI-powered products and services.",
-              "rationale": "AI products require unique UX considerations for explainability, trust, and user control."
+              "description": "Hands-on with Python, DAGs, and real datasets for causal inference.",
+              "rationale": "Best practical intro for data scientists, code-first and industry-aligned.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["Causal Inference", "DAGs", "Python Data Science"],
+              "prerequisites": ["Basic Python", "Statistics"]
             },
             {
-              "title": "Continuous Product Discovery Methods",
-              "url": "https://www.producttalk.org/2021/05/continuous-discovery-habits/",
-              "type": "book",
-              "description": "Modern approach to product discovery with continuous user research and validation.",
-              "rationale": "Continuous discovery ensures AI products solve real user problems effectively."
+              "title": "Google Cloud Skill Boost: Responsible AI—Causal Reasoning",
+              "url": "https://www.cloudskillsboost.google/paths/68",
+              "type": "course",
+              "description": "Industry/business focus on causal reasoning in AI.",
+              "rationale": "Industry/business focus, complements code-first approach.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Causal Reasoning", "Responsible AI"],
+              "prerequisites": ["Basic Python", "Statistics"]
             },
             {
-              "title": "AI Product Design Patterns & Guidelines",
-              "url": "https://pair.withgoogle.com/guidebook/",
+              "title": "Crash Course in Causality (U. Penn, Coursera)",
+              "url": "https://www.coursera.org/learn/crash-course-in-causality",
+              "type": "course",
+              "description": "Secondary resource, R focus, covers core concepts.",
+              "rationale": "Use as supplement, especially if interested in R.",
+              "difficulty": "intermediate",
+              "estimatedTime": 90,
+              "skills": ["Causal Inference", "R Programming"],
+              "prerequisites": ["Basic Statistics"]
+            }
+          ],
+          "keyTopics": ["Causal Inference", "DAGs", "Counterfactuals", "Python Data Science"],
+          "completionCriteria": [
+            "Complete all code labs and quizzes",
+            "Demonstrate understanding of DAGs and causal reasoning"
+          ]
+        },
+        {
+          "id": "p4_causal_hands_on",
+          "title": "Hands-On Causal Analysis & Domain Integration",
+          "type": "practice",
+          "estimatedHours": 20,
+          "description": "Apply causal inference in business, NLP, and A/B testing with real code and datasets.",
+          "resources": [
+            {
+              "title": "PyWhy/DoWhy Tutorials (Microsoft)",
+              "url": "https://microsoft.github.io/DoWhy/",
               "type": "tutorial",
-              "description": "Google's comprehensive guide to designing AI products with human-centered principles.",
-              "rationale": "Proven design patterns help create intuitive and trustworthy AI product experiences."
+              "description": "Python code for causal analysis in business and real-world data.",
+              "rationale": "Best hands-on code resource for causal inference in Python.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Causal Analysis", "Python", "Business Data Science"],
+              "prerequisites": ["Causal Inference Foundations"]
+            },
+            {
+              "title": "Hugging Face: Causal NLP",
+              "url": "https://huggingface.co/blog/causal-nlp",
+              "type": "tutorial",
+              "description": "LLM-specific causal methods, advanced NLP applications.",
+              "rationale": "Advanced, LLM-specific causal methods for NLP practitioners.",
+              "difficulty": "advanced",
+              "estimatedTime": 90,
+              "skills": ["Causal NLP", "LLMs", "Advanced Python"],
+              "prerequisites": ["Causal Inference Foundations"]
+            },
+            {
+              "title": "Amazon Science: Causal Inference in the Field (YouTube)",
+              "url": "https://www.youtube.com/watch?v=J8SDgXjMa10",
+              "type": "tutorial",
+              "description": "A/B testing and business impact of causal inference.",
+              "rationale": "Real-world A/B testing and business impact, video format.",
+              "difficulty": "intermediate",
+              "estimatedTime": 60,
+              "skills": ["A/B Testing", "Business Impact", "Causal Inference"],
+              "prerequisites": ["Causal Inference Foundations"]
             }
           ],
-          "keyTopics": ["User Research", "Product Discovery", "UX Design", "AI Product Patterns", "User Testing"]
-        },
-        {
-          "id": "p4_ux_practice",
-          "title": "Develop a Full Product Strategy",
-          "type": "practice",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 30,
-          "description": "Create comprehensive product strategies using advanced discovery methodologies",
-          "deliverables": ["User research report", "Product strategy document", "UX prototypes", "Market analysis", "Competitive assessment"],
-          "keyTopics": ["Strategy Development", "Market Research", "Competitive Analysis", "Product Planning"]
-        },
-        {
-          "id": "p4_deliverable_product",
-          "title": "🏆 Deliver: P.A.R.A.gon AI Product Brief (KPIs & Roadmap)",
-          "type": "portfolio",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 35,
-          "description": "Create a comprehensive product brief for P.A.R.A.gon AI with KPIs, roadmap, and go-to-market strategy",
-          "deliverables": ["Complete product brief", "KPI framework", "Product roadmap", "Go-to-market strategy", "User personas", "Feature specifications"],
+          "keyTopics": ["Causal Analysis", "A/B Testing", "NLP", "Business Data Science"],
           "completionCriteria": [
-            "Product brief based on real user research with 50+ interviews",
-            "Clear KPIs with baseline and target metrics",
-            "18-month product roadmap with quarterly milestones",
-            "Validated go-to-market strategy with pilot customers"
-          ],
-          "keyTopics": ["Product Strategy", "KPI Development", "Roadmap Planning", "Go-to-Market Strategy"],
-          "checkpoint": "Checkpoint - Product Strategy Mastery"
+            "Implement at least one causal analysis project",
+            "Document findings and business impact"
+          ]
         },
         {
-          "id": "p4_strategy_learn",
-          "title": "Master Enterprise AI Strategy",
-          "type": "learn",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 40,
-          "description": "Understand enterprise AI adoption, governance, strategic planning, and organizational change",
+          "id": "p4_causal_advanced",
+          "title": "Advanced Causal Inference & Strategic Applications",
+          "type": "portfolio",
+          "estimatedHours": 28,
+          "description": "Master's-level frameworks and real-world/medical data applications.",
           "resources": [
             {
-              "title": "Enterprise AI Strategy & Implementation",
-              "url": "https://www.coursera.org/learn/ai-strategy-leadership",
+              "title": "Causal Inference 1 & 2 (Columbia/Coursera)",
+              "url": "https://www.coursera.org/specializations/causal-inference",
               "type": "course",
-              "description": "Strategic approach to implementing AI at enterprise scale, including governance and change management.",
-              "rationale": "Enterprise AI adoption requires strategic thinking beyond technical implementation."
+              "description": "Master's-level, advanced frameworks for causal inference.",
+              "rationale": "For those seeking advanced credentials or research depth.",
+              "difficulty": "advanced",
+              "estimatedTime": 240,
+              "skills": ["Advanced Causal Inference", "Research Skills"],
+              "prerequisites": ["Hands-On Causal Analysis & Domain Integration"]
             },
             {
-              "title": "AI Governance Frameworks & Best Practices",
-              "url": "https://www.ibm.com/watson/governance",
-              "type": "guide",
-              "description": "Comprehensive guide to establishing AI governance, ethics, and compliance frameworks.",
-              "rationale": "Governance frameworks ensure responsible and compliant AI development at scale."
-            },
-            {
-              "title": "Leading Organizational AI Transformation",
-              "url": "https://mitsloan.mit.edu/ideas-made-to-matter/how-to-lead-successful-ai-transformation",
-              "type": "book",
-              "description": "MIT insights on leading successful AI transformations in large organizations.",
-              "rationale": "AI transformation requires strong leadership and change management skills."
+              "title": "Machine Learning for Healthcare (MIT, edX)",
+              "url": "https://www.edx.org/course/machine-learning-for-healthcare",
+              "type": "course",
+              "description": "Causal inference in real-world/medical data.",
+              "rationale": "Causal inference in real-world/medical data, advanced applications.",
+              "difficulty": "advanced",
+              "estimatedTime": 180,
+              "skills": ["Healthcare AI", "Causal Inference", "Medical Data Science"],
+              "prerequisites": ["Hands-On Causal Analysis & Domain Integration"]
             }
           ],
-          "keyTopics": ["Enterprise Strategy", "AI Governance", "Change Management", "Organizational Design", "Leadership"]
-        },
-        {
-          "id": "p4_leadership_practice",
-          "title": "Lead & Mentor in the Community",
-          "type": "practice",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 35,
-          "description": "Lead community initiatives, mentor developers, and build leadership capabilities",
-          "deliverables": ["Mentorship program design", "Community leadership documentation", "Mentor feedback system", "Leadership reflection portfolio"],
-          "keyTopics": ["Mentorship", "Community Leadership", "Communication", "Coaching", "Team Building"]
-        },
-        {
-          "id": "p4_deliverable_final",
-          "title": "🏆 DELIVERABLE: AI Mentorship Program Launched (Documented Framework)",
-          "type": "portfolio",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 45,
-          "description": "Launch and document a comprehensive AI mentorship program with measurable impact",
-          "deliverables": ["Live mentorship program", "Program framework documentation", "Mentorship curriculum", "Success metrics dashboard", "Community impact report"],
+          "keyTopics": ["Advanced Causal Inference", "Healthcare AI", "Research Skills"],
           "completionCriteria": [
-            "Program launched with 20+ active mentees",
-            "Documented framework adopted by 2+ organizations",
-            "90%+ mentee satisfaction rate",
-            "Measurable skill improvement in participants",
-            "Public speaking about leadership experiences"
+            "Complete an advanced causal inference project or research assignment"
           ],
-          "keyTopics": ["Program Management", "Leadership Development", "Community Impact", "Public Speaking"],
-          "checkpoint": "Checkpoint - AI Leadership Complete"
+          "checkpoint": "Checkpoint - Causal Inference Specialist"
         }
       ]
     },
