@@ -11,6 +11,9 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.2.0",
+    "lucide-vue-next": "^0.522.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
