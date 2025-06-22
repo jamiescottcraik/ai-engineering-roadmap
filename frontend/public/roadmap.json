@@ -752,110 +752,134 @@
     },
     {
       "id": "phase5",
-      "title": "Launch & Establish Influence",
-      "subtitle": "Synthesis & Public Impact",
-      "icon": "5️⃣",
+      "title": "Quantum Machine Learning",
+      "subtitle": "Quantum Computing Concepts, Hands-On QML, and Advanced Algorithms",
+      "icon": "⚛️",
       "status": "not_started",
       "progress": 0,
-      "estimatedWeeks": 12,
-      "description": "Launch capstone projects, build public influence, and establish thought leadership",
-      "color": "#c00000",
-      "checkpoint": "Checkpoint - AI Industry Leader",
+      "estimatedWeeks": 10,
+      "description": "Gain conceptual fluency and hands-on experience in quantum computing and quantum machine learning. Progress from foundational concepts to building QML models and exploring advanced algorithms.",
+      "color": "#00bcd4",
+      "checkpoint": "Checkpoint - Quantum ML Specialist",
       "nodes": [
         {
-          "id": "p5_launch_practice",
-          "title": "Execute Product Launch & User Feedback Loop",
-          "type": "practice",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 60,
-          "description": "Execute full product launch of P.A.R.A.gon AI with user acquisition and feedback systems",
-          "deliverables": ["Launch strategy execution", "User acquisition metrics", "Feedback collection system", "Product iteration plan", "Growth analytics"],
-          "keyTopics": ["Product Launch", "User Acquisition", "Growth Metrics", "Feedback Systems", "Product Iteration"]
-        },
-        {
-          "id": "p5_deliverable_launch",
-          "title": "🏆 DELIVERABLE: P.A.R.A.gon AI v1.0 Launched (Live Application)",
-          "type": "portfolio",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 80,
-          "description": "Successfully launch P.A.R.A.gon AI v1.0 as a live, production application with real users",
-          "deliverables": ["Live production application", "User base of 500+ active users", "Product analytics dashboard", "User testimonials", "Case studies"],
-          "completionCriteria": [
-            "Application serves 500+ active users with 90%+ satisfaction",
-            "Product demonstrates clear value with measurable impact metrics",
-            "99.5%+ uptime with robust monitoring and support",
-            "Featured in 3+ industry publications or podcasts",
-            "Revenue generation or clear path to monetization"
+          "id": "p5_quantum_fluency",
+          "title": "Quantum Computing: Conceptual Fluency",
+          "type": "learn",
+          "estimatedHours": 16,
+          "description": "Understand the core concepts of quantum computing and its implications for AI.",
+          "resources": [
+            {
+              "title": "Intro to Quantum Computing for Everyone (UChicagoX, edX)",
+              "url": "https://www.edx.org/course/introduction-to-quantum-computing-for-everyone",
+              "type": "course",
+              "description": "Concepts and expectations for quantum computing, accessible to all backgrounds.",
+              "rationale": "Best conceptual intro, sets realistic expectations for quantum computing.",
+              "difficulty": "beginner",
+              "estimatedTime": 120,
+              "skills": ["Quantum Concepts", "Qubits", "Quantum Logic"],
+              "prerequisites": ["High School Math"]
+            },
+            {
+              "title": "Quantum Computing for Everyone (Coursera, Fractal Analytics)",
+              "url": "https://www.coursera.org/learn/quantum-computing-for-everyone",
+              "type": "course",
+              "description": "Qiskit intro and basics of quantum computing.",
+              "rationale": "Qiskit intro, practical basics for beginners.",
+              "difficulty": "beginner",
+              "estimatedTime": 90,
+              "skills": ["Qiskit", "Quantum Circuits"],
+              "prerequisites": ["High School Math"]
+            },
+            {
+              "title": "Introduction to Quantum Computing (Google Cloud/IBM)",
+              "url": "https://www.cloudskillsboost.google/paths/127",
+              "type": "course",
+              "description": "Hands-on labs for quantum computing basics.",
+              "rationale": "Hands-on labs, accessible and practical.",
+              "difficulty": "beginner",
+              "estimatedTime": 90,
+              "skills": ["Quantum Circuits", "Hands-On Labs"],
+              "prerequisites": ["High School Math"]
+            }
           ],
-          "keyTopics": ["Product Launch", "User Growth", "Business Metrics", "Public Relations"],
-          "checkpoint": "Checkpoint - Successful Product Launch"
-        },
-        {
-          "id": "p5_oss_practice",
-          "title": "Make Significant Open Source Contribution",
-          "type": "practice",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 40,
-          "description": "Make substantial contributions to major open source AI projects and establish community presence",
-          "deliverables": ["Major OSS contributions", "Community engagement metrics", "Technical documentation", "Contribution portfolio"],
-          "keyTopics": ["Open Source Development", "Community Engagement", "Technical Writing", "Code Review"]
-        },
-        {
-          "id": "p5_deliverable_oss",
-          "title": "🏆 Badge: Recognized OSS Contributor",
-          "type": "portfolio",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 25,
-          "description": "Achieve recognition as a significant contributor to open source AI projects",
-          "deliverables": ["OSS contribution portfolio", "Community recognition", "Maintainer status", "Technical articles"],
+          "keyTopics": ["Quantum Computing", "Qubits", "Quantum Circuits"],
           "completionCriteria": [
-            "Maintainer or core contributor status on 1+ major project",
-            "50+ merged PRs across multiple projects",
-            "Recognition from project maintainers and community",
-            "Technical articles about OSS contributions published"
-          ],
-          "keyTopics": ["Open Source Leadership", "Community Recognition", "Technical Writing"],
-          "checkpoint": "Checkpoint - OSS Recognition"
+            "Complete all conceptual modules and quizzes",
+            "Demonstrate understanding of quantum computing basics"
+          ]
         },
         {
-          "id": "p5_content_practice",
-          "title": "Develop & Deliver Technical Content",
+          "id": "p5_quantum_hands_on",
+          "title": "Hands-On Quantum ML & Integration",
           "type": "practice",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 35,
-          "description": "Create and deliver high-quality technical content through talks, articles, and presentations",
-          "deliverables": ["Conference talk", "Technical blog series", "Video content", "Speaking portfolio"],
-          "keyTopics": ["Public Speaking", "Technical Writing", "Content Creation", "Thought Leadership"]
+          "estimatedHours": 18,
+          "description": "Build and experiment with quantum machine learning models and classical-quantum integration.",
+          "resources": [
+            {
+              "title": "IBM Qiskit: Quantum Machine Learning",
+              "url": "https://qiskit.org/textbook/ch-machine-learning/",
+              "type": "tutorial",
+              "description": "Build quantum neural networks and hands-on QML projects.",
+              "rationale": "Best hands-on resource for building QML models.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Quantum ML", "Qiskit", "Quantum Neural Networks"],
+              "prerequisites": ["Quantum Computing: Conceptual Fluency"]
+            },
+            {
+              "title": "Azure Quantum: ML + Quantum",
+              "url": "https://learn.microsoft.com/en-us/azure/quantum/overview-machine-learning",
+              "type": "tutorial",
+              "description": "Integrating classical ML with quantum hardware.",
+              "rationale": "Covers integration of classical ML and quantum computing.",
+              "difficulty": "intermediate",
+              "estimatedTime": 90,
+              "skills": ["Quantum ML Integration", "Azure Quantum"],
+              "prerequisites": ["Quantum Computing: Conceptual Fluency"]
+            },
+            {
+              "title": "Quantum Country: Concepts & Flashcards",
+              "url": "https://quantum.country/",
+              "type": "tool",
+              "description": "Concepts and flashcards for retention and business impact.",
+              "rationale": "For retention and explaining business impact of quantum computing.",
+              "difficulty": "intermediate",
+              "estimatedTime": 60,
+              "skills": ["Quantum Concepts", "Retention"],
+              "prerequisites": ["Quantum Computing: Conceptual Fluency"]
+            }
+          ],
+          "keyTopics": ["Quantum ML", "Qiskit", "Quantum-Classical Integration"],
+          "completionCriteria": [
+            "Build and run a quantum ML model",
+            "Document integration of classical and quantum ML"
+          ]
         },
         {
-          "id": "p5_deliverable_final",
-          "title": "🏆 DELIVERABLE: Public Talk or Webinar Published",
+          "id": "p5_quantum_advanced",
+          "title": "Advanced Quantum ML & Algorithms",
           "type": "portfolio",
-          "progress": 0,
-          "isActive": false,
-          "isUnlocked": false,
-          "estimatedHours": 40,
-          "description": "Deliver a high-impact public presentation establishing thought leadership in AI engineering",
-          "deliverables": ["Conference presentation", "Published talk video", "Technical blog series", "Speaking engagements", "Industry recognition"],
-          "completionCriteria": [
-            "Presentation at major tech conference or 1000+ virtual attendees",
-            "Video content with 5000+ views and positive engagement",
-            "3+ follow-up speaking invitations or opportunities",
-            "Industry recognition and professional network growth",
-            "Clear demonstration of thought leadership in AI engineering"
+          "estimatedHours": 24,
+          "description": "Explore advanced quantum computing algorithms for AI and specialization pathways.",
+          "resources": [
+            {
+              "title": "Quantum Computing Algorithms for AI (Coursera)",
+              "url": "https://www.coursera.org/learn/quantum-computing-algorithms",
+              "type": "course",
+              "description": "Specialization in quantum algorithms for AI applications.",
+              "rationale": "For those seeking specialization in quantum ML algorithms.",
+              "difficulty": "advanced",
+              "estimatedTime": 180,
+              "skills": ["Quantum Algorithms", "AI Specialization"],
+              "prerequisites": ["Hands-On Quantum ML & Integration"]
+            }
           ],
-          "keyTopics": ["Thought Leadership", "Public Speaking", "Industry Recognition", "Professional Networking"],
-          "checkpoint": "Checkpoint - AI Industry Influence Established"
+          "keyTopics": ["Quantum Algorithms", "AI Specialization"],
+          "completionCriteria": [
+            "Complete an advanced quantum ML project or research assignment"
+          ],
+          "checkpoint": "Checkpoint - Quantum ML Specialist"
         }
       ]
     }
