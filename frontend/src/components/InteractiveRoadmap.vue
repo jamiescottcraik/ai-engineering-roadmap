@@ -3,6 +3,11 @@
     <!-- Hero Section with Context -->
     <div v-if="roadmapData" class="roadmap-hero">
       <div class="hero-content">
+        <!-- brAInwav Logo -->
+        <div class="brand-logo">
+          <img src="/brAInwav.png" alt="brAInwav Logo" class="logo-image" />
+        </div>
+        
         <h1>{{ roadmapData.metadata.title }}</h1>
         <p class="hero-tagline">
           🎯 <strong>Your step-by-step journey to AI engineering leadership mastery</strong> — 
@@ -687,6 +692,26 @@ onMounted(() => {
   color: #FFFFFF;
   box-shadow: 0 20px 40px rgba(17, 103, 177, 0.3);
   border: 1px solid rgba(17, 103, 177, 0.2);
+}
+
+.brand-logo {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(17, 103, 177, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(30, 144, 255, 0.4);
 }
 
 .hero-content h1 {
