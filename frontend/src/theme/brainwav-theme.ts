@@ -13,26 +13,34 @@ export const brainwavTheme: GlobalThemeOverrides = {
     errorColor: '#EF4444',
     infoColor: '#1E90FF', // Electric Blue
     
-    textColorBase: '#FFFFFF', // White text
-    textColor1: '#FFFFFF',
-    textColor2: '#E0E7FF',
-    textColor3: '#B3C5FF',
+    // Fixed text colors for better contrast
+    textColorBase: '#1A202C', // Dark text for light backgrounds
+    textColor1: '#1A202C', // Primary dark text
+    textColor2: '#4A5568', // Secondary dark text
+    textColor3: '#718096', // Tertiary dark text
     
-    bodyColor: '#0B1016', // Deep Navy background
-    cardColor: '#1A202C',
-    modalColor: '#1A202C',
-    popoverColor: '#1A202C',
+    // Light theme background colors
+    bodyColor: '#FFFFFF', // White background
+    cardColor: '#FFFFFF', // White cards
+    modalColor: '#FFFFFF', // White modals
+    popoverColor: '#FFFFFF', // White popovers
     
-    borderColor: '#2D3748',
-    dividerColor: '#2D3748',
+    borderColor: '#E2E8F0',
+    dividerColor: '#E2E8F0',
     
-    baseColor: '#0B1016'
+    baseColor: '#FFFFFF'
   },
   Button: {
     textColorPrimary: '#FFFFFF',
     textColorHoverPrimary: '#FFFFFF',
     textColorPressedPrimary: '#FFFFFF',
     textColorFocusPrimary: '#FFFFFF',
+    
+    // Secondary button text (dark text on light backgrounds)
+    textColorSecondary: '#1A202C',
+    textColorHoverSecondary: '#1A202C',
+    textColorPressedSecondary: '#1A202C',
+    textColorFocusSecondary: '#1A202C',
     
     colorPrimary: '#1E90FF',
     colorHoverPrimary: '#4FC3F7',
@@ -45,16 +53,28 @@ export const brainwavTheme: GlobalThemeOverrides = {
     borderFocusPrimary: '#1E90FF'
   },
   Card: {
-    color: '#1A202C',
-    colorModal: '#1A202C',
-    colorTarget: '#1A202C',
-    textColor: '#FFFFFF',
-    titleTextColor: '#FFFFFF',
-    borderColor: '#2D3748',
-    actionColor: '#0B1016'
+    color: '#FFFFFF',
+    colorModal: '#FFFFFF',
+    colorTarget: '#FFFFFF',
+    textColor: '#1A202C',
+    titleTextColor: '#1A202C',
+    borderColor: '#E2E8F0',
+    actionColor: '#F7FAFC'
+  },
+  Modal: {
+    color: '#FFFFFF',
+    textColor: '#1A202C',
+    titleTextColor: '#1A202C',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
   },
   Progress: {
     fillColor: '#1E90FF',
-    railColor: '#2D3748'
+    railColor: '#E2E8F0',
+    textColor: '#1A202C'
+  },
+  Tag: {
+    color: '#EDF2F7',
+    textColor: '#1A202C',
+    borderColor: '#E2E8F0'
   }
 }

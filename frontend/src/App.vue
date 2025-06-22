@@ -22,13 +22,14 @@ import { brainwavTheme } from './theme/brainwav-theme'
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  background: #f8fafc;
+  color: #1A202C; /* Dark text for better readability */
+  background: #FFFFFF; /* Clean white background */
   min-height: 100vh;
 }
 
 body {
   margin: 0;
-  background: #f8fafc;
+  background: #FFFFFF; /* Clean white background */
+  color: #1A202C; /* Ensure body text is also dark */
 }
 </style>
