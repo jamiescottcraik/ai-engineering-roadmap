@@ -21,6 +21,17 @@ Transforming from technical foundations to AI leadership through structured lear
 
 **[🚀 VIEW FULL INTERACTIVE ROADMAP](https://jamiescottcraik.github.io/ai-engineering-roadmap/)**
 
+### ✨ New Enhanced Features
+
+- **📚 Direct Resource Access**: Every node displays learning resources with direct links
+- **🎯 Vertical roadmap.sh-style Layout**: Step-by-step progression with visual connectors
+- **⚡ Real-time Progress Tracking**: Time-based progress calculations from start date
+- **🎨 Modern UX Design**: Hover effects, progress circles, and status indicators
+- **📱 Mobile Responsive**: Optimized for all device sizes
+- **🔗 Resource Type Icons**: Visual indicators for courses, books, tutorials, and more
+- **🏁 Checkpoint System**: Clear milestones and deliverable tracking
+- **💡 Learning Rationale**: "Why this matters" context for each milestone
+
 Explore the complete roadmap with progress tracking, detailed descriptions, and milestone checkpoints
 
 ---
@@ -189,6 +200,44 @@ This roadmap is a living document that evolves with real progress and insights:
 ---
 
 ## 🤝 Community & Collaboration
+
+### How to Contribute to This Roadmap
+
+We welcome contributions to make this roadmap even better! Here's how you can help:
+
+#### 🛠️ Roadmap Improvements
+- **Resource Suggestions**: Know a great course, book, or tutorial? [Open an issue](https://github.com/jamiescottcraik/ai-engineering-roadmap/issues/new?template=resource-suggestion.md) with the resource details
+- **Learning Path Feedback**: Found a better sequence or missing milestone? [Share your insights](https://github.com/jamiescottcraik/ai-engineering-roadmap/discussions)
+- **Technical Corrections**: Spot an error or outdated information? [Submit a pull request](https://github.com/jamiescottcraik/ai-engineering-roadmap/pulls)
+
+#### 💡 Feature Requests
+- **UX Enhancements**: Ideas for improving the interactive roadmap? [Create a feature request](https://github.com/jamiescottcraik/ai-engineering-roadmap/issues/new?template=feature-request.md)
+- **Data Visualization**: Suggestions for better progress tracking or visualization? We'd love to hear from you!
+
+#### 🎯 Content Contributions
+- **Phase Expertise**: Expert in ML, cloud architecture, or AI ethics? Help improve specific phases
+- **Industry Insights**: Share real-world perspectives on AI engineering roles and requirements
+- **Learning Resources**: Curate and review learning materials for quality and relevance
+
+#### 📝 Documentation
+- **Tutorials**: Write guides for complex topics or tools
+- **Best Practices**: Share patterns and approaches that work in production
+- **Case Studies**: Document real implementation examples and lessons learned
+
+#### 🚀 Getting Started with Contributions
+
+1. **Fork this repository** and create a feature branch
+2. **Review the [CONTRIBUTING.md](CONTRIBUTING.md)** for detailed guidelines
+3. **Test your changes** using the local development setup
+4. **Submit a pull request** with a clear description of your changes
+5. **Engage in code review** and iterate based on feedback
+
+### Community Guidelines
+
+- 🎯 **Stay Focused**: Contributions should align with AI engineering and leadership development
+- 🤝 **Be Collaborative**: Respectful discussion leads to better outcomes
+- 📚 **Evidence-Based**: Support suggestions with rationale and sources when possible
+- 🔄 **Iterative Improvement**: Small, focused contributions are preferred over large changes
 
 ### Get Involved
 - **Follow the Journey:** Star this repository for updates
