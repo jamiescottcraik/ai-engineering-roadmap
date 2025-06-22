@@ -1,0 +1,89 @@
+name: 📚 Roadmap Enhancement
+description: Suggest improvements to learning paths or curriculum structure
+title: "[ROADMAP] "
+labels: ["roadmap", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve the AI Engineering Roadmap! Your suggestions for learning paths, resource organization, or curriculum structure are valuable.
+
+  - type: dropdown
+    id: enhancement-type
+    attributes:
+      label: Enhancement Type
+      description: What aspect of the roadmap would you like to improve?
+      options:
+        - Learning Path Structure
+        - Resource Organization
+        - Phase Sequencing
+        - Skill Prerequisites
+        - Time Estimates
+        - Difficulty Levels
+        - Missing Topics
+        - Alternative Paths
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Affected Phase(s)
+      description: Which phase(s) does this enhancement relate to?
+      options:
+        - Phase 1 - Core Engineering Foundations
+        - Phase 2 - Build & Deploy Production AI
+        - Phase 3 - AI Safety & Red Teaming
+        - Phase 4 - Causal Inference & Modern Data Science
+        - Phase 5 - Quantum Machine Learning
+        - Phase 6 - AI Product Strategy & Leadership
+        - All Phases
+        - Cross-Phase Dependencies
+      multiple: true
+
+  - type: textarea
+    id: current-state
+    attributes:
+      label: Current State
+      description: Describe how the roadmap currently handles this area
+      placeholder: "Currently, the roadmap..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-improvement
+    attributes:
+      label: Proposed Improvement
+      description: Describe your suggested enhancement in detail
+      placeholder: "I suggest..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why would this improvement benefit learners?
+      placeholder: "This would help because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation Details
+      description: How could this be implemented? Any specific resources or structure changes?
+      placeholder: "This could be implemented by..."
+
+  - type: checkboxes
+    id: experience
+    attributes:
+      label: Your Experience
+      description: What's your background with this topic?
+      options:
+        - label: I've completed this phase of the roadmap
+        - label: I'm currently working through this phase
+        - label: I have professional experience in this area
+        - label: I've taught/mentored others in this topic
+        - label: I've researched this topic extensively

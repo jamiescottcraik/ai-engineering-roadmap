@@ -1,0 +1,85 @@
+name: 🚀 Feature Request
+description: Suggest new resources, functionality, or improvements
+title: "[FEATURE] "
+labels: ["enhancement", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest an improvement!
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature are you requesting?
+      options:
+        - New Resource (course, book, tutorial)
+        - New Learning Path
+        - UI/UX Improvement
+        - Roadmap Structure Enhancement
+        - Documentation Improvement
+        - Automation/Tooling
+        - Other
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Describe the feature you'd like to see added
+      placeholder: "I would like to see..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: resource-details
+    attributes:
+      label: Resource Details (if applicable)
+      description: |
+        If requesting a new resource, please provide:
+        - URL
+        - Provider (Coursera, edX, etc.)
+        - Estimated duration
+        - Prerequisites
+        - Why it should be included
+      placeholder: |
+        URL: https://example.com
+        Provider: Coursera
+        Duration: 10 hours
+        Prerequisites: Python basics
+        Rationale: This course provides...
+
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Learning Benefit
+      description: How would this feature help learners on the roadmap?
+      placeholder: "This would help by..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important do you think this feature is?
+      options:
+        - High (Critical gap)
+        - Medium (Nice to have)
+        - Low (Enhancement)
+      default: 1
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help implement this feature?
+      options:
+        - label: I can help implement this feature
+        - label: I can help test this feature
+        - label: I can provide additional resources/research
