@@ -119,23 +119,45 @@
           "estimatedHours": 35,
           "description": "Master complex SQL queries, optimization, window functions, and database design patterns",
           "resources": [
-            {"title": "Advanced SQL Techniques Course", "url": "https://mode.com/sql-tutorial/", "type": "course"},
+            {
+              "title": "Advanced SQL Techniques Course",
+              "url": "https://mode.com/sql-tutorial/",
+              "type": "course",
+              "description": "Comprehensive course on advanced SQL techniques, including window functions, CTEs, and query optimization.",
+              "rationale": "Essential for mastering advanced SQL patterns and performance optimization.",
+              "difficulty": "intermediate",
+              "estimatedTime": 240,
+              "skills": ["SQL", "Query Optimization", "Window Functions"],
+              "prerequisites": ["Basic SQL"]
+            },
             {
               "title": "High Performance MySQL: Proven Strategies for Operating at Scale",
               "url": "https://www.oreilly.com/library/view/high-performance-mysql/9781492080503/",
               "type": "book",
               "description": "Comprehensive guide to MySQL optimization, covering query performance, server tuning, and scaling strategies.",
-              "rationale": "Essential for understanding database performance at scale, critical for AI applications handling large datasets."
+              "rationale": "Essential for understanding database performance at scale, critical for AI applications handling large datasets.",
+              "difficulty": "advanced",
+              "estimatedTime": 360,
+              "skills": ["MySQL", "Database Tuning", "Scalability"],
+              "prerequisites": ["Intermediate SQL"]
             },
             {
               "title": "Use The Index, Luke! - SQL Query Optimization Guide",
               "url": "https://use-the-index-luke.com/",
               "type": "tutorial",
               "description": "In-depth tutorial on SQL query optimization and index usage patterns.",
-              "rationale": "Practical guide to writing efficient SQL queries, crucial for AI data processing pipelines."
+              "rationale": "Practical guide to writing efficient SQL queries, crucial for AI data processing pipelines.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["SQL", "Indexing", "Performance Tuning"],
+              "prerequisites": ["Basic SQL"]
             }
           ],
-          "keyTopics": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"]
+          "keyTopics": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"],
+          "completionCriteria": [
+            "Complete all advanced SQL labs and exercises",
+            "Demonstrate query optimization and use of window functions"
+          ]
         },
         {
           "id": "p1_sql_practice",
