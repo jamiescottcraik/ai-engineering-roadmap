@@ -750,6 +750,8 @@ interface Resource {
   type: string
   description?: string
   rationale?: string
+  difficulty?: 'beginner' | 'intermediate' | 'advanced'
+  estimatedTime?: number
 }
 
 // Reactive data
@@ -869,20 +871,8 @@ const markNodeCompleted = (nodeId: string) => {
   saveProgress()
 }
 
-const updateNodeNotes = (nodeId: string, notes: string) => {
-  if (!userProgress.value.nodeProgress[nodeId]) {
-    userProgress.value.nodeProgress[nodeId] = { completed: false, timeSpent: 0, notes: '' }
-  }
-  userProgress.value.nodeProgress[nodeId].notes = notes
-  saveProgress()
-}
-
 const isNodeCompleted = (nodeId: string): boolean => {
   return userProgress.value.nodeProgress[nodeId]?.completed || false
-}
-
-const getNodeNotes = (nodeId: string): string => {
-  return userProgress.value.nodeProgress[nodeId]?.notes || ''
 }
 
 // Enhanced progress calculations based on user data
@@ -918,29 +908,6 @@ const filteredNodes = computed(() => {
       return matchesSearch && matchesFilter
     }).map(node => ({ ...node, phaseId: phase.id, phaseTitle: phase.title }))
   )
-})
-
-const filteredPhases = computed(() => {
-  if (!roadmapData.value) return []
-  
-  if (searchQuery.value === '' && selectedFilters.value.length === 0) {
-    return roadmapData.value.phases
-  }
-  
-  return roadmapData.value.phases.map(phase => ({
-    ...phase,
-    nodes: phase.nodes.filter(node => {
-      const matchesSearch = searchQuery.value === '' || 
-        node.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        (node.description && node.description.toLowerCase().includes(searchQuery.value.toLowerCase()))
-      
-      const matchesFilter = selectedFilters.value.length === 0 || 
-        selectedFilters.value.includes(node.type) ||
-        (node.resources?.some(resource => selectedFilters.value.includes(resource.type)) ?? false)
-      
-      return matchesSearch && matchesFilter
-    })
-  })).filter(phase => phase.nodes.length > 0)
 })
 
 // Missing Methods
@@ -999,8 +966,13 @@ const getNodeTypeColor = (type: string): "default" | "primary" | "info" | "succe
 }
 
 const getNodeIcon = (type: string): string => {
-  // Use design system icon mapping
-  return getSemanticNodeIcon(type)
+  const iconMap: Record<string, string> = {
+    'learn': '📚',
+    'practice': '💻',
+    'portfolio': '🎯',
+    'keyresource': '⭐'
+  }
+  return iconMap[type] || '📋'
 }
 
 const getResourceTypeColor = (type: string): "default" | "primary" | "info" | "success" | "warning" | "error" => {
@@ -1016,8 +988,15 @@ const getResourceTypeColor = (type: string): "default" | "primary" | "info" | "s
 }
 
 const getResourceIcon = (type: string): string => {
-  // Use design system icon mapping
-  return getSemanticResourceIcon(type)
+  const iconMap: Record<string, string> = {
+    'course': '🎓',
+    'tutorial': '📖',
+    'documentation': '📝',
+    'tool': '🔧',
+    'book': '📚',
+    'guide': '📋'
+  }
+  return iconMap[type] || '🔗'
 }
 
 const clearFilters = () => {
