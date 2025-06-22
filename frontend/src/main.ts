@@ -5,7 +5,7 @@ import Home from './components/Home.vue'
 
 // Create router
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/ai-engineering-roadmap/'),
   routes: [
     {
       path: '/',
@@ -19,5 +19,3 @@ const router = createRouter({
 const app = createApp(App)
 app.use(router)
 app.mount('#app')
-// Trigger deployment
-// Trigger deployment
