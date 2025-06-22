@@ -1,33 +1,31 @@
 <template>
   <div id="app">
-    <!-- Add a simple test to verify Vue is working -->
-    <div v-if="!routerReady" class="loading">
-      Loading...
-    </div>
-    <router-view v-else />
+    <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
-const routerReady = ref(false)
-
-onMounted(() => {
-  // Give the router a moment to initialize
-  setTimeout(() => {
-    routerReady.value = true
-  }, 100)
-})
+// Main app component
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  background: #f8fafc;
 }
 </style>
