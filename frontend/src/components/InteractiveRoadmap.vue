@@ -240,8 +240,8 @@
                   <!-- Node Card -->
                   <div class="node-content">
                     <div class="node-header-compact">
-                      <div class="node-status-icon">
-                        <span v-if="getNodeProgress(node, phase) === 100">✅</span>
+                      <div class="node-status-icon" @click.stop="markNodeCompleted(node.id)">
+                        <span v-if="isNodeCompleted(node.id)">✅</span>
                         <span v-else-if="getNodeProgress(node, phase) > 0">⚙️</span>
                         <span v-else>⏳</span>
                       </div>
@@ -686,36 +686,25 @@ const availableFilters = ref([
 const overallProgress = computed(() => {
   if (!roadmapData.value) return 0
   
-  // Calculate progress based on actual time elapsed since start date
-  const startDate = new Date(roadmapData.value.metadata.startDate)
-  const currentDate = new Date()
-  const daysElapsed = Math.max(0, Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)))
-  
-  // Estimated total duration in days (let's use 450 days for 12-18 months average)
-  const totalDurationDays = 450
-  
-  // Calculate realistic progress based on time elapsed (capped at 100%)
-  const timeBasedProgress = Math.min(100, Math.round((daysElapsed / totalDurationDays) * 100))
-  
-  return timeBasedProgress
+  // Use actual user completion data instead of misleading time-based calculation
+  return userOverallProgress.value
 })
 
 const completedDeliverables = computed(() => {
   if (!roadmapData.value) return 0
   
-  // Only count deliverables as completed if enough time has passed
-  const startDate = new Date(roadmapData.value.metadata.startDate)
-  const currentDate = new Date()
-  const daysElapsed = Math.max(0, Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)))
+  // Count actual completed deliverables based on user progress
+  let completedCount = 0
   
-  // Realistically, deliverables wouldn't be completed in the first few days
-  if (daysElapsed < 7) return 0
+  roadmapData.value.phases.forEach(phase => {
+    phase.nodes.forEach(node => {
+      if (isNodeCompleted(node.id) && node.deliverables && node.deliverables.length > 0) {
+        completedCount += node.deliverables.length
+      }
+    })
+  })
   
-  // Calculate a realistic number based on time elapsed
-  const weeksElapsed = Math.floor(daysElapsed / 7)
-  const expectedDeliverablesPerWeek = 0.5 // Half a deliverable per week is realistic
-  
-  return Math.floor(weeksElapsed * expectedDeliverablesPerWeek)
+  return completedCount
 })
 
 const currentPhase = computed(() => {
