@@ -1,0 +1,51 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://www\\.datacamp\\.com/"
+    },
+    {
+      "pattern": "^https://app\\.datacamp\\.com/"
+    },
+    {
+      "pattern": "^https://leetcode\\.com/"
+    },
+    {
+      "pattern": "^https://www\\.hackerrank\\.com/"
+    },
+    {
+      "pattern": "^https://codeforces\\.com/"
+    },
+    {
+      "pattern": "^https://www\\.lesswrong\\.com/"
+    },
+    {
+      "pattern": "^https://openai\\.com/"
+    },
+    {
+      "pattern": "^https://www\\.elementsofai\\.com/"
+    },
+    {
+      "pattern": "^https://www\\.stratascratch\\.com/"
+    },
+    {
+      "pattern": "^https://www\\.cloudskillsboost\\.google/"
+    },
+    {
+      "pattern": "^https://studiolab\\.sagemaker\\.aws/"
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": ["https://github.com/"],
+      "headers": {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "User-Agent": "Mozilla/5.0 (compatible; link-checker)"
+      }
+    }
+  ],
+  "timeout": "10s",
+  "retryOn429": true,
+  "retryCount": 2,
+  "fallbackRetryDelay": "30s",
+  "aliveStatusCodes": [200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 305, 306, 307, 308]
+}

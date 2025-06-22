@@ -1,0 +1,134 @@
+name: 🔍 Validate Roadmap & Links
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-roadmap:
+    runs-on: ubuntu-latest
+    name: 📊 Validate JSON Structure & URLs
+    
+    steps:
+      - name: 🛎️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: 🔍 Validate roadmap structure and URLs
+        env:
+          CI: true
+        run: |
+          python scripts/validate_roadmap.py
+
+      - name: 🎨 Generate visual roadmap
+        run: |
+          python scripts/generate_roadmap_visual.py
+
+  lint-check:
+    runs-on: ubuntu-latest
+    name: 🧹 Lint & Format Check
+    
+    steps:
+      - name: 🛎️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install linting tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff black mypy
+
+      - name: 🔍 Check Python formatting with Black
+        run: |
+          black --check scripts/ || echo "⚠️ Python formatting issues detected"
+
+      - name: 🧹 Lint Python with Ruff
+        run: |
+          ruff check scripts/ || echo "⚠️ Python linting issues detected"
+
+      - name: 🔎 Type check with MyPy
+        run: |
+          mypy --ignore-missing-imports scripts/ || echo "⚠️ Type checking issues detected"
+
+  markdown-check:
+    runs-on: ubuntu-latest
+    name: 📝 Markdown Lint Check
+    
+    steps:
+      - name: 🛎️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install markdownlint
+        run: |
+          npm install -g markdownlint-cli
+
+      - name: 📝 Lint Markdown files
+        run: |
+          markdownlint README.md docs/ roadmaps/ || echo "⚠️ Markdown linting issues detected"
+
+  link-check:
+    runs-on: ubuntu-latest
+    name: 🔗 External Link Check
+    
+    steps:
+      - name: 🛎️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install markdown-link-check
+        run: |
+          npm install -g markdown-link-check
+
+      - name: 🔗 Check links in README
+        run: |
+          markdown-link-check README.md --config .github/workflows/link-check-config.json || echo "⚠️ Link checking issues detected"
+
+      - name: 🔗 Check links in docs
+        run: |
+          find docs/ -name "*.md" -exec markdown-link-check {} \; --config .github/workflows/link-check-config.json || echo "⚠️ Link checking issues detected"
+
+  security-check:
+    runs-on: ubuntu-latest
+    name: 🔒 Security Scan
+    
+    steps:
+      - name: 🛎️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔒 Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: 📤 Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'

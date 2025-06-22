@@ -1070,7 +1070,7 @@
           "resources": [
             {
               "title": "PyWhy/DoWhy Tutorials (Microsoft)",
-              "url": "https://microsoft.github.io/DoWhy/",
+              "url": "https://py-why.github.io/dowhy/",
               "type": "tutorial",
               "description": "Python code for causal analysis in business and real-world data.",
               "rationale": "Best hands-on code resource for causal inference in Python.",
@@ -1214,7 +1214,7 @@
           "resources": [
             {
               "title": "IBM Qiskit: Quantum Machine Learning",
-              "url": "https://qiskit.org/textbook/ch-machine-learning/",
+              "url": "https://learn.qiskit.org/",
               "type": "tutorial",
               "description": "Build quantum neural networks and hands-on QML projects.",
               "rationale": "Best hands-on resource for building QML models.",
@@ -1384,7 +1384,7 @@
               "title": "Associate Python Developer (DataCamp Career Track)",
               "url": "https://www.datacamp.com/tracks/associate-python-developer",
               "type": "course",
-              "description": "Professional Python development career track with industry-relevant projects and certification.",
+              "description": "Professional Python development career track with industry-relevant projects and certification. (Login required)",
               "rationale": "Structured career pathway for Python development skills with practical applications.",
               "difficulty": "intermediate",
               "estimatedTime": 180,
@@ -1613,7 +1613,7 @@
           {"title": "Weapons of Math Destruction", "author": "O'Neil", "url": "https://weaponsofmathdestructionbook.com/"},
           {"title": "Prediction Machines", "author": "Agrawal, Gans, Goldfarb", "url": "https://www.predictionmachines.ai/"},
           {"title": "Causal Inference: What If", "author": "Hernán & Robins", "url": "https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/"},
-          {"title": "Superintelligence", "author": "Bostrom", "url": "https://nickbostrom.com/book/superintelligence"},
+          {"title": "Superintelligence", "author": "Bostrom", "url": "https://www.nickbostrom.com/"},
           {"title": "Life 3.0", "author": "Tegmark", "url": "https://www.basicbooks.com/titles/max-tegmark/life-3-0/9781101946596/"},
           {"title": "The Alignment Problem", "author": "Christian", "url": "https://www.thealignmentproblem.com/"},
           {"title": "Reinforcement Learning: An Introduction", "author": "Sutton & Barto", "url": "http://incompleteideas.net/book/the-book-2nd.html"},
@@ -1623,7 +1623,7 @@
       "communities": {
         "title": "Learning & Professional Communities",
         "critical": [
-          {"name": "Kaggle Forums/Discussions", "url": "https://www.kaggle.com/discussion"},
+          {"name": "Kaggle Forums/Discussions", "url": "https://www.kaggle.com/discussions"},
           {"name": "Hugging Face Discord", "url": "https://discord.gg/huggingface"},
           {"name": "Hugging Face Forums", "url": "https://discuss.huggingface.co/"},
           {"name": "OpenAI Community", "url": "https://community.openai.com/"},
@@ -1668,7 +1668,7 @@
           {"name": "Qiskit", "url": "https://github.com/Qiskit/qiskit"},
           {"name": "LangChain", "url": "https://github.com/langchain-ai/langchain"},
           {"name": "leondz/garak", "url": "https://github.com/leondz/garak"},
-          {"name": "microsoft/pyrit", "url": "https://github.com/microsoft/pyrit"},
+          {"name": "Azure/PyRIT", "url": "https://github.com/Azure/PyRIT"},
           {"name": "Albumentations", "url": "https://github.com/albumentations-team/albumentations"},
           {"name": "OpenCV", "url": "https://github.com/opencv/opencv"},
           {"name": "Argo Workflows", "url": "https://github.com/argoproj/argo-workflows"},
