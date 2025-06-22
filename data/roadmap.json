@@ -7,7 +7,65 @@
     "lastUpdated": "2025-06-22",
     "totalHours": 780,
     "totalDeliverables": 15,
-    "checkpoints": 12
+    "checkpoints": 12,
+    "resourcesFile": "RESOURCES.md"
+  },
+  "globalResources": {
+    "description": "Comprehensive learning resource list supporting all roadmap phases",
+    "url": "RESOURCES.md",
+    "categories": [
+      "Core Programming & Computer Science",
+      "Mathematical Foundations", 
+      "AI & Machine Learning",
+      "System Architecture & DevOps",
+      "Data Analysis & Visualization",
+      "Product Design & UX",
+      "AI Safety & Ethics",
+      "Leadership & Management",
+      "Development Tools & Platforms",
+      "Web Development & APIs",
+      "Industry Publications & Communities",
+      "Certifications & Professional Development"
+    ],
+    "totalResources": "200+",
+    "priorityLevels": ["essential", "highly-recommended", "supplementary"],
+    "featured": {
+      "coursera_programs": 21,
+      "google_cloud_paths": 2,
+      "datacamp_tracks": 2,
+      "core_books": 4,
+      "industry_guides": 7,
+      "practice_platforms": 8
+    },
+    "keyPrograms": {
+      "foundational": [
+        "Python 3 Programming (Coursera)",
+        "Mathematics for Machine Learning (Coursera)",
+        "Google Data Analytics Professional Certificate"
+      ],
+      "ai_engineering": [
+        "IBM Generative AI Engineering (Coursera)",
+        "AI Agents in Python (Coursera)",
+        "Generative AI with Vertex AI (Google Cloud)"
+      ],
+      "devops_cloud": [
+        "Google IT Automation (Coursera)",
+        "Docker and Kubernetes Masterclass (Coursera)",
+        "Professional Cloud DevOps Engineer (Google Cloud)"
+      ],
+      "practice_platforms": [
+        "LeetCode - Algorithm Practice",
+        "Kaggle - Data Science Community",
+        "HackerRank - Coding Challenges",
+        "GitHub - Portfolio & Open Source"
+      ]
+    },
+    "industry_guides": [
+      "OpenAI: A practical guide to building agents",
+      "Anthropic: Building Effective AI Agents", 
+      "IBM: The CEO's Guide to Generative AI",
+      "Microsoft: The strategic CIO's generative AI playbook"
+    ]
   },
   "phases": [
     {
@@ -32,9 +90,14 @@
           "estimatedHours": 40,
           "description": "Deep dive into advanced Python patterns, data structures, algorithms, and mathematical foundations for AI",
           "resources": [
-            {"title": "Python Data Structures & Algorithms Masterclass", "url": "https://realpython.com/python-data-structures/", "type": "course"},
-            {"title": "Mathematical Foundations for Machine Learning", "url": "https://mml-book.github.io/", "type": "book"},
-            {"title": "Advanced Python Patterns", "url": "https://python-patterns.guide/", "type": "tutorial"}
+            {"title": "Python 3 Programming Specialization", "url": "https://www.coursera.org/specializations/python-3-programming", "type": "specialization", "priority": "essential", "provider": "University of Michigan"},
+            {"title": "Building with Code: Programming", "url": "https://www.coursera.org/specializations/building-with-code-programming", "type": "specialization", "priority": "essential", "provider": "Coursera"},
+            {"title": "Mathematics for Machine Learning", "url": "https://www.coursera.org/specializations/mathematics-machine-learning", "type": "specialization", "priority": "essential", "provider": "Imperial College London"},
+            {"title": "Associate Python Developer", "url": "https://www.datacamp.com/tracks/associate-python-developer", "type": "career_track", "priority": "essential", "provider": "DataCamp"},
+            {"title": "Real Python - Advanced Python Concepts", "url": "https://realpython.com/advanced-python/", "type": "course", "priority": "highly-recommended"},
+            {"title": "3Blue1Brown - Linear Algebra", "url": "https://www.3blue1brown.com/topics/linear-algebra", "type": "course", "priority": "essential"},
+            {"title": "LeetCode", "url": "https://leetcode.com/", "type": "practice", "priority": "essential"},
+            {"title": "HackerRank", "url": "https://www.hackerrank.com/", "type": "practice", "priority": "highly-recommended"}
           ],
           "completionCriteria": [
             "Implement 10+ advanced data structures from scratch",
@@ -89,9 +152,12 @@
           "estimatedHours": 35,
           "description": "Master complex SQL queries, optimization, window functions, and database design patterns",
           "resources": [
-            {"title": "Advanced SQL Techniques Course", "url": "https://mode.com/sql-tutorial/", "type": "course"},
-            {"title": "High Performance MySQL", "url": "#", "type": "book"},
-            {"title": "SQL Query Optimization Guide", "url": "#", "type": "tutorial"}
+            {"title": "Google Data Analytics Certificate", "url": "https://www.coursera.org/professional-certificates/google-data-analytics", "type": "professional_certificate", "priority": "essential", "provider": "Google"},
+            {"title": "Mode SQL Tutorial", "url": "https://mode.com/sql-tutorial/", "type": "course", "priority": "essential"},
+            {"title": "SQLBolt Interactive Lessons", "url": "https://sqlbolt.com/", "type": "practice", "priority": "essential"},
+            {"title": "High Performance MySQL", "url": "#", "type": "book", "priority": "highly-recommended"},
+            {"title": "PostgreSQL Tutorial", "url": "https://www.postgresqltutorial.com/", "type": "tutorial", "priority": "supplementary"},
+            {"title": "SQL Query Optimization Guide", "url": "https://use-the-index-luke.com/", "type": "tutorial", "priority": "highly-recommended"}
           ],
           "keyTopics": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"]
         },
@@ -136,9 +202,13 @@
           "estimatedHours": 30,
           "description": "Master modern development workflows, testing strategies, and CI/CD pipelines",
           "resources": [
-            {"title": "Complete DevOps Course", "url": "#", "type": "course"},
-            {"title": "GitHub Actions Documentation", "url": "https://docs.github.com/en/actions", "type": "tutorial"},
-            {"title": "Testing in Production", "url": "#", "type": "book"}
+            {"title": "Google IT Automation with Python", "url": "https://www.coursera.org/professional-certificates/google-it-automation", "type": "professional_certificate", "priority": "essential", "provider": "Google"},
+            {"title": "Introduction to Docker", "url": "https://www.coursera.org/learn/introduction-to-docker", "type": "course", "priority": "essential", "provider": "Coursera"},
+            {"title": "Docker and Kubernetes Masterclass", "url": "https://www.coursera.org/specializations/packt-docker-and-kubernetes-masterclass-from-beginner-to-advanced", "type": "specialization", "priority": "highly-recommended", "provider": "Packt"},
+            {"title": "Professional Cloud DevOps Engineer", "url": "https://www.cloudskillsboost.google/paths/1951", "type": "learning_path", "priority": "essential", "provider": "Google Cloud"},
+            {"title": "GitHub Actions Documentation", "url": "https://docs.github.com/en/actions", "type": "tutorial", "priority": "essential"},
+            {"title": "pytest Documentation", "url": "https://docs.pytest.org/", "type": "tutorial", "priority": "essential"},
+            {"title": "Selenium WebDriver 4 with Python", "url": "https://www.coursera.org/specializations/packt-selenium-webdriver-4-with-python-zero-to-hero", "type": "specialization", "priority": "supplementary", "provider": "Packt"}
           ],
           "keyTopics": ["CI/CD Pipelines", "Automated Testing", "Code Quality", "Deployment Strategies"]
         },
@@ -198,9 +268,13 @@
           "estimatedHours": 45,
           "description": "Deep dive into Retrieval-Augmented Generation, vector databases, and evaluation frameworks",
           "resources": [
-            {"title": "Advanced RAG Techniques Course", "url": "https://www.deeplearning.ai/short-courses/", "type": "course"},
-            {"title": "Vector Databases Handbook", "url": "#", "type": "book"},
-            {"title": "RAG Evaluation Frameworks", "url": "#", "type": "tutorial"}
+            {"title": "IBM Generative AI Engineering", "url": "https://www.coursera.org/specializations/ibm-generative-ai-engineering", "type": "specialization", "priority": "essential", "provider": "IBM"},
+            {"title": "AI Agents in Python", "url": "https://www.coursera.org/specializations/ai-agents-python", "type": "specialization", "priority": "essential", "provider": "Coursera"},
+            {"title": "Generative AI for Data Scientists", "url": "https://www.coursera.org/specializations/generative-ai-for-data-scientists", "type": "specialization", "priority": "highly-recommended", "provider": "Coursera"},
+            {"title": "Generative AI with Vertex AI", "url": "https://www.cloudskillsboost.google/paths/118", "type": "learning_path", "priority": "essential", "provider": "Google Cloud"},
+            {"title": "LangChain Documentation", "url": "https://python.langchain.com/", "type": "tutorial", "priority": "essential"},
+            {"title": "Pinecone Vector Database", "url": "https://www.pinecone.io/learn/", "type": "tutorial", "priority": "essential"},
+            {"title": "OpenAI API Documentation", "url": "https://platform.openai.com/docs", "type": "tutorial", "priority": "essential"}
           ],
           "keyTopics": ["Vector Embeddings", "Semantic Search", "RAG Architectures", "Evaluation Metrics", "Chunking Strategies"]
         },
@@ -245,9 +319,11 @@
           "estimatedHours": 40,
           "description": "Design and implement collaborative AI agent systems with complex workflows",
           "resources": [
-            {"title": "Multi-Agent Systems Course", "url": "#", "type": "course"},
-            {"title": "CrewAI Framework Documentation", "url": "https://docs.crewai.com/", "type": "tutorial"},
-            {"title": "Agent Communication Patterns", "url": "#", "type": "book"}
+            {"title": "CrewAI Framework Documentation", "url": "https://docs.crewai.com/", "type": "tutorial", "priority": "essential"},
+            {"title": "AutoGen Multi-Agent Framework", "url": "https://microsoft.github.io/autogen/", "type": "tutorial", "priority": "essential"},
+            {"title": "LangGraph Agent Workflows", "url": "https://langchain-ai.github.io/langgraph/", "type": "tutorial", "priority": "highly-recommended"},
+            {"title": "Multi-Agent Systems Course", "url": "#", "type": "course", "priority": "supplementary"},
+            {"title": "Agent Communication Patterns", "url": "#", "type": "book", "priority": "supplementary"}
           ],
           "keyTopics": ["Agent Architectures", "Task Orchestration", "Inter-Agent Communication", "Workflow Design"]
         },
@@ -292,9 +368,13 @@
           "estimatedHours": 35,
           "description": "Master ML operations, model optimization, monitoring, and lifecycle management",
           "resources": [
-            {"title": "MLOps Engineering Course", "url": "#", "type": "course"},
-            {"title": "Efficient AI Deployment Guide", "url": "#", "type": "book"},
-            {"title": "Model Monitoring Best Practices", "url": "#", "type": "tutorial"}
+            {"title": "MLOps Specialization (Coursera)", "url": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops", "type": "course", "priority": "essential"},
+            {"title": "Building AI Cloud Apps with Microsoft Azure", "url": "https://www.coursera.org/specializations/building-ai-cloud-apps-microsoft-azure", "type": "specialization", "priority": "essential", "provider": "Microsoft"},
+            {"title": "Microsoft AI and ML Engineering", "url": "https://www.coursera.org/specializations/microsoft-ai-and-ml-engineering", "type": "specialization", "priority": "highly-recommended", "provider": "Microsoft"},
+            {"title": "Google Cloud: Generative AI with Vertex AI", "url": "https://www.coursera.org/learn/googlecloud-generative-ai-with-vertex-ai-prompt-design", "type": "course", "priority": "essential", "provider": "Google Cloud"},
+            {"title": "MLflow Documentation", "url": "https://mlflow.org/docs/latest/index.html", "type": "tutorial", "priority": "essential"},
+            {"title": "Kubeflow Documentation", "url": "https://www.kubeflow.org/docs/", "type": "tutorial", "priority": "highly-recommended"},
+            {"title": "Weights & Biases", "url": "https://wandb.ai/site", "type": "tutorial", "priority": "essential"}
           ],
           "keyTopics": ["Model Lifecycle", "Deployment Strategies", "Performance Monitoring", "Model Optimization"]
         },
@@ -354,9 +434,11 @@
           "estimatedHours": 60,
           "description": "Deep study of 'Designing Data-Intensive Applications' for system design mastery",
           "resources": [
-            {"title": "Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "type": "book"},
-            {"title": "DDIA Study Guide & Notes", "url": "#", "type": "guide"},
-            {"title": "System Design Interview Prep", "url": "#", "type": "course"}
+            {"title": "Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "type": "book", "priority": "essential"},
+            {"title": "System Design Primer", "url": "https://github.com/donnemartin/system-design-primer", "type": "tutorial", "priority": "essential"},
+            {"title": "High Scalability", "url": "http://highscalability.com/", "type": "tutorial", "priority": "highly-recommended"},
+            {"title": "Building Microservices", "url": "#", "type": "book", "priority": "highly-recommended"},
+            {"title": "AWS Architecture Center", "url": "https://aws.amazon.com/architecture/", "type": "tutorial", "priority": "supplementary"}
           ],
           "completionCriteria": [
             "Complete all chapters with detailed notes",
@@ -375,9 +457,11 @@
           "estimatedHours": 40,
           "description": "Master large-scale AI system architecture patterns and design principles",
           "resources": [
-            {"title": "AI System Architecture Course", "url": "#", "type": "course"},
-            {"title": "Scalable ML Systems", "url": "#", "type": "book"},
-            {"title": "AI Infrastructure Patterns", "url": "#", "type": "tutorial"}
+            {"title": "System Design Primer", "url": "https://github.com/donnemartin/system-design-primer", "type": "tutorial", "priority": "essential"},
+            {"title": "Building Microservices", "url": "#", "type": "book", "priority": "essential"},
+            {"title": "High Scalability", "url": "http://highscalability.com/", "type": "tutorial", "priority": "highly-recommended"},
+            {"title": "AWS Architecture Center", "url": "https://aws.amazon.com/architecture/", "type": "tutorial", "priority": "highly-recommended"},
+            {"title": "Google Cloud Architecture", "url": "https://cloud.google.com/architecture", "type": "tutorial", "priority": "supplementary"}
           ],
           "keyTopics": ["Microservices", "Event-Driven Architecture", "Data Pipelines", "Model Serving", "System Integration"]
         },
@@ -422,9 +506,12 @@
           "estimatedHours": 35,
           "description": "Master AI safety principles, security frameworks, and ethical AI implementation",
           "resources": [
-            {"title": "AI Safety Fundamentals", "url": "#", "type": "course"},
-            {"title": "Trustworthy AI Guidelines", "url": "#", "type": "guide"},
-            {"title": "AI Security Best Practices", "url": "#", "type": "tutorial"}
+            {"title": "Stanford HAI", "url": "https://hai.stanford.edu/", "type": "tutorial", "priority": "essential"},
+            {"title": "Anthropic Safety Research", "url": "https://www.anthropic.com/research", "type": "tutorial", "priority": "essential"},
+            {"title": "OpenAI Safety", "url": "https://openai.com/safety", "type": "tutorial", "priority": "essential"},
+            {"title": "Partnership on AI", "url": "https://www.partnershiponai.org/", "type": "tutorial", "priority": "highly-recommended"},
+            {"title": "Center for AI Safety", "url": "https://www.safe.ai/", "type": "tutorial", "priority": "highly-recommended"},
+            {"title": "AI Ethics Course (edX)", "url": "https://www.edx.org/course/artificial-intelligence-ethics-and-governance", "type": "course", "priority": "supplementary"}
           ],
           "keyTopics": ["AI Safety", "Bias Detection", "Privacy Protection", "Security Frameworks", "Compliance"]
         },
@@ -484,9 +571,11 @@
           "estimatedHours": 35,
           "description": "Master user experience design and product discovery methodologies for AI products",
           "resources": [
-            {"title": "UX for AI Products", "url": "#", "type": "course"},
-            {"title": "Product Discovery Methods", "url": "#", "type": "book"},
-            {"title": "AI Product Design Patterns", "url": "#", "type": "tutorial"}
+            {"title": "Google UX Design Certificate", "url": "https://www.coursera.org/professional-certificates/google-ux-design", "type": "course", "priority": "essential"},
+            {"title": "The Design of Everyday Things", "url": "#", "type": "book", "priority": "essential"},
+            {"title": "Nielsen Norman Group", "url": "https://www.nngroup.com/", "type": "tutorial", "priority": "essential"},
+            {"title": "Product Management Fundamentals", "url": "https://www.coursera.org/learn/uva-darden-product-management", "type": "course", "priority": "highly-recommended"},
+            {"title": "Figma Academy", "url": "https://www.figma.com/academy/", "type": "tutorial", "priority": "supplementary"}
           ],
           "keyTopics": ["User Research", "Product Discovery", "UX Design", "AI Product Patterns", "User Testing"]
         },
