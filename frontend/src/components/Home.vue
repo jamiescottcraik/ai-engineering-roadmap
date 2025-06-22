@@ -1,17 +1,23 @@
 <template>
   <div class="home">
-    <InteractiveRoadmap />
+    <h1>AI Leadership Engineering Roadmap</h1>
+    <p>Welcome to the AI Leadership Engineering Roadmap</p>
+    <p>This is a minimal frontend setup for CI/CD validation.</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import InteractiveRoadmap from './InteractiveRoadmap.vue'
+// Home component logic
 </script>
 
 <style scoped>
 .home {
-  width: 100%;
-  min-height: 100vh;
-  background: #f8fafc;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #42b883;
 }
 </style>

@@ -1,64 +1,27 @@
-export interface LearningResource {
-  title: string
-  url: string
-  type: string
-  description?: string
-  estimatedTime?: number // in minutes
-  difficulty?: 'beginner' | 'intermediate' | 'advanced'
-  rationale?: string
-}
-
 export interface RoadmapNode {
   id: string
   title: string
-  type: 'learn' | 'practice' | 'portfolio' | 'keyresource'
+  type: 'learn' | 'practice' | 'portfolio'
   progress: number
   isActive: boolean
   isUnlocked: boolean
-  position?: { x: number; y: number }
-  estimatedHours?: number
-  description?: string
-  resources?: LearningResource[]
+  position: { x: number; y: number }
+  resources: Array<{ title: string; url: string; type: string }>
   deliverables?: string[]
   completionCriteria?: string[]
-  checkpoint?: boolean
-  isOptional?: boolean
-  prerequisiteIds?: string[]
 }
 
 export interface RoadmapPhase {
   id: string
   title: string
-  subtitle?: string
-  icon?: string
   status: 'not_started' | 'in_progress' | 'completed'
   progress: number
-  estimatedWeeks?: number
-  description?: string
   nodes: RoadmapNode[]
-  x?: number
-  y?: number
-  width?: number
-  height?: number
+  x: number
+  y: number
+  width: number
+  height: number
   color: string
-}
-
-export interface RoadmapData {
-  metadata: {
-    title: string
-    description: string
-    startDate: string
-    estimatedDuration: string
-    lastUpdated: string
-  }
-  phases: RoadmapPhase[]
-  milestones?: Array<{
-    id: string
-    title: string
-    description: string
-    phaseId: string
-    targetDate: string
-  }>
 }
 
 export async function loadRoadmapData(): Promise<any> {

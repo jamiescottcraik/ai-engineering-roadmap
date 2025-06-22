@@ -423,6 +423,8 @@
                      :href="getDeliverableLink(node.id, deliverable)" 
                      class="deliverable-link"
                      target="_blank"
+                     :title="`View deliverable: ${deliverable}`"
+                     :aria-label="`View deliverable: ${deliverable}`"
                      @click.stop>
                     📁 {{ deliverable }}
                   </a>
@@ -552,7 +554,14 @@
                       
                       <template #action>
                         <div class="resource-action-enhanced">
-                          <n-button type="primary" size="small" round>
+                          <n-button 
+                            type="primary" 
+                            size="small" 
+                            round
+                            :title="`Open resource: ${resource.title}`"
+                            :aria-label="`Open resource: ${resource.title}`"
+                            @click="openResource(resource.url)"
+                          >
                             Open Resource →
                           </n-button>
                         </div>
@@ -699,18 +708,49 @@ import {
   CheckmarkCircle,
   Time
 } from '@vicons/ionicons5'
-import type { RoadmapData, RoadmapNode } from '../services/roadmapService'
-import { 
-  useSemanticIcons, 
-  useNodeTypeColor, 
-  useProgressState,
-  usePhaseStyles,
-  useAccessibility 
-} from '../design-system/composables'
 
-// Design system composables - replaces old manual implementations
-const { getNodeIcon: getSemanticNodeIcon, getResourceIcon: getSemanticResourceIcon } = useSemanticIcons()
-const { getNodeTypeColor: getSemanticNodeTypeColor } = useNodeTypeColor()
+// Types
+interface RoadmapData {
+  metadata: {
+    title: string
+    description: string
+    startDate: string
+    [key: string]: any
+  }
+  phases: RoadmapPhase[]
+}
+
+interface RoadmapPhase {
+  id: string
+  title: string
+  subtitle?: string
+  status: 'completed' | 'in_progress' | 'not_started'
+  progress: number
+  estimatedWeeks: number
+  description?: string
+  nodes: RoadmapNode[]
+  [key: string]: any
+}
+
+interface RoadmapNode {
+  id: string
+  title: string
+  type: string
+  description?: string
+  estimatedHours?: number
+  resources?: Resource[]
+  deliverables?: string[]
+  completionCriteria?: string[]
+  [key: string]: any
+}
+
+interface Resource {
+  title: string
+  url: string
+  type: string
+  description?: string
+  rationale?: string
+}
 
 // Reactive data
 const roadmapData = ref<RoadmapData | null>(null)
@@ -744,8 +784,8 @@ const completedDeliverables = computed(() => {
   // Count actual completed deliverables based on user progress
   let completedCount = 0
   
-  roadmapData.value.phases.forEach(phase => {
-    phase.nodes.forEach(node => {
+  roadmapData.value.phases.forEach((phase: RoadmapPhase) => {
+    phase.nodes.forEach((node: RoadmapNode) => {
       if (isNodeCompleted(node.id) && node.deliverables && node.deliverables.length > 0) {
         completedCount += node.deliverables.length
       }
@@ -757,42 +797,27 @@ const completedDeliverables = computed(() => {
 
 const currentPhase = computed(() => {
   if (!roadmapData.value) return 1
-  const inProgressPhase = roadmapData.value.phases.find(phase => phase.status === 'in_progress')
+  const inProgressPhase = roadmapData.value.phases.find((phase: RoadmapPhase) => phase.status === 'in_progress')
   return inProgressPhase ? roadmapData.value.phases.indexOf(inProgressPhase) + 1 : 1
 })
 
 const totalHours = computed(() => {
   if (!roadmapData.value) return 0
-  return roadmapData.value.phases.reduce((sum, phase) => 
-    sum + phase.nodes.reduce((nodeSum, node) => nodeSum + (node.estimatedHours || 0), 0), 0)
+  return roadmapData.value.phases.reduce((sum: number, phase: RoadmapPhase) => 
+    sum + phase.nodes.reduce((nodeSum: number, node: RoadmapNode) => nodeSum + (node.estimatedHours || 0), 0), 0)
 })
 
 const selectedNodeProgress = computed(() => {
   if (!selectedNode.value || !roadmapData.value) return 0
   
   // Find the phase that contains the selected node
-  const phase = roadmapData.value.phases.find(p => 
-    p.nodes.some(n => n.id === selectedNode.value?.id)
+  const phase = roadmapData.value.phases.find((p: RoadmapPhase) => 
+    p.nodes.some((n: RoadmapNode) => n.id === selectedNode.value?.id)
   )
   
   if (!phase) return 0
   
   return getNodeProgress(selectedNode.value, phase)
-})
-
-const timelineStatus = computed(() => 'now') // Can be enhanced with real logic
-
-const currentPhaseTitle = computed(() => {
-  if (!roadmapData.value) return 'Getting Started'
-  const phase = roadmapData.value.phases.find(p => p.status === 'in_progress')
-  return phase?.title || 'Phase 1'
-})
-
-const nextPhaseTitle = computed(() => {
-  if (!roadmapData.value) return 'Coming Soon'
-  const currentIndex = roadmapData.value.phases.findIndex(p => p.status === 'in_progress')
-  const nextPhase = roadmapData.value.phases[currentIndex + 1]
-  return nextPhase?.title || 'Final Phase'
 })
 
 // Local Storage Progress Persistence
@@ -1009,10 +1034,21 @@ const toggleFilter = (filterValue: string) => {
   }
 }
 
+// Add missing openResource function
 const openResource = (url: string) => {
   if (url && url !== '#') {
     window.open(url, '_blank', 'noopener,noreferrer')
+  } else {
+    console.warn('Invalid or placeholder resource URL:', url)
   }
+}
+
+// Add missing getDeliverableLink function  
+const getDeliverableLink = (nodeId: string, deliverable: string) => {
+  // Generate mock portfolio links for demo
+  const baseUrl = 'https://github.com/portfolio'
+  const slug = deliverable.toLowerCase().replace(/\s+/g, '-')
+  return `${baseUrl}/${nodeId}-${slug}`
 }
 
 // Missing utility functions
@@ -1043,11 +1079,6 @@ const getNodeRationale = (type: string): string => {
     'keyresource': 'Critical resources that form the foundation of your expertise'
   }
   return rationales[type] || ''
-}
-
-const getDeliverableLink = (nodeId: string, deliverable: string): string => {
-  // This would link to actual deliverable submissions in a real system
-  return `#deliverable-${nodeId}-${deliverable.toLowerCase().replace(/\s+/g, '-')}`
 }
 
 const loadRoadmapData = async () => {
@@ -1412,48 +1443,37 @@ h1 {
   color: #666;
 }
 
-/* Search and Filter Section */
-.search-filter-section {
-  margin-bottom: 30px;
+/* Resource Links Styling */
+.resource-link {
+  color: #1E90FF;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.3s ease;
 }
 
-.search-filter-section .n-card {
-  margin-bottom: 20px;
+.resource-link:hover {
+  color: #104A8E;
+  text-decoration: underline;
 }
 
-.search-filter-section .n-input {
-  margin-bottom: 16px;
-}
-
-.search-filter-section .n-tag {
-  margin: 4px;
+/* Deliverable Links Styling */
+.deliverable-link {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  color: #10B981;
+  text-decoration: none;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
 }
 
-.search-filter-section .n-tag:hover {
+.deliverable-link:hover {
+  color: #065F46;
+  text-decoration: underline;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(30, 144, 255, 0.2);
 }
 
-.search-filter-section .n-alert {
-  border-radius: 8px;
-  border-left: 4px solid #1E90FF;
-}
-
-/* Progress Persistence Indicators */
-.completed-node {
-  position: relative;
-  opacity: 0.8;
-}
-
-.completed-node::after {
-  content: '✅';
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  font-size: 14px;
-}
-
+/* Enhanced Progress Indicators */
 .user-progress-indicator {
   display: flex;
   align-items: center;
@@ -1463,5 +1483,57 @@ h1 {
   background: rgba(30, 144, 255, 0.1);
   border-radius: 6px;
   border-left: 3px solid #1E90FF;
+}
+
+.completed-node {
+  position: relative;
+  opacity: 0.8;
+  border-color: #10B981;
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.completed-node::after {
+  content: '✅';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 18px;
+  z-index: 2;
+}
+
+/* Accessibility Improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus indicators for better keyboard navigation */
+button:focus,
+.n-button:focus,
+a:focus {
+  outline: 2px solid #1E90FF;
+  outline-offset: 2px;
+}
+
+/* Resource description styling */
+.resource-description {
+  font-size: 0.9rem;
+  color: #6B7280;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+.resource-description-missing {
+  font-size: 0.9rem;
+  color: #9CA3AF;
+  font-style: italic;
+  margin-top: 8px;
 }
 </style>

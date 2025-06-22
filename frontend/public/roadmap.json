@@ -5,8 +5,8 @@
     "startDate": "2025-06-21",
     "estimatedDuration": "12-18 months",
     "lastUpdated": "2025-06-22",
-    "totalHours": 780,
-    "totalDeliverables": 15,
+    "totalHours": 920,
+    "totalDeliverables": 18,
     "checkpoints": 12
   },
   "phases": [
@@ -89,32 +89,20 @@
           "estimatedHours": 35,
           "description": "Master complex SQL queries, optimization, window functions, and database design patterns",
           "resources": [
+            {"title": "Advanced SQL Techniques Course", "url": "https://mode.com/sql-tutorial/", "type": "course"},
             {
-              "title": "Advanced SQL Techniques: Complete Course", 
-              "url": "https://mode.com/sql-tutorial/", 
-              "type": "course",
-              "description": "Comprehensive interactive SQL course covering window functions, CTEs, and advanced analytical queries",
-              "estimatedTime": 480,
-              "difficulty": "intermediate",
-              "rationale": "Essential for data analysis and backend development in AI systems"
-            },
-            {
-              "title": "High Performance MySQL: Proven Strategies", 
-              "url": "https://www.oreilly.com/library/view/high-performance-mysql/9781492080503/", 
+              "title": "High Performance MySQL: Proven Strategies for Operating at Scale",
+              "url": "https://www.oreilly.com/library/view/high-performance-mysql/9781492080503/",
               "type": "book",
-              "description": "Comprehensive guide to MySQL optimization, indexing strategies, and performance tuning",
-              "estimatedTime": 720,
-              "difficulty": "advanced",
-              "rationale": "Critical for building scalable AI applications that require high-performance data access"
+              "description": "Comprehensive guide to MySQL optimization, covering query performance, server tuning, and scaling strategies.",
+              "rationale": "Essential for understanding database performance at scale, critical for AI applications handling large datasets."
             },
             {
-              "title": "SQL Query Optimization Complete Guide", 
-              "url": "https://use-the-index-luke.com/", 
+              "title": "Use The Index, Luke! - SQL Query Optimization Guide",
+              "url": "https://use-the-index-luke.com/",
               "type": "tutorial",
-              "description": "Interactive guide to understanding database indexing and query performance optimization",
-              "estimatedTime": 300,
-              "difficulty": "intermediate",
-              "rationale": "Performance optimization skills directly translate to efficient AI data pipelines"
+              "description": "In-depth tutorial on SQL query optimization and index usage patterns.",
+              "rationale": "Practical guide to writing efficient SQL queries, crucial for AI data processing pipelines."
             }
           ],
           "keyTopics": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"]
@@ -160,9 +148,21 @@
           "estimatedHours": 30,
           "description": "Master modern development workflows, testing strategies, and CI/CD pipelines",
           "resources": [
-            {"title": "Complete DevOps Engineer Course 2024", "url": "https://www.udemy.com/course/complete-devops-engineer-course/", "type": "course"},
+            {
+              "title": "DevOps Engineering Complete Course 2024",
+              "url": "https://www.udemy.com/course/complete-devops-engineer-course/",
+              "type": "course",
+              "description": "Comprehensive DevOps course covering CI/CD, containerization, infrastructure as code, and monitoring.",
+              "rationale": "Modern AI systems require robust DevOps practices for reliable deployment and scaling."
+            },
             {"title": "GitHub Actions Documentation", "url": "https://docs.github.com/en/actions", "type": "tutorial"},
-            {"title": "Testing in Production: Safe Strategies", "url": "https://copyconstruct.medium.com/testing-in-production-the-safe-way-18ca102d0ef1", "type": "book"}
+            {
+              "title": "Testing in Production: The Safe Way",
+              "url": "https://copyconstruct.medium.com/testing-in-production-the-safe-way-18ca102d0ef1",
+              "type": "book",
+              "description": "Strategies for safely testing systems in production environments, including feature flags and canary deployments.",
+              "rationale": "AI systems often require production testing due to data dependencies and real-world complexity."
+            }
           ],
           "keyTopics": ["CI/CD Pipelines", "Automated Testing", "Code Quality", "Deployment Strategies"]
         },
@@ -222,32 +222,20 @@
           "estimatedHours": 45,
           "description": "Deep dive into Retrieval-Augmented Generation, vector databases, and evaluation frameworks",
           "resources": [
+            {"title": "Advanced RAG Techniques Course", "url": "https://www.deeplearning.ai/short-courses/", "type": "course"},
             {
-              "title": "Advanced RAG Techniques & Evaluation", 
-              "url": "https://www.deeplearning.ai/short-courses/", 
-              "type": "course",
-              "description": "DeepLearning.AI course on retrieval-augmented generation, vector databases, and evaluation methodologies",
-              "estimatedTime": 360,
-              "difficulty": "intermediate",
-              "rationale": "RAG is fundamental to modern AI applications, enabling AI to access and utilize external knowledge"
-            },
-            {
-              "title": "Vector Databases Handbook: Complete Guide", 
-              "url": "https://www.pinecone.io/learn/vector-database/", 
+              "title": "Vector Databases: The Complete Guide",
+              "url": "https://www.pinecone.io/learn/vector-database/",
               "type": "book",
-              "description": "Comprehensive guide to vector databases, embeddings, and semantic search implementations",
-              "estimatedTime": 480,
-              "difficulty": "intermediate",
-              "rationale": "Vector databases are the backbone of modern AI search and retrieval systems"
+              "description": "Comprehensive guide to vector databases, embeddings, and similarity search for RAG applications.",
+              "rationale": "Vector databases are fundamental infrastructure for modern RAG systems and AI search applications."
             },
             {
-              "title": "Advanced RAG Evaluation Frameworks", 
-              "url": "https://docs.llamaindex.ai/en/stable/module_guides/evaluating/", 
+              "title": "RAG Evaluation Framework & Best Practices",
+              "url": "https://arize.com/blog-course/rag-evaluation-frameworks/",
               "type": "tutorial",
-              "description": "LlamaIndex documentation on evaluating RAG systems with metrics like faithfulness and relevance",
-              "estimatedTime": 240,
-              "difficulty": "advanced",
-              "rationale": "Evaluation is critical for building reliable, production-ready AI systems"
+              "description": "Practical guide to evaluating RAG systems with metrics, benchmarks, and testing strategies.",
+              "rationale": "Proper evaluation is crucial for building reliable RAG systems that users can trust."
             }
           ],
           "keyTopics": ["Vector Embeddings", "Semantic Search", "RAG Architectures", "Evaluation Metrics", "Chunking Strategies"]
@@ -293,9 +281,21 @@
           "estimatedHours": 40,
           "description": "Design and implement collaborative AI agent systems with complex workflows",
           "resources": [
-            {"title": "Multi-Agent Systems: Modern Approaches", "url": "https://www.crewai.com/", "type": "course"},
+            {
+              "title": "Multi-Agent Systems with CrewAI",
+              "url": "https://docs.crewai.com/",
+              "type": "course",
+              "description": "Learn to build collaborative AI agent systems using the CrewAI framework for complex task orchestration.",
+              "rationale": "Multi-agent systems enable more sophisticated AI workflows and are becoming essential for complex automation."
+            },
             {"title": "CrewAI Framework Documentation", "url": "https://docs.crewai.com/", "type": "tutorial"},
-            {"title": "Agent Communication Patterns & Design", "url": "https://microsoft.github.io/autogen/", "type": "book"}
+            {
+              "title": "Agent Communication Patterns in Practice",
+              "url": "https://blog.langchain.dev/multi-agent-collaboration-patterns/",
+              "type": "book",
+              "description": "Practical patterns for designing communication between AI agents in collaborative systems.",
+              "rationale": "Understanding agent communication is key to building scalable multi-agent systems."
+            }
           ],
           "keyTopics": ["Agent Architectures", "Task Orchestration", "Inter-Agent Communication", "Workflow Design"]
         },
@@ -340,9 +340,27 @@
           "estimatedHours": 35,
           "description": "Master ML operations, model optimization, monitoring, and lifecycle management",
           "resources": [
-            {"title": "MLOps Engineering: Complete Course", "url": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops", "type": "course"},
-            {"title": "Efficient AI Model Deployment Guide", "url": "https://neptune.ai/blog/model-deployment-strategies", "type": "book"},
-            {"title": "AI Model Monitoring Best Practices", "url": "https://ml-ops.org/content/model-monitoring", "type": "tutorial"}
+            {
+              "title": "MLOps Engineering: Complete Production Course",
+              "url": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops",
+              "type": "course",
+              "description": "End-to-end MLOps course covering model deployment, monitoring, and production management.",
+              "rationale": "Production MLOps skills are essential for deploying and maintaining AI systems at scale."
+            },
+            {
+              "title": "Efficient AI Model Deployment Guide",
+              "url": "https://neptune.ai/blog/model-deployment-strategies",
+              "type": "book",
+              "description": "Comprehensive guide to AI model deployment strategies, from cloud to edge computing.",
+              "rationale": "Deployment strategy significantly impacts AI system performance, cost, and user experience."
+            },
+            {
+              "title": "ML Model Monitoring Best Practices",
+              "url": "https://www.evidentlyai.com/blog/ml-monitoring-best-practices",
+              "type": "tutorial",
+              "description": "Best practices for monitoring machine learning models in production, including drift detection.",
+              "rationale": "Model monitoring is critical for maintaining AI system reliability and performance over time."
+            }
           ],
           "keyTopics": ["Model Lifecycle", "Deployment Strategies", "Performance Monitoring", "Model Optimization"]
         },
@@ -403,8 +421,20 @@
           "description": "Deep study of 'Designing Data-Intensive Applications' for system design mastery",
           "resources": [
             {"title": "Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "type": "book"},
-            {"title": "DDIA Study Guide & Chapter Notes", "url": "https://github.com/ept/ddia-references", "type": "guide"},
-            {"title": "System Design Interview Preparation", "url": "https://github.com/donnemartin/system-design-primer", "type": "course"}
+            {
+              "title": "DDIA Study Guide & Chapter Notes",
+              "url": "https://github.com/keyvanakbary/learning-notes/blob/master/books/designing-data-intensive-applications.md",
+              "type": "guide",
+              "description": "Comprehensive study notes and summaries for each chapter of DDIA.",
+              "rationale": "Study guides help reinforce key concepts from this foundational systems design book."
+            },
+            {
+              "title": "System Design Interview Course",
+              "url": "https://www.educative.io/courses/grokking-the-system-design-interview",
+              "type": "course",
+              "description": "Practical system design interview preparation with real-world examples.",
+              "rationale": "System design skills are essential for architecting scalable AI systems."
+            }
           ],
           "completionCriteria": [
             "Complete all chapters with detailed notes",
@@ -423,9 +453,27 @@
           "estimatedHours": 40,
           "description": "Master large-scale AI system architecture patterns and design principles",
           "resources": [
-            {"title": "AI System Architecture: Complete Course", "url": "https://www.edx.org/learn/artificial-intelligence/stanford-university-cs229-machine-learning", "type": "course"},
-            {"title": "Building Scalable ML Systems", "url": "https://www.oreilly.com/library/view/building-machine-learning/9781492053187/", "type": "book"},
-            {"title": "AI Infrastructure Design Patterns", "url": "https://neptune.ai/blog/ml-infrastructure-tools", "type": "tutorial"}
+            {
+              "title": "Building AI Systems: Architecture & Design Patterns",
+              "url": "https://www.manning.com/books/ai-systems-engineering",
+              "type": "course",
+              "description": "Comprehensive course on designing and building production AI systems at scale.",
+              "rationale": "Learn proven patterns for architecting AI systems that scale and remain maintainable."
+            },
+            {
+              "title": "Scalable Machine Learning Systems Design",
+              "url": "https://www.oreilly.com/library/view/building-machine-learning/9781492045106/",
+              "type": "book",
+              "description": "Practical guide to building ML systems that scale from prototype to production.",
+              "rationale": "Essential for understanding how to scale ML systems beyond proof-of-concept stage."
+            },
+            {
+              "title": "AI Infrastructure Patterns & Best Practices",
+              "url": "https://neptune.ai/blog/ml-infrastructure-tools",
+              "type": "tutorial",
+              "description": "Comprehensive guide to ML infrastructure tools and architectural patterns.",
+              "rationale": "Infrastructure choices significantly impact AI system performance and development velocity."
+            }
           ],
           "keyTopics": ["Microservices", "Event-Driven Architecture", "Data Pipelines", "Model Serving", "System Integration"]
         },
@@ -470,9 +518,27 @@
           "estimatedHours": 35,
           "description": "Master AI safety principles, security frameworks, and ethical AI implementation",
           "resources": [
-            {"title": "AI Safety Fundamentals Course", "url": "https://aisafetyfundamentals.com/", "type": "course"},
-            {"title": "Trustworthy AI Implementation Guidelines", "url": "https://www.partnershiponai.org/", "type": "guide"},
-            {"title": "AI Security Best Practices Guide", "url": "https://owasp.org/www-project-ai-security-and-privacy-guide/", "type": "tutorial"}
+            {
+              "title": "AI Safety Fundamentals Course",
+              "url": "https://course.aisafetyfundamentals.com/",
+              "type": "course",
+              "description": "Comprehensive introduction to AI safety concepts, alignment, and risk mitigation strategies.",
+              "rationale": "AI safety knowledge is crucial for building responsible AI systems that benefit humanity."
+            },
+            {
+              "title": "Trustworthy AI Implementation Guidelines",
+              "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+              "type": "guide",
+              "description": "NIST framework for managing AI risks and building trustworthy AI systems.",
+              "rationale": "Regulatory frameworks guide responsible AI development and deployment practices."
+            },
+            {
+              "title": "AI Security & Adversarial ML Best Practices",
+              "url": "https://adversarial-ml-tutorial.org/",
+              "type": "tutorial",
+              "description": "Practical guide to securing AI systems against adversarial attacks and vulnerabilities.",
+              "rationale": "AI systems face unique security challenges that require specialized defensive strategies."
+            }
           ],
           "keyTopics": ["AI Safety", "Bias Detection", "Privacy Protection", "Security Frameworks", "Compliance"]
         },
@@ -532,9 +598,27 @@
           "estimatedHours": 35,
           "description": "Master user experience design and product discovery methodologies for AI products",
           "resources": [
-            {"title": "UX for AI Products: Complete Guide", "url": "https://pair.withgoogle.com/", "type": "course"},
-            {"title": "Product Discovery Methods & Frameworks", "url": "https://www.producttalk.org/2021/05/opportunity-solution-tree/", "type": "book"},
-            {"title": "AI Product Design Patterns Library", "url": "https://uxplanet.org/ai-ux-7-principles-of-designing-good-ai-products-e1733c53d59a", "type": "tutorial"}
+            {
+              "title": "UX for AI Products: Design Principles & Patterns",
+              "url": "https://www.oreilly.com/library/view/human-centered-ai/9781492056942/",
+              "type": "course",
+              "description": "Learn how to design user experiences for AI-powered products and services.",
+              "rationale": "AI products require unique UX considerations for explainability, trust, and user control."
+            },
+            {
+              "title": "Continuous Product Discovery Methods",
+              "url": "https://www.producttalk.org/2021/05/continuous-discovery-habits/",
+              "type": "book",
+              "description": "Modern approach to product discovery with continuous user research and validation.",
+              "rationale": "Continuous discovery ensures AI products solve real user problems effectively."
+            },
+            {
+              "title": "AI Product Design Patterns & Guidelines",
+              "url": "https://pair.withgoogle.com/guidebook/",
+              "type": "tutorial",
+              "description": "Google's comprehensive guide to designing AI products with human-centered principles.",
+              "rationale": "Proven design patterns help create intuitive and trustworthy AI product experiences."
+            }
           ],
           "keyTopics": ["User Research", "Product Discovery", "UX Design", "AI Product Patterns", "User Testing"]
         },
@@ -579,9 +663,27 @@
           "estimatedHours": 40,
           "description": "Understand enterprise AI adoption, governance, strategic planning, and organizational change",
           "resources": [
-            {"title": "Enterprise AI Strategy: Complete Course", "url": "https://www.coursera.org/learn/ai-for-business-strategy", "type": "course"},
-            {"title": "AI Governance Frameworks Guide", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-governance", "type": "guide"},
-            {"title": "Organizational AI Transformation Playbook", "url": "https://sloanreview.mit.edu/projects/artificial-intelligence-in-business/", "type": "book"}
+            {
+              "title": "Enterprise AI Strategy & Implementation",
+              "url": "https://www.coursera.org/learn/ai-strategy-leadership",
+              "type": "course",
+              "description": "Strategic approach to implementing AI at enterprise scale, including governance and change management.",
+              "rationale": "Enterprise AI adoption requires strategic thinking beyond technical implementation."
+            },
+            {
+              "title": "AI Governance Frameworks & Best Practices",
+              "url": "https://www.ibm.com/watson/governance",
+              "type": "guide",
+              "description": "Comprehensive guide to establishing AI governance, ethics, and compliance frameworks.",
+              "rationale": "Governance frameworks ensure responsible and compliant AI development at scale."
+            },
+            {
+              "title": "Leading Organizational AI Transformation",
+              "url": "https://mitsloan.mit.edu/ideas-made-to-matter/how-to-lead-successful-ai-transformation",
+              "type": "book",
+              "description": "MIT insights on leading successful AI transformations in large organizations.",
+              "rationale": "AI transformation requires strong leadership and change management skills."
+            }
           ],
           "keyTopics": ["Enterprise Strategy", "AI Governance", "Change Management", "Organizational Design", "Leadership"]
         },

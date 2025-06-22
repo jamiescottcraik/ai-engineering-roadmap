@@ -1,35 +1,33 @@
 <template>
-  <n-config-provider :theme-overrides="brainwavTheme">
-    <div id="app">
-      <router-view />
+  <div id="app">
+    <!-- Add a simple test to verify Vue is working -->
+    <div v-if="!routerReady" class="loading">
+      Loading...
     </div>
-  </n-config-provider>
+    <router-view v-else />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { NConfigProvider } from 'naive-ui'
-import { brainwavTheme } from './theme/brainwav-theme'
+import { ref, onMounted } from 'vue'
+
+const routerReady = ref(false)
+
+onMounted(() => {
+  // Give the router a moment to initialize
+  setTimeout(() => {
+    routerReady.value = true
+  }, 100)
+})
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 #app {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1A202C; /* Dark text for better readability */
-  background: #FFFFFF; /* Clean white background */
-  min-height: 100vh;
-}
-
-body {
-  margin: 0;
-  background: #FFFFFF; /* Clean white background */
-  color: #1A202C; /* Ensure body text is also dark */
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
