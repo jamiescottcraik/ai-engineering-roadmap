@@ -31,6 +31,12 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
+      - name: Copy build to docs for backup
+        run: |
+          cp -r frontend/dist/* docs/
+          cp frontend/public/roadmap.json docs/
+          cp frontend/public/brAInwav.png docs/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

@@ -2,9 +2,11 @@
   "metadata": {
     "title": "AI Leadership Engineering Roadmap",
     "description": "Step-by-step guide to becoming an AI engineering leader in 2025-2026",
+    "author": "Jamie Craik",
+    "version": "0.2.0",
     "startDate": "2025-06-21",
     "estimatedDuration": "12-18 months",
-    "lastUpdated": "2025-06-22",
+    "last_updated": "2025-06-22",
     "totalHours": 920,
     "totalDeliverables": 18,
     "checkpoints": 10,
@@ -959,18 +961,18 @@
             },
             {
               "title": "OWASP LLM Top 10 (Reference)",
-              "url": "https://owasp.org/www-project-llm-security/",
+              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
               "type": "guide",
-              "description": "Reference for LLM security risks and best practices.",
-              "rationale": "Reference for LLM security risks and best practices.",
+              "description": "OWASP Top 10 for Large Language Model Applications.",
+              "rationale": "Security is a critical concern for AI systems.",
               "difficulty": "intermediate",
-              "estimatedTime": 60,
-              "skills": ["LLM Security", "Best Practices"],
-              "prerequisites": ["AI Safety: Baseline Fluency"]
+              "estimatedTime": 20,
+              "skills": ["Security", "LLM", "OWASP"],
+              "prerequisites": []
             },
             {
-              "title": "Microsoft PyRIT (GitHub)",
-              "url": "https://github.com/microsoft/pyrit",
+              "title": "PyRIT (Python Risk Identification Toolkit)",
+              "url": "https://github.com/Azure/PyRIT",
               "type": "tool",
               "description": "Open-source tool for red teaming and adversarial testing of LLMs.",
               "rationale": "Open-source tool for red teaming and adversarial testing of LLMs.",
@@ -980,15 +982,15 @@
               "prerequisites": ["AI Safety: Real-World Attacks & Defenses"]
             },
             {
-              "title": "NVIDIA Garak (GitHub)",
+              "title": "Garak",
               "url": "https://github.com/leondz/garak",
               "type": "tool",
-              "description": "Open-source tool for adversarial testing of LLMs.",
-              "rationale": "Open-source tool for adversarial testing of LLMs.",
-              "difficulty": "advanced",
-              "estimatedTime": 90,
-              "skills": ["Adversarial Testing", "LLM Security"],
-              "prerequisites": ["AI Safety: Real-World Attacks & Defenses"]
+              "description": "A tool for LLM vulnerability scanning.",
+              "rationale": "Practical tool for red teaming and security testing.",
+              "difficulty": "intermediate",
+              "estimatedTime": 0,
+              "skills": ["LLM", "Security", "Red Teaming"],
+              "prerequisites": []
             }
           ],
           "keyTopics": ["Red Teaming", "Adversarial ML", "LLM Security", "Credentialing"],
