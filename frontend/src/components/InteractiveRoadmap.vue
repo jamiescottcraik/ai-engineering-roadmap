@@ -682,17 +682,18 @@ onMounted(() => {
   text-align: center;
   margin-bottom: 60px;
   padding: 60px 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0B1016 0%, #1a1f2e 50%, #0B1016 100%);
   border-radius: 20px;
-  color: white;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  color: #FFFFFF;
+  box-shadow: 0 20px 40px rgba(17, 103, 177, 0.3);
+  border: 1px solid rgba(17, 103, 177, 0.2);
 }
 
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
   font-weight: 800;
-  background: linear-gradient(45deg, #ffffff, #e2e8f0);
+  background: linear-gradient(45deg, #FFFFFF, #1E90FF);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -732,7 +733,7 @@ onMounted(() => {
   transform: translateX(-50%);
   width: 2px;
   height: 25px;
-  background: linear-gradient(to bottom, #e5e7eb, #3b82f6);
+  background: linear-gradient(to bottom, #e5e7eb, #1E90FF);
 }
 
 .phase-title-bar {
@@ -740,10 +741,10 @@ onMounted(() => {
   align-items: center;
   gap: 16px;
   padding: 20px;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  border: 2px solid #3b82f6;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 2px solid #1167B1;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 2px 8px rgba(17, 103, 177, 0.15);
 }
 
 .phase-icon {
@@ -753,9 +754,10 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: linear-gradient(135deg, #1167B1 0%, #1E90FF 100%);
+  color: #FFFFFF;
   border-radius: 50%;
-  border: 2px solid #3b82f6;
+  border: 2px solid #1167B1;
 }
 
 .phase-info {
@@ -790,7 +792,7 @@ onMounted(() => {
 
 .phase-status.in_progress {
   background: #eff6ff;
-  border-color: #3b82f6;
+  border-color: #1167B1;
 }
 
 .roadmap-nodes-flow {
@@ -805,7 +807,7 @@ onMounted(() => {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #3b82f6, #e5e7eb);
+  background: linear-gradient(to bottom, #1E90FF, #e5e7eb);
 }
 
 .roadmap-node {
@@ -828,7 +830,7 @@ onMounted(() => {
   left: 9px;
   width: 4px;
   height: 10px;
-  background: #3b82f6;
+  background: #1E90FF;
 }
 
 .node-content {
@@ -849,7 +851,7 @@ onMounted(() => {
   width: 20px;
   height: 20px;
   background: white;
-  border: 3px solid #3b82f6;
+  border: 3px solid #1167B1;
   border-radius: 50%;
   box-shadow: 0 0 0 4px white;
 }
@@ -920,19 +922,19 @@ onMounted(() => {
   text-transform: uppercase;
 }
 
-.node-type-chip.type-learn { background: #dbeafe; color: #1e40af; }
+.node-type-chip.type-learn { background: #e8f2ff; color: #1167B1; }
 .node-type-chip.type-practice { background: #dcfce7; color: #16a34a; }
-.node-type-chip.type-portfolio { background: #fef3c7; color: #d97706; }
-.node-type-chip.type-keyresource { background: #f3e8ff; color: #7c3aed; }
+.node-type-chip.type-portfolio { background: #fff4e6; color: #FF4A00; }
+.node-type-chip.type-keyresource { background: #f0f4ff; color: #0B1016; }
 
 .resources-chip {
-  background: #0284c7;
-  color: white;
+  background: #FF4A00;
+  color: #FFFFFF;
 }
 
 .checkpoint-chip {
-  background: #dc2626;
-  color: white;
+  background: #1E90FF;
+  color: #FFFFFF;
 }
 
 .optional-chip {
@@ -953,7 +955,7 @@ onMounted(() => {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: conic-gradient(#3b82f6 calc(var(--progress) * 1%), #e5e7eb 0);
+  background: conic-gradient(#1E90FF calc(var(--progress) * 1%), #e5e7eb 0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1047,25 +1049,28 @@ onMounted(() => {
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #10b981, #059669);
-  color: white;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(45deg, #FF4A00, #ff6b35);
+  color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(255, 74, 0, 0.4);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+  box-shadow: 0 8px 25px rgba(255, 74, 0, 0.6);
+  background: linear-gradient(45deg, #ff6b35, #FF4A00);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(30, 144, 255, 0.2);
+  color: #1E90FF;
+  border: 2px solid rgba(30, 144, 255, 0.5);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #1E90FF;
+  color: #FFFFFF;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 144, 255, 0.4);
 }
 
 /* Progress Dashboard */
@@ -1535,8 +1540,8 @@ onMounted(() => {
 
 /* Enhanced Resources Display */
 .enhanced-resources {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 2px solid #0284c7;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8f2ff 100%);
+  border: 2px solid #1167B1;
   border-radius: 12px;
   padding: 20px;
   margin-top: 20px;
@@ -1550,16 +1555,16 @@ onMounted(() => {
 }
 
 .resources-header h3 {
-  color: #0369a1;
+  color: #0B1016;
   font-size: 1.2rem;
   margin: 0;
 }
 
 .resource-count {
   font-size: 0.9rem;
-  color: #0284c7;
+  color: #1167B1;
   font-weight: 500;
-  background: rgba(2, 132, 199, 0.1);
+  background: rgba(17, 103, 177, 0.1);
   padding: 4px 8px;
   border-radius: 6px;
 }
@@ -1577,18 +1582,18 @@ onMounted(() => {
   gap: 12px;
   padding: 16px;
   background: white;
-  border: 1px solid #e0f2fe;
+  border: 1px solid #e8f2ff;
   border-radius: 8px;
   text-decoration: none;
   color: inherit;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(17, 103, 177, 0.1);
 }
 
 .resource-card:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #0284c7;
+  box-shadow: 0 4px 12px rgba(30, 144, 255, 0.2);
+  border-color: #1E90FF;
 }
 
 .resource-icon {
@@ -1611,22 +1616,22 @@ onMounted(() => {
   display: inline-block;
 }
 
-.resource-type-badge.type-course { background: #dbeafe; color: #1e40af; }
-.resource-type-badge.type-book { background: #f3e8ff; color: #7c3aed; }
+.resource-type-badge.type-course { background: #e8f2ff; color: #1167B1; }
+.resource-type-badge.type-book { background: #f0f4ff; color: #0B1016; }
 .resource-type-badge.type-tutorial { background: #dcfce7; color: #16a34a; }
-.resource-type-badge.type-video { background: #fef3c7; color: #d97706; }
+.resource-type-badge.type-video { background: #fff4e6; color: #FF4A00; }
 .resource-type-badge.type-documentation { background: #e5e7eb; color: #374151; }
 .resource-type-badge.type-practice { background: #fce7f3; color: #be185d; }
 
 .resource-title {
   font-weight: 500;
-  color: #1f2937;
+  color: #0B1016;
   line-height: 1.4;
 }
 
 .resource-action {
   font-size: 1.2rem;
-  color: #0284c7;
+  color: #FF4A00;
   transition: transform 0.2s ease;
 }
 
@@ -1636,16 +1641,16 @@ onMounted(() => {
 
 .resources-note {
   font-size: 0.9rem;
-  color: #0369a1;
-  background: rgba(59, 130, 246, 0.1);
+  color: #0B1016;
+  background: rgba(30, 144, 255, 0.1);
   padding: 12px;
   border-radius: 6px;
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid #1E90FF;
 }
 
 .resource-indicator {
-  background: #0284c7;
-  color: white;
+  background: #FF4A00;
+  color: #FFFFFF;
   font-size: 0.75rem;
   padding: 2px 6px;
   border-radius: 4px;
