@@ -7,7 +7,9 @@
     "lastUpdated": "2025-06-22",
     "totalHours": 920,
     "totalDeliverables": 18,
-    "checkpoints": 12
+    "checkpoints": 10,
+    "totalResources": 150,
+    "optionalResources": 75
   },
   "phases": [
     {
@@ -33,37 +35,61 @@
           "description": "Deep dive into advanced Python patterns, data structures, algorithms, and mathematical foundations for AI",
           "resources": [
             {
-              "title": "Python Data Structures & Algorithms Masterclass",
-              "url": "https://realpython.com/python-data-structures/",
+              "title": "Python 3 Programming (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/python-3-programming",
               "type": "course",
-              "description": "Comprehensive course on advanced Python data structures and algorithms, with hands-on coding exercises.",
-              "rationale": "Mastery of data structures and algorithms is foundational for AI engineering and technical interviews.",
+              "description": "Comprehensive Python specialization covering fundamentals to advanced concepts, data structures, and algorithms.",
+              "rationale": "Structured approach to Python mastery from fundamentals to advanced programming concepts.",
+              "difficulty": "beginner-intermediate",
+              "estimatedTime": 300,
+              "skills": ["Python", "Data Structures", "Algorithms", "Programming Fundamentals"],
+              "prerequisites": []
+            },
+            {
+              "title": "Building with Code: Programming (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/building-with-code-programming",
+              "type": "course",
+              "description": "Hands-on programming specialization focusing on building real applications with code.",
+              "rationale": "Practical programming skills for building production-ready applications.",
               "difficulty": "intermediate",
-              "estimatedTime": 480,
-              "skills": ["Python", "Algorithms", "Data Structures", "Problem Solving"],
+              "estimatedTime": 240,
+              "skills": ["Programming", "Application Development", "Code Architecture"],
               "prerequisites": ["Basic Python"]
             },
             {
-              "title": "Mathematical Foundations for Machine Learning",
-              "url": "https://mml-book.github.io/",
-              "type": "book",
-              "description": "In-depth textbook covering linear algebra, calculus, probability, and statistics for machine learning.",
+              "title": "Mathematics for Machine Learning (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/mathematics-machine-learning",
+              "type": "course",
+              "description": "Comprehensive mathematical foundations for machine learning including linear algebra, multivariate calculus, and PCA.",
               "rationale": "Mathematical fluency is essential for understanding and building AI models.",
-              "difficulty": "advanced",
-              "estimatedTime": 600,
-              "skills": ["Linear Algebra", "Calculus", "Probability", "Statistics"],
-              "prerequisites": ["High School Math", "Basic Python"]
-            },
-            {
-              "title": "Advanced Python Patterns",
-              "url": "https://python-patterns.guide/",
-              "type": "tutorial",
-              "description": "Guide to advanced Python programming patterns and idioms for clean, efficient code.",
-              "rationale": "Advanced Python skills enable more robust and maintainable AI codebases.",
               "difficulty": "intermediate",
               "estimatedTime": 180,
-              "skills": ["Python", "Design Patterns", "Code Quality"],
-              "prerequisites": ["Basic Python"]
+              "skills": ["Linear Algebra", "Calculus", "PCA", "Mathematical Foundations"],
+              "prerequisites": ["High School Math"]
+            },
+            {
+              "title": "Codecademy Python Track",
+              "url": "https://www.codecademy.com/learn/learn-python-3",
+              "type": "course",
+              "description": "Interactive Python course with hands-on coding exercises and projects.",
+              "rationale": "Interactive learning platform for practical Python skill development.",
+              "difficulty": "beginner",
+              "estimatedTime": 120,
+              "skills": ["Python", "Interactive Coding", "Project-Based Learning"],
+              "prerequisites": [],
+              "category": "optional"
+            },
+            {
+              "title": "Khan Academy Math & Stats",
+              "url": "https://www.khanacademy.org/math/statistics-probability",
+              "type": "tutorial",
+              "description": "Free comprehensive mathematics and statistics courses.",
+              "rationale": "Solid mathematical foundation for data science and AI applications.",
+              "difficulty": "beginner-intermediate",
+              "estimatedTime": 150,
+              "skills": ["Mathematics", "Statistics", "Probability"],
+              "prerequisites": [],
+              "category": "optional"
             }
           ],
           "completionCriteria": [
@@ -120,14 +146,36 @@
           "description": "Master complex SQL queries, optimization, window functions, and database design patterns",
           "resources": [
             {
-              "title": "Advanced SQL Techniques Course",
+              "title": "Google Data Analytics (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/google-data-analytics",
+              "type": "course",
+              "description": "Comprehensive data analytics specialization covering SQL, data visualization, and analytical thinking.",
+              "rationale": "Industry-standard approach to data analytics with strong SQL foundation.",
+              "difficulty": "beginner-intermediate",
+              "estimatedTime": 240,
+              "skills": ["SQL", "Data Analytics", "Data Visualization", "Tableau"],
+              "prerequisites": ["Basic Math"]
+            },
+            {
+              "title": "Mode Advanced SQL Tutorial",
               "url": "https://mode.com/sql-tutorial/",
               "type": "course",
-              "description": "Comprehensive course on advanced SQL techniques, including window functions, CTEs, and query optimization.",
-              "rationale": "Essential for mastering advanced SQL patterns and performance optimization.",
+              "description": "Comprehensive tutorial covering advanced SQL concepts, window functions, and optimization techniques.",
+              "rationale": "Essential for mastering SQL for AI data processing pipelines.",
               "difficulty": "intermediate",
               "estimatedTime": 240,
-              "skills": ["SQL", "Query Optimization", "Window Functions"],
+              "skills": ["SQL", "Window Functions", "Query Optimization"],
+              "prerequisites": ["Basic SQL"]
+            },
+            {
+              "title": "StrataScratch SQL Practice",
+              "url": "https://www.stratascratch.com/",
+              "type": "practice",
+              "description": "Real-world SQL interview questions and practice problems from top tech companies.",
+              "rationale": "Hands-on practice with SQL problems similar to those used in AI/data science interviews.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["SQL", "Problem Solving", "Interview Prep"],
               "prerequisites": ["Basic SQL"]
             },
             {
@@ -137,9 +185,10 @@
               "description": "Comprehensive guide to MySQL optimization, covering query performance, server tuning, and scaling strategies.",
               "rationale": "Essential for understanding database performance at scale, critical for AI applications handling large datasets.",
               "difficulty": "advanced",
-              "estimatedTime": 360,
-              "skills": ["MySQL", "Database Tuning", "Scalability"],
-              "prerequisites": ["Intermediate SQL"]
+              "estimatedTime": 300,
+              "skills": ["MySQL", "Performance Tuning", "Database Scaling"],
+              "prerequisites": ["Intermediate SQL"],
+              "category": "optional"
             },
             {
               "title": "Use The Index, Luke! - SQL Query Optimization Guide",
@@ -149,15 +198,12 @@
               "rationale": "Practical guide to writing efficient SQL queries, crucial for AI data processing pipelines.",
               "difficulty": "intermediate",
               "estimatedTime": 120,
-              "skills": ["SQL", "Indexing", "Performance Tuning"],
-              "prerequisites": ["Basic SQL"]
+              "skills": ["SQL Optimization", "Indexing", "Performance"],
+              "prerequisites": ["Basic SQL"],
+              "category": "optional"
             }
           ],
-          "keyTopics": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"],
-          "completionCriteria": [
-            "Complete all advanced SQL labs and exercises",
-            "Demonstrate query optimization and use of window functions"
-          ]
+          "keyTopics": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"]
         },
         {
           "id": "p1_sql_practice",
@@ -201,19 +247,95 @@
           "description": "Master modern development workflows, testing strategies, and CI/CD pipelines",
           "resources": [
             {
-              "title": "DevOps Engineering Complete Course 2024",
+              "title": "Google IT Automation (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/google-it-automation",
+              "type": "course",
+              "description": "Comprehensive automation course covering Python automation, Git, debugging, and configuration management.",
+              "rationale": "Automation skills are fundamental for AI engineering workflows and infrastructure management.",
+              "difficulty": "intermediate",
+              "estimatedTime": 240,
+              "skills": ["Python Automation", "Git", "Configuration Management"],
+              "prerequisites": ["Basic Python"]
+            },
+            {
+              "title": "Introduction to Docker (Coursera Course)",
+              "url": "https://www.coursera.org/learn/introduction-to-docker/home/welcome",
+              "type": "course",
+              "description": "Hands-on introduction to Docker containerization for application deployment.",
+              "rationale": "Containerization is essential for deploying AI applications consistently across environments.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Docker", "Containerization", "Deployment"],
+              "prerequisites": ["Basic Command Line"]
+            },
+            {
+              "title": "Packt Docker and Kubernetes Masterclass (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/packt-docker-and-kubernetes-masterclass-from-beginner-to-advanced",
+              "type": "course",
+              "description": "Advanced Docker and Kubernetes specialization for containerization and orchestration.",
+              "rationale": "Kubernetes orchestration is essential for scaling AI applications in production.",
+              "difficulty": "advanced",
+              "estimatedTime": 300,
+              "skills": ["Docker", "Kubernetes", "Container Orchestration", "DevOps"],
+              "prerequisites": ["Basic Docker", "Command Line"]
+            },
+            {
+              "title": "DevOps Engineering Complete Course (Udemy)",
               "url": "https://www.udemy.com/course/complete-devops-engineer-course/",
               "type": "course",
               "description": "Comprehensive DevOps course covering CI/CD, containerization, infrastructure as code, and monitoring.",
-              "rationale": "Modern AI systems require robust DevOps practices for reliable deployment and scaling."
+              "rationale": "Modern AI systems require robust DevOps practices for reliable deployment and scaling.",
+              "difficulty": "intermediate",
+              "estimatedTime": 360,
+              "skills": ["DevOps", "CI/CD", "Containerization", "Infrastructure as Code"],
+              "prerequisites": ["Basic Python", "Command Line"]
             },
-            {"title": "GitHub Actions Documentation", "url": "https://docs.github.com/en/actions", "type": "tutorial"},
+            {
+              "title": "GitHub Actions Documentation",
+              "url": "https://docs.github.com/en/actions",
+              "type": "tutorial",
+              "description": "Official documentation for GitHub Actions CI/CD workflows.",
+              "rationale": "GitHub Actions is widely used for automating AI model deployment and testing workflows.",
+              "difficulty": "intermediate",
+              "estimatedTime": 90,
+              "skills": ["CI/CD", "GitHub Actions", "Automation"],
+              "prerequisites": ["Git", "Basic YAML"]
+            },
+            {
+              "title": "Professional Cloud DevOps Engineer (Google Cloud Skills Boost)",
+              "url": "https://www.cloudskillsboost.google/paths/1951",
+              "type": "course",
+              "description": "Professional certification path for cloud DevOps engineering on Google Cloud Platform.",
+              "rationale": "Industry-standard cloud DevOps practices for AI infrastructure management.",
+              "difficulty": "advanced",
+              "estimatedTime": 240,
+              "skills": ["Cloud DevOps", "GCP", "Infrastructure Management"],
+              "prerequisites": ["DevOps Basics", "Cloud Fundamentals"],
+              "category": "optional"
+            },
             {
               "title": "Testing in Production: The Safe Way",
               "url": "https://copyconstruct.medium.com/testing-in-production-the-safe-way-18ca102d0ef1",
               "type": "book",
               "description": "Strategies for safely testing systems in production environments, including feature flags and canary deployments.",
-              "rationale": "AI systems often require production testing due to data dependencies and real-world complexity."
+              "rationale": "AI systems often require production testing due to data dependencies and real-world complexity.",
+              "difficulty": "advanced",
+              "estimatedTime": 60,
+              "skills": ["Production Testing", "Feature Flags", "Canary Deployment"],
+              "prerequisites": ["DevOps Basics"],
+              "category": "optional"
+            },
+            {
+              "title": "Packt Selenium WebDriver 4 with Python (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/packt-selenium-webdriver-4-with-python-zero-to-hero",
+              "type": "course",
+              "description": "Comprehensive web automation testing with Selenium WebDriver 4 and Python.",
+              "rationale": "Web automation testing is essential for AI web applications and user interface testing.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Selenium", "Web Automation", "Testing", "Python"],
+              "prerequisites": ["Python", "Basic Web Development"],
+              "category": "optional"
             }
           ],
           "keyTopics": ["CI/CD Pipelines", "Automated Testing", "Code Quality", "Deployment Strategies"]
@@ -274,20 +396,109 @@
           "estimatedHours": 45,
           "description": "Deep dive into Retrieval-Augmented Generation, vector databases, and evaluation frameworks",
           "resources": [
-            {"title": "Advanced RAG Techniques Course", "url": "https://www.deeplearning.ai/short-courses/", "type": "course"},
+            {
+              "title": "Elements of AI",
+              "url": "https://www.elementsofai.com/",
+              "type": "course",
+              "description": "Free comprehensive introduction to AI concepts, applications, and societal implications.",
+              "rationale": "Solid foundational understanding of AI concepts before diving into technical implementation.",
+              "difficulty": "beginner",
+              "estimatedTime": 60,
+              "skills": ["AI Fundamentals", "AI Ethics", "AI Applications"],
+              "prerequisites": []
+            },
+            {
+              "title": "DeepLearning.AI Short Courses",
+              "url": "https://www.deeplearning.ai/short-courses/",
+              "type": "course",
+              "description": "Collection of focused short courses on cutting-edge AI topics including RAG, agents, and prompt engineering.",
+              "rationale": "RAG is fundamental for building intelligent AI applications that can access and use external knowledge.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["RAG", "Vector Databases", "Retrieval Systems", "Prompt Engineering"],
+              "prerequisites": ["Python", "Basic ML"]
+            },
+            {
+              "title": "IBM Generative AI Engineering (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/ibm-generative-ai-engineering",
+              "type": "course",
+              "description": "Comprehensive specialization covering generative AI engineering, deployment, and production practices.",
+              "rationale": "Industry-standard approach to building and deploying generative AI systems at scale.",
+              "difficulty": "intermediate",
+              "estimatedTime": 240,
+              "skills": ["Generative AI", "AI Engineering", "Production Deployment"],
+              "prerequisites": ["Python", "Basic ML"]
+            },
+            {
+              "title": "IBM AI Foundations (Coursera Professional Certificate)",
+              "url": "https://www.coursera.org/professional-certificates/ibm-applied-ai",
+              "type": "course",
+              "description": "Professional certificate covering AI fundamentals, machine learning, and practical applications.",
+              "rationale": "Structured approach to AI foundations with industry credentialing.",
+              "difficulty": "beginner-intermediate",
+              "estimatedTime": 180,
+              "skills": ["AI Fundamentals", "Machine Learning", "Applied AI"],
+              "prerequisites": ["Basic Python"]
+            },
+            {
+              "title": "Fast.ai Practical Deep Learning",
+              "url": "https://course.fast.ai/",
+              "type": "course",
+              "description": "Top-down approach to deep learning with practical applications and state-of-the-art techniques.",
+              "rationale": "Practical, hands-on approach to deep learning that gets you building quickly.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Deep Learning", "Computer Vision", "NLP", "Practical AI"],
+              "prerequisites": ["Python", "Basic Math"],
+              "category": "optional"
+            },
+            {
+              "title": "Hugging Face Course",
+              "url": "https://huggingface.co/learn",
+              "type": "course",
+              "description": "Comprehensive course on transformers, natural language processing, and the Hugging Face ecosystem.",
+              "rationale": "Essential for understanding modern NLP and transformer architectures.",
+              "difficulty": "intermediate",
+              "estimatedTime": 150,
+              "skills": ["Transformers", "NLP", "Hugging Face", "Model Deployment"],
+              "prerequisites": ["Python", "Basic ML"],
+              "category": "optional"
+            },
+            {
+              "title": "CS50's Intro to AI (Harvard)",
+              "url": "https://cs50.harvard.edu/ai/",
+              "type": "course",
+              "description": "Harvard's introduction to artificial intelligence covering search, knowledge, uncertainty, optimization, learning, and language.",
+              "rationale": "Rigorous academic foundation in AI concepts and algorithms.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["AI Algorithms", "Search", "Machine Learning", "Neural Networks"],
+              "prerequisites": ["Python", "Basic Math"],
+              "category": "optional"
+            },
             {
               "title": "Vector Databases: The Complete Guide",
               "url": "https://www.pinecone.io/learn/vector-database/",
               "type": "book",
               "description": "Comprehensive guide to vector databases, embeddings, and similarity search for RAG applications.",
-              "rationale": "Vector databases are fundamental infrastructure for modern RAG systems and AI search applications."
+              "rationale": "Vector databases are fundamental infrastructure for modern RAG systems and AI search applications.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Vector Databases", "Embeddings", "Similarity Search"],
+              "prerequisites": ["Python", "Basic ML"],
+              "category": "optional"
             },
             {
               "title": "RAG Evaluation Framework & Best Practices",
               "url": "https://arize.com/blog-course/rag-evaluation-frameworks/",
               "type": "tutorial",
               "description": "Practical guide to evaluating RAG systems with metrics, benchmarks, and testing strategies.",
-              "rationale": "Proper evaluation is crucial for building reliable RAG systems that users can trust."
+              "rationale": "Proper evaluation is crucial for building reliable RAG systems that users can trust.",
+              "difficulty": "intermediate",
+              "estimatedTime": 90,
+              "skills": ["RAG Evaluation", "AI Testing", "Quality Metrics"],
+              "prerequisites": ["RAG Basics"],
+              "category": "optional"
             }
           ],
           "keyTopics": ["Vector Embeddings", "Semantic Search", "RAG Architectures", "Evaluation Metrics", "Chunking Strategies"]
@@ -334,19 +545,74 @@
           "description": "Design and implement collaborative AI agent systems with complex workflows",
           "resources": [
             {
+              "title": "AI Agents in Python (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/ai-agents-python",
+              "type": "course",
+              "description": "Comprehensive specialization covering AI agent development, architecture, and implementation in Python.",
+              "rationale": "Structured approach to building AI agents with practical Python implementation.",
+              "difficulty": "intermediate",
+              "estimatedTime": 240,
+              "skills": ["AI Agents", "Python", "Agent Architecture"],
+              "prerequisites": ["Python", "Basic AI"]
+            },
+            {
               "title": "Multi-Agent Systems with CrewAI",
               "url": "https://docs.crewai.com/",
               "type": "course",
               "description": "Learn to build collaborative AI agent systems using the CrewAI framework for complex task orchestration.",
-              "rationale": "Multi-agent systems enable more sophisticated AI workflows and are becoming essential for complex automation."
+              "rationale": "Multi-agent systems enable more sophisticated AI workflows and are becoming essential for complex automation.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["Multi-Agent Systems", "CrewAI", "Task Orchestration"],
+              "prerequisites": ["Python", "Basic AI"]
             },
-            {"title": "CrewAI Framework Documentation", "url": "https://docs.crewai.com/", "type": "tutorial"},
+            {
+              "title": "Generative AI for Data Scientists (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/generative-ai-for-data-scientists",
+              "type": "course",
+              "description": "Specialized application of generative AI techniques for data science workflows and analysis.",
+              "rationale": "Combines data science expertise with generative AI for enhanced analytical capabilities.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["Generative AI", "Data Science", "AI-Enhanced Analytics"],
+              "prerequisites": ["Python", "Basic Data Science", "Basic AI"],
+              "category": "optional"
+            },
+            {
+              "title": "Generative AI Data Analyst (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/generative-ai-data-analyst",
+              "type": "course",
+              "description": "Apply generative AI tools and techniques to enhance data analysis and reporting workflows.",
+              "rationale": "Practical application of AI to accelerate and enhance data analysis processes.",
+              "difficulty": "intermediate",
+              "estimatedTime": 150,
+              "skills": ["Generative AI", "Data Analysis", "AI-Assisted Analytics"],
+              "prerequisites": ["Basic Data Analysis", "Basic AI"],
+              "category": "optional"
+            },
+            {
+              "title": "CrewAI Framework Documentation", 
+              "url": "https://docs.crewai.com/", 
+              "type": "tutorial",
+              "description": "Official documentation for the CrewAI framework for building multi-agent systems.",
+              "rationale": "Essential reference for implementing multi-agent systems with CrewAI.",
+              "difficulty": "intermediate",
+              "estimatedTime": 60,
+              "skills": ["CrewAI", "Documentation", "Multi-Agent Systems"],
+              "prerequisites": ["Basic AI Agents"],
+              "category": "optional"
+            },
             {
               "title": "Agent Communication Patterns in Practice",
               "url": "https://blog.langchain.dev/multi-agent-collaboration-patterns/",
               "type": "book",
               "description": "Practical patterns for designing communication between AI agents in collaborative systems.",
-              "rationale": "Understanding agent communication is key to building scalable multi-agent systems."
+              "rationale": "Understanding agent communication is key to building scalable multi-agent systems.",
+              "difficulty": "advanced",
+              "estimatedTime": 90,
+              "skills": ["Agent Communication", "System Design", "Collaboration Patterns"],
+              "prerequisites": ["Basic AI Agents"],
+              "category": "optional"
             }
           ],
           "keyTopics": ["Agent Architectures", "Task Orchestration", "Inter-Agent Communication", "Workflow Design"]
@@ -360,6 +626,41 @@
           "isUnlocked": false,
           "estimatedHours": 35,
           "description": "Implement sophisticated multi-agent systems using CrewAI or similar frameworks",
+          "resources": [
+            {
+              "title": "DrivenData",
+              "url": "https://www.drivendata.org/",
+              "type": "platform",
+              "description": "Data science competitions focused on social impact and real-world problems.",
+              "rationale": "Apply AI skills to meaningful social impact projects while building portfolio.",
+              "difficulty": "intermediate",
+              "estimatedTime": 100,
+              "skills": ["Social Impact AI", "Competition", "Real-world Problems"],
+              "prerequisites": ["Python", "Basic ML"]
+            },
+            {
+              "title": "Zindi",
+              "url": "https://zindi.africa/competitions",
+              "type": "platform",
+              "description": "Africa's largest data science competition platform.",
+              "rationale": "Diverse, global perspective on AI challenges with focus on African problems.",
+              "difficulty": "intermediate",
+              "estimatedTime": 80,
+              "skills": ["Global AI Challenges", "Competition", "Cultural Diversity"],
+              "prerequisites": ["Python", "Basic ML"]
+            },
+            {
+              "title": "CodaLab",
+              "url": "https://competitions.codalab.org/",
+              "type": "platform",
+              "description": "Academic competition platform for machine learning and AI research challenges.",
+              "rationale": "Academic-focused competitions that push the boundaries of AI research.",
+              "difficulty": "advanced",
+              "estimatedTime": 60,
+              "skills": ["Research Competitions", "Academic AI", "Cutting-edge Research"],
+              "prerequisites": ["Intermediate ML", "Research Skills"]
+            }
+          ],
           "deliverables": ["Multi-agent system architecture", "Agent coordination logic", "Task delegation system", "Performance monitoring"],
           "keyTopics": ["CrewAI Framework", "Agent Coordination", "Task Management", "System Integration"]
         },
@@ -397,21 +698,91 @@
               "url": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops",
               "type": "course",
               "description": "End-to-end MLOps course covering model deployment, monitoring, and production management.",
-              "rationale": "Production MLOps skills are essential for deploying and maintaining AI systems at scale."
+              "rationale": "Production MLOps skills are essential for deploying and maintaining AI systems at scale.",
+              "difficulty": "intermediate",
+              "estimatedTime": 240,
+              "skills": ["MLOps", "Model Deployment", "Production Management"],
+              "prerequisites": ["Python", "Basic ML"]
             },
             {
-              "title": "Efficient AI Model Deployment Guide",
-              "url": "https://neptune.ai/blog/model-deployment-strategies",
-              "type": "book",
-              "description": "Comprehensive guide to AI model deployment strategies, from cloud to edge computing.",
-              "rationale": "Deployment strategy significantly impacts AI system performance, cost, and user experience."
+              "title": "Microsoft AI and ML Engineering (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/microsoft-ai-and-ml-engineering",
+              "type": "course",
+              "description": "Comprehensive specialization covering AI and ML engineering on Microsoft platforms.",
+              "rationale": "Industry-standard approach to AI/ML engineering with Microsoft technologies.",
+              "difficulty": "intermediate",
+              "estimatedTime": 200,
+              "skills": ["AI Engineering", "ML Engineering", "Microsoft AI", "Azure"],
+              "prerequisites": ["Python", "Basic ML"]
+            },
+            {
+              "title": "Building AI Cloud Apps with Microsoft Azure (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/building-ai-cloud-apps-microsoft-azure",
+              "type": "course",
+              "description": "Build and deploy AI applications on Microsoft Azure cloud platform.",
+              "rationale": "Azure is a major cloud platform for AI applications, providing comprehensive AI services.",
+              "difficulty": "intermediate",
+              "estimatedTime": 200,
+              "skills": ["Azure AI", "Cloud Applications", "AI Deployment"],
+              "prerequisites": ["Python", "Basic Cloud"]
+            },
+            {
+              "title": "Google Cloud: Generative AI with Vertex AI (Coursera)",
+              "url": "https://www.coursera.org/learn/googlecloud-generative-ai-with-vertex-ai-prompt-design-hajry/home/welcome",
+              "type": "course",
+              "description": "Learn to build generative AI applications using Google Cloud's Vertex AI platform.",
+              "rationale": "Vertex AI is Google's unified ML platform for deploying and managing AI models at scale.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Vertex AI", "Generative AI", "Google Cloud", "Prompt Engineering"],
+              "prerequisites": ["Python", "Basic ML"]
+            },
+            {
+              "title": "Generative AI with Vertex AI (Google Cloud Skills Boost)",
+              "url": "https://www.cloudskillsboost.google/paths/118",
+              "type": "course",
+              "description": "Hands-on learning path for generative AI with Google Cloud Vertex AI.",
+              "rationale": "Practical skills for deploying generative AI solutions on Google Cloud.",
+              "difficulty": "intermediate",
+              "estimatedTime": 150,
+              "skills": ["Vertex AI", "Generative AI", "Google Cloud"],
+              "prerequisites": ["Python", "Basic ML"]
+            },
+            {
+              "title": "Google Cloud Networking (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/google-cloud-networking",
+              "type": "course",
+              "description": "Comprehensive networking specialization for Google Cloud Platform infrastructure.",
+              "rationale": "Understanding cloud networking is crucial for deploying scalable AI systems.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["Cloud Networking", "GCP", "Infrastructure"],
+              "prerequisites": ["Basic Cloud Concepts"],
+              "category": "optional"
+            },
+            {
+              "title": "Amazon SageMaker Studio Lab",
+              "url": "https://studiolab.sagemaker.aws/",
+              "type": "platform",
+              "description": "Free ML development environment from AWS for experimentation and learning.",
+              "rationale": "Hands-on experience with AWS ML tools and services.",
+              "difficulty": "intermediate",
+              "estimatedTime": 60,
+              "skills": ["AWS SageMaker", "ML Development", "Cloud ML"],
+              "prerequisites": ["Python", "Basic ML"],
+              "category": "optional"
             },
             {
               "title": "ML Model Monitoring Best Practices",
               "url": "https://www.evidentlyai.com/blog/ml-monitoring-best-practices",
               "type": "tutorial",
               "description": "Best practices for monitoring machine learning models in production, including drift detection.",
-              "rationale": "Model monitoring is critical for maintaining AI system reliability and performance over time."
+              "rationale": "Model monitoring is critical for maintaining AI system reliability and performance over time.",
+              "difficulty": "intermediate",
+              "estimatedTime": 60,
+              "skills": ["Model Monitoring", "Production ML", "Drift Detection"],
+              "prerequisites": ["MLOps Basics"],
+              "category": "optional"
             }
           ],
           "keyTopics": ["Model Lifecycle", "Deployment Strategies", "Performance Monitoring", "Model Optimization"]
@@ -904,6 +1275,157 @@
           "checkpoint": "Checkpoint - Quantum ML Specialist"
         }
       ]
+    },
+    {
+      "id": "phase6",
+      "title": "AI Product Strategy & Leadership",
+      "subtitle": "UX Design, Product Strategy, and Thought Leadership",
+      "icon": "6️⃣",
+      "status": "not_started",
+      "progress": 0,
+      "estimatedWeeks": 12,
+      "description": "Master AI product design, UX principles, prompt engineering, and establish thought leadership in the AI industry.",
+      "color": "#9c27b0",
+      "checkpoint": "Checkpoint - AI Product Leader",
+      "nodes": [
+        {
+          "id": "p6_ux_product",
+          "title": "UX Design & AI Product Strategy",
+          "type": "learn",
+          "estimatedHours": 35,
+          "description": "Master user experience design principles and AI product strategy for building user-centered AI applications.",
+          "resources": [
+            {
+              "title": "Google UX Design (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/google-ux-design",
+              "type": "course",
+              "description": "Comprehensive UX design specialization covering user research, wireframing, prototyping, and testing.",
+              "rationale": "UX design skills are essential for creating AI products that users actually want and can use effectively.",
+              "difficulty": "intermediate",
+              "estimatedTime": 240,
+              "skills": ["UX Design", "User Research", "Prototyping", "Design Thinking"],
+              "prerequisites": ["Basic Design Principles"]
+            },
+            {
+              "title": "Microsoft Copilot: Your Everyday AI Companion (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/microsoft-copilot-your-everyday-ai-companion",
+              "type": "course",
+              "description": "Learn to effectively use and integrate AI assistants into daily workflows and productivity.",
+              "rationale": "Understanding AI assistant design patterns and user interaction is crucial for building AI products.",
+              "difficulty": "beginner",
+              "estimatedTime": 120,
+              "skills": ["AI Assistants", "Productivity AI", "User Interaction Design"],
+              "prerequisites": ["Basic AI Knowledge"]
+            }
+          ],
+          "keyTopics": ["UX Design", "AI Product Strategy", "User Research", "Design Thinking"],
+          "completionCriteria": [
+            "Complete UX design specialization",
+            "Create AI product design portfolio",
+            "Demonstrate user-centered design process"
+          ]
+        },
+        {
+          "id": "p6_prompt_engineering",
+          "title": "Advanced Prompt Engineering & AI Productivity",
+          "type": "practice",
+          "estimatedHours": 25,
+          "description": "Master prompt engineering techniques and AI productivity tools for professional workflows.",
+          "resources": [
+            {
+              "title": "ChatGPT Free AI Tools to Excel (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/chatgpt-free-ai-tools-to-excel",
+              "type": "course",
+              "description": "Learn to leverage ChatGPT and other AI tools for productivity and professional excellence.",
+              "rationale": "Prompt engineering is a fundamental skill for AI practitioners and product builders.",
+              "difficulty": "intermediate",
+              "estimatedTime": 120,
+              "skills": ["Prompt Engineering", "AI Productivity", "ChatGPT", "Workflow Optimization"],
+              "prerequisites": ["Basic AI Knowledge"]
+            },
+            {
+              "title": "Prompt Engineering for Educators (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/prompt-engineering-for-educators",
+              "type": "course",
+              "description": "Specialized prompt engineering techniques for educational and training contexts.",
+              "rationale": "Educational use cases provide excellent training for clear, effective prompt design.",
+              "difficulty": "intermediate",
+              "estimatedTime": 90,
+              "skills": ["Educational Prompt Design", "Training Content", "AI in Education"],
+              "prerequisites": ["Basic Prompt Engineering"]
+            },
+            {
+              "title": "Microsoft Learn: Build AI Solutions with Azure OpenAI",
+              "url": "https://learn.microsoft.com/en-us/training/paths/build-ai-solutions-with-azure-openai/",
+              "type": "tutorial",
+              "description": "Official Microsoft training for building AI solutions with Azure OpenAI Service.",
+              "rationale": "Azure OpenAI provides enterprise-grade access to advanced language models.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["Azure OpenAI", "Enterprise AI", "Microsoft AI"],
+              "prerequisites": ["Basic AI Knowledge", "Azure Basics"]
+            },
+            {
+              "title": "Getting Started with Google Workspace (Coursera Specialization)",
+              "url": "https://www.coursera.org/specializations/getting-started-with-google-workspace",
+              "type": "course",
+              "description": "Master Google Workspace tools for collaboration and productivity in professional settings.",
+              "rationale": "Understanding productivity platforms is essential for AI integration and workplace efficiency.",
+              "difficulty": "beginner",
+              "estimatedTime": 60,
+              "skills": ["Google Workspace", "Collaboration Tools", "Productivity"],
+              "prerequisites": ["Basic Computer Skills"],
+              "category": "optional"
+            },
+            {
+              "title": "Associate Python Developer (DataCamp Career Track)",
+              "url": "https://www.datacamp.com/tracks/associate-python-developer",
+              "type": "course",
+              "description": "Professional Python development career track with industry-relevant projects and certification.",
+              "rationale": "Structured career pathway for Python development skills with practical applications.",
+              "difficulty": "intermediate",
+              "estimatedTime": 180,
+              "skills": ["Python Development", "Professional Certification", "Industry Projects"],
+              "prerequisites": ["Basic Python"],
+              "category": "optional"
+            },
+            {
+              "title": "Associate AI Engineer for Developers (DataCamp Career Track)",
+              "url": "https://app.datacamp.com/learn/career-tracks/associate-ai-engineer-for-developers",
+              "type": "course",
+              "description": "Comprehensive AI engineering career track with hands-on projects and industry certification.",
+              "rationale": "Structured pathway to AI engineering competency with practical, portfolio-ready projects.",
+              "difficulty": "intermediate",
+              "estimatedTime": 240,
+              "skills": ["AI Engineering", "Professional Certification", "Portfolio Development"],
+              "prerequisites": ["Python", "Basic ML"],
+              "category": "optional"
+            }
+          ],
+          "keyTopics": ["Prompt Engineering", "AI Productivity", "Workflow Optimization", "Professional Tools"],
+          "completionCriteria": [
+            "Master advanced prompt engineering techniques",
+            "Integrate AI tools into professional workflows",
+            "Document productivity improvements and best practices"
+          ]
+        },
+        {
+          "id": "p6_portfolio_launch",
+          "title": "🏆 DELIVERABLE: AI Product Launch & Public Portfolio",
+          "type": "portfolio",
+          "estimatedHours": 60,
+          "description": "Launch a comprehensive AI product with user base and establish thought leadership through public portfolio.",
+          "deliverables": ["Live AI product with 500+ users", "Public speaking engagement", "Technical blog series", "Industry recognition"],
+          "completionCriteria": [
+            "Successfully launch AI product with measurable user adoption",
+            "Deliver public presentation or webinar with 1000+ attendees",
+            "Publish technical content with industry recognition",
+            "Establish thought leadership in AI product development"
+          ],
+          "keyTopics": ["Product Launch", "Thought Leadership", "Public Speaking", "Industry Recognition"],
+          "checkpoint": "Checkpoint - AI Product Leader"
+        }
+      ]
     }
   ],
   "milestones": [
@@ -992,46 +1514,32 @@
       "criteria": ["3+ AI services live", "MLOps automated", "Monitoring comprehensive"]
     },
     {
-      "id": "checkpoint_architecture",
-      "title": "Architecture Design Mastery",
-      "description": "System design and technical documentation expertise", 
-      "nodeId": "p3_deliverable_arch",
-      "criteria": ["Architecture peer-reviewed", "Documentation comprehensive", "Implementation planned"]
-    },
-    {
       "id": "checkpoint_safety",
-      "title": "AI Safety & Architecture Complete",
-      "description": "Ethical AI implementation with safety frameworks",
-      "nodeId": "p3_deliverable_final", 
-      "criteria": ["Safety service deployed", "Framework reusable", "Open source components"]
+      "title": "AI Safety Specialist",
+      "description": "Red teaming and adversarial ML expertise",
+      "nodeId": "p3_safety_specialist", 
+      "criteria": ["Red teaming credential earned", "Adversarial testing tools mastered", "Safety frameworks implemented"]
     },
     {
-      "id": "checkpoint_product",
-      "title": "Product Strategy Mastery",
-      "description": "Comprehensive product strategy and planning",
-      "nodeId": "p4_deliverable_product",
-      "criteria": ["Product brief validated", "KPIs defined", "Roadmap created"]
+      "id": "checkpoint_causal",
+      "title": "Causal Inference Specialist",
+      "description": "Advanced causal analysis and real-world applications",
+      "nodeId": "p4_causal_advanced",
+      "criteria": ["Causal analysis project completed", "Business impact documented", "Research skills demonstrated"]
     },
     {
-      "id": "checkpoint_leadership",
-      "title": "AI Leadership Complete", 
-      "description": "Mentorship program and leadership capabilities",
-      "nodeId": "p4_deliverable_final",
-      "criteria": ["Mentorship program live", "Framework documented", "Community impact measured"]
+      "id": "checkpoint_quantum",
+      "title": "Quantum ML Specialist",
+      "description": "Quantum computing and machine learning integration",
+      "nodeId": "p5_quantum_advanced",
+      "criteria": ["Quantum ML model built", "Integration documented", "Advanced algorithms explored"]
     },
     {
-      "id": "checkpoint_launch",
-      "title": "Successful Product Launch",
-      "description": "Live application with real user base",
-      "nodeId": "p5_deliverable_launch", 
-      "criteria": ["500+ active users", "Product metrics positive", "Industry recognition"]
-    },
-    {
-      "id": "checkpoint_influence",
-      "title": "AI Industry Influence Established",
-      "description": "Thought leadership and public recognition",
-      "nodeId": "p5_deliverable_final",
-      "criteria": ["Public speaking completed", "Industry recognition", "Professional network grown"]
+      "id": "checkpoint_product_leader",
+      "title": "AI Product Leader",
+      "description": "Thought leadership and industry influence established",
+      "nodeId": "p6_portfolio_launch",
+      "criteria": ["AI product launched", "Public portfolio established", "Industry recognition achieved"]
     }
   ],
   "projectFocus": {
@@ -1050,6 +1558,147 @@
       "phase3": "Design architecture and implement safety frameworks", 
       "phase4": "Create product strategy and build leadership skills",
       "phase5": "Launch and establish market presence"
+    }
+  },
+  "optionalResources": {
+    "title": "Additional Learning Resources & Communities",
+    "description": "Comprehensive collection of supplementary courses, platforms, books, and communities for expanded learning",
+    "categories": {
+      "practiceFrames": {
+        "title": "Practice & Challenge Platforms",
+        "critical": [
+          {"name": "Kaggle", "url": "https://www.kaggle.com/", "description": "Data science competitions and datasets"},
+          {"name": "LeetCode", "url": "https://leetcode.com/", "description": "Algorithmic programming challenges"},
+          {"name": "HackerRank", "url": "https://www.hackerrank.com/domains/ai", "description": "AI and programming challenges"},
+          {"name": "Hugging Face Spaces", "url": "https://huggingface.co/spaces", "description": "AI model demos and deployments"},
+          {"name": "Google Cloud Skills Boost Labs", "url": "https://www.cloudskillsboost.google/", "description": "Hands-on cloud labs"},
+          {"name": "StrataScratch", "url": "https://www.stratascratch.com/", "description": "SQL practice with real interview questions"}
+        ],
+        "optional": [
+          {"name": "DrivenData", "url": "https://www.drivendata.org/", "description": "Data science for social good competitions"},
+          {"name": "Project Euler", "url": "https://projecteuler.net/", "description": "Mathematical programming challenges"},
+          {"name": "Codewars", "url": "https://www.codewars.com/", "description": "Coding challenges and kata"},
+          {"name": "CodinGame", "url": "https://www.codingame.com/", "description": "Programming challenges through games"},
+          {"name": "Codeforces", "url": "https://codeforces.com/", "description": "Competitive programming contests"},
+          {"name": "TopCoder", "url": "https://www.topcoder.com/challenges", "description": "Competitive programming and design"},
+          {"name": "AtCoder", "url": "https://atcoder.jp/", "description": "Japanese competitive programming platform"},
+          {"name": "CodaLab", "url": "https://competitions.codalab.org/", "description": "Academic ML competitions"},
+          {"name": "Zindi", "url": "https://zindi.africa/competitions", "description": "African data science competitions"},
+          {"name": "Exercism.io", "url": "https://exercism.io/", "description": "Coding practice with mentorship"}
+        ]
+      },
+      "books": {
+        "title": "Essential Books & Texts",
+        "critical": [
+          {"title": "Deep Learning", "author": "Goodfellow et al.", "url": "https://www.deeplearningbook.org/"},
+          {"title": "The Hundred-Page Machine Learning Book", "author": "Burkov", "url": "http://themlbook.com/wiki/doku.php"},
+          {"title": "Machine Learning Yearning", "author": "Andrew Ng", "url": "https://www.deeplearning.ai/machine-learning-yearning/"},
+          {"title": "Interpretable Machine Learning", "author": "Christoph Molnar", "url": "https://christophm.github.io/interpretable-ml-book/"}
+        ],
+        "optional": [
+          {"title": "Dive into Deep Learning", "author": "Zhang, Lipton, et al.", "url": "https://d2l.ai/"},
+          {"title": "Neural Networks and Deep Learning", "author": "Nielsen", "url": "http://neuralnetworksanddeeplearning.com/"},
+          {"title": "Python Data Science Handbook", "author": "VanderPlas", "url": "https://jakevdp.github.io/PythonDataScienceHandbook/"},
+          {"title": "Mathematical Foundations for Machine Learning", "url": "https://mml-book.github.io/"},
+          {"title": "Designing Data-Intensive Applications", "author": "Kleppmann", "url": "https://dataintensive.net/"},
+          {"title": "Grokking Algorithms", "author": "Bhargava", "url": "https://www.manning.com/books/grokking-algorithms"},
+          {"title": "The Design of Everyday Things", "author": "Norman", "url": "https://jnd.org/the-design-of-everyday-things/"},
+          {"title": "Team Topologies", "author": "Skelton & Pais", "url": "https://teamtopologies.com/"},
+          {"title": "Inspired", "author": "Marty Cagan", "url": "https://svpg.com/inspired-how-to-create-products-customers-love/"},
+          {"title": "Accelerate", "author": "Forsgren, Kim, Humble", "url": "https://itrevolution.com/products/accelerate"},
+          {"title": "Human Compatible", "author": "Russell", "url": "https://www.penguinrandomhouse.com/books/622175/human-compatible-by-stuart-russell/"},
+          {"title": "Weapons of Math Destruction", "author": "O'Neil", "url": "https://weaponsofmathdestructionbook.com/"},
+          {"title": "Prediction Machines", "author": "Agrawal, Gans, Goldfarb", "url": "https://www.predictionmachines.ai/"},
+          {"title": "Causal Inference: What If", "author": "Hernán & Robins", "url": "https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/"},
+          {"title": "Superintelligence", "author": "Bostrom", "url": "https://nickbostrom.com/book/superintelligence"},
+          {"title": "Life 3.0", "author": "Tegmark", "url": "https://www.basicbooks.com/titles/max-tegmark/life-3-0/9781101946596/"},
+          {"title": "The Alignment Problem", "author": "Christian", "url": "https://www.thealignmentproblem.com/"},
+          {"title": "Reinforcement Learning: An Introduction", "author": "Sutton & Barto", "url": "http://incompleteideas.net/book/the-book-2nd.html"},
+          {"title": "The Elements of Statistical Learning", "author": "Hastie, Tibshirani, Friedman", "url": "https://web.stanford.edu/~hastie/ElemStatLearn/"}
+        ]
+      },
+      "communities": {
+        "title": "Learning & Professional Communities",
+        "critical": [
+          {"name": "Kaggle Forums/Discussions", "url": "https://www.kaggle.com/discussion"},
+          {"name": "Hugging Face Discord", "url": "https://discord.gg/huggingface"},
+          {"name": "Hugging Face Forums", "url": "https://discuss.huggingface.co/"},
+          {"name": "OpenAI Community", "url": "https://community.openai.com/"},
+          {"name": "Stack Overflow", "url": "https://stackoverflow.com/"},
+          {"name": "Reddit: r/MachineLearning", "url": "https://www.reddit.com/r/MachineLearning/"},
+          {"name": "r/DataScience", "url": "https://www.reddit.com/r/datascience/"},
+          {"name": "r/LearnMachineLearning", "url": "https://www.reddit.com/r/learnmachinelearning/"},
+          {"name": "r/MLQuestions", "url": "https://www.reddit.com/r/MLQuestions/"},
+          {"name": "r/QuantumComputing", "url": "https://www.reddit.com/r/QuantumComputing/"}
+        ],
+        "optional": [
+          {"name": "DeepLearning.AI Community", "url": "https://community.deeplearning.ai/"},
+          {"name": "AI Village (DEF CON)", "url": "https://www.aivillage.org/"},
+          {"name": "Women in ML & AI", "url": "https://www.wimlds.org/"},
+          {"name": "PyData Meetups", "url": "https://pydata.org/meetups/"},
+          {"name": "MLDash", "url": "https://www.mldash.com/"},
+          {"name": "NVIDIA GTC Workshops", "url": "https://www.nvidia.com/en-us/gtc/"},
+          {"name": "AWS DeepRacer", "url": "https://community.aws/events/recurring/5-aws-deepracer-league"}
+        ]
+      },
+      "openSource": {
+        "title": "Key Open Source Projects",
+        "critical": [
+          {"name": "Hugging Face Transformers", "url": "https://github.com/huggingface/transformers"},
+          {"name": "OpenAI Cookbook", "url": "https://github.com/openai/openai-cookbook"},
+          {"name": "First Contributions", "url": "https://github.com/firstcontributions/first-contributions"}
+        ],
+        "optional": [
+          {"name": "Scikit-learn", "url": "https://github.com/scikit-learn/scikit-learn"},
+          {"name": "TensorFlow", "url": "https://github.com/tensorflow/tensorflow"},
+          {"name": "PyTorch", "url": "https://github.com/pytorch/pytorch"},
+          {"name": "Keras", "url": "https://github.com/keras-team/keras"},
+          {"name": "fastai", "url": "https://github.com/fastai/fastai"},
+          {"name": "Jupyter Notebook", "url": "https://github.com/jupyter/notebook"},
+          {"name": "DoWhy", "url": "https://github.com/py-why/dowhy"},
+          {"name": "PyWhy", "url": "https://github.com/py-why"},
+          {"name": "CausalNLP", "url": "https://github.com/awslabs/causal-nlp"},
+          {"name": "Ray", "url": "https://github.com/ray-project/ray"},
+          {"name": "Metaflow", "url": "https://github.com/Netflix/metaflow"},
+          {"name": "AllenNLP", "url": "https://github.com/allenai/allennlp"},
+          {"name": "Rasa", "url": "https://github.com/RasaHQ/rasa"},
+          {"name": "Qiskit", "url": "https://github.com/Qiskit/qiskit"},
+          {"name": "LangChain", "url": "https://github.com/langchain-ai/langchain"},
+          {"name": "leondz/garak", "url": "https://github.com/leondz/garak"},
+          {"name": "microsoft/pyrit", "url": "https://github.com/microsoft/pyrit"},
+          {"name": "Albumentations", "url": "https://github.com/albumentations-team/albumentations"},
+          {"name": "OpenCV", "url": "https://github.com/opencv/opencv"},
+          {"name": "Argo Workflows", "url": "https://github.com/argoproj/argo-workflows"},
+          {"name": "Kubeflow", "url": "https://github.com/kubeflow/kubeflow"},
+          {"name": "Apache Arrow", "url": "https://github.com/apache/arrow"},
+          {"name": "Apache Parquet", "url": "https://github.com/apache/parquet-format"},
+          {"name": "ONNX", "url": "https://github.com/onnx/onnx"},
+          {"name": "Hacktoberfest", "url": "https://hacktoberfest.com/"}
+        ]
+      },
+      "newsAndResearch": {
+        "title": "News, Research & Thought Leadership",
+        "critical": [
+          {"name": "DeepLearning.AI The Batch", "url": "https://www.deeplearning.ai/the-batch/"},
+          {"name": "Google AI Blog", "url": "https://ai.googleblog.com/"},
+          {"name": "OpenAI Blog", "url": "https://openai.com/blog/"},
+          {"name": "DeepMind Blog", "url": "https://www.deepmind.com/blog"}
+        ],
+        "optional": [
+          {"name": "BAIR Blog", "url": "https://bair.berkeley.edu/blog/"},
+          {"name": "Distill.pub", "url": "https://distill.pub/"},
+          {"name": "Hugging Face Blog", "url": "https://huggingface.co/blog/"},
+          {"name": "NVIDIA Developer Blog", "url": "https://developer.nvidia.com/blog/"},
+          {"name": "KDnuggets", "url": "https://www.kdnuggets.com/"},
+          {"name": "Analytics Vidhya", "url": "https://www.analyticsvidhya.com/blog/"},
+          {"name": "AI Alignment Forum", "url": "https://www.alignmentforum.org/"},
+          {"name": "arXiv Sanity Preserver", "url": "http://www.arxiv-sanity.com/"},
+          {"name": "StatQuest (YouTube)", "url": "https://www.youtube.com/user/joshstarmer"},
+          {"name": "Two Minute Papers (YouTube)", "url": "https://www.youtube.com/user/keeroyz"},
+          {"name": "LessWrong", "url": "https://www.lesswrong.com/"},
+          {"name": "Redwood Alignment Newsletter", "url": "https://www.alignment.news/"}
+        ]
+      }
     }
   }
 }
