@@ -18,4 +18,13 @@ const router = createRouter({
 // Create and mount app
 const app = createApp(App)
 app.use(router)
-app.mount('#app')
+
+// Add some debugging
+console.log('Vue app starting...')
+
+try {
+  app.mount('#app')
+  console.log('Vue app mounted!')
+} catch (error) {
+  console.error('Failed to mount Vue app:', error)
+}
