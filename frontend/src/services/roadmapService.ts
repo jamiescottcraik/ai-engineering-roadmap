@@ -11,6 +11,9 @@ export interface RoadmapNode {
   resources?: Array<{ title: string; url: string; type: string }>
   deliverables?: string[]
   completionCriteria?: string[]
+  checkpoint?: boolean
+  isOptional?: boolean
+  prerequisiteIds?: string[]
 }
 
 export interface RoadmapPhase {

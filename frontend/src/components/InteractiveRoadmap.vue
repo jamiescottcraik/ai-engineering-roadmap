@@ -69,8 +69,103 @@
       <div class="loading-spinner"></div>
     </div>
 
+    <!-- Vertical Roadmap (roadmap.sh style) -->
+    <div v-if="roadmapData" class="roadmap-vertical" id="roadmap-main">
+      <div class="roadmap-track">
+        <div 
+          v-for="(phase, phaseIndex) in roadmapData.phases" 
+          :key="phase.id"
+          class="roadmap-phase"
+        >
+          <!-- Phase Section Header -->
+          <div class="phase-section-header">
+            <div class="phase-connector" v-if="phaseIndex > 0"></div>
+            <div class="phase-title-bar">
+              <span class="phase-icon">{{ phase.icon || '📋' }}</span>
+              <div class="phase-info">
+                <h2>{{ phase.title }}</h2>
+                <p class="phase-subtitle">{{ phase.subtitle || '' }} • {{ phase.estimatedWeeks || 0 }} weeks</p>
+              </div>
+              <div class="phase-status" :class="phase.status">
+                {{ phase.status === 'completed' ? '✅' : phase.status === 'in_progress' ? '⚙️' : '⏳' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Roadmap Nodes in Vertical Flow -->
+          <div class="roadmap-nodes-flow">
+            <div 
+              v-for="(node, nodeIndex) in phase.nodes" 
+              :key="node.id"
+              class="roadmap-node"
+              :class="[
+                `node-${node.type}`,
+                { 
+                  'completed': getNodeProgress(node, phase) === 100,
+                  'in-progress': getNodeProgress(node, phase) > 0 && getNodeProgress(node, phase) < 100,
+                  'todo': getNodeProgress(node, phase) === 0,
+                  'optional': node.isOptional,
+                  'checkpoint': node.checkpoint
+                }
+              ]"
+              @click="selectNode(node)"
+            >
+              <!-- Node Connector -->
+              <div v-if="nodeIndex > 0" class="node-connector"></div>
+              
+              <!-- Node Card -->
+              <div class="node-content">
+                <div class="node-header-compact">
+                  <div class="node-status-icon">
+                    <span v-if="getNodeProgress(node, phase) === 100">✅</span>
+                    <span v-else-if="getNodeProgress(node, phase) > 0">⚙️</span>
+                    <span v-else>⏳</span>
+                  </div>
+                  <div class="node-main-info">
+                    <h3>{{ node.title }}</h3>
+                    <div class="node-meta-inline">
+                      <span class="node-type-chip" :class="`type-${node.type}`">{{ getNodeIcon(node.type) }} {{ node.type }}</span>
+                      <span class="node-hours">{{ node.estimatedHours || 0 }}h</span>
+                      <span v-if="node.resources && node.resources.length > 0" class="resources-chip">
+                        📚 {{ node.resources.length }}
+                      </span>
+                      <span v-if="node.checkpoint" class="checkpoint-chip">🏁 Checkpoint</span>
+                      <span v-if="node.isOptional" class="optional-chip">Optional</span>
+                    </div>
+                  </div>
+                  <div class="node-progress-indicator">
+                    <div class="progress-circle" :style="{ '--progress': getNodeProgress(node, phase) }">
+                      <span>{{ getNodeProgress(node, phase) }}%</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <p class="node-description-compact">{{ node.description || 'Click to see details and resources' }}</p>
+                
+                <!-- Quick Resource Preview -->
+                <div v-if="node.resources && node.resources.length > 0" class="quick-resources">
+                  <div class="quick-resource-items">
+                    <span 
+                      v-for="resource in node.resources.slice(0, 3)" 
+                      :key="resource.title"
+                      class="quick-resource-tag"
+                    >
+                      {{ getResourceIcon(resource.type) }} {{ resource.type }}
+                    </span>
+                    <span v-if="node.resources.length > 3" class="more-resources">
+                      +{{ node.resources.length - 3 }} more
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Phase Cards -->
-    <div v-if="roadmapData" class="phases-container">
+    <div v-if="false && roadmapData" class="phases-container">
       <div 
         v-for="(phase, index) in roadmapData.phases" 
         :key="phase.id"
@@ -143,6 +238,10 @@
                   </div>
                 </div>
                 <div class="node-progress-badge">{{ getNodeProgress(node, phase) }}%</div>
+                <!-- Resource indicator badge -->
+                <div v-if="node.resources && node.resources.length > 0" class="resource-indicator" :title="`${node.resources.length} learning resources available`">
+                  📚 {{ node.resources.length }}
+                </div>
               </div>
               
               <div class="node-meta">
@@ -226,20 +325,31 @@
               <p>{{ selectedNode.description || 'No description available' }}</p>
             </div>
 
-            <!-- Resources -->
-            <div v-if="selectedNode.resources" class="resources-section">
-              <h3>Resources</h3>
-              <div class="resources-list">
+            <!-- Resources - Enhanced Prominent Display -->
+            <div v-if="selectedNode.resources && selectedNode.resources.length > 0" class="resources-section enhanced-resources">
+              <div class="resources-header">
+                <h3>📚 Learning Resources</h3>
+                <span class="resource-count">{{ selectedNode.resources.length }} resource{{ selectedNode.resources.length > 1 ? 's' : '' }} available</span>
+              </div>
+              <div class="resources-grid">
                 <a 
                   v-for="resource in selectedNode.resources" 
                   :key="resource.title"
                   :href="resource.url"
-                  class="resource-item"
+                  class="resource-card"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span class="resource-type">{{ resource.type }}</span>
-                  <span class="resource-title">{{ resource.title }}</span>
+                  <div class="resource-icon">{{ getResourceIcon(resource.type) }}</div>
+                  <div class="resource-content">
+                    <div class="resource-type-badge" :class="`type-${resource.type.toLowerCase()}`">{{ resource.type }}</div>
+                    <div class="resource-title">{{ resource.title }}</div>
+                  </div>
+                  <div class="resource-action">→</div>
                 </a>
+              </div>
+              <div class="resources-note">
+                💡 <strong>Start with these resources</strong> to build the knowledge needed for this milestone
               </div>
             </div>
 
@@ -487,6 +597,23 @@ const getNodeIcon = (type: string) => {
   return icons[type as keyof typeof icons] || '📝'
 }
 
+const getResourceIcon = (type: string) => {
+  const icons = {
+    course: '🎓',
+    book: '📖',
+    tutorial: '📝',
+    video: '🎥',
+    documentation: '📋',
+    practice: '💻',
+    tool: '🔧',
+    article: '📰',
+    website: '🌐',
+    github: '🐙',
+    default: '📄'
+  }
+  return icons[type.toLowerCase() as keyof typeof icons] || icons.default
+}
+
 const formatDate = (dateString: string, monthsToAdd?: number) => {
   const date = new Date(dateString)
   if (monthsToAdd) {
@@ -569,6 +696,317 @@ onMounted(() => {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Vertical Roadmap Styles (roadmap.sh inspired) */
+.roadmap-vertical {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.roadmap-track {
+  position: relative;
+}
+
+.roadmap-phase {
+  margin-bottom: 50px;
+}
+
+.roadmap-phase:last-child {
+  margin-bottom: 0;
+}
+
+.phase-section-header {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.phase-connector {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 25px;
+  background: linear-gradient(to bottom, #e5e7eb, #3b82f6);
+}
+
+.phase-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.phase-icon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  border: 2px solid #3b82f6;
+}
+
+.phase-info {
+  flex: 1;
+}
+
+.phase-info h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.5rem;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.phase-subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.phase-status {
+  font-size: 1.5rem;
+  padding: 8px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.phase-status.completed {
+  background: #ecfdf5;
+  border-color: #10b981;
+}
+
+.phase-status.in_progress {
+  background: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.roadmap-nodes-flow {
+  position: relative;
+  margin-left: 40px;
+}
+
+.roadmap-nodes-flow::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #3b82f6, #e5e7eb);
+}
+
+.roadmap-node {
+  position: relative;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.roadmap-node:last-child {
+  margin-bottom: 0;
+}
+
+.roadmap-node:last-child .roadmap-nodes-flow::before {
+  bottom: 20px;
+}
+
+.node-connector {
+  position: absolute;
+  top: -10px;
+  left: 9px;
+  width: 4px;
+  height: 10px;
+  background: #3b82f6;
+}
+
+.node-content {
+  margin-left: 40px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.node-content::before {
+  content: '';
+  position: absolute;
+  left: -42px;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 3px solid #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px white;
+}
+
+.roadmap-node.completed .node-content {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.roadmap-node.completed .node-content::before {
+  border-color: #10b981;
+  background: #10b981;
+}
+
+.roadmap-node.in-progress .node-content {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.roadmap-node.in-progress .node-content::before {
+  border-color: #f59e0b;
+  background: #f59e0b;
+}
+
+.roadmap-node:hover .node-content {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.node-header-compact {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.node-status-icon {
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.node-main-info {
+  flex: 1;
+}
+
+.node-main-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.node-meta-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.node-type-chip,
+.resources-chip,
+.checkpoint-chip,
+.optional-chip {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.node-type-chip.type-learn { background: #dbeafe; color: #1e40af; }
+.node-type-chip.type-practice { background: #dcfce7; color: #16a34a; }
+.node-type-chip.type-portfolio { background: #fef3c7; color: #d97706; }
+.node-type-chip.type-keyresource { background: #f3e8ff; color: #7c3aed; }
+
+.resources-chip {
+  background: #0284c7;
+  color: white;
+}
+
+.checkpoint-chip {
+  background: #dc2626;
+  color: white;
+}
+
+.optional-chip {
+  background: #6b7280;
+  color: white;
+}
+
+.node-hours {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.node-progress-indicator {
+  margin-top: 2px;
+}
+
+.progress-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(#3b82f6 calc(var(--progress) * 1%), #e5e7eb 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #1f2937;
+  position: relative;
+}
+
+.progress-circle::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: white;
+  border-radius: 50%;
+}
+
+.progress-circle span {
+  position: relative;
+  z-index: 1;
+}
+
+.node-description-compact {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.quick-resources {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+}
+
+.quick-resource-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quick-resource-tag {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  color: #374151;
+}
+
+.more-resources {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-style: italic;
 }
 
 .hero-tagline {
@@ -1093,6 +1531,126 @@ onMounted(() => {
   font-size: 1.1rem;
   font-weight: 600;
   color: #374151;
+}
+
+/* Enhanced Resources Display */
+.enhanced-resources {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 2px solid #0284c7;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.resources-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.resources-header h3 {
+  color: #0369a1;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.resource-count {
+  font-size: 0.9rem;
+  color: #0284c7;
+  font-weight: 500;
+  background: rgba(2, 132, 199, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.resources-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.resource-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border: 1px solid #e0f2fe;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.resource-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #0284c7;
+}
+
+.resource-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  text-align: center;
+}
+
+.resource-content {
+  flex: 1;
+}
+
+.resource-type-badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.resource-type-badge.type-course { background: #dbeafe; color: #1e40af; }
+.resource-type-badge.type-book { background: #f3e8ff; color: #7c3aed; }
+.resource-type-badge.type-tutorial { background: #dcfce7; color: #16a34a; }
+.resource-type-badge.type-video { background: #fef3c7; color: #d97706; }
+.resource-type-badge.type-documentation { background: #e5e7eb; color: #374151; }
+.resource-type-badge.type-practice { background: #fce7f3; color: #be185d; }
+
+.resource-title {
+  font-weight: 500;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+.resource-action {
+  font-size: 1.2rem;
+  color: #0284c7;
+  transition: transform 0.2s ease;
+}
+
+.resource-card:hover .resource-action {
+  transform: translateX(2px);
+}
+
+.resources-note {
+  font-size: 0.9rem;
+  color: #0369a1;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #3b82f6;
+}
+
+.resource-indicator {
+  background: #0284c7;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-left: 8px;
 }
 
 .resources-list {
