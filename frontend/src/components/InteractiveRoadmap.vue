@@ -877,9 +877,9 @@ onMounted(() => {
   text-align: center;
   margin-bottom: 60px;
   padding: 60px 40px;
-  background: linear-gradient(135deg, #0B1016 0%, #1a1f2e 50%, #0B1016 100%);
+  background: linear-gradient(135deg, #0B1016 0%, #1a1f2e 50%, #0B1016 100%) !important;
   border-radius: 20px;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   box-shadow: 0 20px 40px rgba(17, 103, 177, 0.3);
   border: 1px solid rgba(17, 103, 177, 0.2);
 }
@@ -912,6 +912,24 @@ onMounted(() => {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: #FFFFFF; /* Fallback for browsers that don't support gradient text */
+}
+
+.hero-content p {
+  color: #FFFFFF !important;
+  margin-bottom: 20px;
+}
+
+.hero-tagline {
+  color: #E0E7FF !important;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.description {
+  color: #B3C5FF !important;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
 }
 
 /* Vertical Roadmap Styles (roadmap.sh inspired) */
