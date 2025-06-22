@@ -22,12 +22,23 @@ onMounted(() => {
 </script>
 
 <style>
+@import './styles/design-system.css';
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: var(--color-gray-800);
+  background-color: var(--color-gray-50);
+  min-height: 100vh;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
 }
 </style>

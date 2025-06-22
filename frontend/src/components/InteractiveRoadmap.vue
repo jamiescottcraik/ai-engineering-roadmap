@@ -685,29 +685,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { 
-  NProgress, 
-  NCard, 
-  NStatistic,
-  NGrid,
-  NGridItem,
-  NGradientText,
-  NIcon,
-  NButton,
-  NTooltip,
-  NModal,
-  NScrollbar,
-  NSpin,
-  NBadge,
-  NTag,
-  NSpace,
-  NAlert,
-  NInput
+  NCard, NButton, NProgress, NStatistic, NTag, NIcon, NModal, NSpace, 
+  NGradientText, NSpin, NInput, NAlert, NTooltip, NBadge, NGrid, NGridItem,
+  NScrollbar, NText
 } from 'naive-ui'
-import { 
-  Rocket,
-  CheckmarkCircle,
-  Time
-} from '@vicons/ionicons5'
+import { Rocket, CheckmarkCircle, Time } from '@vicons/ionicons5'
+import NodeCard from './NodeCard.vue'
+import ResourceCard from './ResourceCard.vue'
 
 // Types
 interface RoadmapData {
