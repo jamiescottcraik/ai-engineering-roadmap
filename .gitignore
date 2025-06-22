@@ -87,3 +87,10 @@ __pycache__/
 # AI model outputs
 ai_outputs/
 temp_classifications/
+
+# Ignore built docs for GitHub Pages (use workflow artifact instead)
+docs/
+
+# Node.js dependencies
+node_modules/
+frontend/node_modules/
