@@ -28,9 +28,12 @@
           "estimatedHours": 40,
           "description": "Master advanced Python concepts, data structures, algorithms, and mathematical foundations",
           "resources": [
-            {"title": "Python Data Structures Deep Dive", "url": "#", "type": "course"},
-            {"title": "Mathematical Foundations for AI", "url": "#", "type": "book"},
-            {"title": "Advanced Python Patterns", "url": "#", "type": "tutorial"}
+            {"title": "Python Data Structures Deep Dive", "url": "https://www.coursera.org/learn/algorithms-part1", "type": "course"},
+            {"title": "Mathematical Foundations for AI", "url": "https://mml-book.github.io/", "type": "book"},
+            {"title": "Advanced Python Patterns", "url": "https://python-patterns.guide/", "type": "tutorial"},
+            {"title": "OpenAI: A Practical Guide to Building Agents", "url": "https://platform.openai.com/docs/guides/agents", "type": "guide"},
+            {"title": "OpenAI: Identifying and Scaling AI Use Cases", "url": "https://openai.com/enterprise/", "type": "guide"},
+            {"title": "Google Gemini Prompting Guide 101", "url": "https://support.google.com/gemini/answer/13594961", "type": "guide"}
           ],
           "completionCriteria": [
             "Implement advanced data structures from scratch",
@@ -47,6 +50,14 @@
           "isUnlocked": true,
           "estimatedHours": 30,
           "description": "Apply algorithmic thinking to solve complex problems",
+          "resources": [
+            {"title": "HackerRank Python Domain", "url": "https://www.hackerrank.com/domains/python", "type": "practice"},
+            {"title": "LeetCode Problem Set", "url": "https://leetcode.com/problemset/all/", "type": "practice"},
+            {"title": "Exercism Python Track", "url": "https://exercism.org/tracks/python", "type": "practice"},
+            {"title": "Project Euler", "url": "https://projecteuler.net/", "type": "practice"},
+            {"title": "DataCamp: Associate Python Developer", "url": "https://www.datacamp.com/tracks/associate-python-developer", "type": "course"},
+            {"title": "Python 3 Programming Specialization", "url": "https://www.coursera.org/specializations/python-3-programming", "type": "course"}
+          ],
           "deliverables": ["Algorithm implementations", "Performance analysis", "Code reviews"],
           "completionCriteria": [
             "Complete 50+ algorithmic challenges",
@@ -80,9 +91,11 @@
           "estimatedHours": 35,
           "description": "Master complex SQL queries, optimization, and database design",
           "resources": [
-            {"title": "Advanced SQL Techniques", "url": "#", "type": "course"},
-            {"title": "Database Performance Tuning", "url": "#", "type": "book"},
-            {"title": "SQL Query Optimization", "url": "#", "type": "tutorial"}
+            {"title": "Advanced SQL Techniques", "url": "https://www.postgresql.org/docs/current/tutorial-advanced.html", "type": "course"},
+            {"title": "Database Performance Tuning", "url": "https://use-the-index-luke.com/", "type": "book"},
+            {"title": "SQL Query Optimization", "url": "https://www.sqlshack.com/query-optimization-techniques-in-sql-server-tips-and-tricks/", "type": "tutorial"},
+            {"title": "Google Data Analytics Specialization", "url": "https://www.coursera.org/specializations/google-data-analytics", "type": "course"},
+            {"title": "High Performance MySQL", "url": "https://www.oreilly.com/library/view/high-performance-mysql/9780596101718/", "type": "book"}
           ]
         },
         {
@@ -117,8 +130,12 @@
           "estimatedHours": 30,
           "description": "Master modern development tools, testing, and CI/CD pipelines",
           "resources": [
-            {"title": "Modern DevOps Practices", "url": "#", "type": "course"},
-            {"title": "CI/CD Pipeline Design", "url": "#", "type": "tutorial"}
+            {"title": "Modern DevOps Practices", "url": "https://www.coursera.org/learn/devops-culture-and-mindset", "type": "course"},
+            {"title": "CI/CD Pipeline Design", "url": "https://docs.gitlab.com/ee/ci/pipelines/", "type": "tutorial"},
+            {"title": "Google IT Automation Specialization", "url": "https://www.coursera.org/specializations/google-it-automation", "type": "course"},
+            {"title": "Introduction to Docker", "url": "https://www.coursera.org/learn/introduction-to-docker", "type": "course"},
+            {"title": "Docker and Kubernetes Masterclass", "url": "https://www.coursera.org/specializations/packt-docker-and-kubernetes-masterclass-from-beginner-to-advanced", "type": "course"},
+            {"title": "Testing in Production", "url": "https://www.oreilly.com/library/view/testing-in-production/9781492077176/", "type": "book"}
           ]
         },
         {
@@ -172,9 +189,13 @@
           "estimatedHours": 45,
           "description": "Master Retrieval-Augmented Generation architectures and implementations",
           "resources": [
-            {"title": "RAG Architecture Patterns", "url": "#", "type": "course"},
-            {"title": "Vector Databases Guide", "url": "#", "type": "book"},
-            {"title": "Advanced RAG Techniques", "url": "#", "type": "tutorial"}
+            {"title": "RAG Architecture Patterns", "url": "https://docs.llamaindex.ai/en/stable/getting_started/concepts.html", "type": "course"},
+            {"title": "Vector Databases Guide", "url": "https://www.pinecone.io/learn/vector-database/", "type": "book"},
+            {"title": "Advanced RAG Techniques", "url": "https://blog.langchain.dev/retrieval/", "type": "tutorial"},
+            {"title": "IBM Generative AI Engineering", "url": "https://www.coursera.org/specializations/ibm-generative-ai-engineering", "type": "course"},
+            {"title": "Generative AI for Data Scientists", "url": "https://www.coursera.org/specializations/generative-ai-for-data-scientists", "type": "course"},
+            {"title": "Vector Databases Handbook", "url": "https://www.pinecone.io/learn/vector-database/", "type": "book"},
+            {"title": "RAG Evaluation Frameworks", "url": "https://docs.llamaindex.ai/en/stable/optimizing/evaluation/", "type": "tutorial"}
           ]
         },
         {
@@ -186,6 +207,12 @@
           "isUnlocked": false,
           "estimatedHours": 35,
           "description": "Build an AI system that reduces cognitive load by summarizing and contextualizing information",
+          "resources": [
+            {"title": "Kaggle RAG Competitions", "url": "https://www.kaggle.com/competitions", "type": "practice"},
+            {"title": "Hugging Face RAG Models", "url": "https://huggingface.co/models?pipeline_tag=question-answering", "type": "practice"},
+            {"title": "DataCamp: Associate AI Engineer", "url": "https://app.datacamp.com/learn/career-tracks/associate-ai-engineer-for-developers", "type": "course"},
+            {"title": "Generative AI Data Analyst", "url": "https://www.coursera.org/specializations/generative-ai-data-analyst", "type": "course"}
+          ],
           "deliverables": ["RAG implementation", "Vector database setup", "Query optimization"]
         },
         {
@@ -198,8 +225,11 @@
           "estimatedHours": 40,
           "description": "Design and implement collaborative AI agent systems",
           "resources": [
-            {"title": "Multi-Agent Frameworks", "url": "#", "type": "course"},
-            {"title": "Agent Communication Patterns", "url": "#", "type": "tutorial"}
+            {"title": "Multi-Agent Frameworks", "url": "https://microsoft.github.io/autogen/", "type": "course"},
+            {"title": "Agent Communication Patterns", "url": "https://lilianweng.github.io/posts/2023-06-23-agent/", "type": "tutorial"},
+            {"title": "AI Agents in Python Specialization", "url": "https://www.coursera.org/specializations/ai-agents-python", "type": "course"},
+            {"title": "OpenAI: Building Effective AI Agents", "url": "https://platform.openai.com/docs/guides/agents", "type": "guide"},
+            {"title": "Anthropic: Building Effective AI Agents", "url": "https://docs.anthropic.com/claude/docs/building-effective-agents", "type": "guide"}
           ]
         },
         {
@@ -211,6 +241,11 @@
           "isUnlocked": false,
           "estimatedHours": 30,
           "description": "Create an intelligent learning curator that personalizes educational content",
+          "resources": [
+            {"title": "GitHub AI Agent Projects", "url": "https://github.com/topics/ai-agent", "type": "practice"},
+            {"title": "LinkedIn AI Learning Groups", "url": "https://www.linkedin.com/groups/", "type": "community"},
+            {"title": "Prompt Engineering for Educators", "url": "https://www.coursera.org/specializations/prompt-engineering-for-educators", "type": "course"}
+          ],
           "deliverables": ["Agent architecture", "Personalization engine", "Content recommendation system"]
         },
         {
@@ -223,8 +258,13 @@
           "estimatedHours": 35,
           "description": "Master ML operations, monitoring, and lifecycle management",
           "resources": [
-            {"title": "MLOps Best Practices", "url": "#", "type": "course"},
-            {"title": "Model Monitoring Guide", "url": "#", "type": "book"}
+            {"title": "MLOps Best Practices", "url": "https://ml-ops.org/", "type": "course"},
+            {"title": "Model Monitoring Guide", "url": "https://neptune.ai/blog/ml-model-monitoring-best-tools", "type": "book"},
+            {"title": "Microsoft AI and ML Engineering", "url": "https://www.coursera.org/specializations/microsoft-ai-and-ml-engineering", "type": "course"},
+            {"title": "Building AI Cloud Apps with Microsoft Azure", "url": "https://www.coursera.org/specializations/building-ai-cloud-apps-microsoft-azure", "type": "course"},
+            {"title": "Google Cloud: Generative AI with Vertex AI", "url": "https://www.coursera.org/learn/googlecloud-generative-ai-with-vertex-ai-prompt-design", "type": "course"},
+            {"title": "Google Cloud Skills Boost: Generative AI", "url": "https://www.cloudskillsboost.google/paths/118", "type": "course"},
+            {"title": "Professional Cloud DevOps Engineer", "url": "https://www.cloudskillsboost.google/paths/19", "type": "course"}
           ]
         },
         {
@@ -236,6 +276,11 @@
           "isUnlocked": false,
           "estimatedHours": 25,
           "description": "Implement containerized AI deployments with monitoring and scaling",
+          "resources": [
+            {"title": "Selenium WebDriver 4 with Python", "url": "https://www.coursera.org/specializations/packt-selenium-webdriver-4-with-python-zero-to-hero", "type": "course"},
+            {"title": "Google Cloud Networking", "url": "https://www.coursera.org/specializations/google-cloud-networking", "type": "course"},
+            {"title": "ClickUp for Project Management", "url": "https://clickup.com/", "type": "tool"}
+          ],
           "deliverables": ["Docker containers", "Kubernetes manifests", "Monitoring setup"]
         },
         {
@@ -278,8 +323,10 @@
           "estimatedHours": 60,
           "description": "Study 'Designing Data-Intensive Applications' for system design mastery",
           "resources": [
-            {"title": "Designing Data-Intensive Applications", "url": "#", "type": "book"},
-            {"title": "DDIA Study Guide", "url": "#", "type": "guide"}
+            {"title": "Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "type": "book"},
+            {"title": "DDIA Study Guide", "url": "https://github.com/keyvanakbary/learning-notes/blob/master/books/designing-data-intensive-applications.md", "type": "guide"},
+            {"title": "Building Microservices", "url": "https://www.oreilly.com/library/view/building-microservices-2nd/9781492034018/", "type": "book"},
+            {"title": "System Design Interview Course", "url": "https://www.coursera.org/learn/grokking-system-design-interview", "type": "course"}
           ]
         },
         {
@@ -292,8 +339,10 @@
           "estimatedHours": 40,
           "description": "Master large-scale AI system architecture patterns",
           "resources": [
-            {"title": "AI System Architecture", "url": "#", "type": "course"},
-            {"title": "Scalable AI Patterns", "url": "#", "type": "book"}
+            {"title": "AI System Architecture", "url": "https://www.deeplearning.ai/courses/machine-learning-engineering-for-production-mlops/", "type": "course"},
+            {"title": "Scalable AI Patterns", "url": "https://patterns.architecting.ai/", "type": "book"},
+            {"title": "Mathematics for Machine Learning", "url": "https://www.coursera.org/specializations/mathematics-machine-learning", "type": "course"},
+            {"title": "Building with Code: Programming", "url": "https://www.coursera.org/specializations/building-with-code-programming", "type": "course"}
           ]
         },
         {
@@ -358,8 +407,11 @@
           "estimatedHours": 35,
           "description": "Master user experience design and product discovery methodologies",
           "resources": [
-            {"title": "UX for AI Products", "url": "#", "type": "course"},
-            {"title": "Product Discovery Methods", "url": "#", "type": "book"}
+            {"title": "UX for AI Products", "url": "https://www.coursera.org/learn/user-experience-design-ai", "type": "course"},
+            {"title": "Product Discovery Methods", "url": "https://www.amazon.com/Continuous-Discovery-Habits-Discover-Products/dp/1736633309", "type": "book"},
+            {"title": "Google UX Design Specialization", "url": "https://www.coursera.org/specializations/google-ux-design", "type": "course"},
+            {"title": "The Design of Everyday Things", "url": "https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654", "type": "book"},
+            {"title": "Getting Started with Google Workspace", "url": "https://www.coursera.org/specializations/getting-started-with-google-workspace", "type": "course"}
           ]
         },
         {
@@ -383,8 +435,13 @@
           "estimatedHours": 40,
           "description": "Understand enterprise AI adoption, governance, and strategic planning",
           "resources": [
-            {"title": "Enterprise AI Strategy", "url": "#", "type": "course"},
-            {"title": "AI Governance Frameworks", "url": "#", "type": "guide"}
+            {"title": "Enterprise AI Strategy", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-in-2023-generative-ais-breakout-year", "type": "course"},
+            {"title": "AI Governance Frameworks", "url": "https://www.nist.gov/itl/ai-risk-management-framework", "type": "guide"},
+            {"title": "IBM: The CEO's Guide to Generative AI", "url": "https://www.ibm.com/thought-leadership/institute-business-value/en-us/report/ceo-generative-ai", "type": "guide"},
+            {"title": "Microsoft: Strategic CIO's AI Playbook", "url": "https://www.microsoft.com/en-us/enterprise/ai-playbook", "type": "guide"},
+            {"title": "OpenAI: AI in the Enterprise", "url": "https://openai.com/enterprise/", "type": "guide"},
+            {"title": "Microsoft Copilot: Your Everyday AI Companion", "url": "https://www.coursera.org/specializations/microsoft-copilot-your-everyday-ai-companion", "type": "course"},
+            {"title": "ChatGPT Free AI Tools to Excel", "url": "https://www.coursera.org/specializations/chatgpt-free-ai-tools-to-excel", "type": "course"}
           ]
         },
         {
