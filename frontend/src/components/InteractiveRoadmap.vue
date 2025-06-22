@@ -506,16 +506,53 @@
                       style="cursor: pointer;"
                     >
                       <template #header-extra>
-                        <n-tag 
-                          :type="getResourceTypeColor(resource.type)" 
-                          size="small"
-                        >
-                          {{ getResourceIcon(resource.type) }} {{ resource.type }}
-                        </n-tag>
+                        <n-space size="small">
+                          <n-tag 
+                            :type="getResourceTypeColor(resource.type)" 
+                            size="small"
+                          >
+                            {{ getResourceIcon(resource.type) }} {{ resource.type }}
+                          </n-tag>
+                          <n-tag 
+                            v-if="resource.difficulty" 
+                            :type="resource.difficulty === 'beginner' ? 'success' : resource.difficulty === 'intermediate' ? 'warning' : 'error'"
+                            size="small"
+                          >
+                            {{ resource.difficulty }}
+                          </n-tag>
+                          <n-tag 
+                            v-if="resource.estimatedTime" 
+                            type="info" 
+                            size="small"
+                          >
+                            {{ Math.round(resource.estimatedTime / 60) }}h
+                          </n-tag>
+                        </n-space>
                       </template>
+                      
+                      <template #default>
+                        <n-space vertical size="small">
+                          <p v-if="resource.description" style="margin: 0; color: #6B7280; font-size: 0.9rem;">
+                            {{ resource.description }}
+                          </p>
+                          <n-alert 
+                            v-if="resource.rationale" 
+                            type="info" 
+                            :show-icon="false"
+                            size="small"
+                            style="margin-top: 8px;"
+                          >
+                            <template #header>
+                              💡 Why This Matters
+                            </template>
+                            {{ resource.rationale }}
+                          </n-alert>
+                        </n-space>
+                      </template>
+                      
                       <template #action>
                         <div class="resource-action-enhanced">
-                          <n-button text type="primary">
+                          <n-button type="primary" size="small" round>
                             Open Resource →
                           </n-button>
                         </div>
@@ -663,6 +700,17 @@ import {
   Time
 } from '@vicons/ionicons5'
 import type { RoadmapData, RoadmapNode } from '../services/roadmapService'
+import { 
+  useSemanticIcons, 
+  useNodeTypeColor, 
+  useProgressState,
+  usePhaseStyles,
+  useAccessibility 
+} from '../design-system/composables'
+
+// Design system composables - replaces old manual implementations
+const { getNodeIcon: getSemanticNodeIcon, getResourceIcon: getSemanticResourceIcon } = useSemanticIcons()
+const { getNodeTypeColor: getSemanticNodeTypeColor } = useNodeTypeColor()
 
 // Reactive data
 const roadmapData = ref<RoadmapData | null>(null)
@@ -675,11 +723,11 @@ const showNodeModal = computed(() => selectedNode.value !== null)
 const searchQuery = ref('')
 const selectedFilters = ref<string[]>([])
 const availableFilters = ref([
-  { value: 'learn', label: 'Learn', color: 'info' },
-  { value: 'practice', label: 'Practice', color: 'warning' },
-  { value: 'portfolio', label: 'Portfolio', color: 'success' },
-  { value: 'course', label: 'Course', color: 'primary' },
-  { value: 'tutorial', label: 'Tutorial', color: 'default' }
+  { value: 'learn', label: 'Learn', color: 'info' as const },
+  { value: 'practice', label: 'Practice', color: 'warning' as const },
+  { value: 'portfolio', label: 'Portfolio', color: 'success' as const },
+  { value: 'course', label: 'Course', color: 'primary' as const },
+  { value: 'tutorial', label: 'Tutorial', color: 'default' as const }
 ])
 
 // Computed properties
@@ -915,8 +963,8 @@ const scrollToRoadmap = () => {
   }
 }
 
-const getNodeTypeColor = (type: string) => {
-  const colorMap: Record<string, string> = {
+const getNodeTypeColor = (type: string): "default" | "primary" | "info" | "success" | "warning" | "error" => {
+  const colorMap: Record<string, "default" | "primary" | "info" | "success" | "warning" | "error"> = {
     'learn': 'info',
     'practice': 'warning', 
     'portfolio': 'success',
@@ -926,35 +974,25 @@ const getNodeTypeColor = (type: string) => {
 }
 
 const getNodeIcon = (type: string): string => {
-  const iconMap: Record<string, string> = {
-    'learn': '📚',
-    'practice': '💻',
-    'portfolio': '🎯',
-    'keyresource': '⭐'
-  }
-  return iconMap[type] || '📋'
+  // Use design system icon mapping
+  return getSemanticNodeIcon(type)
 }
 
-const getResourceTypeColor = (type: string) => {
-  const colorMap: Record<string, string> = {
+const getResourceTypeColor = (type: string): "default" | "primary" | "info" | "success" | "warning" | "error" => {
+  const colorMap: Record<string, "default" | "primary" | "info" | "success" | "warning" | "error"> = {
     'course': 'primary',
     'tutorial': 'info',
     'documentation': 'warning',
     'tool': 'success',
-    'book': 'default'
+    'book': 'default',
+    'guide': 'info'
   }
   return colorMap[type] || 'default'
 }
 
 const getResourceIcon = (type: string): string => {
-  const iconMap: Record<string, string> = {
-    'course': '🎓',
-    'tutorial': '📖',
-    'documentation': '📝',
-    'tool': '🔧',
-    'book': '📚'
-  }
-  return iconMap[type] || '🔗'
+  // Use design system icon mapping
+  return getSemanticResourceIcon(type)
 }
 
 const clearFilters = () => {
@@ -969,6 +1007,47 @@ const toggleFilter = (filterValue: string) => {
   } else {
     selectedFilters.value.push(filterValue)
   }
+}
+
+const openResource = (url: string) => {
+  if (url && url !== '#') {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+}
+
+// Missing utility functions
+const togglePhase = (phaseId: string) => {
+  const index = expandedPhases.value.indexOf(phaseId)
+  if (index > -1) {
+    expandedPhases.value.splice(index, 1)
+  } else {
+    expandedPhases.value.push(phaseId)
+  }
+  saveProgress()
+}
+
+const showTooltip = (nodeId: string) => {
+  // Tooltip handling could be enhanced in the future
+  console.log('Show tooltip for:', nodeId)
+}
+
+const hideTooltip = () => {
+  // Tooltip handling could be enhanced in the future
+}
+
+const getNodeRationale = (type: string): string => {
+  const rationales: Record<string, string> = {
+    'learn': 'Essential theoretical knowledge for building AI systems',
+    'practice': 'Hands-on experience applying concepts in real scenarios',
+    'portfolio': 'Demonstrable projects that showcase your capabilities',
+    'keyresource': 'Critical resources that form the foundation of your expertise'
+  }
+  return rationales[type] || ''
+}
+
+const getDeliverableLink = (nodeId: string, deliverable: string): string => {
+  // This would link to actual deliverable submissions in a real system
+  return `#deliverable-${nodeId}-${deliverable.toLowerCase().replace(/\s+/g, '-')}`
 }
 
 const loadRoadmapData = async () => {

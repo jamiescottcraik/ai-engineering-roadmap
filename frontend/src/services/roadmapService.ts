@@ -1,3 +1,13 @@
+export interface LearningResource {
+  title: string
+  url: string
+  type: string
+  description?: string
+  estimatedTime?: number // in minutes
+  difficulty?: 'beginner' | 'intermediate' | 'advanced'
+  rationale?: string
+}
+
 export interface RoadmapNode {
   id: string
   title: string
@@ -8,7 +18,7 @@ export interface RoadmapNode {
   position?: { x: number; y: number }
   estimatedHours?: number
   description?: string
-  resources?: Array<{ title: string; url: string; type: string }>
+  resources?: LearningResource[]
   deliverables?: string[]
   completionCriteria?: string[]
   checkpoint?: boolean
