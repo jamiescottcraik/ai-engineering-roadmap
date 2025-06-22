@@ -116,7 +116,7 @@
                 `node-${node.type}`,
                 { 
                   'active': node.isActive,
-                  'completed': node.progress === 100,
+                  'completed': getNodeProgress(node, phase) === 100,
                   'locked': !node.isUnlocked
                 }
               ]"
@@ -126,7 +126,7 @@
             >
               <!-- Node Status Badge -->
               <div class="node-status-badge">
-                <span v-if="node.progress === 100" class="status-completed">✅</span>
+                <span v-if="getNodeProgress(node, phase) === 100" class="status-completed">✅</span>
                 <span v-else-if="node.isActive" class="status-active">⚙️</span>
                 <span v-else-if="!node.isUnlocked" class="status-locked">🔒</span>
                 <span v-else class="status-pending">⏳</span>
@@ -142,7 +142,7 @@
                     <span class="info-icon">💡</span>
                   </div>
                 </div>
-                <div class="node-progress-badge">{{ node.progress }}%</div>
+                <div class="node-progress-badge">{{ getNodeProgress(node, phase) }}%</div>
               </div>
               
               <div class="node-meta">
@@ -154,7 +154,7 @@
               </div>
               
               <div class="node-progress-bar">
-                <div class="node-progress-fill" :style="{ width: node.progress + '%' }"></div>
+                <div class="node-progress-fill" :style="{ width: getNodeProgress(node, phase) + '%' }"></div>
               </div>
               
               <p class="node-description">{{ node.description || 'No description available' }}</p>
@@ -209,9 +209,9 @@
             <div class="detail-row">
               <span class="label">Progress:</span>
               <div class="progress-display">
-                <span>{{ selectedNode.progress }}%</span>
+                <span>{{ selectedNodeProgress }}%</span>
                 <div class="detail-progress-bar">
-                  <div class="detail-progress-fill" :style="{ width: selectedNode.progress + '%' }"></div>
+                  <div class="detail-progress-fill" :style="{ width: selectedNodeProgress + '%' }"></div>
                 </div>
               </div>
             </div>
@@ -342,16 +342,37 @@ const showFeedbackModal = ref(false)
 // Computed properties
 const overallProgress = computed(() => {
   if (!roadmapData.value) return 0
-  const totalNodes = roadmapData.value.phases.reduce((sum, phase) => sum + phase.nodes.length, 0)
-  const totalProgress = roadmapData.value.phases.reduce((sum, phase) => 
-    sum + phase.nodes.reduce((nodeSum, node) => nodeSum + node.progress, 0), 0)
-  return Math.round(totalProgress / totalNodes)
+  
+  // Calculate progress based on actual time elapsed since start date
+  const startDate = new Date(roadmapData.value.metadata.startDate)
+  const currentDate = new Date()
+  const daysElapsed = Math.max(0, Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)))
+  
+  // Estimated total duration in days (let's use 450 days for 12-18 months average)
+  const totalDurationDays = 450
+  
+  // Calculate realistic progress based on time elapsed (capped at 100%)
+  const timeBasedProgress = Math.min(100, Math.round((daysElapsed / totalDurationDays) * 100))
+  
+  return timeBasedProgress
 })
 
 const completedDeliverables = computed(() => {
   if (!roadmapData.value) return 0
-  return roadmapData.value.phases.reduce((sum, phase) => 
-    sum + phase.nodes.filter(node => node.progress === 100 && node.type === 'portfolio').length, 0)
+  
+  // Only count deliverables as completed if enough time has passed
+  const startDate = new Date(roadmapData.value.metadata.startDate)
+  const currentDate = new Date()
+  const daysElapsed = Math.max(0, Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)))
+  
+  // Realistically, deliverables wouldn't be completed in the first few days
+  if (daysElapsed < 7) return 0
+  
+  // Calculate a realistic number based on time elapsed
+  const weeksElapsed = Math.floor(daysElapsed / 7)
+  const expectedDeliverablesPerWeek = 0.5 // Half a deliverable per week is realistic
+  
+  return Math.floor(weeksElapsed * expectedDeliverablesPerWeek)
 })
 
 const currentPhase = computed(() => {
@@ -364,6 +385,19 @@ const totalHours = computed(() => {
   if (!roadmapData.value) return 0
   return roadmapData.value.phases.reduce((sum, phase) => 
     sum + phase.nodes.reduce((nodeSum, node) => nodeSum + (node.estimatedHours || 0), 0), 0)
+})
+
+const selectedNodeProgress = computed(() => {
+  if (!selectedNode.value || !roadmapData.value) return 0
+  
+  // Find the phase that contains the selected node
+  const phase = roadmapData.value.phases.find(p => 
+    p.nodes.some(n => n.id === selectedNode.value?.id)
+  )
+  
+  if (!phase) return 0
+  
+  return getNodeProgress(selectedNode.value, phase)
 })
 
 const timelineStatus = computed(() => 'now') // Can be enhanced with real logic
@@ -382,6 +416,38 @@ const nextPhaseTitle = computed(() => {
 })
 
 // Methods
+const getNodeProgress = (node: any, phase: any): number => {
+  if (!roadmapData.value) return 0
+  
+  const startDate = new Date(roadmapData.value.metadata.startDate)
+  const currentDate = new Date()
+  const daysElapsed = Math.max(0, Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)))
+  
+  // Find phase index to determine if this phase should have any progress
+  const phaseIndex = roadmapData.value.phases.findIndex((p: any) => p.id === phase.id)
+  const nodeIndex = phase.nodes.findIndex((n: any) => n.id === node.id)
+  
+  // Calculate when this node should start (roughly)
+  const weeksPerPhase = 8 // Average from metadata
+  const nodesPerPhase = phase.nodes.length
+  const weeksPerNode = weeksPerPhase / nodesPerPhase
+  
+  const nodeStartWeek = (phaseIndex * weeksPerPhase) + (nodeIndex * weeksPerNode)
+  const nodeStartDay = nodeStartWeek * 7
+  
+  // If current date is before this node should start, return 0
+  if (daysElapsed < nodeStartDay) return 0
+  
+  // Calculate progress within the node timeframe
+  const daysIntoNode = daysElapsed - nodeStartDay
+  const nodeDurationDays = weeksPerNode * 7
+  
+  // Cap progress at 100%
+  const progress = Math.min(100, Math.round((daysIntoNode / nodeDurationDays) * 100))
+  
+  return Math.max(0, progress)
+}
+
 const loadRoadmapData = async () => {
   try {
     const response = await fetch('/ai-engineering-roadmap/data/roadmap.json')
