@@ -1,11 +1,14 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <n-config-provider :theme-overrides="brainwavTheme">
+    <div id="app">
+      <router-view />
+    </div>
+  </n-config-provider>
 </template>
 
 <script setup lang="ts">
-// Main app component
+import { NConfigProvider } from 'naive-ui'
+import { brainwavTheme } from './theme/brainwav-theme'
 </script>
 
 <style>

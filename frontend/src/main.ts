@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import naive from 'naive-ui'
 import App from './App.vue'
 import Home from './components/Home.vue'
 
@@ -18,6 +19,7 @@ const router = createRouter({
 // Create and mount app
 const app = createApp(App)
 app.use(router)
+app.use(naive)
 
 // Add some debugging
 console.log('Vue app starting...')

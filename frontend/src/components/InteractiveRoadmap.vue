@@ -15,63 +15,121 @@
         </p>
         <p class="description">{{ roadmapData.metadata.description }}</p>
         
-        <!-- Call-to-Action Buttons -->
+        <!-- Enhanced Call-to-Action Buttons with Naive UI -->
         <div class="cta-buttons">
-          <button @click="scrollToRoadmap" class="btn-primary">
-            🚀 Start Your Journey
-          </button>
-          <button @click="showFeedbackModal = true" class="btn-secondary">
+          <n-button 
+            @click="scrollToRoadmap" 
+            type="primary" 
+            size="large"
+            round
+            class="btn-primary"
+          >
+            <template #icon>
+              <n-icon :component="Rocket" />
+            </template>
+            Start Your Journey
+          </n-button>
+          <n-button 
+            @click="showFeedbackModal = true" 
+            type="info"
+            size="large"
+            round
+            ghost
+            class="btn-secondary"
+          >
             💬 Suggest Improvements
-          </button>
+          </n-button>
         </div>
         
-        <!-- Progress Dashboard -->
+        <!-- Enhanced Progress Dashboard with Naive UI -->
         <div class="progress-dashboard">
-          <div class="progress-item">
-            <div class="progress-label">Overall Progress</div>
-            <div class="progress-value">{{ overallProgress }}%</div>
-            <div class="progress-bar">
-              <div class="progress-fill" :style="{ width: overallProgress + '%' }"></div>
-            </div>
-          </div>
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-value">{{ completedDeliverables }}</div>
-              <div class="stat-label">Deliverables Done</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">{{ currentPhase }}</div>
-              <div class="stat-label">Current Phase</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">{{ totalHours }}</div>
-              <div class="stat-label">Total Hours</div>
-            </div>
-          </div>
+          <n-grid :cols="4" :x-gap="20" responsive="screen">
+            <n-grid-item :span="4">
+              <n-card title="Overall Progress" embedded>
+                <n-progress 
+                  type="line" 
+                  :percentage="overallProgress" 
+                  :height="24"
+                  :border-radius="12"
+                  :fill-border-radius="12"
+                  color="#1E90FF"
+                  rail-color="#0B1016"
+                  processing
+                />
+                <template #header-extra>
+                  <n-gradient-text type="info">{{ overallProgress }}%</n-gradient-text>
+                </template>
+              </n-card>
+            </n-grid-item>
+            
+            <n-grid-item>
+              <n-statistic label="Deliverables Done" :value="completedDeliverables">
+                <template #prefix>
+                  <n-icon :component="CheckmarkCircle" color="#10B981" />
+                </template>
+              </n-statistic>
+            </n-grid-item>
+            
+            <n-grid-item>
+              <n-statistic label="Current Phase" :value="currentPhase">
+                <template #prefix>
+                  <n-icon :component="Rocket" color="#FF4A00" />
+                </template>
+              </n-statistic>
+            </n-grid-item>
+            
+            <n-grid-item>
+              <n-statistic label="Total Hours" :value="totalHours">
+                <template #prefix>
+                  <n-icon :component="Time" color="#1167B1" />
+                </template>
+              </n-statistic>
+            </n-grid-item>
+          </n-grid>
         </div>
         
-        <!-- Timeline Status -->
+        <!-- Enhanced Timeline with Naive UI Steps -->
         <div class="timeline-status">
-          <div class="timeline-item" :class="{ active: timelineStatus === 'now' }">
-            <span class="timeline-dot"></span>
-            <span>Now: {{ currentPhaseTitle }}</span>
-          </div>
-          <div class="timeline-item" :class="{ active: timelineStatus === 'next' }">
-            <span class="timeline-dot"></span>
-            <span>Next: {{ nextPhaseTitle }}</span>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-dot"></span>
-            <span>Goal: AI Leadership by {{ formatDate(roadmapData.metadata.startDate, 12) }}</span>
-          </div>
+          <n-card title="Learning Journey Progress" embedded>
+            <div class="timeline-phases">
+              <div 
+                v-for="(phase, index) in roadmapData?.phases.slice(0, 4) || []" 
+                :key="phase.id"
+                class="timeline-phase"
+                :class="{ 
+                  'active': phase.status === 'in_progress',
+                  'completed': phase.status === 'completed'
+                }"
+              >
+                <div class="phase-step">
+                  <div class="step-icon">
+                    <span v-if="phase.status === 'completed'">✅</span>
+                    <span v-else-if="phase.status === 'in_progress'">⚙️</span>
+                    <span v-else>{{ index + 1 }}</span>
+                  </div>
+                  <div class="step-content">
+                    <h4>{{ phase.title }}</h4>
+                    <p>{{ phase.subtitle || `Week ${index * 8 + 1}-${(index + 1) * 8}` }}</p>
+                  </div>
+                </div>
+                <div v-if="index < 3" class="phase-connector"></div>
+              </div>
+            </div>
+          </n-card>
         </div>
       </div>
     </div>
 
-    <!-- Loading State -->
+    <!-- Loading State with Naive UI -->
     <div v-else class="loading-state">
-      <h1>Loading AI Engineering Roadmap...</h1>
-      <div class="loading-spinner"></div>
+      <n-card title="Loading AI Engineering Roadmap..." embedded>
+        <n-space vertical align="center" style="padding: 60px 20px;">
+          <n-spin size="large" />
+          <n-gradient-text type="info">
+            Preparing your personalized learning journey...
+          </n-gradient-text>
+        </n-space>
+      </n-card>
     </div>
 
     <!-- Vertical Roadmap (roadmap.sh style) -->
@@ -99,71 +157,104 @@
 
           <!-- Roadmap Nodes in Vertical Flow -->
           <div class="roadmap-nodes-flow">
-            <div 
+            <n-tooltip 
               v-for="(node, nodeIndex) in phase.nodes" 
               :key="node.id"
-              class="roadmap-node"
-              :class="[
-                `node-${node.type}`,
-                { 
-                  'completed': getNodeProgress(node, phase) === 100,
-                  'in-progress': getNodeProgress(node, phase) > 0 && getNodeProgress(node, phase) < 100,
-                  'todo': getNodeProgress(node, phase) === 0,
-                  'optional': node.isOptional,
-                  'checkpoint': node.checkpoint
-                }
-              ]"
-              @click="selectNode(node)"
+              placement="right"
+              trigger="hover"
             >
-              <!-- Node Connector -->
-              <div v-if="nodeIndex > 0" class="node-connector"></div>
+              <template #trigger>
+                <div 
+                  class="roadmap-node"
+                  :class="[
+                    `node-${node.type}`,
+                    { 
+                      'completed': getNodeProgress(node, phase) === 100,
+                      'in-progress': getNodeProgress(node, phase) > 0 && getNodeProgress(node, phase) < 100,
+                      'todo': getNodeProgress(node, phase) === 0,
+                      'optional': node.isOptional,
+                      'checkpoint': node.checkpoint
+                    }
+                  ]"
+                  @click="selectNode(node)"
+                >
+                  <!-- Node Connector -->
+                  <div v-if="nodeIndex > 0" class="node-connector"></div>
+                  
+                  <!-- Node Card -->
+                  <div class="node-content">
+                    <div class="node-header-compact">
+                      <div class="node-status-icon">
+                        <span v-if="getNodeProgress(node, phase) === 100">✅</span>
+                        <span v-else-if="getNodeProgress(node, phase) > 0">⚙️</span>
+                        <span v-else>⏳</span>
+                      </div>
+                      <div class="node-main-info">
+                        <h3>{{ node.title }}</h3>
+                        <div class="node-meta-inline">
+                          <n-tag 
+                            :type="getNodeTypeColor(node.type)" 
+                            size="small" 
+                            round
+                          >
+                            {{ getNodeIcon(node.type) }} {{ node.type }}
+                          </n-tag>
+                          <n-tag type="info" size="small">{{ node.estimatedHours || 0 }}h</n-tag>
+                          <n-badge 
+                            v-if="node.resources && node.resources.length > 0" 
+                            :value="node.resources.length"
+                            type="success"
+                          >
+                            <n-tag size="small">📚 Resources</n-tag>
+                          </n-badge>
+                          <n-tag v-if="node.checkpoint" type="warning" size="small">🏁 Checkpoint</n-tag>
+                          <n-tag v-if="node.isOptional" type="default" size="small">Optional</n-tag>
+                        </div>
+                      </div>
+                      <div class="node-progress-indicator">
+                        <div class="progress-circle" :style="{ '--progress': getNodeProgress(node, phase) }">
+                          <span>{{ getNodeProgress(node, phase) }}%</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <p class="node-description-compact">{{ node.description || 'Click to see details and resources' }}</p>
+                    
+                    <!-- Quick Resource Preview -->
+                    <div v-if="node.resources && node.resources.length > 0" class="quick-resources">
+                      <n-space size="small">
+                        <n-tag 
+                          v-for="resource in node.resources.slice(0, 3)" 
+                          :key="resource.title"
+                          size="small"
+                          :type="getResourceTypeColor(resource.type)"
+                        >
+                          {{ getResourceIcon(resource.type) }} {{ resource.type }}
+                        </n-tag>
+                        <n-tag v-if="node.resources.length > 3" type="info" size="small">
+                          +{{ node.resources.length - 3 }} more
+                        </n-tag>
+                      </n-space>
+                    </div>
+                  </div>
+                </div>
+              </template>
               
-              <!-- Node Card -->
-              <div class="node-content">
-                <div class="node-header-compact">
-                  <div class="node-status-icon">
-                    <span v-if="getNodeProgress(node, phase) === 100">✅</span>
-                    <span v-else-if="getNodeProgress(node, phase) > 0">⚙️</span>
-                    <span v-else>⏳</span>
-                  </div>
-                  <div class="node-main-info">
-                    <h3>{{ node.title }}</h3>
-                    <div class="node-meta-inline">
-                      <span class="node-type-chip" :class="`type-${node.type}`">{{ getNodeIcon(node.type) }} {{ node.type }}</span>
-                      <span class="node-hours">{{ node.estimatedHours || 0 }}h</span>
-                      <span v-if="node.resources && node.resources.length > 0" class="resources-chip">
-                        📚 {{ node.resources.length }}
-                      </span>
-                      <span v-if="node.checkpoint" class="checkpoint-chip">🏁 Checkpoint</span>
-                      <span v-if="node.isOptional" class="optional-chip">Optional</span>
-                    </div>
-                  </div>
-                  <div class="node-progress-indicator">
-                    <div class="progress-circle" :style="{ '--progress': getNodeProgress(node, phase) }">
-                      <span>{{ getNodeProgress(node, phase) }}%</span>
-                    </div>
-                  </div>
+              <div class="node-tooltip-content">
+                <h4>{{ node.title }}</h4>
+                <p><strong>Type:</strong> {{ node.type }}</p>
+                <p><strong>Duration:</strong> {{ node.estimatedHours || 0 }} hours</p>
+                <p><strong>Progress:</strong> {{ getNodeProgress(node, phase) }}%</p>
+                <div v-if="node.description">
+                  <strong>Description:</strong>
+                  <p>{{ node.description }}</p>
                 </div>
-                
-                <p class="node-description-compact">{{ node.description || 'Click to see details and resources' }}</p>
-                
-                <!-- Quick Resource Preview -->
-                <div v-if="node.resources && node.resources.length > 0" class="quick-resources">
-                  <div class="quick-resource-items">
-                    <span 
-                      v-for="resource in node.resources.slice(0, 3)" 
-                      :key="resource.title"
-                      class="quick-resource-tag"
-                    >
-                      {{ getResourceIcon(resource.type) }} {{ resource.type }}
-                    </span>
-                    <span v-if="node.resources.length > 3" class="more-resources">
-                      +{{ node.resources.length - 3 }} more
-                    </span>
-                  </div>
+                <div v-if="node.resources && node.resources.length > 0">
+                  <strong>Resources:</strong> {{ node.resources.length }} available
                 </div>
+                <p style="margin-top: 8px; font-style: italic;">Click to view details and resources</p>
               </div>
-            </div>
+            </n-tooltip>
           </div>
         </div>
       </div>
@@ -293,94 +384,139 @@
       </div>
     </div>
 
-    <!-- Node Detail Modal -->
-    <div v-if="selectedNode" class="modal-overlay" @click="closeModal">
-      <div class="modal-content" @click.stop>
-        <div class="modal-header">
-          <h2>{{ selectedNode.title }}</h2>
-          <button @click="closeModal" class="close-btn">×</button>
-        </div>
-        
-        <div class="modal-body">
-          <div class="node-details">
-            <div class="detail-row">
-              <span class="label">Type:</span>
-              <span class="node-type-badge" :class="`type-${selectedNode.type}`">
-                {{ getNodeIcon(selectedNode.type) }} {{ selectedNode.type.toUpperCase() }}
-              </span>
-            </div>
+    <!-- Node Detail Modal with Naive UI -->
+    <n-modal 
+      v-model:show="showNodeModal" 
+      preset="card" 
+      :title="selectedNode?.title || 'Node Details'"
+      class="node-modal"
+      :style="{ maxWidth: '800px' }"
+      size="large"
+      closable
+      :mask-closable="true"
+      @update:show="(show: boolean) => { if (!show) selectedNode = null }"
+    >
+      <div v-if="selectedNode" class="modal-body">
+        <div class="node-details">
+          <n-space vertical size="medium">
+            <n-card title="Node Information" size="small" embedded>
+              <n-space size="medium">
+                <n-statistic label="Type">
+                  <template #default>
+                    <n-tag :type="getNodeTypeColor(selectedNode.type)" size="medium">
+                      {{ getNodeIcon(selectedNode.type) }} {{ selectedNode.type.toUpperCase() }}
+                    </n-tag>
+                  </template>
+                </n-statistic>
+                
+                <n-statistic label="Progress" :value="selectedNodeProgress" suffix="%">
+                  <template #prefix>
+                    <n-icon :component="CheckmarkCircle" v-if="selectedNodeProgress === 100" style="color: #18a058;" />
+                    <n-icon :component="Time" v-else style="color: #2080f0;" />
+                  </template>
+                </n-statistic>
+                
+                <n-statistic label="Estimated Time" :value="selectedNode.estimatedHours || 0" suffix=" hours">
+                  <template #prefix>
+                    <n-icon :component="Time" style="color: #f0a020;" />
+                  </template>
+                </n-statistic>
+              </n-space>
+            </n-card>
             
-            <div class="detail-row">
-              <span class="label">Progress:</span>
-              <div class="progress-display">
-                <span>{{ selectedNodeProgress }}%</span>
-                <div class="detail-progress-bar">
-                  <div class="detail-progress-fill" :style="{ width: selectedNodeProgress + '%' }"></div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="detail-row">
-              <span class="label">Estimated Time:</span>
-              <span>{{ selectedNode.estimatedHours || 0 }} hours</span>
-            </div>
-            
-            <div class="description-section">
-              <h3>Description</h3>
-              <p>{{ selectedNode.description || 'No description available' }}</p>
-            </div>
+            <n-card title="Description" size="small" embedded v-if="selectedNode.description">
+              <p>{{ selectedNode.description }}</p>
+            </n-card>
 
-            <!-- Resources - Enhanced Prominent Display -->
+            <!-- Enhanced Resources with Naive UI Cards -->
             <div v-if="selectedNode.resources && selectedNode.resources.length > 0" class="resources-section enhanced-resources">
-              <div class="resources-header">
-                <h3>📚 Learning Resources</h3>
-                <span class="resource-count">{{ selectedNode.resources.length }} resource{{ selectedNode.resources.length > 1 ? 's' : '' }} available</span>
-              </div>
-              <div class="resources-grid">
-                <a 
-                  v-for="resource in selectedNode.resources" 
-                  :key="resource.title"
-                  :href="resource.url"
-                  class="resource-card"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div class="resource-icon">{{ getResourceIcon(resource.type) }}</div>
-                  <div class="resource-content">
-                    <div class="resource-type-badge" :class="`type-${resource.type.toLowerCase()}`">{{ resource.type }}</div>
-                    <div class="resource-title">{{ resource.title }}</div>
-                  </div>
-                  <div class="resource-action">→</div>
-                </a>
-              </div>
-              <div class="resources-note">
-                💡 <strong>Start with these resources</strong> to build the knowledge needed for this milestone
-              </div>
+              <n-card title="📚 Learning Resources" size="small" embedded>
+                <template #header-extra>
+                  <n-tag type="info" round>
+                    {{ selectedNode.resources.length }} resource{{ selectedNode.resources.length > 1 ? 's' : '' }}
+                  </n-tag>
+                </template>
+                
+                <n-scrollbar style="max-height: 400px;">
+                  <n-space vertical size="small">
+                    <n-card 
+                      v-for="resource in selectedNode.resources" 
+                      :key="resource.title"
+                      :title="resource.title"
+                      size="small"
+                      hoverable
+                      embedded
+                      @click="openResource(resource.url)"
+                      style="cursor: pointer;"
+                    >
+                      <template #header-extra>
+                        <n-tag 
+                          :type="getResourceTypeColor(resource.type)" 
+                          size="small"
+                        >
+                          {{ getResourceIcon(resource.type) }} {{ resource.type }}
+                        </n-tag>
+                      </template>
+                      <template #action>
+                        <div class="resource-action-enhanced">
+                          <n-button text type="primary">
+                            Open Resource →
+                          </n-button>
+                        </div>
+                      </template>
+                    </n-card>
+                  </n-space>
+                </n-scrollbar>
+                
+                <div class="resources-note" style="margin-top: 16px;">
+                  <n-alert type="info" :show-icon="false">
+                    💡 <strong>Start with these resources</strong> to build the knowledge needed for this milestone
+                  </n-alert>
+                </div>
+              </n-card>
             </div>
 
             <!-- Deliverables -->
-            <div v-if="selectedNode.deliverables" class="deliverables-section">
-              <h3>Deliverables</h3>
-              <ul class="deliverables-list">
-                <li v-for="deliverable in selectedNode.deliverables" :key="deliverable">
+            <n-card 
+              v-if="selectedNode.deliverables && selectedNode.deliverables.length > 0" 
+              title="🏆 Deliverables" 
+              size="small" 
+              embedded
+            >
+              <n-space vertical size="small">
+                <n-tag 
+                  v-for="deliverable in selectedNode.deliverables" 
+                  :key="deliverable"
+                  type="success"
+                  size="medium"
+                >
                   {{ deliverable }}
-                </li>
-              </ul>
-            </div>
+                </n-tag>
+              </n-space>
+            </n-card>
 
             <!-- Completion Criteria -->
-            <div v-if="selectedNode.completionCriteria" class="criteria-section">
-              <h3>Completion Criteria</h3>
-              <ul class="criteria-list">
-                <li v-for="criteria in selectedNode.completionCriteria" :key="criteria">
-                  {{ criteria }}
-                </li>
-              </ul>
-            </div>
-          </div>
+            <n-card 
+              v-if="selectedNode.completionCriteria && selectedNode.completionCriteria.length > 0" 
+              title="✅ Completion Criteria" 
+              size="small" 
+              embedded
+            >
+              <n-space vertical size="small">
+                <div 
+                  v-for="criteria in selectedNode.completionCriteria" 
+                  :key="criteria"
+                  style="display: flex; align-items: center; gap: 8px;"
+                >
+                  <n-icon :component="CheckmarkCircle" style="color: #18a058;" />
+                  <span>{{ criteria }}</span>
+                </div>
+              </n-space>
+            </n-card>
+          </n-space>
         </div>
       </div>
-    </div>
+    </n-modal>
 
     <!-- Feedback Modal -->
     <div v-if="showFeedbackModal" class="modal-backdrop" @click="showFeedbackModal = false">
@@ -446,6 +582,29 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { 
+  NProgress, 
+  NCard, 
+  NStatistic,
+  NGrid,
+  NGridItem,
+  NGradientText,
+  NIcon,
+  NButton,
+  NTooltip,
+  NModal,
+  NScrollbar,
+  NSpin,
+  NBadge,
+  NTag,
+  NSpace,
+  NAlert
+} from 'naive-ui'
+import { 
+  Rocket,
+  CheckmarkCircle,
+  Time
+} from '@vicons/ionicons5'
 import type { RoadmapData, RoadmapNode } from '../services/roadmapService'
 
 // Reactive data
@@ -453,6 +612,7 @@ const roadmapData = ref<RoadmapData | null>(null)
 const expandedPhases = ref<string[]>(['phase1']) // Start with first phase expanded
 const selectedNode = ref<RoadmapNode | null>(null)
 const showFeedbackModal = ref(false)
+const showNodeModal = computed(() => selectedNode.value !== null)
 
 // Computed properties
 const overallProgress = computed(() => {
@@ -592,6 +752,10 @@ const closeModal = () => {
   selectedNode.value = null
 }
 
+const openResource = (url: string) => {
+  window.open(url, '_blank', 'noopener,noreferrer')
+}
+
 const getNodeIcon = (type: string) => {
   const icons = {
     learn: '📘',
@@ -663,6 +827,32 @@ const getDeliverableLink = (nodeId: string, deliverable: string) => {
   const baseUrl = "https://github.com/jamiescottcraik/ai-engineering-roadmap/projects"
   const slug = deliverable.toLowerCase().replace(/[^a-z0-9]/g, '-')
   return `${baseUrl}/${nodeId}/${slug}`
+}
+
+const getNodeTypeColor = (type: string) => {
+  const colorMap: Record<string, 'default' | 'primary' | 'info' | 'success' | 'warning' | 'error'> = {
+    learn: 'info',
+    practice: 'success',
+    portfolio: 'warning',
+    keyresource: 'primary'
+  }
+  return colorMap[type] || 'default'
+}
+
+const getResourceTypeColor = (type: string) => {
+  const colorMap: Record<string, 'default' | 'primary' | 'info' | 'success' | 'warning' | 'error'> = {
+    course: 'primary',
+    book: 'info',
+    tutorial: 'success',
+    video: 'warning',
+    documentation: 'default',
+    practice: 'success',
+    tool: 'primary',
+    article: 'info',
+    website: 'default',
+    github: 'primary'
+  }
+  return colorMap[type.toLowerCase()] || 'default'
 }
 
 // Lifecycle
@@ -2306,6 +2496,141 @@ onMounted(() => {
   .modal-content {
     width: 95%;
     margin: 20px;
+  }
+}
+
+/* Timeline Phase Styling */
+.timeline-phases {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.timeline-phase {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.phase-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.timeline-phase.active .phase-step {
+  border-color: #FF4A00;
+  background: linear-gradient(135deg, #FF4A00, #FF6B2A);
+  color: white;
+}
+
+.timeline-phase.completed .phase-step {
+  border-color: #10B981;
+  background: linear-gradient(135deg, #10B981, #34D399);
+  color: white;
+}
+
+.step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.timeline-phase:not(.active):not(.completed) .step-icon {
+  background: #1167B1;
+  color: white;
+}
+
+.step-content h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.step-content p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.phase-connector {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  width: 20px;
+  height: 2px;
+  background: #e2e8f0;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.timeline-phase.completed + .timeline-phase .phase-connector {
+  background: #10B981;
+}
+
+/* Enhanced Node Tooltip Styling */
+.node-tooltip-content {
+  max-width: 300px;
+}
+
+.node-tooltip-content h4 {
+  margin: 0 0 12px 0;
+  color: #1167B1;
+  font-size: 16px;
+}
+
+.node-tooltip-content p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Modal Enhancements */
+.node-modal :deep(.n-card) {
+  border-radius: 12px;
+}
+
+.node-modal :deep(.n-card-header) {
+  background: linear-gradient(135deg, #1167B1, #1E90FF);
+  color: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.resource-action-enhanced {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Mobile responsiveness for timeline */
+@media (max-width: 768px) {
+  .timeline-phases {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .phase-connector {
+    display: none;
+  }
+  
+  .node-tooltip-content {
+    max-width: 250px;
   }
 }
 </style>
