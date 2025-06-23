@@ -9,13 +9,13 @@ app = FastAPI(
 )
 
 
-@app.get("/")
+@app.get("/")  # type: ignore[misc]
 async def root() -> dict[str, Any]:
     """Health check endpoint."""
     return {"message": "brAInwav API is running", "status": "healthy"}
 
 
-@app.get("/health")
+@app.get("/health")  # type: ignore[misc]
 async def health_check() -> dict[str, Any]:
     """Health check endpoint for monitoring."""
     return {"status": "healthy", "service": "brainwav-backend"}

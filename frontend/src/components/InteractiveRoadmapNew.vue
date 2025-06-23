@@ -91,6 +91,15 @@
       </div>
     </div>
 
+    <!-- Error State -->
+    <div v-else-if="loadingError" class="error-state">
+      <n-card title="Error Loading Roadmap" embedded>
+        <n-space vertical align="center" style="padding: 60px 20px;">
+          <n-alert type="error" :title="loadingError" />
+          <n-button type="primary" @click="loadRoadmapData()">Retry</n-button>
+        </n-space>
+      </n-card>
+    </div>
     <!-- Loading State -->
     <div v-else class="loading-state">
       <n-card title="Loading AI Engineering Roadmap..." embedded>
@@ -335,6 +344,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { loadRoadmapData as fetchRoadmapData } from '../services/roadmapService'
 import { 
   NCard, NButton, NProgress, NStatistic, NTag, NIcon, NModal, NSpace, 
   NGradientText, NSpin, NInput, NAlert, NGrid, NGridItem, NScrollbar
@@ -387,6 +397,8 @@ interface RoadmapData {
 
 // Reactive state
 const roadmapData = ref<RoadmapData | null>(null)
+const isLoading = ref(false)
+const loadingError = ref<string | null>(null)
 const selectedNode = ref<RoadmapNode | null>(null)
 const showNodeModal = computed(() => selectedNode.value !== null)
 const showFeedbackModal = ref(false)
@@ -591,17 +603,21 @@ const openResource = (resource: any) => {
   }
 }
 
-const loadRoadmapData = async () => {
-  try {
-    const response = await fetch('./roadmap.json')
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+const loadRoadmapData = async (retries = 3) => {
+  isLoading.value = true
+  loadingError.value = null
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      const data = await fetchRoadmapData()
+      roadmapData.value = data
+      isLoading.value = false
+      return
+    } catch (error) {
+      loadingError.value = 'Failed to load roadmap data. Retrying...'
     }
-    const data = await response.json()
-    roadmapData.value = data
-  } catch (error) {
-    console.error('Error loading roadmap data:', error)
   }
+  isLoading.value = false
+  loadingError.value = 'Unable to load roadmap data. Please try again later.'
 }
 
 onMounted(() => {
@@ -793,6 +809,13 @@ h1 {
 }
 
 .loading-state {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-state {
   min-height: 60vh;
   display: flex;
   align-items: center;
