@@ -1,7 +1,7 @@
 # backend/Dockerfile
 # Defines the container image for the brAInwav Python backend service.
 
-FROM python:3.11-slim-bookworm
+FROM python:3.11.9-slim-bookworm
 
 WORKDIR /workspace
 
@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && dpkg -i 1password-cli-amd64-latest.deb \
     # Clean up to keep the image size small
     && rm 1password-cli-amd64-latest.deb \
+    && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 # --- END UPDATED SECTION ---
 

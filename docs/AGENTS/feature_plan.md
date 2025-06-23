@@ -26,7 +26,8 @@ To transform the `ai-engineering-roadmap` repository into a modern, interactive 
   - Commit message: "Initial branch for roadmap modernization"
 
 - [ ] **Restructure repository** for clarity:
-  ```
+
+  ```plaintext
   /roadmaps/     # JSON/YAML curriculum data
   /assets/       # Images, diagrams, screenshots
   /notes/        # Markdown notes and study logs
@@ -34,6 +35,7 @@ To transform the `ai-engineering-roadmap` repository into a modern, interactive 
   /public/       # Generated roadmap visualizations
   /scripts/      # Validation and automation tools
   ```
+
   - Commit message: "Restructure repository for better organization"
 
 - [ ] **Add enhanced CSS styling**
@@ -54,7 +56,7 @@ To transform the `ai-engineering-roadmap` repository into a modern, interactive 
   - Commit message: "Add interactive roadmap visualization features"
 
 - [ ] **Add progress tracking with localStorage**
-  - Implement `progress-tracking.js` 
+  - Implement `progress-tracking.js`
   - Create status tracking for nodes (not started/in-progress/completed)
   - Commit message: "Implement progress tracking with localStorage persistence"
 
@@ -143,7 +145,8 @@ For each feature implementation:
 5. **Error checking**: Verify console is free of errors
 
 **Required commit format**:
-```
+
+```bash
 feat(area): brief description of change
 
 Detailed description explaining the change, including:
@@ -169,8 +172,8 @@ Closes #issue-number (if applicable)
 
 - **GitHub Copilot**: Use for code generation and debugging assistance
 - **OpenAI Codex**: Leverage for complex algorithm design and optimization
-- **roadmap.sh reference**: https://roadmap.sh/ai-engineer
-- **developer-roadmap repo**: https://github.com/kamranahmedse/developer-roadmap
+- **roadmap.sh reference**: <https://roadmap.sh/ai-engineer>
+- **developer-roadmap repo**: <https://github.com/kamranahmedse/developer-roadmap>
 - **Learning psychology research**: Incorporate spaced repetition and active recall principles
 
 ---
@@ -178,6 +181,7 @@ Closes #issue-number (if applicable)
 ## 🔄 Review Process
 
 At the end of each phase:
+
 1. Review all completed tasks against objectives
 2. Test all new functionality
 3. Document any technical debt or future improvements
