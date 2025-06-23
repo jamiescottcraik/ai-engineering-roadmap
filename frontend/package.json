@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.3",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
     "@vue/test-utils": "^2.4.6",
@@ -32,8 +32,8 @@
     "jsdom": "^26.1.0",
     "rollup-plugin-visualizer": "^6.0.3",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5",
+    "vite": "^6.3.5",
     "vitest": "^3.2.4",
-    "vue-tsc": "^1.8.25"
+    "vue-tsc": "^2.2.10"
   }
 }
