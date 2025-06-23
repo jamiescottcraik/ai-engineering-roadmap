@@ -1,8 +1,8 @@
-# AGENT Feature Plan: AI Engineering Roadmap Modernization
+# AGENT Feature Plan: AI Engineering Roadmap Modernization (Personal Learning Edition)
 
 ## Objective
 
-To transform the `ai-engineering-roadmap` repository into a modern, interactive personal learning platform—inspired by roadmap.sh but optimized for individual use. The implementation will be done via a new branch with regular commits, automated testing, and error fixing.
+Transform the `ai-engineering-roadmap` repository into a modern, interactive personal learning platform—surpassing roadmap.sh by focusing on personalized, AI-accelerated learning, spaced repetition, actionable analytics, and psychologically-informed design. Implementation will occur in a new branch with incremental commits, robust testing, and continuous improvement.
 
 ---
 
@@ -17,134 +17,152 @@ To transform the `ai-engineering-roadmap` repository into a modern, interactive 
 
 ---
 
-## 🚀 New Branch Implementation Sequence
+## 🚀 Implementation Plan (Personal Learning Roadmap Upgrade)
 
-### Phase 1: Foundation & Structure Improvements (Week 1)
+### Phase 1: Foundation & Structure Setup (Week 1)
 
-- [ ] **Create new branch `roadmap-enhancements`**
-  - `git checkout -b roadmap-enhancements`
-  - Commit message: "Initial branch for roadmap modernization"
+- [ ] **Create new branch: `learning-roadmap-modernization`**
+  - `git checkout -b learning-roadmap-modernization`
+  - Commit: "Initial branch for personal learning roadmap modernization"
 
-- [ ] **Restructure repository** for clarity:
+- [ ] **Scaffold Next.js 14+ project with TypeScript**
+  - Integrate TailwindCSS for UI
+  - Commit: "Scaffold Next.js project with TypeScript and TailwindCSS"
 
-  ```plaintext
-  /roadmaps/     # JSON/YAML curriculum data
-  /assets/       # Images, diagrams, screenshots
-  /notes/        # Markdown notes and study logs
-  /code/         # Project code and notebooks
-  /public/       # Generated roadmap visualizations
-  /scripts/      # Validation and automation tools
+- [ ] **Organize directories for personal learning**
   ```
+  /content/      # Markdown/YAML learning nodes and resources
+  /assets/       # Images, diagrams, screenshots
+  /notes/        # Personal notes and study logs
+  /components/   # React/Next.js UI components
+  /public/       # Static exports and visualization assets
+  /scripts/      # Automation and validation tools
+  ```
+  - Commit: "Restructure repository for personal learning organization"
 
-  - Commit message: "Restructure repository for better organization"
+- [ ] **Set up IndexedDB/localStorage for progress tracking**
+  - Bootstrapped with React Context
+  - Commit: "Add local storage for progress tracking"
 
-- [ ] **Add enhanced CSS styling**
-  - Create `enhanced-styles.css` with improved node styling
-  - Add hover effects, progress indicators, and filter button styling
-  - Commit message: "Add enhanced CSS styling for roadmap nodes"
+- [ ] **Add enhanced global CSS**
+  - Tailwind configuration, brand-aligned custom theme, dark/light mode
+  - Commit: "Add enhanced CSS and theming"
 
-- [ ] **Fix TypeScript lint errors**
-  - Location: Any TypeScript files with errors
-  - Ensure proper type annotations and remove unused parameters
-  - Commit message: "Fix TypeScript lint errors and improve type safety"
+---
 
-### Phase 2: Interactive Functionality (Week 2)
+### Phase 2: Interactive Visualization & Core UI (Weeks 2–3)
 
-- [ ] **Implement interactive visualization improvements**
-  - Add `roadmap-visualization.js` for node expansion/collapse
-  - Implement filtering functionality
-  - Commit message: "Add interactive roadmap visualization features"
+- [ ] **Integrate ReactFlow for roadmap visualization**
+  - Implement interactive, expandable nodes
+  - Show completion/in-progress overlays (color-coded)
+  - Commit: "Add interactive roadmap visualization with ReactFlow"
 
-- [ ] **Add progress tracking with localStorage**
-  - Implement `progress-tracking.js`
-  - Create status tracking for nodes (not started/in-progress/completed)
-  - Commit message: "Implement progress tracking with localStorage persistence"
+- [ ] **Build filtering and search functionality**
+  - By topic, difficulty, and progress
+  - Commit: "Implement roadmap filtering and search"
 
-- [ ] **Create personal notes feature**
-  - Add `personal-notes.js` for note-taking capability
-  - Save notes to localStorage with timestamps
-  - Commit message: "Add personal notes feature for learning topics"
+- [ ] **Progress dashboard**
+  - Track per-topic and overall completion, streaks, analytics (visual feedback with color)
+  - Commit: "Create progress dashboard and analytics"
 
-- [ ] **Build progress dashboard**
-  - Create `progress-dashboard.html` with visualization
-  - Add category-specific progress tracking
-  - Implement recent activity tracking
-  - Commit message: "Create progress dashboard for learning analytics"
+- [ ] **Mobile responsiveness & accessibility**
+  - Responsive layouts, touch support, ARIA labels, keyboard navigation
+  - Commit: "Enhance mobile and accessibility"
 
-### Phase 3: Content Enhancement (Week 3)
+---
 
-- [ ] **Audit and remove broken resource links**
-  - Check all external links for validity
-  - Remove or replace broken URLs
-  - Commit message: "Audit and fix broken resource links"
+### Phase 3: Learning Features, Content, & AI (Weeks 4–5)
 
-- [ ] **Enhance resource metadata**
-  - Add difficulty levels, time estimates, and types to all resources
-  - Improve resource descriptions
-  - Commit message: "Enhance resource metadata for better context"
+- [ ] **Markdown-based content system**
+  - YAML frontmatter for metadata (difficulty, time, type)
+  - Custom parser with Marked.js
+  - Commit: "Add markdown content system for learning nodes"
 
-- [ ] **Standardize node template structure**
-  - Implement consistent structure for roadmap nodes
-  - Add consistent resource formatting
-  - Commit message: "Standardize node template structure"
+- [ ] **Personal notes and spaced repetition integration**
+  - Note-taking attached to nodes, stored locally
+  - Implement spaced repetition scheduling, active recall prompts
+  - Commit: "Implement note-taking and spaced repetition"
 
-- [ ] **Create filter controls**
-  - Add category and progress filtering
-  - Implement search functionality
-  - Commit message: "Add comprehensive filtering and search capabilities"
+- [ ] **AI-powered personalization**
+  - GitHub Copilot/OpenAI for:
+    - Inline explanations of concepts
+    - Quiz and practice question generation
+    - Personalized learning path suggestions
+    - Adaptive challenge calibration
+  - Commit: "Add AI-powered learning features and personalization"
 
-### Phase 4: Mobile & Accessibility (Week 4)
+- [ ] **Enhanced resource metadata & audit**
+  - Difficulty/time/type/description for all resources
+  - Audit and fix all broken links
+  - Commit: "Enhance metadata and audit resources"
 
-- [ ] **Enhance mobile responsiveness**
-  - Optimize layout for mobile devices
-  - Implement touch-friendly interactions
-  - Commit message: "Enhance mobile responsiveness of roadmap"
+---
 
-- [ ] **Fix accessibility issues**
-  - Add ARIA labels to interactive elements
-  - Ensure keyboard navigation works properly
-  - Test with screen readers
-  - Commit message: "Improve accessibility compliance"
+### Phase 4: Advanced Features & Quality (Weeks 6–7)
 
-- [ ] **Add loading states and performance optimization**
-  - Implement loading indicators or skeletons
-  - Optimize JavaScript performance
-  - Commit message: "Add loading states and optimize performance"
+- [ ] **Project suggestion & tracking**
+  - AI-driven project ideas, project progress tracking, portfolio builder
+  - Commit: "Implement project suggestion and portfolio features"
 
-### Phase 5: Documentation & Quality Assurance (Week 5)
+- [ ] **Offline & PWA support**
+  - Add Service Worker, offline caching
+  - Commit: "Enable offline support (PWA)"
 
-- [ ] **Update README.md**
-  - Add project description, screenshots, and usage instructions
-  - Include roadmap visualization preview
-  - Commit message: "Update README with comprehensive documentation"
+- [ ] **Testing, error handling, and performance optimization**
+  - Jest/Playwright for tests
+  - Loading states, code-splitting, performance audits
+  - Commit: "Add tests, error handling, and optimize performance"
 
-- [ ] **Create CONTRIBUTING.md**
-  - Document how to add resources or suggest improvements
-  - Commit message: "Add contribution guidelines"
+- [ ] **Final polish and documentation**
+  - Update `README.md` and `CONTRIBUTING.md` with new usage and structure
+  - Add learning psychology rationale and feature guide in `/docs/`
+  - Commit: "Final polish, documentation, and release prep"
 
-- [ ] **Implement testing**
-  - Add basic tests for interactive features
-  - Test progress tracking functionality
-  - Commit message: "Add tests for core functionality"
+---
 
-- [ ] **Final polish and bug fixes**
-  - Address any remaining issues
-  - Conduct final testing across devices and browsers
-  - Commit message: "Final polish and bug fixes"
+## 🎨 Color Strategy & Learning Psychology Integration
+
+- **Brand Foundation:**  
+  Core UI elements (nav, logo, primary actions) use brand colors for consistency and recognition.
+- **Learning Psychology Layer:**  
+  - Green = mastered/complete, yellow = in progress, red/orange = needs review/urgent.
+  - Progress bars, achievements, and feedback animate with motivating and energizing color transitions.
+  - Use soft/neutral backgrounds for content to minimize cognitive load.
+- **Accessibility:**  
+  All color usages meet WCAG contrast standards. Never rely on color alone—add icons and text labels for status.
+- **User Empowerment:**  
+  Support theme customization (dark/light/high-contrast/focus mode). Allow user tagging/highlighting of topics with custom colors.
+- **Documentation:**  
+  Maintain `/docs/COLOR_GUIDE.md` explaining palette, usage, and psychological rationale.
+
+---
+
+## 🧠 Learning Psychology Features
+
+- **Cognitive Optimization:**  
+  Progressive disclosure, visual mapping, minimal context switching, dual coding (color + text).
+- **Motivation:**  
+  Streaks, micro-rewards, milestone celebrations, challenge calibration, habit-building.
+- **Memory:**  
+  Spaced repetition, active recall, interleaving, multi-modal (visual, text, interactive).
+- **Focus:**  
+  Pomodoro integration, distraction blockers, energy tracking, optimal time suggestions.
+- **Metacognition:**  
+  Reflection prompts, self-assessment, strategy suggestions, insight journaling.
 
 ---
 
 ## 📋 Testing & Quality Assurance Workflow
 
-For each feature implementation:
+For each feature:
 
-1. **Pre-implementation testing**: Document current behavior
-2. **Post-implementation testing**: Verify new behavior works as expected
-3. **Cross-browser testing**: Test in Chrome, Firefox, Safari
-4. **Mobile testing**: Test on at least one mobile device
-5. **Error checking**: Verify console is free of errors
+1. **Pre-implementation testing:** Document current behavior (if any)
+2. **Post-implementation testing:** Verify new behavior, cross-browser (Chrome, Firefox, Safari)
+3. **Mobile testing:** At least one mobile device or emulator
+4. **Accessibility:** ARIA, keyboard navigation, color contrast
+5. **Error checking:** Console and runtime errors must be resolved
 
-**Required commit format**:
+**Commit format:**
 
 ```bash
 feat(area): brief description of change
@@ -159,34 +177,36 @@ Closes #issue-number (if applicable)
 
 ---
 
-## 📊 Progress Tracking Methodology
+## 🛠️ Tools, Libraries, & AI Integration
 
-- **Phase tracking**: Mark each phase as "Not Started", "In Progress", or "Completed"
-- **Individual task tracking**: Check off tasks as they are completed
-- **Testing documentation**: Note any issues found and how they were resolved
-- **Regular status updates**: Commit at least once daily with progress updates
-
----
-
-## 🛠️ Tools & References
-
-- **GitHub Copilot**: Use for code generation and debugging assistance
-- **OpenAI Codex**: Leverage for complex algorithm design and optimization
-- **roadmap.sh reference**: <https://roadmap.sh/ai-engineer>
-- **developer-roadmap repo**: <https://github.com/kamranahmedse/developer-roadmap>
-- **Learning psychology research**: Incorporate spaced repetition and active recall principles
+- **Next.js 14+ & React**
+- **TailwindCSS** (custom theming, dark/light)
+- **ReactFlow** (visualization)
+- **Marked.js** (markdown)
+- **IndexedDB/localStorage** (progress, notes)
+- **Jest/Playwright** (testing)
+- **OpenAI API, GitHub Copilot** (AI features)
+- **RemNote SDK, SurviveJS Visualization, Sandpack, Brain.js** (optional/advanced)
+- **Learning psychology research** (spaced repetition, flow, etc.)
 
 ---
 
-## 🔄 Review Process
+## 🔄 Review & Progress Tracking
 
-At the end of each phase:
-
-1. Review all completed tasks against objectives
-2. Test all new functionality
-3. Document any technical debt or future improvements
-4. Create a summary commit with phase completion notes
+- All phases and tasks tracked in project issues/cards (Kanban)
+- Daily commits with status updates
+- After each phase: feature review, cross-device testing, technical debt log, summary commit
+- Use `/docs/feature_plan.md` as the living source of truth
 
 ---
 
-Last updated: 2025-06-23 by GitHub Copilot
+## 📝 Additional Recommendations
+
+- **Self-competition analytics:** Track streaks, “personal bests,” and provide celebratory feedback.
+- **Privacy-first:** All personal data is stored locally by default, with optional export/sync.
+- **Documentation:** Maintain `/docs/COLOR_GUIDE.md` and `/docs/LEARNING_PSYCHOLOGY.md` for rationale and onboarding.
+- **Continuous improvement:** Regularly review features against current learning science and user feedback.
+
+---
+
+_Last updated: 2025-06-23 by jamiescottcraik_
