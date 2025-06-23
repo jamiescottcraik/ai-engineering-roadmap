@@ -598,6 +598,7 @@ const toggleFilter = (filterValue: string) => {
 }
 
 const openResource = (resource: any) => {
+  console.log("openResource called with:", resource);
   if (resource.url && resource.url !== '#') {
     window.open(resource.url, '_blank', 'noopener,noreferrer')
   }
