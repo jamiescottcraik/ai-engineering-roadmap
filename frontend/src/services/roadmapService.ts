@@ -50,7 +50,7 @@ export async function updateProgress(nodeId: string, progress: number): Promise<
   
   // Find and update the node
   for (const phase of data.phases) {
-    const node = phase.nodes.find((n: RoadmapNode) => n.id === nodeId)
+    const node: RoadmapNode | undefined = phase.nodes.find((n: RoadmapNode) => n.id === nodeId)
     if (node) {
       node.progress = progress
       if (progress === 100) {
@@ -140,18 +140,21 @@ function getStaticRoadmapData(): RoadmapData {
 
 function unlockNextNodes(data: RoadmapData, completedNodeId: string): void {
   for (let pIndex = 0; pIndex < data.phases.length; pIndex++) {
-    const phase = data.phases[pIndex]
+    const phase: RoadmapPhase = data.phases[pIndex]
     const nodeIndex = phase.nodes.findIndex((n: RoadmapNode) => n.id === completedNodeId)
     if (nodeIndex !== -1) {
-      const nextNode = phase.nodes[nodeIndex + 1]
+      const nextNode: RoadmapNode | undefined = phase.nodes[nodeIndex + 1]
       if (nextNode) {
         nextNode.isUnlocked = true
         nextNode.isActive = true
       } else if (data.phases[pIndex + 1]) {
-        const firstNodeNextPhase = data.phases[pIndex + 1].nodes[0]
-        if (firstNodeNextPhase) {
-          firstNodeNextPhase.isUnlocked = true
-          firstNodeNextPhase.isActive = true
+        const nextPhase: RoadmapPhase | undefined = data.phases[pIndex + 1]
+        if (nextPhase && nextPhase.nodes.length > 0) {
+          const firstNodeNextPhase: RoadmapNode = nextPhase.nodes[0]
+          if (firstNodeNextPhase) {
+            firstNodeNextPhase.isUnlocked = true
+            firstNodeNextPhase.isActive = true
+          }
         }
       }
       break
