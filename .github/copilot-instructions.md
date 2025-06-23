@@ -1,6 +1,7 @@
 ---
-Governed by `RULES_OF_AI.md`. See repository root for supreme policy.  
-Last updated: 2025-06-23 by @jamiescottcraik
+governance: "Governed by RULES_OF_AI.md. See repository root for supreme policy."
+last_updated: "2025-06-23"
+maintainer: "@jamiescottcraik"
 ---
 
 # GitHub Copilot Instructions for the brAInwav Platform
