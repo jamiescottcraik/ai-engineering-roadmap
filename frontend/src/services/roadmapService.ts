@@ -24,7 +24,16 @@ export interface RoadmapPhase {
   color: string
 }
 
-export async function loadRoadmapData(): Promise<any> {
+export interface RoadmapData {
+  metadata: {
+    title: string
+    lastUpdated: string
+    version: string
+  }
+  phases: RoadmapPhase[]
+}
+
+export async function loadRoadmapData(): Promise<RoadmapData> {
   try {
     // First try to load from GitHub API (for real-time data)
     const response = await fetch('./data/roadmap.json')
@@ -41,7 +50,7 @@ export async function updateProgress(nodeId: string, progress: number): Promise<
   
   // Find and update the node
   for (const phase of data.phases) {
-    const node = phase.nodes.find(n => n.id === nodeId)
+    const node = phase.nodes.find((n: RoadmapNode) => n.id === nodeId)
     if (node) {
       node.progress = progress
       if (progress === 100) {
@@ -57,7 +66,7 @@ export async function updateProgress(nodeId: string, progress: number): Promise<
   localStorage.setItem('roadmap-progress', JSON.stringify(data))
 }
 
-function getStaticRoadmapData() {
+function getStaticRoadmapData(): RoadmapData {
   return {
     metadata: {
       title: "AI Leadership Engineering Roadmap",
@@ -129,7 +138,23 @@ function getStaticRoadmapData() {
   }
 }
 
-function unlockNextNodes(data: any, completedNodeId: string): void {
-  // Logic to unlock subsequent nodes based on dependencies
-  // This would implement your roadmap's prerequisite system
+function unlockNextNodes(data: RoadmapData, completedNodeId: string): void {
+  for (let pIndex = 0; pIndex < data.phases.length; pIndex++) {
+    const phase = data.phases[pIndex]
+    const nodeIndex = phase.nodes.findIndex((n: RoadmapNode) => n.id === completedNodeId)
+    if (nodeIndex !== -1) {
+      const nextNode = phase.nodes[nodeIndex + 1]
+      if (nextNode) {
+        nextNode.isUnlocked = true
+        nextNode.isActive = true
+      } else if (data.phases[pIndex + 1]) {
+        const firstNodeNextPhase = data.phases[pIndex + 1].nodes[0]
+        if (firstNodeNextPhase) {
+          firstNodeNextPhase.isUnlocked = true
+          firstNodeNextPhase.isActive = true
+        }
+      }
+      break
+    }
+  }
 }
