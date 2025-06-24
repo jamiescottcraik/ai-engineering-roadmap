@@ -1,549 +1,550 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// Enhanced ModernAIEngineeringRoadmap2025 - Evening Mode Edition
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  AlertTriconst ModernTodayView: React.FC<ModernTodayViewProps> = ({
-  config,
-  liveStatus,
-  completedTasks,
-  toggleComplete,
-  isComplete: _isComplete
-}) => {
-  // Remove local state as we're using the persistent hooks now
-  const toggle = toggleComplete;BookOpen,
+  ArrowRight,
+  BedDouble,
+  BookOpen,
   Brain,
+  CheckCircle,
+  Circle,
   Coffee,
+  Flame,
   Github,
+  Linkedin,
   Moon,
   Sparkles,
-  Sun,
-  Target,
-  WifiOff,
+  Star,
+  Timer,
+  Wine,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 
-import { useRoadmapProgress, useUserPreferences } from '../hooks/useLocalStorage';
-import { useOfflineData, useOfflineStatus } from '../hooks/useOffline';
+import RecallIntegration from '@/components/RecallIntegration';
 
-import {
-  EnhancedGlassCard,
-  ModernBackground,
-  ModernHeader,
-  ModernNav,
-  TaskItem,
-} from './enhanced/ModernComponents';
-import { RoadmapErrorBoundary } from './error/RoadmapErrorBoundary';
-import RecallIntegration from './RecallIntegration';
+// Evening-optimized theme
+const eveningTheme = {
+  bg: 'bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950',
+  card: 'bg-white/[0.03] border-white/[0.08]',
+  text: {
+    primary: 'text-white/90',
+    secondary: 'text-white/60',
+    muted: 'text-white/40',
+  },
+  accent: {
+    purple: 'rgb(147, 51, 234)',
+    blue: 'rgb(59, 130, 246)',
+    amber: 'rgb(245, 158, 11)',
+  },
+};
 
-interface RoadmapConfig {
-  metadata: {
-    title: string;
-    description: string;
-    currentWeek: number;
-    currentPhase: string;
-    totalWeeks: number;
-    totalResources: number;
-    totalCourses: number;
-    currentPosition: string;
-    completionPercentage: number;
-    enhancedLearningCycle: string;
-    lastUpdated: string;
-  };
-  currentWeek: {
-    weekNumber: number;
-    title: string;
-    startDate: string;
-    endDate: string;
-    primaryGoal: string;
-    dailySchedule: Record<string, any>;
-  };
-  phases: Record<string, any>;
-  platforms: Record<string, any>;
-  practicesPlatforms?: Record<string, any>;
-  essentialBooks?: Record<string, any>;
-  youtubeChannels?: Record<string, any>;
-  newsAndBlogs?: Record<string, any>;
-  communities?: Record<string, any>;
-  openSourceAI?: Record<string, any>;
-  recallIntegration: any;
-  immediateActions: Record<string, any>;
-  successMetrics: Record<string, any>;
-}
+export default function ModernAIEngineeringRoadmap2025() {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [config, setConfig] = useState<RoadmapConfig>();
+  const [done, setDone] = useState<Set<string>>(new Set());
+  const [activeTab, setActiveTab] = useState('evening-review');
 
-type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
+  // It's 21:46 - evening mode active
+  const isEveningTime = currentTime.getHours() >= 20;
+  const hoursUntilBedtime = 24 - currentTime.getHours(); // ~2 hours
+  const minutesRemaining = 60 - currentTime.getMinutes();
 
-interface LiveStatus {
-  currentTime: string;
-  currentDate: string;
-  dayOfWeek: string;
-  timeOfDay: TimeOfDay;
-  hoursUntilDayEnd: number;
-  currentActivity: string;
-  energyLevel: 'high' | 'medium' | 'low';
-  focusRecommendation: string;
-}
-
-const useLiveStatus = (): LiveStatus => {
-  const [status, setStatus] = useState<LiveStatus>(() => ({
-    currentTime: '--:--:--',
-    currentDate: '--------',
-    dayOfWeek: '',
-    timeOfDay: 'night',
-    hoursUntilDayEnd: 0,
-    currentActivity: '',
-    energyLevel: 'low',
-    focusRecommendation: '',
-  }));
-
+  // Load config and saved state
   useEffect(() => {
-    const updateStatus = () => {
-      const now = new Date();
-      const hour = now.getHours();
-
-      let timeOfDay: TimeOfDay = 'night';
-      let activity = 'Rest & reflection';
-      let energy: 'high' | 'medium' | 'low' = 'low';
-      let focus = 'Wind down and prep for tomorrow';
-
-      if (hour >= 6 && hour < 12) {
-        timeOfDay = 'morning';
-        activity = 'Deep work & learning';
-        energy = 'high';
-        focus = 'Tackle the hardest problems first';
-      } else if (hour >= 12 && hour < 17) {
-        timeOfDay = 'afternoon';
-        activity = 'Practice & projects';
-        energy = 'medium';
-        focus = 'Build and implement';
-      } else if (hour >= 17 && hour < 22) {
-        timeOfDay = 'evening';
-        activity = 'Community & review';
-        energy = 'medium';
-        focus = 'Engage with others and reflect';
-      }
-
-      setStatus({
-        currentTime: now.toLocaleTimeString(),
-        currentDate: now.toLocaleDateString(),
-        dayOfWeek: now.toLocaleDateString('en-US', { weekday: 'long' }),
-        timeOfDay,
-        hoursUntilDayEnd: 24 - hour,
-        currentActivity: activity,
-        energyLevel: energy,
-        focusRecommendation: focus,
+    fetch('/config/roadmap-config-2025.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setConfig(data);
+        // Load saved progress
+        const saved = localStorage.getItem('roadmap-jamie-progress');
+        if (saved) setDone(new Set(JSON.parse(saved)));
       });
-    };
-
-    updateStatus();
-    const interval = setInterval(updateStatus, 1000);
-    return () => clearInterval(interval);
   }, []);
 
-  return status;
-};
+  // Real-time clock
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-// Modern Today's Focus View
-interface ModernTodayViewProps {
-  config: RoadmapConfig;
-  liveStatus: LiveStatus;
-  completedTasks: Set<string>;
-  toggleComplete: (taskId: string) => void;
-  isComplete: (taskId: string) => boolean;
-}
+  const toggleTask = useCallback((id: string) => {
+    setDone((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      localStorage.setItem('roadmap-jamie-progress', JSON.stringify([...next]));
+      return next;
+    });
+  }, []);
 
-const ModernTodayView: React.FC<ModernTodayViewProps> = ({
-  config,
-  liveStatus,
-  completedTasks,
-  toggleComplete,
-  isComplete,
-}) => {
-  // Remove local state as we're using the persistent hooks now
-  const toggle = toggleComplete;
-
-  const todayStatus = {
-    currentTask: config.currentWeek?.primaryGoal || 'Loading current mission...',
-    currentPeriod: liveStatus.timeOfDay,
-    morning: config.currentWeek?.dailySchedule?.monday?.morning || 'Deep learning session',
-    afternoon: config.currentWeek?.dailySchedule?.monday?.afternoon || 'Practice & projects',
-    evening: config.currentWeek?.dailySchedule?.monday?.evening || 'Community & review',
-  };
+  if (!config) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-950">
+        <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity }}>
+          <Brain className="h-12 w-12 text-purple-400" />
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 pb-20">
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Main content - 2 columns */}
-        <div className="space-y-6 lg:col-span-2">
-          {/* Current Schedule Card */}
-          <EnhancedGlassCard variant="primary" glow className="p-6">
-            <div className="mb-6 flex items-start justify-between">
-              <div>
-                <h2 className="mb-1 text-2xl font-bold text-white">Today&apos;s Mission</h2>
-                <p style={{ color: '#0F4CFF' }}>{todayStatus.currentTask}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold tabular-nums text-white">
-                  {liveStatus.hoursUntilDayEnd}h
-                </div>
-                <div className="text-sm text-white/60">remaining</div>
-              </div>
-            </div>
+    <div className={`min-h-screen ${eveningTheme.bg}`}>
+      {/* Ambient evening lighting */}
+      <div className="pointer-events-none fixed inset-0">
+        <div className="absolute right-20 top-20 h-96 w-96 rounded-full bg-purple-600/10 blur-[120px]" />
+        <div className="absolute bottom-20 left-20 h-96 w-96 rounded-full bg-blue-600/10 blur-[120px]" />
+      </div>
 
-            {/* Time blocks with progress */}
-            <div className="grid gap-4">
-              {['morning', 'afternoon', 'evening'].map((period) => {
-                const isActive = todayStatus.currentPeriod === period;
-                const Icon = period === 'morning' ? Sun : period === 'afternoon' ? Coffee : Moon;
+      <div className="relative z-10">
+        {/* Evening-optimized Header */}
+        <EveningHeader
+          config={config}
+          currentTime={currentTime}
+          hoursUntilBedtime={hoursUntilBedtime}
+        />
 
-                return (
-                  <motion.div
-                    key={period}
-                    className="relative rounded-xl border p-4 transition-all"
-                    style={{
-                      background: isActive
-                        ? 'linear-gradient(135deg, rgba(15, 76, 255, 0.2) 0%, rgba(255, 102, 0, 0.2) 100%)'
-                        : 'rgba(255, 255, 255, 0.05)',
-                      borderColor: isActive ? 'rgba(15, 76, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)',
-                    }}
-                    animate={isActive ? { scale: [1, 1.02, 1] } : {}}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <div className="mb-2 flex items-center gap-3">
-                      <Icon
-                        className="h-5 w-5"
-                        style={{ color: isActive ? '#0F4CFF' : 'rgba(255, 255, 255, 0.6)' }}
-                      />
-                      <span className="font-medium capitalize text-white">{period}</span>
-                      {isActive && (
-                        <span
-                          className="ml-auto rounded-full px-2 py-1 text-xs"
-                          style={{
-                            backgroundColor: 'rgba(15, 76, 255, 0.3)',
-                            color: '#0F4CFF',
-                          }}
-                        >
-                          NOW
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-white/80">
-                      {todayStatus[period as keyof typeof todayStatus]}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </EnhancedGlassCard>
+        {/* Smart Navigation - Evening focused */}
+        <EveningNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          {/* Urgent Actions */}
-          <EnhancedGlassCard variant="danger" className="p-6">
-            <h3 className="mb-4 flex items-center gap-2 text-xl font-bold text-white">
-              <AlertTriangle className="h-5 w-5 animate-pulse" style={{ color: '#FF3E3E' }} />
-              Critical Actions (Next 60 min)
-            </h3>
-            <div className="space-y-3">
-              {(config.immediateActions?.next60Minutes || []).map((task: string, i: number) => (
-                <TaskItem
-                  key={`urgent-${i}`}
-                  task={task}
-                  index={i}
-                  done={completedTasks}
-                  toggle={toggle}
-                  prefix="urgent"
-                  urgent
-                />
-              ))}
-            </div>
-          </EnhancedGlassCard>
-        </div>
+        <main className="container mx-auto px-6 pb-20">
+          <AnimatePresence mode="wait">
+            {activeTab === 'evening-review' && (
+              <EveningReviewView
+                config={config}
+                done={done}
+                toggle={toggleTask}
+                hoursLeft={hoursUntilBedtime}
+                minutesLeft={minutesRemaining}
+              />
+            )}
 
-        {/* Sidebar - 1 column */}
-        <div className="space-y-6">
-          {/* Quick Stats */}
-          <EnhancedGlassCard className="p-6">
-            <h3 className="mb-4 text-lg font-semibold text-white">Today&apos;s Progress</h3>
-            <div className="space-y-4">
-              {[
-                { label: 'Tasks Completed', value: 7, total: 12, color: '#0F4CFF' },
-                { label: 'Hours Focused', value: 3.5, total: 5, color: '#FF2D7E' },
-                { label: 'Recall Saves', value: 8, total: 10, color: '#16C784' },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="mb-1 flex justify-between text-sm">
-                    <span className="text-white/80">{stat.label}</span>
-                    <span className="font-medium text-white">
-                      {stat.value}/{stat.total}
-                    </span>
-                  </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(stat.value / stat.total) * 100}%` }}
-                      transition={{ duration: 1, ease: 'easeOut' }}
-                      className="h-full"
-                      style={{ backgroundColor: stat.color }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </EnhancedGlassCard>
+            {activeTab === 'tomorrow-prep' && <TomorrowPrepView config={config} />}
 
-          {/* Quick Links */}
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              {
-                href: 'https://www.getrecall.ai/',
-                icon: Brain,
-                label: 'Recall.ai',
-                color: '#0F4CFF',
-              },
-              {
-                href: 'https://github.com/jamiescottcraik',
-                icon: Github,
-                label: 'GitHub',
-                color: '#FFFFFF',
-              },
-              {
-                href: 'https://www.coursera.org/',
-                icon: BookOpen,
-                label: 'Course',
-                color: '#FF2D7E',
-              },
-              { href: 'https://linkedin.com/', icon: Target, label: 'LinkedIn', color: '#0F4CFF' },
-            ].map((link) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative"
-              >
-                <EnhancedGlassCard className="p-4 text-center transition-all hover:border-white/20">
-                  <link.icon
-                    className="mx-auto mb-2 h-8 w-8 transition-transform group-hover:scale-110"
-                    style={{ color: link.color }}
-                  />
-                  <p className="text-sm font-medium text-white/80">{link.label}</p>
-                </EnhancedGlassCard>
-              </motion.a>
-            ))}
-          </div>
+            {activeTab === 'recall' && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <RecallIntegration />
+              </motion.div>
+            )}
 
-          {/* Motivational Quote */}
-          <EnhancedGlassCard variant="primary" className="relative overflow-hidden p-6">
-            <div
-              className="absolute right-0 top-0 h-20 w-20 rounded-full blur-2xl"
-              style={{ backgroundColor: 'rgba(15, 76, 255, 0.2)' }}
-            />
-            <Sparkles className="mb-3 h-6 w-6" style={{ color: '#0F4CFF' }} />
-            <p className="relative z-10 italic text-white/90">
-              &ldquo;The best time to plant a tree was 20 years ago. The second best time is
-              now.&rdquo;
-            </p>
-            <p className="mt-2 text-sm text-white/60">Keep pushing forward! 🚀</p>
-          </EnhancedGlassCard>
-        </div>
+            {activeTab === 'reflection' && <ReflectionView config={config} done={done} />}
+          </AnimatePresence>
+        </main>
       </div>
     </div>
   );
-};
+}
 
-function ModernAIEngineeringRoadmap2025() {
-  const [config, setConfig] = useState<RoadmapConfig | null>(null);
-  const [activeTab, setActiveTab] = useState('today');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const liveStatus = useLiveStatus();
+// Evening-specific Header
+const EveningHeader = ({ config, currentTime, hoursUntilBedtime }) => (
+  <motion.header
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="sticky top-0 z-50 border-b border-white/5 bg-black/20 backdrop-blur-2xl"
+  >
+    <div className="container mx-auto px-6 py-4">
+      {/* brAInwav branding with evening greeting */}
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <motion.div whileHover={{ scale: 1.05 }} className="relative">
+            <Image
+              src="/brAInwav-new.png"
+              alt="brAInwav"
+              width={40}
+              height={40}
+              className="rounded-lg"
+            />
+            <div className="absolute inset-0 animate-pulse rounded-lg bg-purple-500/20" />
+          </motion.div>
 
-  // Initialize our custom hooks
-  const {
-    completedTasks,
-    toggleComplete,
-    isComplete,
-    getCompletionStats,
-    isLoading: progressLoading,
-  } = useRoadmapProgress();
-
-  const { preferences, updatePreference } = useUserPreferences();
-  const { isOnline, wasOffline } = useOfflineStatus();
-
-  // Use offline-capable data loading
-  const {
-    data: offlineConfig,
-    isLoading: configLoading,
-    error: configError,
-    isOffline,
-    refresh,
-  } = useOfflineData('roadmap-config-2025', async () => {
-    const response = await fetch('/config/roadmap-config-2025.json');
-    if (!response.ok) throw new Error('Failed to load roadmap config');
-    return response.json();
-  });
-
-  // Use offline config if available, otherwise use regular loading
-  useEffect(() => {
-    if (offlineConfig) {
-      setConfig(offlineConfig);
-      setLoading(false);
-      setError(null);
-    } else if (configError) {
-      setError(configError);
-      setLoading(false);
-    } else if (!configLoading) {
-      // Fallback to original loading method
-      const loadConfig = async () => {
-        try {
-          const response = await fetch('/config/roadmap-config-2025.json');
-          if (!response.ok) throw new Error('Failed to load roadmap config');
-          const data = await response.json();
-          setConfig(data);
-        } catch (err) {
-          setError(err instanceof Error ? err.message : 'Failed to load roadmap');
-        } finally {
-          setLoading(false);
-        }
-      };
-      loadConfig();
-    }
-  }, [offlineConfig, configError, configLoading]);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-gray-900">
-        <ModernBackground />
-        <div className="relative z-10 text-center">
-          <div
-            className="mx-auto mb-4 h-32 w-32 animate-spin rounded-full border-b-2"
-            style={{ borderColor: '#0F4CFF' }}
-          />
-          <p className="text-lg" style={{ color: '#0F4CFF' }}>
-            Loading brAInwav Roadmap...
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !config) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-red-900 to-gray-900">
-        <ModernBackground />
-        <div className="relative z-10 text-center">
-          <AlertTriangle className="mx-auto mb-4 h-16 w-16" style={{ color: '#FF3E3E' }} />
-          <p className="text-lg" style={{ color: '#FF3E3E' }}>
-            Error: {error || 'Configuration not found'}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-gray-900">
-      <ModernBackground />
-
-      {/* Offline Status Indicator */}
-      {(!isOnline || isOffline) && (
-        <div className="fixed right-4 top-4 z-50">
-          <div className="glass-card flex items-center gap-2 border-yellow-500/30 bg-yellow-500/20 px-4 py-2">
-            <WifiOff className="h-4 w-4 text-yellow-400" />
-            <span className="text-sm text-yellow-400">
-              {isOffline ? 'Working Offline' : 'Connection Issues'}
-            </span>
+          <div>
+            <h1 className="text-xl font-semibold text-white">Good Evening, Jamie</h1>
+            <p className="text-xs text-white/60">Time to wind down and reflect</p>
           </div>
         </div>
-      )}
 
-      {/* Connection Restored Notification */}
-      {wasOffline && isOnline && (
-        <div className="fixed right-4 top-4 z-50">
+        {/* Evening stats */}
+        <div className="flex items-center gap-6">
+          <div className="text-right">
+            <div className="text-2xl font-light tabular-nums text-white">
+              {currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+            </div>
+            <div className="flex items-center gap-1 text-xs text-amber-400">
+              <BedDouble className="h-3 w-3" />
+              {hoursUntilBedtime}h until rest
+            </div>
+          </div>
+
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="glass-card flex items-center gap-2 border-green-500/30 bg-green-500/20 px-4 py-2"
+            className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1.5"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            <Sparkles className="h-4 w-4 text-green-400" />
-            <span className="text-sm text-green-400">Back Online - Data Synced</span>
+            <Flame className="h-4 w-4 text-amber-400" />
+            <span className="text-sm text-white/80">4 day streak</span>
           </motion.div>
         </div>
-      )}
+      </div>
 
-      {/* Modern Header */}
-      <ModernHeader config={config} liveStatus={liveStatus} />
+      {/* Evening progress summary */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-light text-white">
+            Week {config.currentWeek.weekNumber} - Day 4 Complete
+          </h2>
+          <p className="text-sm text-white/60">
+            Python Mastery & Foundations • {config.currentWeek.title}
+          </p>
+        </div>
 
-      {/* Modern Navigation */}
-      <ModernNav active={activeTab} onChange={setActiveTab} />
-
-      {/* Content Area */}
-      <div className="relative z-10">
-        <AnimatePresence mode="wait">
-          {activeTab === 'today' && (
-            <motion.div
-              key="today"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <ModernTodayView
-                config={config}
-                liveStatus={liveStatus}
-                completedTasks={completedTasks}
-                toggleComplete={toggleComplete}
-                isComplete={isComplete}
-              />
-            </motion.div>
-          )}
-
-          {activeTab === 'recall' && (
-            <motion.div
-              key="recall"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="container mx-auto px-4"
-            >
-              <RecallIntegration />
-            </motion.div>
-          )}
-
-          {/* Add other tab content here following the same pattern */}
-          {activeTab !== 'today' && activeTab !== 'recall' && (
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="container mx-auto px-4 pb-20"
-            >
-              <EnhancedGlassCard className="p-8 text-center">
-                <h2 className="mb-4 text-2xl font-bold text-white">
-                  {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} View
-                </h2>
-                <p className="text-white/60">
-                  This section is coming soon! Building modern {activeTab} interface...
-                </p>
-              </EnhancedGlassCard>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Today's achievement badges */}
+        <div className="flex gap-2">
+          {[
+            { icon: CheckCircle, count: 7, label: 'Tasks' },
+            { icon: Brain, count: 12, label: 'Recalls' },
+            { icon: Github, count: 3, label: 'Commits' },
+          ].map((stat) => (
+            <div key={stat.label} className="rounded-lg bg-white/5 px-3 py-1">
+              <div className="flex items-center gap-2">
+                <stat.icon className="h-4 w-4 text-green-400" />
+                <span className="text-sm text-white/80">{stat.count}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  );
-}
+  </motion.header>
+);
 
-// Create a wrapped version with error boundary
-function ModernAIEngineeringRoadmap2025WithErrorBoundary() {
+// Evening-focused Navigation
+const EveningNav = ({ activeTab, setActiveTab }) => {
+  const tabs = [
+    { id: 'evening-review', label: 'Evening Review', icon: Moon },
+    { id: 'tomorrow-prep', label: 'Tomorrow', icon: Coffee },
+    { id: 'recall', label: 'Recall.ai', icon: Brain },
+    { id: 'reflection', label: 'Reflect', icon: Star },
+  ];
+
   return (
-    <RoadmapErrorBoundary>
-      <ModernAIEngineeringRoadmap2025 />
-    </RoadmapErrorBoundary>
+    <nav className="container mx-auto px-6 py-6">
+      <div className="mx-auto flex w-fit items-center gap-2 rounded-full bg-white/5 p-1">
+        {tabs.map((tab) => (
+          <motion.button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`
+              flex items-center gap-2 rounded-full px-6 py-3 transition-all
+              ${
+                activeTab === tab.id
+                  ? 'bg-purple-500/20 text-white'
+                  : 'text-white/50 hover:text-white/80'
+              }
+            `}
+          >
+            <tab.icon className="h-4 w-4" />
+            <span className="text-sm">{tab.label}</span>
+          </motion.button>
+        ))}
+      </div>
+    </nav>
   );
-}
+};
 
-// Export the wrapped version as default
-export { ModernAIEngineeringRoadmap2025WithErrorBoundary as default };
+// Evening Review View
+const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => {
+  const eveningTasks = [
+    { id: 'review-recalls', task: "Review today's Recall.ai saves", time: '10 min', urgent: true },
+    { id: 'linkedin-post', task: 'Draft LinkedIn reflection post', time: '15 min', urgent: true },
+    { id: 'journal-entry', task: 'Write learning journal entry', time: '10 min' },
+    { id: 'plan-tomorrow', task: "Plan tomorrow's focus areas", time: '5 min' },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="mx-auto max-w-4xl space-y-6"
+    >
+      {/* Time-sensitive alert */}
+      <motion.div
+        className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4"
+        animate={{
+          borderColor: ['rgba(245,158,11,0.2)', 'rgba(245,158,11,0.4)', 'rgba(245,158,11,0.2)'],
+        }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Timer className="h-5 w-5 text-amber-400" />
+            <div>
+              <p className="font-medium text-white">Evening Window Closing</p>
+              <p className="text-sm text-white/60">
+                {hoursLeft}h {minutesLeft}m remaining for today's goals
+              </p>
+            </div>
+          </div>
+          <Wine className="h-6 w-6 text-amber-400/50" />
+        </div>
+      </motion.div>
+
+      {/* Today's Summary */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className="rounded-xl border border-white/10 bg-white/5 p-6"
+        >
+          <h3 className="mb-4 text-lg font-light text-white">Today's Wins</h3>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-green-400">
+              <CheckCircle className="h-4 w-4" />
+              <span className="text-sm">Completed Python Chapter 3</span>
+            </div>
+            <div className="flex items-center gap-2 text-green-400">
+              <CheckCircle className="h-4 w-4" />
+              <span className="text-sm">GitHub Stats CLI progress</span>
+            </div>
+            <div className="flex items-center gap-2 text-green-400">
+              <CheckCircle className="h-4 w-4" />
+              <span className="text-sm">12 Recall.ai saves</span>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className="rounded-xl border border-white/10 bg-white/5 p-6"
+        >
+          <h3 className="mb-4 text-lg font-light text-white">Key Learnings</h3>
+          <div className="space-y-2 text-sm text-white/70">
+            <p>• Python decorators are powerful for clean code</p>
+            <p>• Git branching strategies for team work</p>
+            <p>• Async/await patterns in modern Python</p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className="rounded-xl border border-white/10 bg-white/5 p-6"
+        >
+          <h3 className="mb-4 text-lg font-light text-white">Tomorrow's Focus</h3>
+          <div className="space-y-2 text-sm text-white/70">
+            <p>• Complete GitHub Stats CLI v1.0</p>
+            <p>• Start Python OOP deep dive</p>
+            <p>• First blog post draft</p>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Evening Tasks */}
+      <div>
+        <h3 className="mb-4 text-lg font-light text-white/60">Before You Sleep</h3>
+        <div className="space-y-2">
+          {eveningTasks.map((task) => (
+            <motion.div
+              key={task.id}
+              whileHover={{ x: 4 }}
+              onClick={() => toggle(task.id)}
+              className={`
+                flex cursor-pointer items-center gap-3 rounded-xl p-4 transition-all
+                ${
+                  done.has(task.id)
+                    ? 'border border-green-500/20 bg-green-500/5'
+                    : 'border border-white/10 bg-white/5 hover:border-white/20'
+                }
+              `}
+            >
+              {done.has(task.id) ? (
+                <CheckCircle className="h-5 w-5 text-green-400" />
+              ) : (
+                <Circle className={`h-5 w-5 ${task.urgent ? 'text-amber-400' : 'text-white/30'}`} />
+              )}
+              <span className={`flex-1 ${done.has(task.id) ? 'text-green-400' : 'text-white/80'}`}>
+                {task.task}
+              </span>
+              <span className="text-sm text-white/40">{task.time}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick Links for Evening */}
+      <div className="grid grid-cols-4 gap-3">
+        {[
+          { href: 'https://www.getrecall.ai/', icon: Brain, label: 'Recall.ai' },
+          { href: 'https://github.com/jamiescottcraik', icon: Github, label: 'GitHub' },
+          { href: 'https://linkedin.com/in/jamiescottcraik', icon: Linkedin, label: 'LinkedIn' },
+          { href: '#', icon: BookOpen, label: 'Journal' },
+        ].map((link) => (
+          <motion.a
+            key={link.label}
+            href={link.href}
+            target={link.href.startsWith('http') ? '_blank' : '_self'}
+            whileHover={{ scale: 1.05, y: -2 }}
+            className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:border-purple-500/30"
+          >
+            <link.icon className="h-5 w-5 text-white/60" />
+            <span className="text-xs text-white/60">{link.label}</span>
+          </motion.a>
+        ))}
+      </div>
+
+      {/* Evening Motivation */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="rounded-xl border border-purple-500/20 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-6"
+      >
+        <Sparkles className="mb-3 h-6 w-6 text-purple-400" />
+        <p className="italic text-white/90">
+          "Rest is not idleness, and to lie sometimes on the grass under trees on a summer's day,
+          listening to the murmur of the water, or watching the clouds float across the sky, is by
+          no means a waste of time."
+        </p>
+        <p className="mt-2 text-sm text-white/60">— John Lubbock</p>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// Tomorrow Prep View
+const TomorrowPrepView = ({ config }) => {
+  const tomorrowSchedule = config.currentWeek.dailySchedule.tuesday;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="mx-auto max-w-4xl space-y-6"
+    >
+      <h2 className="mb-6 text-2xl font-light text-white">Tomorrow's Game Plan</h2>
+
+      <div className="grid gap-4">
+        <motion.div
+          whileHover={{ scale: 1.01 }}
+          className="rounded-xl border border-white/10 bg-white/5 p-6"
+        >
+          <div className="mb-4 flex items-center gap-3">
+            <Coffee className="h-6 w-6 text-amber-400" />
+            <h3 className="text-lg text-white">Tuesday, June 25th</h3>
+          </div>
+
+          <div className="grid gap-4">
+            <div className="rounded-lg bg-white/5 p-4">
+              <p className="mb-1 text-sm text-amber-400">Morning Focus (9:00-11:00)</p>
+              <p className="text-white/80">{tomorrowSchedule.morning}</p>
+            </div>
+
+            <div className="rounded-lg bg-white/5 p-4">
+              <p className="mb-1 text-sm text-blue-400">Afternoon Sprint (11:00-17:00)</p>
+              <p className="text-white/80">{tomorrowSchedule.afternoon}</p>
+            </div>
+
+            <div className="rounded-lg bg-white/5 p-4">
+              <p className="mb-1 text-sm text-purple-400">Evening Wrap-up (17:00-18:00)</p>
+              <p className="text-white/80">{tomorrowSchedule.evening}</p>
+            </div>
+          </div>
+
+          <div className="mt-4 border-t border-white/10 pt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-white/60">Main Deliverable</p>
+                <p className="text-white">{tomorrowSchedule.deliverable}</p>
+              </div>
+              <ArrowRight className="h-5 w-5 text-white/40" />
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Preparation Checklist */}
+      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+        <h3 className="mb-4 text-lg text-white">Set Yourself Up for Success</h3>
+        <div className="space-y-3">
+          {[
+            'Charge all devices tonight',
+            'Prepare healthy snacks and water',
+            'Review GitHub Stats CLI requirements',
+            'Set 3 clear goals for tomorrow',
+            'Get 7-8 hours of sleep',
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-3 text-white/70">
+              <Circle className="h-4 w-4 text-white/30" />
+              <span className="text-sm">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Reflection View
+const ReflectionView = ({ config, done }) => {
+  const completionRate = ((done.size / 20) * 100).toFixed(0); // Assuming 20 tasks today
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="mx-auto max-w-4xl space-y-6"
+    >
+      <h2 className="mb-6 text-2xl font-light text-white">Daily Reflection</h2>
+
+      {/* Stats Overview */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
+          <div className="mb-2 text-3xl font-light text-green-400">{completionRate}%</div>
+          <p className="text-sm text-white/60">Task Completion</p>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
+          <div className="mb-2 text-3xl font-light text-purple-400">5.5h</div>
+          <p className="text-sm text-white/60">Time Invested</p>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
+          <div className="mb-2 text-3xl font-light text-blue-400">A-</div>
+          <p className="text-sm text-white/60">Daily Grade</p>
+        </div>
+      </div>
+
+      {/* Reflection Prompts */}
+      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+        <h3 className="mb-4 text-lg text-white">Reflection Prompts</h3>
+        <div className="space-y-4">
+          <div>
+            <p className="mb-2 text-sm text-white/60">What was your biggest win today?</p>
+            <textarea
+              className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-white/80 placeholder-white/30 focus:border-purple-500/50 focus:outline-none"
+              placeholder="Successfully implemented async functions in Python..."
+              rows={2}
+            />
+          </div>
+          <div>
+            <p className="mb-2 text-sm text-white/60">What challenged you the most?</p>
+            <textarea
+              className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-white/80 placeholder-white/30 focus:border-purple-500/50 focus:outline-none"
+              placeholder="Understanding decorators took longer than expected..."
+              rows={2}
+            />
+          </div>
+          <div>
+            <p className="mb-2 text-sm text-white/60">What will you do differently tomorrow?</p>
+            <textarea
+              className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-white/80 placeholder-white/30 focus:border-purple-500/50 focus:outline-none"
+              placeholder="Start with the hardest task when energy is highest..."
+              rows={2}
+            />
+          </div>
+        </div>
+
+        <button className="mt-4 rounded-lg border border-purple-500/30 bg-purple-500/20 px-6 py-2 text-white transition-all hover:bg-purple-500/30">
+          Save Reflection
+        </button>
+      </div>
+    </motion.div>
+  );
+};

@@ -70,50 +70,50 @@ jobs:
           op --version
 
           # Create op helper functions
-          cat > /tmp/op-helpers.sh << 'EOF'
-#!/bin/bash
-# 1Password CLI helper functions for development
+          cat > /tmp/op-helpers.sh << 'OPHELPERS'
+          #!/bin/bash
+          # 1Password CLI helper functions for development
 
-# Function to check if we're signed in
-op_check_signin() {
-    if ! op account list &>/dev/null; then
-        echo "⚠️  1Password CLI not signed in"
-        echo "Run: eval \$(op signin)"
-        return 1
-    fi
-    return 0
-}
+          # Function to check if we're signed in
+          op_check_signin() {
+              if ! op account list &>/dev/null; then
+                  echo "⚠️  1Password CLI not signed in"
+                  echo "Run: eval \$(op signin)"
+                  return 1
+              fi
+              return 0
+          }
 
-# Function to load .env from 1Password
-op_load_env() {
-    local vault="${1:-Personal}"
-    local item_name="${2:-.env}"
+          # Function to load .env from 1Password
+          op_load_env() {
+              local vault="${1:-Personal}"
+              local item_name="${2:-.env}"
 
-    if op_check_signin; then
-        echo "Loading $item_name from 1Password vault: $vault"
-        op document get "$item_name" --vault="$vault" > .env 2>/dev/null || {
-            echo "⚠️  Could not load $item_name from 1Password"
-            echo "Make sure the item exists in vault: $vault"
-            return 1
-        }
-        echo "✓ Loaded environment variables from 1Password"
-    fi
-}
+              if op_check_signin; then
+                  echo "Loading $item_name from 1Password vault: $vault"
+                  op document get "$item_name" --vault="$vault" > .env 2>/dev/null || {
+                      echo "⚠️  Could not load $item_name from 1Password"
+                      echo "Make sure the item exists in vault: $vault"
+                      return 1
+                  }
+                  echo "✓ Loaded environment variables from 1Password"
+              fi
+          }
 
-# Function to inject secrets into environment
-op_inject_env() {
-    if [ -f ".env.1password" ]; then
-        echo "🔐 Injecting secrets from 1Password..."
-        op inject -i .env.1password -o .env
-        echo "✓ Secrets injected into .env"
-    fi
-}
+          # Function to inject secrets into environment
+          op_inject_env() {
+              if [ -f ".env.1password" ]; then
+                  echo "🔐 Injecting secrets from 1Password..."
+                  op inject -i .env.1password -o .env
+                  echo "✓ Secrets injected into .env"
+              fi
+          }
 
-# Export functions
-export -f op_check_signin
-export -f op_load_env
-export -f op_inject_env
-EOF
+          # Export functions
+          export -f op_check_signin
+          export -f op_load_env
+          export -f op_inject_env
+          OPHELPERS
 
           # Make helpers available
           chmod +x /tmp/op-helpers.sh
@@ -142,7 +142,7 @@ EOF
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.node-version.outputs.version }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install Node.js dependencies
         run: |
@@ -268,6 +268,63 @@ EOF
             grep -q "FROM.*AS" Dockerfile && echo "✓ Multi-stage Dockerfile detected"
           fi
 
+            # GitHub SSH Setup
+      - name: Setup GitHub SSH
+        run: |
+          echo "🔐 Setting up GitHub SSH..."
+
+          # Check if 1Password CLI is available and signed in
+          if command -v op &> /dev/null && op account list &>/dev/null 2>&1; then
+            # Try to load SSH key from 1Password
+            mkdir -p ~/.ssh
+            chmod 700 ~/.ssh
+
+            # Load GitHub SSH private key
+            op document get "GitHub SSH Private Key" --vault="Personal" > ~/.ssh/github_ed25519 2>/dev/null && {
+              chmod 600 ~/.ssh/github_ed25519
+              echo "✓ Loaded GitHub SSH private key from 1Password"
+
+              # Load public key
+              op document get "GitHub SSH Public Key" --vault="Personal" > ~/.ssh/github_ed25519.pub 2>/dev/null
+              chmod 644 ~/.ssh/github_ed25519.pub
+
+              # Configure SSH
+              cat >> ~/.ssh/config << 'SSHEOF'
+          Host github.com
+              HostName github.com
+              User git
+              IdentityFile ~/.ssh/github_ed25519
+              StrictHostKeyChecking accept-new
+          SSHEOF
+              chmod 600 ~/.ssh/config
+
+              # Add to known hosts
+              ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+
+              echo "✓ GitHub SSH configured"
+            } || echo "⚠️  GitHub SSH keys not found in 1Password"
+          else
+            echo "⚠️  1Password CLI not available - skipping SSH setup"
+          fi
+
+      # Ollama Setup (for local AI models)
+      - name: Setup Ollama
+        run: |
+          echo "🦙 Checking Ollama setup..."
+
+          # Install Ollama if requested via environment variable
+          if [ "${INSTALL_OLLAMA:-false}" = "true" ]; then
+            curl -fsSL https://ollama.com/install.sh | sh
+
+            # Pull common models for development
+            ollama pull llama3.2
+            ollama pull codellama
+
+            echo "✓ Ollama installed with development models"
+          else
+            echo "ℹ️  Ollama installation skipped (set INSTALL_OLLAMA=true to enable)"
+          fi
+
       # Database tools
       - name: Install database tools
         run: |
@@ -283,32 +340,32 @@ EOF
         run: |
           if [ ! -f ".env.1password" ]; then
             echo "📝 Creating .env.1password template..."
-            cat > .env.1password << 'EOF'
-# 1Password Secret References
-# Use: op inject -i .env.1password -o .env
+            cat > .env.1password << 'ENVTEMPLATE'
+          # 1Password Secret References
+          # Use: op inject -i .env.1password -o .env
 
-# API Keys
-OPENAI_API_KEY="op://Personal/OpenAI/api_key"
-ANTHROPIC_API_KEY="op://Personal/Anthropic/api_key"
-GITHUB_TOKEN="op://Personal/GitHub/personal_access_token"
+          # API Keys
+          OPENAI_API_KEY="op://Personal/OpenAI/api_key"
+          ANTHROPIC_API_KEY="op://Personal/Anthropic/api_key"
+          GITHUB_TOKEN="op://Personal/GitHub/personal_access_token"
 
-# Database
-DATABASE_URL="op://Personal/Database/connection_string"
-REDIS_URL="op://Personal/Redis/connection_string"
+          # Database
+          DATABASE_URL="op://Personal/Database/connection_string"
+          REDIS_URL="op://Personal/Redis/connection_string"
 
-# Authentication
-JWT_SECRET_KEY="op://Personal/App Secrets/jwt_secret"
-SECRET_KEY="op://Personal/App Secrets/secret_key"
+          # Authentication
+          JWT_SECRET_KEY="op://Personal/App Secrets/jwt_secret"
+          SECRET_KEY="op://Personal/App Secrets/secret_key"
 
-# External Services
-SENTRY_DSN="op://Personal/Sentry/dsn"
-STRIPE_API_KEY="op://Personal/Stripe/api_key"
-SENDGRID_API_KEY="op://Personal/SendGrid/api_key"
+          # External Services
+          SENTRY_DSN="op://Personal/Sentry/dsn"
+          STRIPE_API_KEY="op://Personal/Stripe/api_key"
+          SENDGRID_API_KEY="op://Personal/SendGrid/api_key"
 
-# Development
-DEBUG=true
-ENVIRONMENT=development
-EOF
+          # Development
+          DEBUG=true
+          ENVIRONMENT=development
+          ENVTEMPLATE
             echo "✓ Created .env.1password template"
             echo "⚠️  Remember to customize the vault and item references!"
           fi
@@ -321,41 +378,41 @@ EOF
             echo "✓ Pre-commit hooks installed"
           else
             echo "⚠️  No .pre-commit-config.yaml found - creating one per AGENT.md requirements"
-            cat > .pre-commit-config.yaml << 'EOF'
-repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-added-large-files
-      - id: check-merge-conflict
-      - id: detect-private-key  # Important for 1Password users!
+            cat > .pre-commit-config.yaml << 'PRECOMMIT'
+          repos:
+            - repo: https://github.com/pre-commit/pre-commit-hooks
+              rev: v4.5.0
+              hooks:
+                - id: trailing-whitespace
+                - id: end-of-file-fixer
+                - id: check-yaml
+                - id: check-added-large-files
+                - id: check-merge-conflict
+                - id: detect-private-key  # Important for 1Password users!
 
-  - repo: https://github.com/psf/black
-    rev: 24.3.0
-    hooks:
-      - id: black
+            - repo: https://github.com/psf/black
+              rev: 24.3.0
+              hooks:
+                - id: black
 
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.3.0
-    hooks:
-      - id: ruff
-        args: [--fix]
+            - repo: https://github.com/charliermarsh/ruff-pre-commit
+              rev: v0.3.0
+              hooks:
+                - id: ruff
+                  args: [--fix]
 
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.1.0
-    hooks:
-      - id: prettier
-        types_or: [javascript, typescript, vue, css, scss, json, yaml, markdown]
+            - repo: https://github.com/pre-commit/mirrors-prettier
+              rev: v3.1.0
+              hooks:
+                - id: prettier
+                  types_or: [javascript, typescript, vue, css, scss, json, yaml, markdown]
 
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0
-    hooks:
-      - id: detect-secrets
-        args: ['--baseline', '.secrets.baseline']
-EOF
+            - repo: https://github.com/Yelp/detect-secrets
+              rev: v1.4.0
+              hooks:
+                - id: detect-secrets
+                  args: ['--baseline', '.secrets.baseline']
+          PRECOMMIT
             pre-commit install-hooks
           fi
 

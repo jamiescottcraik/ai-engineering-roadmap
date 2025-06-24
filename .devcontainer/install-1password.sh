@@ -1,73 +1,36 @@
 #!/bin/bash
-# Development Environment Setup Script
-# Following TDD workflow with comprehensive testing
-
 set -euo pipefail
 
-echo "🚀 Setting up development environment..."
+echo "🔐 Installing 1Password CLI in devcontainer..."
 
-# Test environment
-cd /workspace
+# Detect architecture and user
+ARCH=$(dpkg --print-architecture)
+OP_VERSION="2.30.0"
+CONTAINER_USER=$(whoami)
+USER_HOME=$(eval echo ~$CONTAINER_USER)
 
-# Install and configure uv (Python package manager)
-echo "📦 Setting up Python environment..."
-if ! command -v uv &> /dev/null; then
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-    export PATH="/root/.local/bin:$PATH"
-fi
-
-# Install dependencies
-echo "📚 Installing Python dependencies..."
-cd backend
-if [ -f "requirements.txt" ] && [ -f "dev-requirements.txt" ]; then
-    uv pip install --system --no-cache-dir -r requirements.txt -r dev-requirements.txt
+# Download appropriate version
+if [ "$ARCH" = "amd64" ]; then
+    curl -sSfLo op.zip "https://cache.agilebits.com/dist/1P/op2/pkg/v${OP_VERSION}/op_linux_amd64_v${OP_VERSION}.zip"
+elif [ "$ARCH" = "arm64" ]; then
+    curl -sSfLo op.zip "https://cache.agilebits.com/dist/1P/op2/pkg/v${OP_VERSION}/op_linux_arm64_v${OP_VERSION}.zip"
 else
-    echo "⚠️  Requirements files not found, skipping Python dependencies"
-fi
-
-# Setup pre-commit hooks (if in git repo)
-echo "🔧 Setting up pre-commit hooks..."
-cd /workspace
-if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    if command -v pre-commit &> /dev/null; then
-        pre-commit install
-        echo "✅ Pre-commit hooks installed"
-    else
-        echo "⚠️  pre-commit not available, skipping hook installation"
-    fi
-else
-    echo "ℹ️  Not a git repository, skipping pre-commit setup"
+    echo "Unsupported architecture: $ARCH"
+    exit 1
 fi
 
 # Install 1Password CLI
-echo "🔐 Setting up 1Password CLI..."
-if ! command -v op &> /dev/null; then
-    ARCH=$(dpkg --print-architecture)
-    OP_VERSION="2.30.0"
+sudo unzip -o op.zip -d /usr/local/bin/
+rm op.zip
+sudo chmod +x /usr/local/bin/op
 
-    if [ "$ARCH" = "amd64" ]; then
-        curl -sSfLo op.zip "https://cache.agilebits.com/dist/1P/op2/pkg/v${OP_VERSION}/op_linux_amd64_v${OP_VERSION}.zip"
-    elif [ "$ARCH" = "arm64" ]; then
-        curl -sSfLo op.zip "https://cache.agilebits.com/dist/1P/op2/pkg/v${OP_VERSION}/op_linux_arm64_v${OP_VERSION}.zip"
-    else
-        echo "Unsupported architecture: $ARCH"
-        exit 1
-    fi
+# Verify installation
+op --version
 
-    sudo unzip -o op.zip -d /usr/local/bin/
-    rm op.zip
-    sudo chmod +x /usr/local/bin/op
-    echo "✅ 1Password CLI installed: $(op --version)"
-else
-    echo "✅ 1Password CLI already installed: $(op --version)"
-fi
-
-# Setup 1Password environment helpers
-echo "🔐 Configuring 1Password environment..."
-CONTAINER_USER=$(whoami)
-USER_HOME=$(eval echo ~$CONTAINER_USER)
+# Create bash configuration directory
 mkdir -p "$USER_HOME/.bashrc.d"
 
+# Create 1Password environment configuration
 cat > "$USER_HOME/.bashrc.d/50-1password-env.sh" << 'BASHENV'
 #!/bin/bash
 # brAInwav 1Password Environment Configuration
@@ -93,7 +56,32 @@ op_load_secret() {
 op_create_env() {
     if [ ! -f ".env.1password" ]; then
         echo "⚠️  No .env.1password template found"
-        return 1
+        echo "Creating template..."
+        cat > .env.1password << 'TEMPLATE'
+# 1Password Secret References
+# Use: op inject -i .env.1password -o .env
+
+# API Keys
+OPENAI_API_KEY="op://Personal/OpenAI/api_key"
+ANTHROPIC_API_KEY="op://Personal/Anthropic/api_key"
+GITHUB_TOKEN="op://Personal/GitHub/personal_access_token"
+
+# Database
+DATABASE_URL="op://Personal/Database/connection_string"
+REDIS_URL="op://Personal/Redis/connection_string"
+
+# Authentication
+JWT_SECRET_KEY="op://Personal/App Secrets/jwt_secret"
+SECRET_KEY="op://Personal/App Secrets/secret_key"
+
+# External Services
+SENTRY_DSN="op://Personal/Sentry/dsn"
+
+# Development
+DEBUG=true
+ENVIRONMENT=development
+TEMPLATE
+        echo "✓ Created .env.1password template"
     fi
 
     if ! op account list &>/dev/null; then
@@ -149,8 +137,12 @@ SSHCONFIG
         ssh-add ~/.ssh/github_ed25519 2>/dev/null
 
         echo "✓ GitHub SSH keys loaded and added to agent"
+        echo "Test with: ssh -T git@github.com"
     } || {
         echo "❌ Could not load GitHub SSH keys from 1Password"
+        echo "Make sure you have stored them as:"
+        echo "  - 'GitHub SSH Private Key' in your Personal vault"
+        echo "  - 'GitHub SSH Public Key' in your Personal vault"
     }
 }
 
@@ -166,11 +158,33 @@ security_check() {
         echo "✓ .env is not tracked by git"
     fi
 
+    # Check for secrets in code
+    if command -v detect-secrets &>/dev/null; then
+        detect-secrets scan --baseline .secrets.baseline
+    fi
+
     # Check 1Password template
     if [ -f ".env.1password" ]; then
         echo "✓ 1Password template found"
+        # Verify no actual secrets in template
+        if grep -E "(sk-|key-|token-|secret-)" .env.1password | grep -v "op://"; then
+            echo "⚠️  WARNING: Possible secrets found in .env.1password!"
+        fi
     fi
 }
+
+# Auto-check on startup
+if [ -f ".env.1password" ] && [ ! -f ".env" ]; then
+    echo "💡 1Password template found but no .env file"
+    echo "   Run 'openv' to create .env from 1Password"
+fi
+
+# Show 1Password status
+if op account list &>/dev/null 2>&1; then
+    echo "✅ 1Password CLI is signed in"
+else
+    echo "🔐 1Password CLI ready. Sign in with: ops"
+fi
 
 # Export functions
 export -f op_load_secret
@@ -179,6 +193,7 @@ export -f ssh_github_load
 export -f security_check
 BASHENV
 
+# Make the script executable
 chmod +x "$USER_HOME/.bashrc.d/50-1password-env.sh"
 
 # Source it in bashrc if not already
@@ -186,7 +201,7 @@ if ! grep -q "50-1password-env.sh" "$USER_HOME/.bashrc" 2>/dev/null; then
     echo "source $USER_HOME/.bashrc.d/50-1password-env.sh" >> "$USER_HOME/.bashrc"
 fi
 
-# Create .env.1password template if it doesn't exist
+# Create sample .env.1password if it doesn't exist
 if [ ! -f "/workspace/.env.1password" ]; then
     cat > /workspace/.env.1password << 'ENVTEMPLATE'
 # 1Password Secret References for brAInwav
@@ -200,9 +215,6 @@ GITHUB_TOKEN="op://Personal/GitHub/personal_access_token"
 # Database Configuration
 DATABASE_URL="op://Personal/Database/postgresql_url"
 REDIS_URL="op://Personal/Redis/connection_string"
-POSTGRES_USER="op://Personal/Database/username"
-POSTGRES_PASSWORD="op://Personal/Database/password"
-POSTGRES_DB="op://Personal/Database/database_name"
 
 # Authentication & Security
 JWT_SECRET_KEY="op://Personal/App Secrets/jwt_secret"
@@ -229,47 +241,18 @@ DEBUG=true
 ENVIRONMENT=development
 LOG_LEVEL=DEBUG
 ENVTEMPLATE
-    echo "✅ Created .env.1password template"
+    echo "✓ Created .env.1password template"
 fi
 
-# Update .gitignore to ensure .env is never committed
-if [ -f "/workspace/.gitignore" ]; then
-    if ! grep -q "^\.env$" /workspace/.gitignore; then
-        echo -e "\n# Environment files\n.env\n.env.*\n!.env.1password\n!.env.example" >> /workspace/.gitignore
-        echo "✅ Updated .gitignore to exclude .env files"
-    fi
-fi
-
-# Run initial tests to verify setup (if tests exist)
-echo "🧪 Running initial validation..."
-if [ -d "tests" ] && command -v pytest &> /dev/null; then
-    pytest tests/ -v --tb=short || echo "⚠️  Some tests failed, but continuing setup"
-else
-    echo "ℹ️  No tests found or pytest not available, skipping test validation"
-fi
-
-# Validate quality gates (if script exists)
-if [ -f "scripts/validate_pr.sh" ]; then
-    echo "✅ Running quality validation..."
-    bash scripts/validate_pr.sh || echo "⚠️  Quality validation had issues, but continuing"
-else
-    echo "ℹ️  Quality validation script not found, skipping"
-fi
-
-echo "🎉 Development environment ready!"
+echo "✅ 1Password CLI installation complete!"
 echo ""
-echo "💡 Available commands:"
-echo "  - Run tests: pytest tests/"
-echo "  - Quality check: bash scripts/validate_pr.sh"
-echo "  - Start backend: uvicorn backend.src.main:app --reload"
-echo ""
-echo "🔐 1Password Commands:"
-echo "  - Sign in: ops"
-echo "  - Load secrets: openv"
-echo "  - Load GitHub SSH: ssh_github_load"
-echo "  - Security check: security_check"
+echo "🚀 Quick Start Commands:"
+echo "  ops              - Sign in to 1Password"
+echo "  openv            - Create .env from 1Password template"
+echo "  ssh_github_load  - Load GitHub SSH keys"
+echo "  security_check   - Run security audit"
 echo ""
 echo "📋 Next steps:"
-echo "  1. Run 'source ~/.bashrc' to load 1Password helpers"
-echo "  2. Run 'ops' to sign in to 1Password"
-echo "  3. Run 'openv' to create your .env file with secrets"
+echo "  1. Run 'ops' to sign in to 1Password"
+echo "  2. Run 'openv' to create your .env file"
+echo "  3. Start developing with secure secrets!"
