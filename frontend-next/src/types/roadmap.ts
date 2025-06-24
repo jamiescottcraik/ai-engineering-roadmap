@@ -22,6 +22,7 @@ export interface RoadmapNodeFlowData extends RoadmapItemData {
   // Additional properties specific to flow rendering if needed,
   // but most will come from RoadmapItemData.
   isCurrentlyExpanded?: boolean; // Used by TopicNode to display +/-
+  [key: string]: unknown; // Allow additional properties for ReactFlow compatibility
 }
 
 // Example of how it might be used with ReactFlow's Node type:
@@ -36,7 +37,8 @@ export interface RoadmapData {
   rootItemIds: string[]; // Entry points of the roadmap
 }
 
-// Example Usage (conceptual)
+// Example Usage (conceptual) - commented out to avoid unused variable warning
+/*
 const exampleRoadmap: RoadmapData = {
   items: {
     '1': {
@@ -67,3 +69,4 @@ const exampleRoadmap: RoadmapData = {
   },
   rootItemIds: ['1'],
 };
+*/

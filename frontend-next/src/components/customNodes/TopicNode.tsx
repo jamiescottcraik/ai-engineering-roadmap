@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Handle, Position, type NodeProps } from '@xyflow/react';
-import type { RoadmapNodeFlowData, NodeStatus } from '../../types/roadmap';
+import { Handle, Position } from '@xyflow/react';
+import type { NodeStatus } from '../../types/roadmap';
 
 // Helper function to get color based on status
 const getStatusColor = (status: NodeStatus): string => {
@@ -22,7 +22,20 @@ const getStatusColor = (status: NodeStatus): string => {
   }
 };
 
-const TopicNode: React.FC<NodeProps<RoadmapNodeFlowData>> = ({ data, isConnectable }) => {
+interface TopicNodeProps {
+  data: {
+    label: string;
+    status: NodeStatus;
+    nodeType: string;
+    difficulty?: string;
+    estimatedTime?: string;
+    childrenIds?: string[];
+    isCurrentlyExpanded?: boolean;
+  };
+  isConnectable?: boolean;
+}
+
+const TopicNode: React.FC<TopicNodeProps> = ({ data, isConnectable = true }) => {
   const { label, status, nodeType, difficulty, estimatedTime, childrenIds, isCurrentlyExpanded } = data;
 
   const baseClasses = 'rounded-md shadow-md p-3 border-2 border-stone-800 text-white font-sans relative';

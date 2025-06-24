@@ -239,7 +239,7 @@ function learningReducer(state: LearningState, action: LearningAction): Learning
       const today = new Date().toISOString().split('T')[0];
       const existingProgressIndex = state.analytics.dailyProgress.findIndex(p => p.date === today);
       
-      let updatedDailyProgress = [...state.analytics.dailyProgress];
+      const updatedDailyProgress = [...state.analytics.dailyProgress];
       if (existingProgressIndex >= 0) {
         updatedDailyProgress[existingProgressIndex] = {
           ...updatedDailyProgress[existingProgressIndex],

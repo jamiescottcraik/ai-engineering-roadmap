@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useCallback, useState, useMemo } from 'react';
-import ReactFlow, {
+import {
+  ReactFlow,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -17,8 +18,9 @@ import ReactFlow, {
   type OnEdgesChange,
   type OnNodesChange,
   type NodeMouseHandler,
+  type NodeTypes,
 } from '@xyflow/react';
-import { type RoadmapData, type RoadmapItemData, type RoadmapNodeFlowData } from '../types/roadmap';
+import { type RoadmapData, type RoadmapNodeFlowData } from '../types/roadmap';
 import TopicNode from './customNodes/TopicNode'; // Assuming TopicNode is in this path
 
 import '@xyflow/react/dist/style.css';
@@ -40,7 +42,7 @@ const sampleRoadmapData: RoadmapData = {
 };
 // --- End Sample Data ---
 
-const nodeTypes = {
+const nodeTypes: NodeTypes = {
   topicNode: TopicNode, // Register custom node
 };
 
@@ -129,7 +131,7 @@ function RoadmapDisplay() {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      setNodesState((nds) => applyNodeChanges(changes, nds));
+      setNodesState((nds) => applyNodeChanges(changes, nds) as Node<RoadmapNodeFlowData>[]);
     },
     []
   );
