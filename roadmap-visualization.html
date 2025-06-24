@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Engineering Roadmap - Interactive Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #718096;
+            font-weight: 400;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            background: #4299e1;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .control-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
+        }
+
+        .control-btn.active {
+            background: #38a169;
+        }
+
+        .visualization-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        #mermaid-diagram {
+            width: 100%;
+            min-height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .progress-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .phase-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        .legend-item.phase1 { border-left-color: #1f4e79; }
+        .legend-item.phase2 { border-left-color: #4b8a36; }
+        .legend-item.phase3 { border-left-color: #b91c1c; }
+        .legend-item.phase4 { border-left-color: #1e88e5; }
+        .legend-item.phase5 { border-left-color: #00bcd4; }
+        .legend-item.phase6 { border-left-color: #9c27b0; }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+
+        .phase1 .legend-color { background-color: #1f4e79; }
+        .phase2 .legend-color { background-color: #4b8a36; }
+        .phase3 .legend-color { background-color: #b91c1c; }
+        .phase4 .legend-color { background-color: #1e88e5; }
+        .phase5 .legend-color { background-color: #00bcd4; }
+        .phase6 .legend-color { background-color: #9c27b0; }
+
+        .legend-text {
+            font-weight: 500;
+            color: #2d3748;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        .close {
+            color: #718096;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+
+        .close:hover {
+            color: #2d3748;
+        }
+
+        .modal h2 {
+            color: #1a202c;
+            margin-bottom: 1rem;
+            padding-right: 2rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section h3 {
+            color: #4299e1;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 3px solid #4299e1;
+        }
+
+        .resource-item a {
+            color: #4299e1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resource-item a:hover {
+            text-decoration: underline;
+        }
+
+        .progress-checkbox {
+            margin-right: 0.5rem;
+            transform: scale(1.2);
+        }
+
+        .completed {
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .control-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .visualization-container,
+            .progress-panel,
+            header {
+                padding: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .progress-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .phase-legend {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom Mermaid Styling */
+        .mermaid {
+            background: transparent !important;
+        }
+
+        /* Phase-specific node styling will be applied via JavaScript */
+        .node.phase1 rect { fill: #e6f3ff !important; stroke: #1f4e79 !important; }
+        .node.phase2 rect { fill: #f0f9ff !important; stroke: #4b8a36 !important; }
+        .node.phase3 rect { fill: #fef2f2 !important; stroke: #b91c1c !important; }
+        .node.phase4 rect { fill: #eff6ff !important; stroke: #1e88e5 !important; }
+        .node.phase5 rect { fill: #ecfeff !important; stroke: #00bcd4 !important; }
+        .node.phase6 rect { fill: #faf5ff !important; stroke: #9c27b0 !important; }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #e53e3e;
+            background: #fed7d7;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus styles for keyboard navigation */
+        .control-btn:focus,
+        .close:focus {
+            outline: 2px solid #4299e1;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Engineering Roadmap</h1>
+            <p class="subtitle">Step-by-step guide to becoming an AI engineering leader in 2025-2026</p>
+            
+            <div class="controls">
+                <button class="control-btn active" onclick="showFullRoadmap()" aria-label="Show complete roadmap">
+                    Complete Roadmap
+                </button>
+                <button class="control-btn" onclick="showPhaseView()" aria-label="Show phase overview">
+                    Phase Overview
+                </button>
+                <button class="control-btn" onclick="resetProgress()" aria-label="Reset all progress">
+                    Reset Progress
+                </button>
+                <button class="control-btn" onclick="exportProgress()" aria-label="Export progress data">
+                    Export Progress
+                </button>
+            </div>
+        </header>
+
+        <div class="visualization-container">
+            <div id="mermaid-diagram" role="img" aria-label="Interactive AI Engineering Roadmap Diagram">
+                <div class="loading">Loading roadmap visualization...</div>
+            </div>
+        </div>
+
+        <div class="progress-panel">
+            <h2>Progress Overview</h2>
+            <div class="progress-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="completed-nodes">0</div>
+                    <div class="stat-label">Completed Nodes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-nodes">0</div>
+                    <div class="stat-label">Total Nodes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completion-percentage">0%</div>
+                    <div class="stat-label">Completion</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="estimated-hours">0</div>
+                    <div class="stat-label">Hours Remaining</div>
+                </div>
+            </div>
+
+            <div class="phase-legend">
+                <div class="legend-item phase1">
+                    <div class="legend-color"></div>
+                    <div class="legend-text">Phase 1: Core Engineering Foundations</div>
+                </div>
+                <div class="legend-item phase2">
+                    <div class="legend-color"></div>
+                    <div class="legend-text">Phase 2: Build & Deploy Production AI</div>
+                </div>
+                <div class="legend-item phase3">
+                    <div class="legend-color"></div>
+                    <div class="legend-text">Phase 3: AI Safety & Red Teaming</div>
+                </div>
+                <div class="legend-item phase4">
+                    <div class="legend-color"></div>
+                    <div class="legend-text">Phase 4: Causal Inference & Data Science</div>
+                </div>
+                <div class="legend-item phase5">
+                    <div class="legend-color"></div>
+                    <div class="legend-text">Phase 5: Quantum Machine Learning</div>
+                </div>
+                <div class="legend-item phase6">
+                    <div class="legend-color"></div>
+                    <div class="legend-text">Phase 6: AI Product Strategy & Leadership</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for node details -->
+    <div id="nodeModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()" aria-label="Close modal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let roadmapData = null;
+        let currentView = 'full';
+        let nodeProgress = JSON.parse(localStorage.getItem('roadmapProgress') || '{}');
+
+        // Roadmap data embedded directly (extracted from roadmap.json)
+        const embeddedRoadmapData = {
+            "metadata": {
+                "title": "AI Leadership Engineering Roadmap",
+                "description": "Step-by-step guide to becoming an AI engineering leader in 2025-2026",
+                "totalHours": 920,
+                "totalWeeks": 48
+            },
+            "phases": [
+                {
+                    "id": "phase1",
+                    "title": "Core Engineering Foundations",
+                    "subtitle": "Master Professional Development Practices",
+                    "estimatedWeeks": 8,
+                    "color": "#1f4e79",
+                    "nodes": [
+                        {
+                            "id": "p1_python_learn",
+                            "title": "Master Advanced Python & Math",
+                            "type": "learn",
+                            "estimatedHours": 40,
+                            "description": "Deep dive into advanced Python patterns, data structures, algorithms, and mathematical foundations for AI",
+                            "keyTopics": ["Data Structures", "Algorithms", "Linear Algebra", "Statistics", "Python Internals"],
+                            "resources": [
+                                {"title": "Python 3 Programming (Coursera)", "url": "https://www.coursera.org/specializations/python-3-programming"},
+                                {"title": "Mathematics for Machine Learning", "url": "https://www.coursera.org/specializations/mathematics-machine-learning"}
+                            ]
+                        },
+                        {
+                            "id": "p1_python_practice",
+                            "title": "Solve Algorithmic Challenges",
+                            "type": "practice",
+                            "estimatedHours": 30,
+                            "description": "Apply algorithmic thinking to solve complex computational problems efficiently",
+                            "keyTopics": ["Dynamic Programming", "Graph Algorithms", "Optimization", "Complexity Analysis"]
+                        },
+                        {
+                            "id": "p1_deliverable_cli",
+                            "title": "🏆 Deliver: GitHub Stats CLI Tool",
+                            "type": "portfolio",
+                            "estimatedHours": 25,
+                            "description": "Build a professional CLI tool that generates beautiful statistical analysis cards from GitHub data",
+                            "keyTopics": ["CLI Development", "API Integration", "Data Visualization", "Package Publishing"]
+                        },
+                        {
+                            "id": "p1_sql_learn",
+                            "title": "Master Advanced SQL",
+                            "type": "learn",
+                            "estimatedHours": 35,
+                            "description": "Master complex SQL queries, optimization, window functions, and database design patterns",
+                            "keyTopics": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"]
+                        },
+                        {
+                            "id": "p1_deliverable_final",
+                            "title": "🏆 DELIVERABLE: Data Analysis API",
+                            "type": "portfolio",
+                            "estimatedHours": 45,
+                            "description": "Build and deploy a production-ready data analysis API with comprehensive testing and CI/CD",
+                            "keyTopics": ["API Development", "Production Deployment", "Monitoring", "Documentation", "Load Testing"]
+                        }
+                    ]
+                },
+                {
+                    "id": "phase2",
+                    "title": "Build & Deploy Production AI",
+                    "subtitle": "Applied AI & MLOps",
+                    "estimatedWeeks": 10,
+                    "color": "#4b8a36",
+                    "nodes": [
+                        {
+                            "id": "p2_rag_learn",
+                            "title": "Master Advanced RAG & Evaluation",
+                            "type": "learn",
+                            "estimatedHours": 45,
+                            "description": "Deep dive into Retrieval-Augmented Generation, vector databases, and evaluation frameworks",
+                            "keyTopics": ["Vector Embeddings", "Semantic Search", "RAG Architectures", "Evaluation Metrics"]
+                        },
+                        {
+                            "id": "p2_deliverable_rag",
+                            "title": "🏆 Deliver: Cognitive Load Reducer App",
+                            "type": "portfolio",
+                            "estimatedHours": 40,
+                            "description": "Build an AI-powered app that reduces cognitive load by intelligently summarizing and contextualizing information",
+                            "keyTopics": ["Full-Stack Development", "RAG Implementation", "User Experience", "Performance Optimization"]
+                        },
+                        {
+                            "id": "p2_agents_learn",
+                            "title": "Master Multi-Agent Orchestration",
+                            "type": "learn",
+                            "estimatedHours": 40,
+                            "description": "Design and implement collaborative AI agent systems with complex workflows",
+                            "keyTopics": ["Agent Architectures", "Task Orchestration", "Inter-Agent Communication", "Workflow Design"]
+                        },
+                        {
+                            "id": "p2_deliverable_final",
+                            "title": "🏆 DELIVERABLE: Deployed AI Services",
+                            "type": "portfolio",
+                            "estimatedHours": 50,
+                            "description": "Deploy multiple AI applications with full MLOps pipeline and production monitoring",
+                            "keyTopics": ["Production Deployment", "Service Architecture", "Monitoring", "Scalability", "API Design"]
+                        }
+                    ]
+                },
+                {
+                    "id": "phase3",
+                    "title": "AI Safety & Red Teaming",
+                    "subtitle": "Build Safe, Reliable, and Secure AI Systems",
+                    "estimatedWeeks": 8,
+                    "color": "#b91c1c",
+                    "nodes": [
+                        {
+                            "id": "p3_safety_basics",
+                            "title": "AI Safety: Baseline Fluency",
+                            "type": "learn",
+                            "estimatedHours": 20,
+                            "description": "Understand the fundamentals of AI safety, prompt injection, and societal risks",
+                            "keyTopics": ["Prompt Injection", "AI Ethics", "Societal Risks"]
+                        },
+                        {
+                            "id": "p3_safety_attacks",
+                            "title": "AI Safety: Real-World Attacks & Defenses",
+                            "type": "practice",
+                            "estimatedHours": 24,
+                            "description": "Hands-on adversarial attacks and defenses on transformers and LLM deployments",
+                            "keyTopics": ["Adversarial Attacks", "Prompt Injection", "LLM Security"]
+                        },
+                        {
+                            "id": "p3_safety_specialist",
+                            "title": "AI Safety: Specialization & Professional Tools",
+                            "type": "portfolio",
+                            "estimatedHours": 36,
+                            "description": "Credential-focused and advanced tools for consultants and practitioners",
+                            "keyTopics": ["Red Teaming", "Adversarial ML", "LLM Security", "Credentialing"]
+                        }
+                    ]
+                },
+                {
+                    "id": "phase4",
+                    "title": "Causal Inference & Modern Data Science",
+                    "subtitle": "Causal Reasoning, Modern Data Science, and Real-World Impact",
+                    "estimatedWeeks": 10,
+                    "color": "#1e88e5",
+                    "nodes": [
+                        {
+                            "id": "p4_causal_foundations",
+                            "title": "Causal Inference Foundations",
+                            "type": "learn",
+                            "estimatedHours": 18,
+                            "description": "Build a practical foundation in causal inference, DAGs, and real-world data analysis",
+                            "keyTopics": ["Causal Inference", "DAGs", "Counterfactuals", "Python Data Science"]
+                        },
+                        {
+                            "id": "p4_causal_hands_on",
+                            "title": "Hands-On Causal Analysis & Domain Integration",
+                            "type": "practice",
+                            "estimatedHours": 20,
+                            "description": "Apply causal inference in business, NLP, and A/B testing with real code and datasets",
+                            "keyTopics": ["Causal Analysis", "A/B Testing", "NLP", "Business Data Science"]
+                        },
+                        {
+                            "id": "p4_causal_advanced",
+                            "title": "Advanced Causal Inference & Strategic Applications",
+                            "type": "portfolio",
+                            "estimatedHours": 28,
+                            "description": "Master's-level frameworks and real-world/medical data applications",
+                            "keyTopics": ["Advanced Causal Inference", "Healthcare AI", "Research Skills"]
+                        }
+                    ]
+                },
+                {
+                    "id": "phase5",
+                    "title": "Quantum Machine Learning",
+                    "subtitle": "Quantum Computing Concepts, Hands-On QML, and Advanced Algorithms",
+                    "estimatedWeeks": 10,
+                    "color": "#00bcd4",
+                    "nodes": [
+                        {
+                            "id": "p5_quantum_fluency",
+                            "title": "Quantum Computing: Conceptual Fluency",
+                            "type": "learn",
+                            "estimatedHours": 16,
+                            "description": "Understand the core concepts of quantum computing and its implications for AI",
+                            "keyTopics": ["Quantum Computing", "Qubits", "Quantum Circuits"]
+                        },
+                        {
+                            "id": "p5_quantum_hands_on",
+                            "title": "Hands-On Quantum ML & Integration",
+                            "type": "practice",
+                            "estimatedHours": 18,
+                            "description": "Build and experiment with quantum machine learning models and classical-quantum integration",
+                            "keyTopics": ["Quantum ML", "Qiskit", "Quantum-Classical Integration"]
+                        },
+                        {
+                            "id": "p5_quantum_advanced",
+                            "title": "Advanced Quantum ML & Algorithms",
+                            "type": "portfolio",
+                            "estimatedHours": 24,
+                            "description": "Explore advanced quantum computing algorithms for AI and specialization pathways",
+                            "keyTopics": ["Quantum Algorithms", "AI Specialization"]
+                        }
+                    ]
+                },
+                {
+                    "id": "phase6",
+                    "title": "AI Product Strategy & Leadership",
+                    "subtitle": "UX Design, Product Strategy, and Thought Leadership",
+                    "estimatedWeeks": 12,
+                    "color": "#9c27b0",
+                    "nodes": [
+                        {
+                            "id": "p6_ux_product",
+                            "title": "UX Design & AI Product Strategy",
+                            "type": "learn",
+                            "estimatedHours": 35,
+                            "description": "Master user experience design principles and AI product strategy for building user-centered AI applications",
+                            "keyTopics": ["UX Design", "AI Product Strategy", "User Research", "Design Thinking"]
+                        },
+                        {
+                            "id": "p6_prompt_engineering",
+                            "title": "Advanced Prompt Engineering & AI Productivity",
+                            "type": "practice",
+                            "estimatedHours": 25,
+                            "description": "Master prompt engineering techniques and AI productivity tools for professional workflows",
+                            "keyTopics": ["Prompt Engineering", "AI Productivity", "Workflow Optimization", "Professional Tools"]
+                        },
+                        {
+                            "id": "p6_portfolio_launch",
+                            "title": "🏆 DELIVERABLE: AI Product Launch & Public Portfolio",
+                            "type": "portfolio",
+                            "estimatedHours": 60,
+                            "description": "Launch a comprehensive AI product with user base and establish thought leadership through public portfolio",
+                            "keyTopics": ["Product Launch", "Thought Leadership", "Public Speaking", "Industry Recognition"]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Initialize mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#ffffff',
+                primaryTextColor: '#333333',
+                primaryBorderColor: '#4299e1',
+                lineColor: '#4299e1',
+                secondaryColor: '#f7fafc',
+                tertiaryColor: '#e2e8f0'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Generate mermaid diagram from roadmap data
+        function generateMermaidDiagram(data, viewType = 'full') {
+            let mermaidCode = 'graph TD\n';
+            let nodeConnections = [];
+
+            // Add start node
+            mermaidCode += '    START([🚀 Start Your AI Journey])\n';
+            mermaidCode += '    START:::startNode\n\n';
+
+            data.phases.forEach((phase, phaseIndex) => {
+                const phaseId = phase.id;
+                const phaseTitle = phase.title.replace(/"/g, '&quot;');
+                const phaseClass = `phase${phaseIndex + 1}`;
+                
+                // Add subgraph for phase
+                mermaidCode += `    subgraph ${phaseId} ["${phaseTitle} (${phase.estimatedWeeks} weeks)"]\n`;
+                
+                let prevNodeId = null;
+                phase.nodes.forEach((node, nodeIndex) => {
+                    const nodeId = node.id;
+                    const nodeTitle = node.title.replace(/"/g, '&quot;');
+                    const nodeType = node.type;
+                    const isCompleted = nodeProgress[nodeId] || false;
+                    const statusIcon = isCompleted ? '✅ ' : getNodeTypeIcon(nodeType);
+                    
+                    // Create node with appropriate shape based on type
+                    let nodeShape;
+                    if (nodeType === 'portfolio') {
+                        nodeShape = `${nodeId}["${statusIcon}${nodeTitle}"]`;
+                    } else if (nodeType === 'learn') {
+                        nodeShape = `${nodeId}("${statusIcon}${nodeTitle}")`;
+                    } else {
+                        nodeShape = `${nodeId}["${statusIcon}${nodeTitle}"]`;
+                    }
+                    
+                    mermaidCode += `        ${nodeShape}\n`;
+                    mermaidCode += `        ${nodeId}:::${phaseClass}\n`;
+                    
+                    // Connect nodes within phase
+                    if (prevNodeId) {
+                        mermaidCode += `        ${prevNodeId} --> ${nodeId}\n`;
+                    }
+                    prevNodeId = nodeId;
+                });
+                
+                mermaidCode += '    end\n\n';
+                
+                // Store connection for phase linking
+                if (phase.nodes.length > 0) {
+                    nodeConnections.push({
+                        phaseIndex,
+                        firstNode: phase.nodes[0].id,
+                        lastNode: phase.nodes[phase.nodes.length - 1].id
+                    });
+                }
+            });
+
+            // Connect START to first phase
+            if (nodeConnections.length > 0) {
+                mermaidCode += `    START --> ${nodeConnections[0].firstNode}\n`;
+            }
+
+            // Connect phases
+            for (let i = 0; i < nodeConnections.length - 1; i++) {
+                const currentPhase = nodeConnections[i];
+                const nextPhase = nodeConnections[i + 1];
+                mermaidCode += `    ${currentPhase.lastNode} --> ${nextPhase.firstNode}\n`;
+            }
+
+            // Add click events for interactivity
+            mermaidCode += '\n    %% Click events\n';
+            data.phases.forEach(phase => {
+                phase.nodes.forEach(node => {
+                    mermaidCode += `    click ${node.id} "showNodeDetails('${node.id}')"\n`;
+                });
+            });
+
+            // Add styling classes
+            mermaidCode += '\n    %% Styling\n';
+            mermaidCode += '    classDef startNode fill:#667eea,stroke:#333,stroke-width:3px,color:#fff\n';
+            mermaidCode += '    classDef phase1 fill:#e6f3ff,stroke:#1f4e79,stroke-width:2px\n';
+            mermaidCode += '    classDef phase2 fill:#f0f9ff,stroke:#4b8a36,stroke-width:2px\n';
+            mermaidCode += '    classDef phase3 fill:#fef2f2,stroke:#b91c1c,stroke-width:2px\n';
+            mermaidCode += '    classDef phase4 fill:#eff6ff,stroke:#1e88e5,stroke-width:2px\n';
+            mermaidCode += '    classDef phase5 fill:#ecfeff,stroke:#00bcd4,stroke-width:2px\n';
+            mermaidCode += '    classDef phase6 fill:#faf5ff,stroke:#9c27b0,stroke-width:2px\n';
+
+            return mermaidCode;
+        }
+
+        function getNodeTypeIcon(type) {
+            switch (type) {
+                case 'learn': return '📚 ';
+                case 'practice': return '💻 ';
+                case 'portfolio': return '🏆 ';
+                default: return '📋 ';
+            }
+        }
+
+        // Show node details in modal
+        function showNodeDetails(nodeId) {
+            const node = findNodeById(nodeId);
+            if (!node) return;
+
+            const modal = document.getElementById('nodeModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            title.textContent = node.title;
+            
+            const isCompleted = nodeProgress[nodeId] || false;
+            
+            content.innerHTML = `
+                <div class="modal-section">
+                    <label>
+                        <input type="checkbox" class="progress-checkbox" 
+                               ${isCompleted ? 'checked' : ''} 
+                               onchange="toggleNodeProgress('${nodeId}')">
+                        Mark as completed
+                    </label>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Description</h3>
+                    <p>${node.description}</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Details</h3>
+                    <p><strong>Type:</strong> ${node.type}</p>
+                    <p><strong>Estimated Hours:</strong> ${node.estimatedHours || 'N/A'}</p>
+                    ${node.keyTopics ? `<p><strong>Key Topics:</strong> ${node.keyTopics.join(', ')}</p>` : ''}
+                </div>
+                
+                ${node.resources ? `
+                <div class="modal-section">
+                    <h3>Resources</h3>
+                    <ul class="resource-list">
+                        ${node.resources.map(resource => `
+                            <li class="resource-item">
+                                <a href="${resource.url}" target="_blank">${resource.title}</a>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+            `;
+            
+            modal.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
+            title.focus();
+        }
+
+        function findNodeById(nodeId) {
+            for (const phase of embeddedRoadmapData.phases) {
+                for (const node of phase.nodes) {
+                    if (node.id === nodeId) {
+                        return node;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function toggleNodeProgress(nodeId) {
+            nodeProgress[nodeId] = !nodeProgress[nodeId];
+            localStorage.setItem('roadmapProgress', JSON.stringify(nodeProgress));
+            updateProgressStats();
+            renderDiagram();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('nodeModal');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function updateProgressStats() {
+            const totalNodes = embeddedRoadmapData.phases.reduce((sum, phase) => sum + phase.nodes.length, 0);
+            const completedNodes = Object.values(nodeProgress).filter(Boolean).length;
+            const completionPercentage = totalNodes > 0 ? Math.round((completedNodes / totalNodes) * 100) : 0;
+            
+            // Calculate remaining hours
+            let remainingHours = 0;
+            embeddedRoadmapData.phases.forEach(phase => {
+                phase.nodes.forEach(node => {
+                    if (!nodeProgress[node.id] && node.estimatedHours) {
+                        remainingHours += node.estimatedHours;
+                    }
+                });
+            });
+
+            document.getElementById('completed-nodes').textContent = completedNodes;
+            document.getElementById('total-nodes').textContent = totalNodes;
+            document.getElementById('completion-percentage').textContent = completionPercentage + '%';
+            document.getElementById('estimated-hours').textContent = remainingHours;
+        }
+
+        async function renderDiagram() {
+            const container = document.getElementById('mermaid-diagram');
+            container.innerHTML = '<div class="loading">Loading roadmap visualization...</div>';
+
+            try {
+                const mermaidCode = generateMermaidDiagram(embeddedRoadmapData, currentView);
+                const { svg } = await mermaid.render('roadmap-graph', mermaidCode);
+                
+                container.innerHTML = svg;
+                
+                // Add click event listeners to nodes
+                setTimeout(() => {
+                    embeddedRoadmapData.phases.forEach(phase => {
+                        phase.nodes.forEach(node => {
+                            const nodeElement = document.getElementById(node.id);
+                            if (nodeElement) {
+                                nodeElement.style.cursor = 'pointer';
+                                nodeElement.addEventListener('click', () => showNodeDetails(node.id));
+                            }
+                        });
+                    });
+                }, 100);
+                
+            } catch (error) {
+                console.error('Error rendering diagram:', error);
+                container.innerHTML = '<div class="error">Error loading roadmap. Please refresh the page.</div>';
+            }
+        }
+
+        // Control functions
+        function showFullRoadmap() {
+            currentView = 'full';
+            updateActiveButton(0);
+            renderDiagram();
+        }
+
+        function showPhaseView() {
+            currentView = 'phases';
+            updateActiveButton(1);
+            renderDiagram();
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                nodeProgress = {};
+                localStorage.removeItem('roadmapProgress');
+                updateProgressStats();
+                renderDiagram();
+            }
+        }
+
+        function exportProgress() {
+            const progressData = {
+                timestamp: new Date().toISOString(),
+                progress: nodeProgress,
+                stats: {
+                    totalNodes: embeddedRoadmapData.phases.reduce((sum, phase) => sum + phase.nodes.length, 0),
+                    completedNodes: Object.values(nodeProgress).filter(Boolean).length
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(progressData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `roadmap-progress-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function updateActiveButton(activeIndex) {
+            const buttons = document.querySelectorAll('.control-btn');
+            buttons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === activeIndex);
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            roadmapData = embeddedRoadmapData;
+            updateProgressStats();
+            renderDiagram();
+        });
+
+        // Modal close on outside click
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('nodeModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Make functions globally available for onclick handlers
+        window.showNodeDetails = showNodeDetails;
+        window.toggleNodeProgress = toggleNodeProgress;
+        window.closeModal = closeModal;
+        window.showFullRoadmap = showFullRoadmap;
+        window.showPhaseView = showPhaseView;
+        window.resetProgress = resetProgress;
+        window.exportProgress = exportProgress;
+    </script>
+</body>
+</html>
