@@ -167,6 +167,8 @@ export default function ModernAIEngineeringRoadmap2025() {
           config={config}
           currentTime={currentTime}
           hoursUntilBedtime={hoursUntilBedtime}
+          isEvening={isEvening}
+          isLinkedInUrgent={isLinkedInUrgent}
         />
 
         {/* Smart Navigation - Evening focused */}
@@ -223,10 +225,14 @@ const EveningHeader = ({
   config,
   currentTime,
   hoursUntilBedtime,
+  isEvening,
+  isLinkedInUrgent,
 }: {
   config: RoadmapConfig;
   currentTime: Date;
   hoursUntilBedtime: number;
+  isEvening: boolean;
+  isLinkedInUrgent: boolean;
 }) => (
   <motion.header
     initial={{ opacity: 0, y: -20 }}
