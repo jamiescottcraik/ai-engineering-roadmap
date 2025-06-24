@@ -1,25 +1,21 @@
 // Learning-Focused Kanban Component (Inspired by Planka)
 // This demonstrates how to adapt Planka's patterns for individual learning
 
-import React, { useCallback, useState } from 'react';
 import {
+  closestCenter,
   DndContext,
   DragEndEvent,
+  DragOverEvent,
   DragOverlay,
   DragStartEvent,
   PointerSensor,
+  useDroppable,
   useSensor,
   useSensors,
-  closestCenter,
-  DragOverEvent,
 } from '@dnd-kit/core';
-import {
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { useDroppable } from '@dnd-kit/core';
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import React, { useCallback, useState } from 'react';
 
 // Learning-specific board structure (adapted from Planka's Board.js)
 interface LearningTopic {
@@ -52,7 +48,7 @@ const LEARNING_COLUMNS: LearningColumn[] = [
         description: 'Variables, functions, control structures',
         difficulty: 'beginner',
         timeEstimate: '2 weeks',
-        resources: ['Python.org tutorial', 'Automate the Boring Stuff']
+        resources: ['Python.org tutorial', 'Automate the Boring Stuff'],
       },
       {
         id: '2',
@@ -60,10 +56,10 @@ const LEARNING_COLUMNS: LearningColumn[] = [
         description: 'Linear regression, classification basics',
         difficulty: 'intermediate',
         timeEstimate: '3 weeks',
-        resources: ['Coursera ML Course', 'Hands-on ML book']
-      }
+        resources: ['Coursera ML Course', 'Hands-on ML book'],
+      },
     ],
-    color: 'bg-gray-100 dark:bg-gray-800'
+    color: 'bg-gray-100 dark:bg-gray-800',
   },
   {
     id: 'in-progress',
@@ -75,10 +71,10 @@ const LEARNING_COLUMNS: LearningColumn[] = [
         description: 'Understanding backpropagation and training',
         difficulty: 'advanced',
         timeEstimate: '4 weeks',
-        resources: ['Deep Learning book', 'Neural Networks course']
-      }
+        resources: ['Deep Learning book', 'Neural Networks course'],
+      },
     ],
-    color: 'bg-blue-100 dark:bg-blue-900'
+    color: 'bg-blue-100 dark:bg-blue-900',
   },
   {
     id: 'review',
@@ -90,10 +86,10 @@ const LEARNING_COLUMNS: LearningColumn[] = [
         description: 'Arrays, linked lists, trees, graphs',
         difficulty: 'intermediate',
         timeEstimate: '2 weeks',
-        resources: ['LeetCode', 'CLRS book']
-      }
+        resources: ['LeetCode', 'CLRS book'],
+      },
     ],
-    color: 'bg-yellow-100 dark:bg-yellow-900'
+    color: 'bg-yellow-100 dark:bg-yellow-900',
   },
   {
     id: 'mastered',
@@ -106,11 +102,11 @@ const LEARNING_COLUMNS: LearningColumn[] = [
         difficulty: 'beginner',
         timeEstimate: '1 week',
         resources: ['Git documentation', 'Pro Git book'],
-        completedAt: new Date('2024-12-01')
-      }
+        completedAt: new Date('2024-12-01'),
+      },
     ],
-    color: 'bg-green-100 dark:bg-green-900'
-  }
+    color: 'bg-green-100 dark:bg-green-900',
+  },
 ];
 
 export const LearningKanban: React.FC = () => {
@@ -134,19 +130,19 @@ export const LearningKanban: React.FC = () => {
     return (
       <div
         ref={setNodeRef}
-        className={`${column.color} rounded-xl p-6 min-h-96 backdrop-blur-sm border border-white/20 shadow-lg ${
-          isOver ? 'ring-2 ring-blue-400 ring-opacity-50 bg-opacity-80 scale-105' : ''
+        className={`${column.color} min-h-96 rounded-xl border border-white/20 p-6 shadow-lg backdrop-blur-sm ${
+          isOver ? 'scale-105 bg-opacity-80 ring-2 ring-blue-400 ring-opacity-50' : ''
         } transition-all duration-300`}
       >
-        <h3 className="font-bold text-lg mb-6 text-gray-800 dark:text-gray-200 flex items-center gap-2">
+        <h3 className="mb-6 flex items-center gap-2 text-lg font-bold text-gray-800 dark:text-gray-200">
           {column.title}
-          <span className="bg-white/30 dark:bg-gray-700/50 px-2 py-1 rounded-full text-sm font-medium">
+          <span className="rounded-full bg-white/30 px-2 py-1 text-sm font-medium dark:bg-gray-700/50">
             {column.topics.length}
           </span>
         </h3>
 
         <SortableContext
-          items={column.topics.map(topic => topic.id)}
+          items={column.topics.map((topic) => topic.id)}
           strategy={verticalListSortingStrategy}
         >
           <div className="min-h-80 space-y-3">
@@ -161,14 +157,9 @@ export const LearningKanban: React.FC = () => {
 
   // Sortable Topic Item Component
   const SortableTopicItem: React.FC<{ topic: LearningTopic }> = ({ topic }) => {
-    const {
-      attributes,
-      listeners,
-      setNodeRef,
-      transform,
-      transition,
-      isDragging,
-    } = useSortable({ id: topic.id });
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+      id: topic.id,
+    });
 
     const style = {
       transform: CSS.Transform.toString(transform),
@@ -181,30 +172,34 @@ export const LearningKanban: React.FC = () => {
         style={style}
         {...attributes}
         {...listeners}
-        className={`bg-white dark:bg-gray-700 rounded-lg p-4 mb-3 shadow-sm hover:shadow-md cursor-grab border border-gray-200 dark:border-gray-600 transition-all duration-200 ${
-          isDragging ? 'shadow-lg opacity-50 rotate-2' : ''
+        className={`mb-3 cursor-grab rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:border-gray-600 dark:bg-gray-700 ${
+          isDragging ? 'rotate-2 opacity-50 shadow-lg' : ''
         }`}
       >
-        <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">{topic.title}</h4>
-        <p className="text-xs text-gray-600 dark:text-gray-300 mb-3 leading-relaxed">
+        <h4 className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
+          {topic.title}
+        </h4>
+        <p className="mb-3 text-xs leading-relaxed text-gray-600 dark:text-gray-300">
           {topic.description}
         </p>
-        
+
         {/* Resources Section */}
         {topic.resources && topic.resources.length > 0 && (
           <div className="mb-3">
-            <div className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">📚 Resources:</div>
+            <div className="mb-1 text-xs font-medium text-gray-700 dark:text-gray-300">
+              📚 Resources:
+            </div>
             <div className="flex flex-wrap gap-1">
               {topic.resources.slice(0, 2).map((resource, index) => (
                 <span
                   key={index}
-                  className="inline-block px-2 py-1 text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md border border-blue-200 dark:border-blue-700"
+                  className="inline-block rounded-md border border-blue-200 bg-blue-50 px-2 py-1 text-xs text-blue-700 dark:border-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
                 >
                   {resource}
                 </span>
               ))}
               {topic.resources.length > 2 && (
-                <span className="inline-block px-2 py-1 text-xs bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-md border border-gray-200 dark:border-gray-600">
+                <span className="inline-block rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-xs text-gray-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400">
                   +{topic.resources.length - 2} more
                 </span>
               )}
@@ -212,19 +207,25 @@ export const LearningKanban: React.FC = () => {
           </div>
         )}
 
-        <div className="flex justify-between items-center text-xs mb-2">
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-            topic.difficulty === 'beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-            topic.difficulty === 'intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-            'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
-          }`}>
+        <div className="mb-2 flex items-center justify-between text-xs">
+          <span
+            className={`rounded-full px-2 py-1 text-xs font-medium ${
+              topic.difficulty === 'beginner'
+                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                : topic.difficulty === 'intermediate'
+                  ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
+                  : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+            }`}
+          >
             {topic.difficulty}
           </span>
-          <span className="text-gray-500 dark:text-gray-400 font-medium">⏱️ {topic.timeEstimate}</span>
+          <span className="font-medium text-gray-500 dark:text-gray-400">
+            ⏱️ {topic.timeEstimate}
+          </span>
         </div>
-        
+
         {topic.completedAt && (
-          <div className="text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-md">
+          <div className="rounded-md bg-green-50 px-2 py-1 text-xs text-green-600 dark:bg-green-900/20 dark:text-green-400">
             ✅ Completed {topic.completedAt.toLocaleDateString()}
           </div>
         )}
@@ -246,32 +247,30 @@ export const LearningKanban: React.FC = () => {
     const overId = over.id as string;
 
     // Find the columns
-    const activeColumn = columns.find(col =>
-      col.topics.some(topic => topic.id === activeId)
-    );
-    const overColumn = columns.find(col => col.id === overId);
+    const activeColumn = columns.find((col) => col.topics.some((topic) => topic.id === activeId));
+    const overColumn = columns.find((col) => col.id === overId);
 
     if (!activeColumn || !overColumn || activeColumn.id === overColumn.id) return;
 
     // Move item between columns
-    setColumns(prevColumns => {
+    setColumns((prevColumns) => {
       const activeTopics = activeColumn.topics;
       const overTopics = overColumn.topics;
 
-      const activeIndex = activeTopics.findIndex(topic => topic.id === activeId);
+      const activeIndex = activeTopics.findIndex((topic) => topic.id === activeId);
       const topic = activeTopics[activeIndex];
 
-      return prevColumns.map(col => {
+      return prevColumns.map((col) => {
         if (col.id === activeColumn.id) {
           return {
             ...col,
-            topics: activeTopics.filter((_, index) => index !== activeIndex)
+            topics: activeTopics.filter((_, index) => index !== activeIndex),
           };
         }
         if (col.id === overColumn.id) {
           return {
             ...col,
-            topics: [...overTopics, topic]
+            topics: [...overTopics, topic],
           };
         }
         return col;
@@ -279,54 +278,56 @@ export const LearningKanban: React.FC = () => {
     });
   };
 
-  const handleDragEnd = useCallback((event: DragEndEvent) => {
-    const { active, over } = event;
-    setActiveId(null);
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      setActiveId(null);
 
-    if (!over) return;
+      if (!over) return;
 
-    const activeId = active.id as string;
-    const overId = over.id as string;
+      const activeId = active.id as string;
+      const overId = over.id as string;
 
-    // Find source and destination columns
-    const sourceColumn = columns.find(col =>
-      col.topics.some(topic => topic.id === activeId)
-    );
+      // Find source and destination columns
+      const sourceColumn = columns.find((col) => col.topics.some((topic) => topic.id === activeId));
 
-    if (!sourceColumn) return;
+      if (!sourceColumn) return;
 
-    const topic = sourceColumn.topics.find(t => t.id === activeId);
-    if (!topic) return;
+      const topic = sourceColumn.topics.find((t) => t.id === activeId);
+      if (!topic) return;
 
-    // Check if dropped on a column (not on another topic)
-    const destColumn = columns.find(col => col.id === overId);
+      // Check if dropped on a column (not on another topic)
+      const destColumn = columns.find((col) => col.id === overId);
 
-    if (destColumn && sourceColumn.id !== destColumn.id) {
-      // Mark completion time for mastered topics
-      if (destColumn.id === 'mastered' && !topic.completedAt) {
-        topic.completedAt = new Date();
+      if (destColumn && sourceColumn.id !== destColumn.id) {
+        // Mark completion time for mastered topics
+        if (destColumn.id === 'mastered' && !topic.completedAt) {
+          topic.completedAt = new Date();
+        }
+
+        // Update spaced repetition if moving from mastered back to review
+        if (sourceColumn.id === 'mastered' && destColumn.id === 'review') {
+          // Trigger spaced repetition algorithm
+          // TODO: Implement spaced repetition schedule update
+        }
       }
-
-      // Update spaced repetition if moving from mastered back to review
-      if (sourceColumn.id === 'mastered' && destColumn.id === 'review') {
-        // Trigger spaced repetition algorithm
-        console.log('Topic needs review - update spaced repetition schedule');
-      }
-    }
-  }, [columns]);
+    },
+    [columns]
+  );
 
   const activeItem = activeId
-    ? columns.flatMap(col => col.topics).find(topic => topic.id === activeId)
+    ? columns.flatMap((col) => col.topics).find((topic) => topic.id === activeId)
     : null;
 
   return (
-    <div className="learning-kanban w-full h-full p-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+    <div className="learning-kanban h-full w-full p-6">
+      <div className="mb-8 text-center">
+        <h2 className="mb-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-3xl font-bold text-transparent">
           🧠 Your AI Engineering Learning Journey
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Organize your learning path with drag-and-drop simplicity. Track progress from exploration to mastery.
+        <p className="mx-auto max-w-2xl text-gray-600 dark:text-gray-400">
+          Organize your learning path with drag-and-drop simplicity. Track progress from exploration
+          to mastery.
         </p>
       </div>
 
@@ -337,15 +338,13 @@ export const LearningKanban: React.FC = () => {
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {columns.map(column => (
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {columns.map((column) => (
             <DroppableColumn key={column.id} column={column} />
           ))}
         </div>
 
-        <DragOverlay>
-          {activeItem ? <SortableTopicItem topic={activeItem} /> : null}
-        </DragOverlay>
+        <DragOverlay>{activeItem ? <SortableTopicItem topic={activeItem} /> : null}</DragOverlay>
       </DndContext>
     </div>
   );

@@ -10,8 +10,8 @@
 
 "use client";
 
-import React from 'react';
 import { motion } from 'framer-motion';
+import React from 'react';
 
 interface PageContainerProps {
   children: React.ReactNode;

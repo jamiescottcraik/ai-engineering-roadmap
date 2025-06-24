@@ -10,9 +10,10 @@
 
 "use client";
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, BookOpen, Heart, Zap } from 'lucide-react';
+import React from 'react';
+
 import { useCognitiveTheme } from '@/lib/theme';
 
 interface FooterProps {

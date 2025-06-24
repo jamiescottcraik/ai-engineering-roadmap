@@ -15,9 +15,10 @@
 
 "use client";
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Menu, Settings, User, Moon, Sun, Monitor } from 'lucide-react';
+import React from 'react';
+
 import { useCognitiveTheme } from '@/lib/theme';
 
 interface HeaderNavProps {

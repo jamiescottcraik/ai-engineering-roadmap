@@ -3,28 +3,61 @@
 # Run with: docker-compose up -d
 
 services:
-  # The Next.js frontend service for the learning platform
+  # The Next.js frontend service for the learning platform - Optimized Production Build
   frontend:
     build:
       context: ./frontend-next
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.optimized
+      target: runner
     container_name: brainwav-frontend
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend-next:/app
-      - /app/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
     networks:
       - brainwav-net
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000", "||", "exit", "1"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/api/health",
+          "||",
+          "exit",
+          "1",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  # Development frontend service with hot reload
+  frontend-dev:
+    build:
+      context: ./frontend-next
+      dockerfile: Dockerfile
+      target: builder
+    container_name: brainwav-frontend-dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend-next:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    networks:
+      - brainwav-net
+    restart: unless-stopped
+    command: npm run dev
+    profiles:
+      - dev
 
   # The Python backend service, where you will do most of your development.
   backend:
@@ -47,7 +80,8 @@ services:
       - brainwav-net
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health", "||", "exit", "1"]
+      test:
+        ["CMD", "curl", "-f", "http://localhost:8000/health", "||", "exit", "1"]
       interval: 30s
       timeout: 10s
       retries: 3

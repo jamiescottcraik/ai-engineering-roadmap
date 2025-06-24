@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ReactFlow, Node, Edge, addEdge, Background, Controls, MiniMap, Connection } from '@xyflow/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
   CheckCircle,
@@ -17,6 +16,8 @@ import {
   Settings,
   BookOpen
 } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
+
 import { Badge } from './ui/badge';
 
 /**
