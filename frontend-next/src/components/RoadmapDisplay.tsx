@@ -19,110 +19,150 @@ import {
   type OnNodesChange,
   type NodeMouseHandler,
   type NodeTypes,
+  BackgroundVariant,
 } from '@xyflow/react';
-import { type RoadmapData, type RoadmapNodeFlowData } from '../types/roadmap';
-import TopicNode from './customNodes/TopicNode'; // Assuming TopicNode is in this path
+import { type RoadmapNodeFlowData, type RoadmapData } from '../types/roadmap';
+import TopicNode from './customNodes/TopicNode';
+import { veteranRoadmapData, phaseColors } from '../data/veteranRoadmapData';
 
 import '@xyflow/react/dist/style.css';
 
-// --- Sample Data ---
-const sampleRoadmapData: RoadmapData = {
-  items: {
-    'root': { id: 'root', label: 'AI Engineering Roadmap', nodeType: 'category', status: 'inProgress', childrenIds: ['ml_basics', 'tools'] },
-    'ml_basics': { id: 'ml_basics', label: 'Machine Learning Basics', nodeType: 'topic', status: 'completed', childrenIds: ['data_preprocessing', 'supervised_learning'] },
-    'data_preprocessing': { id: 'data_preprocessing', label: 'Data Preprocessing', nodeType: 'subTopic', status: 'completed' },
-    'supervised_learning': { id: 'supervised_learning', label: 'Supervised Learning', nodeType: 'subTopic', status: 'inProgress', childrenIds: ['regression', 'classification'] },
-    'regression': { id: 'regression', label: 'Regression', nodeType: 'resource', status: 'todo' },
-    'classification': { id: 'classification', label: 'Classification', nodeType: 'resource', status: 'locked' },
-    'tools': { id: 'tools', label: 'Tools & Frameworks', nodeType: 'topic', status: 'todo', childrenIds: ['python', 'tensorflow'] },
-    'python': { id: 'python', label: 'Python for AI', nodeType: 'subTopic', status: 'todo' },
-    'tensorflow': { id: 'tensorflow', label: 'TensorFlow/Keras', nodeType: 'subTopic', status: 'todo' },
-  },
-  rootItemIds: ['root'],
-};
-// --- End Sample Data ---
-
-const nodeTypes: NodeTypes = {
-  topicNode: TopicNode, // Register custom node
-};
-
-// Helper to create ReactFlow nodes and edges from RoadmapData
-const generateFlowElements = (
+// Helper to create roadmap.sh-style positioned nodes and edges
+const generateRoadmapFlowElements = (
   roadmap: RoadmapData,
-  expandedNodes: Set<string>,
-  itemPositions: Record<string, { x: number; y: number }> // Pre-calculated or dynamic positions
+  expandedNodes: Set<string>
 ): { nodes: Node<RoadmapNodeFlowData>[]; edges: Edge[] } => {
   const nodes: Node<RoadmapNodeFlowData>[] = [];
   const edges: Edge[] = [];
   const visited: Set<string> = new Set();
 
-  function addNodesAndEdges(itemId: string, parentId?: string, level = 0, siblingIndex = 0) {
-    if (visited.has(itemId)) return; // Avoid processing already added nodes (though hierarchy should prevent cycles)
+  // roadmap.sh-style positioning: phases in columns, topics flowing down
+  const phasePositions = {
+    root: { x: 400, y: 50 },
+    phase1: { x: 200, y: 200 },
+    phase2: { x: 400, y: 200 },
+    phase3: { x: 600, y: 200 },
+    phase4: { x: 800, y: 200 },
+    phase5: { x: 1000, y: 200 }
+  };
+
+  function getPhaseColor(itemId: string): string {
+    if (itemId.startsWith('phase1') || phaseColors.phase1) return phaseColors.phase1;
+    if (itemId.startsWith('phase2')) return phaseColors.phase2;
+    if (itemId.startsWith('phase3')) return phaseColors.phase3;
+    if (itemId.startsWith('phase4')) return phaseColors.phase4;
+    if (itemId.startsWith('phase5')) return phaseColors.phase5;
+    if (itemId === 'root') return phaseColors.root;
+    
+    // Determine phase by parent
+    const item = roadmap.items[itemId];
+    if (!item) return phaseColors.todo;
+    
+    const getPhaseFromId = (id: string): string => {
+      for (const [phaseId, items] of Object.entries(roadmap.items)) {
+        if (phaseId.startsWith('phase') && items.childrenIds?.includes(id)) {
+          return phaseId;
+        }
+      }
+      return 'default';
+    };
+    
+    const phase = getPhaseFromId(itemId);
+    return phaseColors[phase as keyof typeof phaseColors] || phaseColors.todo;
+  }
+
+  function addNodesAndEdges(itemId: string, parentId?: string, phaseIndex = 0, childIndex = 0) {
+    if (visited.has(itemId)) return;
 
     const item = roadmap.items[itemId];
     if (!item) return;
 
     visited.add(itemId);
 
-    // Basic positioning - can be improved with a layout algorithm (e.g., Dagre)
-    const xOffset = level * 250;
-    const yOffset = siblingIndex * 150;
-
-    nodes.push({
-      id: item.id,
-      type: 'topicNode', // Use our custom node type
-      data: {
-        ...item,
-        childrenIds: item.childrenIds || [],
-        isCurrentlyExpanded: expandedNodes.has(item.id)
-      } as RoadmapNodeFlowData,
-      position: itemPositions[item.id] || { x: xOffset, y: yOffset + (level * 50) }, // Use predefined or calculated
-    });
-
-    if (parentId) {
-      edges.push({
-        id: `e-${parentId}-${item.id}`,
-        source: parentId,
-        target: item.id,
-        animated: item.status === 'inProgress',
-      });
+    // Calculate position based on roadmap.sh style
+    let position = { x: 400, y: 50 }; // default
+    
+    if (itemId === 'root') {
+      position = phasePositions.root;
+    } else if (itemId.startsWith('phase')) {
+      position = phasePositions[itemId as keyof typeof phasePositions] || { x: 400 + phaseIndex * 200, y: 200 };
+    } else {
+      // Position children below their parents
+      const parentPosition = phasePositions[parentId as keyof typeof phasePositions] || { x: 400, y: 200 };
+      position = {
+        x: parentPosition.x + (childIndex - 1) * 150, // Spread children horizontally
+        y: parentPosition.y + 120 + Math.floor(childIndex / 3) * 100 // Stack in rows
+      };
     }
 
-    if (item.childrenIds && (expandedNodes.has(item.id) || level === 0)) { // Root children always shown or if expanded
+    // Create the node with enhanced data
+    const nodeData: RoadmapNodeFlowData = {
+      ...item,
+      isCurrentlyExpanded: expandedNodes.has(itemId)
+    };
+
+    const node: Node<RoadmapNodeFlowData> = {
+      id: itemId,
+      type: 'topicNode',
+      position,
+      data: nodeData,
+      style: {
+        background: getPhaseColor(itemId),
+        border: `2px solid ${item.status === 'completed' ? phaseColors.completed : '#374151'}`,
+        borderRadius: '8px',
+        minWidth: '160px'
+      }
+    };
+
+    nodes.push(node);
+
+    // Create edge from parent to this node
+    if (parentId) {
+      const edge: Edge = {
+        id: `edge-${parentId}-${itemId}`,
+        source: parentId,
+        target: itemId,
+        type: 'smoothstep',
+        style: {
+          stroke: getPhaseColor(itemId),
+          strokeWidth: 2,
+          strokeDasharray: '5,5'
+        },
+        animated: item.status === 'inProgress'
+      };
+      edges.push(edge);
+    }
+
+    // Recursively add children if expanded
+    if (item.childrenIds && expandedNodes.has(itemId)) {
       item.childrenIds.forEach((childId, index) => {
-        addNodesAndEdges(childId, item.id, level + 1, index);
+        addNodesAndEdges(childId, itemId, phaseIndex, index);
       });
     }
   }
 
-  roadmap.rootItemIds.forEach((rootId, index) => addNodesAndEdges(rootId, undefined, 0, index));
+  // Start with root items
+  roadmap.rootItemIds.forEach((rootId, index) => {
+    addNodesAndEdges(rootId, undefined, index, 0);
+  });
+
   return { nodes, edges };
 };
 
-
-// Simple initial positioning (replace with a layout algorithm for better results)
-const initialPositions: Record<string, { x: number; y: number }> = {
-  'root': { x: 50, y: 50 },
-  'ml_basics': { x: 300, y: 0 },
-  'data_preprocessing': { x: 550, y: -50 },
-  'supervised_learning': { x: 550, y: 50 },
-  'regression': { x: 800, y: 25 },
-  'classification': { x: 800, y: 75 },
-  'tools': { x: 300, y: 200 },
-  'python': { x: 550, y: 175 },
-  'tensorflow': { x: 550, y: 225 },
+const nodeTypes: NodeTypes = {
+  topicNode: TopicNode, // Register custom node
 };
 
 
 function RoadmapDisplay() {
   const [nodes, setNodesState] = useState<Node<RoadmapNodeFlowData>[]>([]);
   const [edges, setEdgesState] = useState<Edge[]>([]);
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(sampleRoadmapData.rootItemIds)); // Expand root by default
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(veteranRoadmapData.rootItemIds)); // Expand root by default
 
   // Memoize flow elements to prevent re-calculation on every render unless dependencies change
   const flowElements = useMemo(() => {
-    return generateFlowElements(sampleRoadmapData, expandedNodes, initialPositions);
-  }, [expandedNodes]); // Removed sampleRoadmapData, initialPositions as they are constant here
+    return generateRoadmapFlowElements(veteranRoadmapData, expandedNodes);
+  }, [expandedNodes]); // veteranRoadmapData is constant
 
   React.useEffect(() => {
     setNodesState(flowElements.nodes);
@@ -147,7 +187,7 @@ function RoadmapDisplay() {
   );
 
   const onNodeClick: NodeMouseHandler = useCallback((event, node) => {
-    const clickedNodeData = sampleRoadmapData.items[node.id];
+    const clickedNodeData = veteranRoadmapData.items[node.id];
     if (clickedNodeData && clickedNodeData.childrenIds && clickedNodeData.childrenIds.length > 0) {
       setExpandedNodes((prevExpanded) => {
         const newExpanded = new Set(prevExpanded);
@@ -162,7 +202,11 @@ function RoadmapDisplay() {
   }, []); // Removed sampleRoadmapData from deps as it's constant
 
   return (
-    <div style={{ height: '100vh', width: '100%' }} className="bg-background text-foreground">
+    <div style={{ height: '100vh', width: '100%' }} className="bg-slate-50 text-foreground">
+      <div className="p-4 bg-white shadow-sm border-b">
+        <h1 className="text-2xl font-bold text-gray-900">AI Engineering Roadmap</h1>
+        <p className="text-gray-600 mt-1">Veteran-led 48-week transformation into AI engineering leadership</p>
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -173,10 +217,29 @@ function RoadmapDisplay() {
         nodeTypes={nodeTypes} // Register custom node types
         fitView
         fitViewOptions={{ padding: 0.2 }}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
       >
-        <Controls />
-        <MiniMap nodeStrokeWidth={3} zoomable pannable />
-        <Background gap={16} size={1.5} color="#374151" />
+        <Background 
+          variant={BackgroundVariant.Dots}
+          gap={20} 
+          size={1} 
+          color="#e2e8f0"
+        />
+        <Controls 
+          showZoom 
+          showFitView 
+          showInteractive 
+          className="bg-white shadow-lg border rounded-lg"
+        />
+        <MiniMap 
+          nodeColor={(node) => {
+            const item = veteranRoadmapData.items[node.id];
+            return item?.status === 'completed' ? phaseColors.completed : phaseColors.todo;
+          }}
+          className="bg-white shadow-lg border rounded-lg"
+          pannable
+          zoomable
+        />
       </ReactFlow>
     </div>
   );

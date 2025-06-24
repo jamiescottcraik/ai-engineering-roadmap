@@ -2,23 +2,67 @@
 
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import { Clock, CheckCircle, Lock, AlertCircle, Circle } from 'lucide-react';
 import type { NodeStatus } from '../../types/roadmap';
 
-// Helper function to get color based on status
-const getStatusColor = (status: NodeStatus): string => {
+// Helper function to get status icon and styling
+const getStatusDisplay = (status: NodeStatus) => {
   switch (status) {
     case 'completed':
-      return 'bg-green-500 hover:bg-green-600';
+      return {
+        icon: <CheckCircle className="w-4 h-4" />,
+        bgColor: 'bg-green-500 hover:bg-green-600',
+        textColor: 'text-white',
+        borderColor: 'border-green-400'
+      };
     case 'inProgress':
-      return 'bg-yellow-500 hover:bg-yellow-600';
+      return {
+        icon: <Circle className="w-4 h-4 animate-pulse" />,
+        bgColor: 'bg-blue-500 hover:bg-blue-600',
+        textColor: 'text-white',
+        borderColor: 'border-blue-400'
+      };
     case 'todo':
-      return 'bg-slate-400 hover:bg-slate-500 text-black'; // Light gray for todo
+      return {
+        icon: <Circle className="w-4 h-4" />,
+        bgColor: 'bg-gray-400 hover:bg-gray-500',
+        textColor: 'text-gray-800',
+        borderColor: 'border-gray-300'
+      };
     case 'locked':
-      return 'bg-slate-600 hover:bg-slate-700 text-slate-300'; // Darker gray for locked
+      return {
+        icon: <Lock className="w-4 h-4" />,
+        bgColor: 'bg-gray-600 hover:bg-gray-700',
+        textColor: 'text-gray-300',
+        borderColor: 'border-gray-500'
+      };
     case 'needsReview':
-      return 'bg-orange-500 hover:bg-orange-600';
+      return {
+        icon: <AlertCircle className="w-4 h-4" />,
+        bgColor: 'bg-orange-500 hover:bg-orange-600',
+        textColor: 'text-white',
+        borderColor: 'border-orange-400'
+      };
     default:
-      return 'bg-gray-300 hover:bg-gray-400 text-black';
+      return {
+        icon: <Circle className="w-4 h-4" />,
+        bgColor: 'bg-gray-300 hover:bg-gray-400',
+        textColor: 'text-gray-800',
+        borderColor: 'border-gray-200'
+      };
+  }
+};
+
+const getDifficultyColor = (difficulty?: string) => {
+  switch (difficulty) {
+    case 'beginner':
+      return 'text-green-600 bg-green-100';
+    case 'intermediate':
+      return 'text-yellow-600 bg-yellow-100';
+    case 'advanced':
+      return 'text-red-600 bg-red-100';
+    default:
+      return 'text-gray-600 bg-gray-100';
   }
 };
 
@@ -31,30 +75,99 @@ interface TopicNodeProps {
     estimatedTime?: string;
     childrenIds?: string[];
     isCurrentlyExpanded?: boolean;
+    description?: string;
   };
   isConnectable?: boolean;
 }
 
 const TopicNode: React.FC<TopicNodeProps> = ({ data, isConnectable = true }) => {
-  const { label, status, nodeType, difficulty, estimatedTime, childrenIds, isCurrentlyExpanded } = data;
+  const { label, status, nodeType, difficulty, estimatedTime, childrenIds, isCurrentlyExpanded, description } = data;
+  
+  const statusDisplay = getStatusDisplay(status);
+  const isPhase = nodeType === 'category' && data.label.includes('Phase');
+  const isRoot = data.label === 'AI Engineering Roadmap';
 
-  const baseClasses = 'rounded-md shadow-md p-3 border-2 border-stone-800 text-white font-sans relative';
-  const statusColor = getStatusColor(status);
+  // Determine node size based on type
+  const nodeWidth = isRoot ? 'w-80' : isPhase ? 'w-64' : 'w-48';
+  const nodeSize = isRoot ? 'text-lg p-4' : isPhase ? 'text-base p-3' : 'text-sm p-3';
 
   return (
-    <div className={`${baseClasses} ${statusColor}`}>
-      <Handle type="target" position={Position.Top} isConnectable={isConnectable} className="!bg-teal-500" />
-      <div className="font-bold text-sm mb-1">{label}</div>
-      <div className="text-xs">Type: {nodeType}</div>
-      {difficulty && <div className="text-xs mt-1">Difficulty: {difficulty}</div>}
-      {estimatedTime && <div className="text-xs">Time: {estimatedTime}</div>}
+    <div className={`${nodeWidth} ${nodeSize} ${statusDisplay.bgColor} ${statusDisplay.textColor} 
+                    rounded-lg shadow-lg border-2 ${statusDisplay.borderColor} 
+                    font-sans relative transition-all duration-200 cursor-pointer
+                    ${status === 'locked' ? 'opacity-60' : 'opacity-100'}`}>
+      
+      {/* Connection handles */}
+      {!isRoot && (
+        <Handle 
+          type="target" 
+          position={Position.Top} 
+          isConnectable={isConnectable} 
+          className="!bg-blue-500 !border-blue-300 !w-3 !h-3" 
+        />
+      )}
+      
+      {/* Status icon */}
+      <div className="absolute top-2 right-2 opacity-80">
+        {statusDisplay.icon}
+      </div>
 
+      {/* Expansion indicator */}
       {childrenIds && childrenIds.length > 0 && (
-        <div className="absolute top-1 right-1 text-xs p-0.5 rounded bg-black bg-opacity-30 cursor-default">
-          {isCurrentlyExpanded ? '[-]' : '[+]'}
+        <div className="absolute top-2 left-2 text-xs px-1.5 py-0.5 rounded bg-black bg-opacity-20 font-mono">
+          {isCurrentlyExpanded ? '−' : '+'}
         </div>
       )}
-      <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} className="!bg-rose-500" />
+
+      {/* Main content */}
+      <div className="space-y-2">
+        <div className="font-bold leading-tight">{label}</div>
+        
+        {description && isPhase && (
+          <div className="text-xs opacity-90 leading-relaxed">
+            {description}
+          </div>
+        )}
+
+        {/* Metadata row */}
+        <div className="flex flex-wrap gap-2 text-xs">
+          {nodeType !== 'category' && (
+            <span className="px-2 py-1 rounded bg-black bg-opacity-20 capitalize">
+              {nodeType}
+            </span>
+          )}
+          
+          {difficulty && (
+            <span className={`px-2 py-1 rounded text-xs font-medium ${getDifficultyColor(difficulty)}`}>
+              {difficulty}
+            </span>
+          )}
+          
+          {estimatedTime && (
+            <span className="flex items-center gap-1 px-2 py-1 rounded bg-black bg-opacity-20">
+              <Clock className="w-3 h-3" />
+              {estimatedTime}
+            </span>
+          )}
+        </div>
+
+        {/* Child count for phases */}
+        {childrenIds && childrenIds.length > 0 && isPhase && (
+          <div className="text-xs opacity-75">
+            {childrenIds.length} learning {childrenIds.length === 1 ? 'area' : 'areas'}
+          </div>
+        )}
+      </div>
+
+      {/* Bottom handle for connections */}
+      {childrenIds && childrenIds.length > 0 && (
+        <Handle 
+          type="source" 
+          position={Position.Bottom} 
+          isConnectable={isConnectable} 
+          className="!bg-green-500 !border-green-300 !w-3 !h-3" 
+        />
+      )}
     </div>
   );
 };
