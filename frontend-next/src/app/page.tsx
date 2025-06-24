@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { BrowserContainer } from '@/components/BrowserContainer';
+import { GlassCard } from '@/components/enhanced/GlassComponents';
 import { LearningDashboard } from '@/components/LearningDashboard';
 
 export default function Home() {
@@ -11,7 +12,7 @@ export default function Home() {
         <div className="container relative mx-auto px-6 py-12">
           <header className="mb-16 text-center">
             <div className="mb-8 flex justify-center">
-              <div className="relative h-24 w-24 rounded-3xl bg-white/80 p-4 shadow-xl backdrop-blur-sm dark:bg-gray-800/80">
+              <GlassCard variant="island" className="h-24 w-24 p-4">
                 <Image
                   src="/brAInwav-new.png"
                   alt="brAInwav Logo"
@@ -20,7 +21,7 @@ export default function Home() {
                   className="h-full w-full object-contain"
                   priority
                 />
-              </div>
+              </GlassCard>
             </div>
             <h1 className="mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-6xl font-extrabold text-transparent">
               brAInwav

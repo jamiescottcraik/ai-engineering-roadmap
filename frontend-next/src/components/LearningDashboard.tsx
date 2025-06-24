@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import React, { useState } from 'react';
 
+import { GlassCard, GlassNavigation } from '@/components/enhanced/GlassComponents';
 import { useCognitiveTheme } from '@/lib/theme';
 
 import { Footer, HeaderNav, PageContainer } from './layout';
@@ -118,30 +119,32 @@ export function LearningDashboard() {
 
       <PageContainer maxWidth="8xl" className="flex-1">
         {/* Navigation Tabs */}
-        <nav className="glass-card mb-8 flex space-x-2 border border-neutral-200 p-2 shadow-lg dark:border-neutral-700">
-          {[
-            { key: 'overview', label: 'Overview', icon: <Target className="h-5 w-5" /> },
-            { key: 'kanban', label: 'Learning Board', icon: <BookOpen className="h-5 w-5" /> },
-            { key: 'analytics', label: 'Analytics', icon: <TrendingUp className="h-5 w-5" /> },
-          ].map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveView(tab.key as 'overview' | 'kanban' | 'analytics')}
-              className={`
-                cognitive-button flex items-center space-x-3 rounded-lg px-6 py-3 transition-all duration-300
-                ${
-                  activeView === tab.key
-                    ? 'scale-105 bg-focus-500 text-white shadow-lg'
-                    : 'text-neutral-600 hover:bg-neutral-100 hover:text-foreground dark:text-neutral-400 dark:hover:bg-neutral-800'
-                }
-              `}
-              aria-pressed={activeView === tab.key}
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </nav>
+        <GlassNavigation className="mb-8">
+          <div className="flex space-x-2 p-2">
+            {[
+              { key: 'overview', label: 'Overview', icon: <Target className="h-5 w-5" /> },
+              { key: 'kanban', label: 'Learning Board', icon: <BookOpen className="h-5 w-5" /> },
+              { key: 'analytics', label: 'Analytics', icon: <TrendingUp className="h-5 w-5" /> },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveView(tab.key as 'overview' | 'kanban' | 'analytics')}
+                className={`
+                  cognitive-button flex items-center space-x-3 rounded-lg px-6 py-3 transition-all duration-300
+                  ${
+                    activeView === tab.key
+                      ? 'scale-105 bg-focus-500 text-white shadow-lg'
+                      : 'text-neutral-600 hover:bg-neutral-100 hover:text-foreground dark:text-neutral-400 dark:hover:bg-neutral-800'
+                  }
+                `}
+                aria-pressed={activeView === tab.key}
+              >
+                {tab.icon}
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
+        </GlassNavigation>
 
         <AnimatePresence mode="wait">
           {activeView === 'overview' && (
@@ -155,12 +158,7 @@ export function LearningDashboard() {
             >
               {/* Stats Cards */}
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.1 }}
-                  className="cognitive-card hover:shadow-2xl"
-                >
+                <GlassCard delay={0.1} variant="card">
                   <div className="mb-6 flex items-center justify-between">
                     <div>
                       <p className="mb-2 text-sm font-semibold text-neutral-600 dark:text-neutral-400">
@@ -189,14 +187,9 @@ export function LearningDashboard() {
                   <p className="mt-3 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                     {progressPercentage.toFixed(1)}% complete
                   </p>
-                </motion.div>
+                </GlassCard>
 
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="cognitive-card hover:shadow-2xl"
-                >
+                <GlassCard delay={0.2} variant="card">
                   <div className="mb-6 flex items-center justify-between">
                     <div>
                       <p className="mb-2 text-sm font-semibold text-neutral-600 dark:text-neutral-400">
@@ -216,14 +209,9 @@ export function LearningDashboard() {
                   >
                     {stats.currentStreak >= 7 ? 'On fire! 🔥' : 'Keep going!'}
                   </Badge>
-                </motion.div>
+                </GlassCard>
 
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="cognitive-card hover:shadow-2xl"
-                >
+                <GlassCard delay={0.3} variant="card">
                   <div className="mb-6 flex items-center justify-between">
                     <div>
                       <p className="mb-2 text-sm font-semibold text-neutral-600 dark:text-neutral-400">
@@ -252,14 +240,9 @@ export function LearningDashboard() {
                   <p className="mt-3 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                     {Math.round(weeklyProgressPercentage)}% of weekly goal
                   </p>
-                </motion.div>
+                </GlassCard>
 
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="cognitive-card hover:shadow-2xl"
-                >
+                <GlassCard delay={0.4} variant="card">
                   <div className="mb-6 flex items-center justify-between">
                     <div>
                       <p className="mb-2 text-sm font-semibold text-neutral-600 dark:text-neutral-400">
@@ -284,11 +267,11 @@ export function LearningDashboard() {
                   >
                     Spaced Repetition
                   </Badge>
-                </motion.div>
+                </GlassCard>
               </div>
 
               {/* Quick Actions */}
-              <div className="cognitive-card mt-8">
+              <GlassCard variant="card" className="mt-8">
                 <h2 className="mb-6 text-xl font-bold text-foreground">Quick Actions</h2>
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                   {quickActions.map((action, index) => (
@@ -316,10 +299,10 @@ export function LearningDashboard() {
                     </motion.button>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
 
               {/* Learning Path Preview */}
-              <div className="cognitive-card mt-8">
+              <GlassCard variant="card" className="mt-8">
                 <div className="mb-6 flex items-center justify-between">
                   <h2 className="text-xl font-bold text-foreground">Current Learning Path</h2>
                   <button
@@ -349,7 +332,7 @@ export function LearningDashboard() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             </motion.div>
           )}
 
