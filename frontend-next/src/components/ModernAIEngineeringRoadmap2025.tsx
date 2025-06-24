@@ -4,6 +4,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowRight,
+  BarChart3,
   BedDouble,
   BookOpen,
   Brain,
@@ -12,17 +13,37 @@ import {
   Coffee,
   Flame,
   Github,
+  Kanban,
   Linkedin,
+  MessageSquare,
   Moon,
   Sparkles,
   Star,
   Timer,
-  Wine,
 } from 'lucide-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
+import MCPAIAssistant from '@/components/ai/MCPAIAssistant';
+import ProgressAnalytics from '@/components/analytics/ProgressAnalytics';
+import LearningKanban from '@/components/kanban/LearningKanban';
 import RecallIntegration from '@/components/RecallIntegration';
+
+// Type definitions
+interface RoadmapConfig {
+  currentWeek: {
+    weekNumber: number;
+    title: string;
+    dailySchedule: {
+      tuesday: {
+        morning: string;
+        afternoon: string;
+        evening: string;
+        deliverable: string;
+      };
+    };
+  };
+}
 
 // Evening-optimized theme
 const eveningTheme = {
@@ -47,7 +68,6 @@ export default function ModernAIEngineeringRoadmap2025() {
   const [activeTab, setActiveTab] = useState('evening-review');
 
   // It's 21:46 - evening mode active
-  const isEveningTime = currentTime.getHours() >= 20;
   const hoursUntilBedtime = 24 - currentTime.getHours(); // ~2 hours
   const minutesRemaining = 60 - currentTime.getMinutes();
 
@@ -72,7 +92,11 @@ export default function ModernAIEngineeringRoadmap2025() {
   const toggleTask = useCallback((id: string) => {
     setDone((prev) => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
       localStorage.setItem('roadmap-jamie-progress', JSON.stringify([...next]));
       return next;
     });
@@ -111,7 +135,7 @@ export default function ModernAIEngineeringRoadmap2025() {
           <AnimatePresence mode="wait">
             {activeTab === 'evening-review' && (
               <EveningReviewView
-                config={config}
+                _config={config}
                 done={done}
                 toggle={toggleTask}
                 hoursLeft={hoursUntilBedtime}
@@ -121,13 +145,31 @@ export default function ModernAIEngineeringRoadmap2025() {
 
             {activeTab === 'tomorrow-prep' && <TomorrowPrepView config={config} />}
 
+            {activeTab === 'ai-assistant' && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <MCPAIAssistant />
+              </motion.div>
+            )}
+
+            {activeTab === 'kanban' && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <LearningKanban />
+              </motion.div>
+            )}
+
+            {activeTab === 'analytics' && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <ProgressAnalytics />
+              </motion.div>
+            )}
+
             {activeTab === 'recall' && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <RecallIntegration />
               </motion.div>
             )}
 
-            {activeTab === 'reflection' && <ReflectionView config={config} done={done} />}
+            {activeTab === 'reflection' && <ReflectionView _config={config} done={done} />}
           </AnimatePresence>
         </main>
       </div>
@@ -136,7 +178,15 @@ export default function ModernAIEngineeringRoadmap2025() {
 }
 
 // Evening-specific Header
-const EveningHeader = ({ config, currentTime, hoursUntilBedtime }) => (
+const EveningHeader = ({
+  config,
+  currentTime,
+  hoursUntilBedtime
+}: {
+  config: RoadmapConfig;
+  currentTime: Date;
+  hoursUntilBedtime: number;
+}) => (
   <motion.header
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -150,16 +200,16 @@ const EveningHeader = ({ config, currentTime, hoursUntilBedtime }) => (
             <Image
               src="/brAInwav-new.png"
               alt="brAInwav"
-              width={40}
-              height={40}
-              className="rounded-lg"
+              width={60}
+              height={60}
+              className="rounded-xl object-contain"
             />
-            <div className="absolute inset-0 animate-pulse rounded-lg bg-purple-500/20" />
+            <div className="absolute inset-0 animate-pulse rounded-xl bg-purple-500/10" />
           </motion.div>
 
           <div>
-            <h1 className="text-xl font-semibold text-white">Good Evening, Jamie</h1>
-            <p className="text-xs text-white/60">Time to wind down and reflect</p>
+            <h1 className="text-2xl font-bold text-white">Good Evening, Jamie</h1>
+            <p className="text-sm text-white/70">Time to wind down and reflect</p>
           </div>
         </div>
 
@@ -190,10 +240,10 @@ const EveningHeader = ({ config, currentTime, hoursUntilBedtime }) => (
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-light text-white">
-            Week {config.currentWeek.weekNumber} - Day 4 Complete
+            Week {config.currentWeek.weekNumber} - Day 0 (Pre-Launch)
           </h2>
           <p className="text-sm text-white/60">
-            Python Mastery & Foundations • {config.currentWeek.title}
+            Getting Ready to Launch • {config.currentWeek.title}
           </p>
         </div>
 
@@ -218,10 +268,19 @@ const EveningHeader = ({ config, currentTime, hoursUntilBedtime }) => (
 );
 
 // Evening-focused Navigation
-const EveningNav = ({ activeTab, setActiveTab }) => {
+const EveningNav = ({
+  activeTab,
+  setActiveTab
+}: {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}) => {
   const tabs = [
     { id: 'evening-review', label: 'Evening Review', icon: Moon },
     { id: 'tomorrow-prep', label: 'Tomorrow', icon: Coffee },
+    { id: 'ai-assistant', label: 'AI Assistant', icon: MessageSquare },
+    { id: 'kanban', label: 'Tasks', icon: Kanban },
+    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'recall', label: 'Recall.ai', icon: Brain },
     { id: 'reflection', label: 'Reflect', icon: Star },
   ];
@@ -254,12 +313,25 @@ const EveningNav = ({ activeTab, setActiveTab }) => {
 };
 
 // Evening Review View
-const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => {
+const EveningReviewView = ({
+  _config,
+  done,
+  toggle,
+  hoursLeft,
+  minutesLeft
+}: {
+  _config: RoadmapConfig;
+  done: Set<string>;
+  toggle: (id: string) => void;
+  hoursLeft: number;
+  minutesLeft: number;
+}) => {
   const eveningTasks = [
-    { id: 'review-recalls', task: "Review today's Recall.ai saves", time: '10 min', urgent: true },
-    { id: 'linkedin-post', task: 'Draft LinkedIn reflection post', time: '15 min', urgent: true },
-    { id: 'journal-entry', task: 'Write learning journal entry', time: '10 min' },
-    { id: 'plan-tomorrow', task: "Plan tomorrow's focus areas", time: '5 min' },
+    { id: 'setup-python-env', task: "Set up Python development environment", time: '15 min', urgent: true },
+    { id: 'python-basics-review', task: 'Review Python fundamentals checklist', time: '20 min', urgent: true },
+    { id: 'roadmap-planning', task: 'Plan Week 1 learning objectives', time: '15 min' },
+    { id: 'tools-setup', task: "Set up VS Code, Git, and essential tools", time: '20 min' },
+    { id: 'github-profile', task: "Create learning portfolio on GitHub", time: '10 min' },
   ];
 
   return (
@@ -268,7 +340,7 @@ const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => 
       animate={{ opacity: 1 }}
       className="mx-auto max-w-4xl space-y-6"
     >
-      {/* Time-sensitive alert */}
+      {/* Pre-Launch alert */}
       <motion.div
         className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4"
         animate={{
@@ -280,13 +352,13 @@ const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => 
           <div className="flex items-center gap-3">
             <Timer className="h-5 w-5 text-amber-400" />
             <div>
-              <p className="font-medium text-white">Evening Window Closing</p>
+              <p className="font-medium text-white">Launch Day Approaching</p>
               <p className="text-sm text-white/60">
-                {hoursLeft}h {minutesLeft}m remaining for today's goals
+                Preparation time remaining: {hoursLeft}h {minutesLeft}m
               </p>
             </div>
           </div>
-          <Wine className="h-6 w-6 text-amber-400/50" />
+          <Coffee className="h-6 w-6 text-amber-400/50" />
         </div>
       </motion.div>
 
@@ -294,53 +366,53 @@ const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="rounded-xl border border-white/10 bg-white/5 p-6"
+          className="rounded-xl border border-white/10 bg-white/5 p-4"
         >
-          <h3 className="mb-4 text-lg font-light text-white">Today's Wins</h3>
+          <h3 className="mb-3 text-lg font-light text-white">Today&apos;s Prep</h3>
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-green-400">
-              <CheckCircle className="h-4 w-4" />
-              <span className="text-sm">Completed Python Chapter 3</span>
+            <div className="flex items-center gap-2 text-amber-400">
+              <Circle className="h-4 w-4" />
+              <span className="text-sm">Roadmap platform setup</span>
             </div>
-            <div className="flex items-center gap-2 text-green-400">
-              <CheckCircle className="h-4 w-4" />
-              <span className="text-sm">GitHub Stats CLI progress</span>
+            <div className="flex items-center gap-2 text-amber-400">
+              <Circle className="h-4 w-4" />
+              <span className="text-sm">Development environment planning</span>
             </div>
-            <div className="flex items-center gap-2 text-green-400">
-              <CheckCircle className="h-4 w-4" />
-              <span className="text-sm">12 Recall.ai saves</span>
+            <div className="flex items-center gap-2 text-amber-400">
+              <Circle className="h-4 w-4" />
+              <span className="text-sm">Learning tools evaluation</span>
             </div>
           </div>
         </motion.div>
 
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="rounded-xl border border-white/10 bg-white/5 p-6"
+          className="rounded-xl border border-white/10 bg-white/5 p-4"
         >
-          <h3 className="mb-4 text-lg font-light text-white">Key Learnings</h3>
+          <h3 className="mb-3 text-lg font-light text-white">To Learn</h3>
           <div className="space-y-2 text-sm text-white/70">
-            <p>• Python decorators are powerful for clean code</p>
-            <p>• Git branching strategies for team work</p>
-            <p>• Async/await patterns in modern Python</p>
+            <p>• Python development environment setup</p>
+            <p>• Git workflow and version control basics</p>
+            <p>• Development tools and IDE configuration</p>
           </div>
         </motion.div>
 
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="rounded-xl border border-white/10 bg-white/5 p-6"
+          className="rounded-xl border border-white/10 bg-white/5 p-4"
         >
-          <h3 className="mb-4 text-lg font-light text-white">Tomorrow's Focus</h3>
+          <h3 className="mb-3 text-lg font-light text-white">Tomorrow&apos;s Focus</h3>
           <div className="space-y-2 text-sm text-white/70">
-            <p>• Complete GitHub Stats CLI v1.0</p>
-            <p>• Start Python OOP deep dive</p>
-            <p>• First blog post draft</p>
+            <p>• Start Python fundamentals (Week 1, Day 1)</p>
+            <p>• Complete development environment setup</p>
+            <p>• Begin first Python exercises</p>
           </div>
         </motion.div>
       </div>
 
-      {/* Evening Tasks */}
+      {/* Pre-Launch Tasks */}
       <div>
-        <h3 className="mb-4 text-lg font-light text-white/60">Before You Sleep</h3>
+        <h3 className="mb-4 text-lg font-light text-white/60">Before Launch Day</h3>
         <div className="space-y-2">
           {eveningTasks.map((task) => (
             <motion.div
@@ -348,7 +420,7 @@ const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => 
               whileHover={{ x: 4 }}
               onClick={() => toggle(task.id)}
               className={`
-                flex cursor-pointer items-center gap-3 rounded-xl p-4 transition-all
+                flex cursor-pointer items-center gap-3 rounded-xl p-3 transition-all
                 ${
                   done.has(task.id)
                     ? 'border border-green-500/20 bg-green-500/5'
@@ -361,10 +433,10 @@ const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => 
               ) : (
                 <Circle className={`h-5 w-5 ${task.urgent ? 'text-amber-400' : 'text-white/30'}`} />
               )}
-              <span className={`flex-1 ${done.has(task.id) ? 'text-green-400' : 'text-white/80'}`}>
+              <span className={`flex-1 text-sm ${done.has(task.id) ? 'text-green-400' : 'text-white/80'}`}>
                 {task.task}
               </span>
-              <span className="text-sm text-white/40">{task.time}</span>
+              <span className="text-xs text-white/40">{task.time}</span>
             </motion.div>
           ))}
         </div>
@@ -391,7 +463,7 @@ const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => 
         ))}
       </div>
 
-      {/* Evening Motivation */}
+      {/* Pre-Launch Motivation */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -400,18 +472,16 @@ const EveningReviewView = ({ config, done, toggle, hoursLeft, minutesLeft }) => 
       >
         <Sparkles className="mb-3 h-6 w-6 text-purple-400" />
         <p className="italic text-white/90">
-          "Rest is not idleness, and to lie sometimes on the grass under trees on a summer's day,
-          listening to the murmur of the water, or watching the clouds float across the sky, is by
-          no means a waste of time."
+          &ldquo;The best time to plant a tree was 20 years ago. The second best time is now. Your AI Engineering journey starts tomorrow - but the foundation begins tonight.&rdquo;
         </p>
-        <p className="mt-2 text-sm text-white/60">— John Lubbock</p>
+        <p className="mt-2 text-sm text-white/60">— Ready to Launch</p>
       </motion.div>
     </motion.div>
   );
 };
 
 // Tomorrow Prep View
-const TomorrowPrepView = ({ config }) => {
+const TomorrowPrepView = ({ config }: { config: RoadmapConfig }) => {
   const tomorrowSchedule = config.currentWeek.dailySchedule.tuesday;
 
   return (
@@ -420,7 +490,7 @@ const TomorrowPrepView = ({ config }) => {
       animate={{ opacity: 1 }}
       className="mx-auto max-w-4xl space-y-6"
     >
-      <h2 className="mb-6 text-2xl font-light text-white">Tomorrow's Game Plan</h2>
+      <h2 className="mb-6 text-2xl font-light text-white">Tomorrow&apos;s Game Plan</h2>
 
       <div className="grid gap-4">
         <motion.div
@@ -484,7 +554,13 @@ const TomorrowPrepView = ({ config }) => {
 };
 
 // Reflection View
-const ReflectionView = ({ config, done }) => {
+const ReflectionView = ({
+  _config,
+  done
+}: {
+  _config: RoadmapConfig;
+  done: Set<string>;
+}) => {
   const completionRate = ((done.size / 20) * 100).toFixed(0); // Assuming 20 tasks today
 
   return (
