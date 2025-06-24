@@ -1,10 +1,34 @@
 {
-  "name": "AI Engineering Roadmap",
+  "name": "brAInwav Development Environment",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "backend",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
   "workspaceFolder": "/workspace",
-  "workspace": "/workspace/ai-engineering-roadmap.code-workspace",
+  
+  // Robust startup sequence
+  "initializeCommand": "bash scripts/fix_docker_env.sh",
+  "onCreateCommand": "echo 'Container created successfully'",
+  "postCreateCommand": "bash scripts/setup_dev_env.sh",
+  "postStartCommand": "echo 'Development environment ready'",
+  
+  // Development ports
+  "forwardPorts": [8000, 8080, 5432],
+  "portsAttributes": {
+    "8000": {
+      "label": "Backend API",
+      "onAutoForward": "notify"
+    }
+  },
+  
+  // Environment variables
+  "containerEnv": {
+    "PYTHONPATH": "/workspace/backend",
+    "ENVIRONMENT": "development"
+  },
+  
+  // Mounts for persistent data
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -36,6 +60,5 @@
         "yzhang.markdown-all-in-one"
       ]
     }
-  },
-  "postCreateCommand": "uv pip install --system --no-cache-dir -r /workspace/backend/dev-requirements.txt && if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then pre-commit install; else echo 'Not a git repo, skipping pre-commit install.'; fi"
+  }
 }
