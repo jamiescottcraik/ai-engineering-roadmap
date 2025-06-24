@@ -57,6 +57,7 @@ dependencies = [
     "datasets>=2.0.0",
     "tokenizers>=0.15.0",
     "safetensors>=0.3.0",
+    "types-requests>=2.32.4.20250611",
 ]
 
 # Development-only dependencies

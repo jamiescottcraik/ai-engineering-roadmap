@@ -1,5 +1,5 @@
-import AIEngineeringRoadmap2025 from '@/components/AIEngineeringRoadmap2025';
+import ModernAIEngineeringRoadmap2025 from '@/components/ModernAIEngineeringRoadmap2025';
 
 export default function Roadmap2025Page() {
-  return <AIEngineeringRoadmap2025 />;
+  return <ModernAIEngineeringRoadmap2025 />;
 }
