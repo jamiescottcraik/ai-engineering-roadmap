@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { useProgress } from "../context/ProgressContext";
 
 export default function Home() {
+  const { progress, setProgress } = useProgress();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-sans">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -24,6 +27,13 @@ export default function Home() {
             Save and see your changes instantly.
           </li>
         </ol>
+
+        <button
+          className="mt-4 px-4 py-2 bg-brand text-white rounded"
+          onClick={() => setProgress("intro", (progress["intro"] ?? 0) + 1)}
+        >
+          Complete Intro ({progress["intro"] ?? 0})
+        </button>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
