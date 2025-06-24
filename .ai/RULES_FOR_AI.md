@@ -11,33 +11,35 @@
 ---
 
 # Machine-readable summary of key, enforceable parameters
+
 version: 1.4
 owner: '@jamiescottcraik'
 enforcement_level: 'strict'
 protected_branches:
-  - main
-  - develop
+- main
+- develop
 code_quality:
   test_coverage_threshold: 90
   max_complexity: 10
   style_guides:
-    - black
-    - ruff
-    - isort
+  - black
+  - ruff
+  - isort
 accessibility:
   standard: 'WCAG 2.1 AA'
   automated_tools:
-    - axe
-    - lighthouse
+  - axe
+  - lighthouse
 
 ---
+
 # RULES_OF_AI.md – brAInwav MAS Platform Constitution
 
-> **Audience:** ALL contributors, AI agents, and human collaborators. Compliance is mandatory.  
-> **Purpose:** This document is the **supreme, non-negotiable constitution** for this repository. It governs all code, data, documentation, workflows, and infrastructure.  
-> **Scope:** These rules apply to the entire repository and any submodules, which MUST inherit this policy.  
-> **Owner:** @jamiescottcraik  
-> **Last Updated:** 2025-06-23  
+> **Audience:** ALL contributors, AI agents, and human collaborators. Compliance is mandatory.
+> **Purpose:** This document is the **supreme, non-negotiable constitution** for this repository. It governs all code, data, documentation, workflows, and infrastructure.
+> **Scope:** These rules apply to the entire repository and any submodules, which MUST inherit this policy.
+> **Owner:** @jamiescottcraik
+> **Last Updated:** 2025-06-23
 
 ---
 
@@ -58,7 +60,7 @@ accessibility:
 
 ## 🏷️ SUBORDINATE DOCUMENT HEADER TEMPLATE
 
-> _Governed by `RULES_OF_AI.md`. See repository root for supreme policy. Last updated: YYYY-MM-DD by [Author]._  
+> _Governed by `RULES_OF_AI.md`. See repository root for supreme policy. Last updated: YYYY-MM-DD by [Author]._
 
 ---
 
@@ -77,66 +79,66 @@ accessibility:
 
 ### §1. Version Control
 
-* **Branching:** Use the `develop` branch for integration. All work must be done in feature/fix branches originating from `develop`. `main` is protected and for production-only releases.
-  * **Naming:** `feat/<issue-id>-short-desc`, `fix/<issue-id>-short-desc`.
-* **Commits:** MUST follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-* **Pull Requests (PRs):** All merges to `develop` require a PR. The PR description MUST be filled out using the repository template and MUST link to the corresponding GitHub Issue.
-* **Automation:** Enforced via pre-commit hooks and GitHub Branch Protection rules (see §9).
+- **Branching:** Use the `develop` branch for integration. All work must be done in feature/fix branches originating from `develop`. `main` is protected and for production-only releases.
+  - **Naming:** `feat/<issue-id>-short-desc`, `fix/<issue-id>-short-desc`.
+- **Commits:** MUST follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
+- **Pull Requests (PRs):** All merges to `develop` require a PR. The PR description MUST be filled out using the repository template and MUST link to the corresponding GitHub Issue.
+- **Automation:** Enforced via pre-commit hooks and GitHub Branch Protection rules (see §9).
 
 ### §2. Architecture & Code Quality
 
-* **Provider Neutrality:** Business logic (`/src/features`, `/src/agents`) MUST NOT contain provider-specific code. All provider-specific logic is isolated to modules within `/src/integrations/providers/`.
-* **Type Safety:** Strict type annotations are mandatory for all function/method signatures and data models (`mypy --strict`).
-* **Asynchronous by Default:** All I/O operations (network, disk, database) MUST be `async/await`.
-* **Formatting:** All code MUST pass the automated linting and formatting checks (`black`, `ruff`, `isort`) defined in `.pre-commit-config.yaml`.
-* **Resource Management:** Files, network connections, and other managed resources MUST be handled with context managers (`with` statement).
-* **Automation:** CI pipeline checks all of the above on every PR.
+- **Provider Neutrality:** Business logic (`/src/features`, `/src/agents`) MUST NOT contain provider-specific code. All provider-specific logic is isolated to modules within `/src/integrations/providers/`.
+- **Type Safety:** Strict type annotations are mandatory for all function/method signatures and data models (`mypy --strict`).
+- **Asynchronous by Default:** All I/O operations (network, disk, database) MUST be `async/await`.
+- **Formatting:** All code MUST pass the automated linting and formatting checks (`black`, `ruff`, `isort`) defined in `.pre-commit-config.yaml`.
+- **Resource Management:** Files, network connections, and other managed resources MUST be handled with context managers (`with` statement).
+- **Automation:** CI pipeline checks all of the above on every PR.
 
 ### §3. Security & Configuration
 
-* **Secrets Management:** Secrets MUST ONLY be accessed via the 1Password CLI (`op`). No secrets in `.env` files, source code, tests, or logs.
-* **Configuration:** All application configuration MUST be loaded and validated at startup via `pydantic-settings` from environment variables.
-* **Dependency Security:** All dependencies are defined in `pyproject.toml`. The CI pipeline will run vulnerability audits; critical vulnerabilities block all merges.
-* **Automation:** Secret scanning, vulnerability audits, and config checks run in CI.
+- **Secrets Management:** Secrets MUST ONLY be accessed via the 1Password CLI (`op`). No secrets in `.env` files, source code, tests, or logs.
+- **Configuration:** All application configuration MUST be loaded and validated at startup via `pydantic-settings` from environment variables.
+- **Dependency Security:** All dependencies are defined in `pyproject.toml`. The CI pipeline will run vulnerability audits; critical vulnerabilities block all merges.
+- **Automation:** Secret scanning, vulnerability audits, and config checks run in CI.
 
 ### §4. Testing & Quality Gates
 
-* **Test-Driven Development (TDD):** A failing test that reproduces a bug or defines a new feature MUST be written before the implementation code.
-* **Test Coverage:** Project-wide test coverage MUST remain at or above 90%. PRs that decrease coverage will be blocked.
-* **Mocking:** All external services (APIs, databases, providers) MUST be mocked during testing.
-* **No Bypassing Quality Gates:** Use of `# noqa` or other linting overrides requires an inline justification comment and will be scrutinized during review.
-* **Automation:** Pytest (with coverage), linting, and mocking requirements checked in CI.
+- **Test-Driven Development (TDD):** A failing test that reproduces a bug or defines a new feature MUST be written before the implementation code.
+- **Test Coverage:** Project-wide test coverage MUST remain at or above 90%. PRs that decrease coverage will be blocked.
+- **Mocking:** All external services (APIs, databases, providers) MUST be mocked during testing.
+- **No Bypassing Quality Gates:** Use of `# noqa` or other linting overrides requires an inline justification comment and will be scrutinized during review.
+- **Automation:** Pytest (with coverage), linting, and mocking requirements checked in CI.
 
 ### §5. Error Handling & Logging
 
-* **No Silent Failures:** Operations must either succeed or raise a well-defined exception.
-* **Structured Logging:** All logs, especially errors, MUST be emitted as structured JSON. The log must include a timestamp, severity, agent/module name, and stack trace if applicable.
-* **Resilience:** Transient network errors MUST trigger a retry mechanism with exponential backoff and a capped number of retries.
+- **No Silent Failures:** Operations must either succeed or raise a well-defined exception.
+- **Structured Logging:** All logs, especially errors, MUST be emitted as structured JSON. The log must include a timestamp, severity, agent/module name, and stack trace if applicable.
+- **Resilience:** Transient network errors MUST trigger a retry mechanism with exponential backoff and a capped number of retries.
 
 ### §6. Documentation
 
-* **Docstrings:** All public modules, classes, methods, and functions MUST have a concise docstring explaining their purpose, arguments, and return value.
-* **Decision Records:** All significant architectural decisions MUST be documented by adding a new record in the `docs/adr/` directory. (See ADR-001 for template).
-* **Guides:** The `README.md` and any affected user guides MUST be updated in the same PR that introduces the change.
-* **Header:** All subordinate docs must begin with the provided template.
-* **Versioning:** Each doc must state its last updated date and author in the footer.
+- **Docstrings:** All public modules, classes, methods, and functions MUST have a concise docstring explaining their purpose, arguments, and return value.
+- **Decision Records:** All significant architectural decisions MUST be documented by adding a new record in the `docs/adr/` directory. (See ADR-001 for template).
+- **Guides:** The `README.md` and any affected user guides MUST be updated in the same PR that introduces the change.
+- **Header:** All subordinate docs must begin with the provided template.
+- **Versioning:** Each doc must state its last updated date and author in the footer.
 
 ### §7. Accessibility
 
-* **Standard:** All user-facing interfaces MUST conform to WCAG 2.1 AA standards.
-* **Enforcement:** Automated accessibility checks (`axe`, `Lighthouse`) run in the CI pipeline. Failures will block PR merges.
-* **No Accessibility Debt:** Features with known accessibility issues cannot be merged.
-* **Reference:** See [Accessibility Statement](docs/accessibility.md).  
+- **Standard:** All user-facing interfaces MUST conform to WCAG 2.1 AA standards.
+- **Enforcement:** Automated accessibility checks (`axe`, `Lighthouse`) run in the CI pipeline. Failures will block PR merges.
+- **No Accessibility Debt:** Features with known accessibility issues cannot be merged.
+- **Reference:** See [Accessibility Statement](docs/accessibility.md).
   _NOTE: Ensure `docs/accessibility.md` exists and is kept up to date, or update/remove this reference as needed._
 
 ### §8. Escalation & Exceptions
 
-* **Escalation Triggers:** Escalate immediately upon any security failure, ambiguity in requirements, or violation of these rules.
-* **Protocol:**
+- **Escalation Triggers:** Escalate immediately upon any security failure, ambiguity in requirements, or violation of these rules.
+- **Protocol:**
     1. Create/update a GitHub Issue, tag it `escalation`, and reference the specific rule violated.
     2. Notify @jamiescottcraik directly via the primary communication channel.
     3. Once resolved, document the decision in a new Architecture Decision Record (`docs/adr/`).
-* **Exceptions:** Temporary exceptions to these rules require a time-boxed PR approved by @jamiescottcraik and must be logged as a "technical debt" ADR.
+- **Exceptions:** Temporary exceptions to these rules require a time-boxed PR approved by @jamiescottcraik and must be logged as a "technical debt" ADR.
 
 ### §9. Enforcement Matrix
 
@@ -170,9 +172,9 @@ accessibility:
 
 ---
 
-*This document is absolute. All contributors and agents must comply. Deviation is not permitted without an explicit, time-boxed, and logged exception via the process in §8.*
+_This document is absolute. All contributors and agents must comply. Deviation is not permitted without an explicit, time-boxed, and logged exception via the process in §8._
 
-**Jamie Scott Craik**  
+**Jamie Scott Craik**
 Owner, brAInwav MAS Platform
 
 _Last updated: 2025-06-23 by @jamiescottcraik_

@@ -3,6 +3,29 @@
 # Run with: docker-compose up -d
 
 services:
+  # The Next.js frontend service for the learning platform
+  frontend:
+    build:
+      context: ./frontend-next
+      dockerfile: Dockerfile
+    container_name: brainwav-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-next:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - brainwav-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   # The Python backend service, where you will do most of your development.
   backend:
     build:
