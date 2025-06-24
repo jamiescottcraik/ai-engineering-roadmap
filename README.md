@@ -39,6 +39,7 @@ Transforming from technical foundations to AI leadership through structured lear
 - **🔗 Resource Type Icons**: Visual indicators for courses, books, tutorials, and more
 - **🏁 Checkpoint System**: Clear milestones and deliverable tracking
 - **💡 Learning Rationale**: "Why this matters" context for each milestone
+- **🦙 Ollama Integration**: Status card and evening assistant components for local model interaction
 
 Explore the complete roadmap with progress tracking, detailed descriptions, and milestone checkpoints
 
