@@ -3,8 +3,15 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  AlertTriangle,
-  BookOpen,
+  AlertTriconst ModernTodayView: React.FC<ModernTodayViewProps> = ({
+  config,
+  liveStatus,
+  completedTasks,
+  toggleComplete,
+  isComplete: _isComplete
+}) => {
+  // Remove local state as we're using the persistent hooks now
+  const toggle = toggleComplete;BookOpen,
   Brain,
   Coffee,
   Github,
@@ -12,8 +19,12 @@ import {
   Sparkles,
   Sun,
   Target,
+  WifiOff,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { useRoadmapProgress, useUserPreferences } from '../hooks/useLocalStorage';
+import { useOfflineData, useOfflineStatus } from '../hooks/useOffline';
 
 import {
   EnhancedGlassCard,
@@ -22,6 +33,7 @@ import {
   ModernNav,
   TaskItem,
 } from './enhanced/ModernComponents';
+import { RoadmapErrorBoundary } from './error/RoadmapErrorBoundary';
 import RecallIntegration from './RecallIntegration';
 
 interface RoadmapConfig {
@@ -135,22 +147,20 @@ const useLiveStatus = (): LiveStatus => {
 interface ModernTodayViewProps {
   config: RoadmapConfig;
   liveStatus: LiveStatus;
+  completedTasks: Set<string>;
+  toggleComplete: (taskId: string) => void;
+  isComplete: (taskId: string) => boolean;
 }
 
-const ModernTodayView: React.FC<ModernTodayViewProps> = ({ config, liveStatus }) => {
-  const [done, setDone] = useState<Set<string>>(new Set());
-
-  const toggle = (taskId: string) => {
-    setDone((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(taskId)) {
-        newSet.delete(taskId);
-      } else {
-        newSet.add(taskId);
-      }
-      return newSet;
-    });
-  };
+const ModernTodayView: React.FC<ModernTodayViewProps> = ({
+  config,
+  liveStatus,
+  completedTasks,
+  toggleComplete,
+  isComplete,
+}) => {
+  // Remove local state as we're using the persistent hooks now
+  const toggle = toggleComplete;
 
   const todayStatus = {
     currentTask: config.currentWeek?.primaryGoal || 'Loading current mission...',
@@ -238,7 +248,7 @@ const ModernTodayView: React.FC<ModernTodayViewProps> = ({ config, liveStatus })
                   key={`urgent-${i}`}
                   task={task}
                   index={i}
-                  done={done}
+                  done={completedTasks}
                   toggle={toggle}
                   prefix="urgent"
                   urgent
@@ -342,28 +352,64 @@ const ModernTodayView: React.FC<ModernTodayViewProps> = ({ config, liveStatus })
   );
 };
 
-export default function ModernAIEngineeringRoadmap2025() {
+function ModernAIEngineeringRoadmap2025() {
   const [config, setConfig] = useState<RoadmapConfig | null>(null);
   const [activeTab, setActiveTab] = useState('today');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const liveStatus = useLiveStatus();
 
+  // Initialize our custom hooks
+  const {
+    completedTasks,
+    toggleComplete,
+    isComplete,
+    getCompletionStats,
+    isLoading: progressLoading,
+  } = useRoadmapProgress();
+
+  const { preferences, updatePreference } = useUserPreferences();
+  const { isOnline, wasOffline } = useOfflineStatus();
+
+  // Use offline-capable data loading
+  const {
+    data: offlineConfig,
+    isLoading: configLoading,
+    error: configError,
+    isOffline,
+    refresh,
+  } = useOfflineData('roadmap-config-2025', async () => {
+    const response = await fetch('/config/roadmap-config-2025.json');
+    if (!response.ok) throw new Error('Failed to load roadmap config');
+    return response.json();
+  });
+
+  // Use offline config if available, otherwise use regular loading
   useEffect(() => {
-    const loadConfig = async () => {
-      try {
-        const response = await fetch('/config/roadmap-config-2025.json');
-        if (!response.ok) throw new Error('Failed to load roadmap config');
-        const data = await response.json();
-        setConfig(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load roadmap');
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadConfig();
-  }, []);
+    if (offlineConfig) {
+      setConfig(offlineConfig);
+      setLoading(false);
+      setError(null);
+    } else if (configError) {
+      setError(configError);
+      setLoading(false);
+    } else if (!configLoading) {
+      // Fallback to original loading method
+      const loadConfig = async () => {
+        try {
+          const response = await fetch('/config/roadmap-config-2025.json');
+          if (!response.ok) throw new Error('Failed to load roadmap config');
+          const data = await response.json();
+          setConfig(data);
+        } catch (err) {
+          setError(err instanceof Error ? err.message : 'Failed to load roadmap');
+        } finally {
+          setLoading(false);
+        }
+      };
+      loadConfig();
+    }
+  }, [offlineConfig, configError, configLoading]);
 
   if (loading) {
     return (
@@ -400,6 +446,33 @@ export default function ModernAIEngineeringRoadmap2025() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-gray-900">
       <ModernBackground />
 
+      {/* Offline Status Indicator */}
+      {(!isOnline || isOffline) && (
+        <div className="fixed right-4 top-4 z-50">
+          <div className="glass-card flex items-center gap-2 border-yellow-500/30 bg-yellow-500/20 px-4 py-2">
+            <WifiOff className="h-4 w-4 text-yellow-400" />
+            <span className="text-sm text-yellow-400">
+              {isOffline ? 'Working Offline' : 'Connection Issues'}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Connection Restored Notification */}
+      {wasOffline && isOnline && (
+        <div className="fixed right-4 top-4 z-50">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="glass-card flex items-center gap-2 border-green-500/30 bg-green-500/20 px-4 py-2"
+          >
+            <Sparkles className="h-4 w-4 text-green-400" />
+            <span className="text-sm text-green-400">Back Online - Data Synced</span>
+          </motion.div>
+        </div>
+      )}
+
       {/* Modern Header */}
       <ModernHeader config={config} liveStatus={liveStatus} />
 
@@ -416,7 +489,13 @@ export default function ModernAIEngineeringRoadmap2025() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <ModernTodayView config={config} liveStatus={liveStatus} />
+              <ModernTodayView
+                config={config}
+                liveStatus={liveStatus}
+                completedTasks={completedTasks}
+                toggleComplete={toggleComplete}
+                isComplete={isComplete}
+              />
             </motion.div>
           )}
 
@@ -456,3 +535,15 @@ export default function ModernAIEngineeringRoadmap2025() {
     </div>
   );
 }
+
+// Create a wrapped version with error boundary
+function ModernAIEngineeringRoadmap2025WithErrorBoundary() {
+  return (
+    <RoadmapErrorBoundary>
+      <ModernAIEngineeringRoadmap2025 />
+    </RoadmapErrorBoundary>
+  );
+}
+
+// Export the wrapped version as default
+export { ModernAIEngineeringRoadmap2025WithErrorBoundary as default };
