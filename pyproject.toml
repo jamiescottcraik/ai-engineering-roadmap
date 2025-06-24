@@ -71,6 +71,15 @@ dev = [
     "coverage>=7.3.0",
     "hypothesis>=6.88.0",
     "faker>=20.0.0",
+    # Web UI & API Testing
+    "playwright>=1.40.0",
+    "httpx>=0.25.0",
+    "requests>=2.31.0",
+    # Development & Debugging
+    "jupyter>=1.1.1",
+    "ipython>=8.17.0",
+    "python-magic>=0.4.27",
+    "psutil>=5.9.0",
 ]
 
 [project.urls]
@@ -98,6 +107,20 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 
 # MyPy is now configured to be strict, catching potential type errors
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.coverage.run]
+source = ["backend/src", "src"]
+omit = ["tests/*", "*/tests/*"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
 [tool.mypy]
 python_version = "3.12"
 strict = true

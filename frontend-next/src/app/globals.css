@@ -1,34 +1,109 @@
 @import "tailwindcss";
 
+/**
+ * Cognitive-Adaptive UI Theme System
+ *
+ * Implements semantic color tokens for:
+ * - Learning psychology-informed color signals
+ * - Accessible dark/light/high-contrast modes
+ * - Generous whitespace and ergonomic spacing
+ * - Glass morphism and modern UI patterns
+ */
+
 :root {
+  /* Base Colors - Light Mode */
   --background: #ffffff;
   --foreground: #171717;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Cognitive Color System - Learning Psychology */
+  --color-focus-primary: #3b82f6;
+  --color-focus-50: #eff6ff;
+  --color-focus-500: #3b82f6;
+  --color-focus-600: #2563eb;
+
+  /* Learning State Colors */
+  --color-mastered: #22c55e;     /* Green = completed/mastered */
+  --color-progress: #eab308;     /* Yellow = in progress */
+  --color-review: #ef4444;       /* Red = needs review/urgent */
+
+  /* Neutral System for Cognitive Load Reduction */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-500: #6b7280;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+
+  /* Glass Morphism Variables */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Base Colors - Dark Mode */
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    /* Adjusted Colors for Dark Mode */
+    --color-focus-primary: #60a5fa;
+    --color-focus-50: #1e3a8a;
+    --color-focus-500: #60a5fa;
+    --color-focus-600: #3b82f6;
+
+    /* Learning State Colors - Dark Mode Adjusted */
+    --color-mastered: #34d399;
+    --color-progress: #fbbf24;
+    --color-review: #f87171;
+
+    /* Glass Morphism for Dark Mode */
+    --glass-bg: rgba(0, 0, 0, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-focus-primary: #1d4ed8;
+    --color-mastered: #16a34a;
+    --color-progress: #ca8a04;
+    --color-review: #dc2626;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Grid pattern background */
+/* Cognitive Grid Pattern Background */
 .bg-grid-pattern {
-  background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
-/* Custom scrollbar for modern look */
+/* Modern Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -39,10 +114,69 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(59, 130, 246, 0.2);
   border-radius: 3px;
+  transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.4);
+  background: rgba(59, 130, 246, 0.4);
+}
+
+/* Focus States for Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-focus-primary, #3b82f6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Glass Morphism Utility Classes */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+/* Cognitive Loading States */
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-200) 25%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Learning State Animations */
+@keyframes learning-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Print Styles for Learning Materials */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
 }

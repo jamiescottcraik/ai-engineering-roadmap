@@ -3,13 +3,13 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "backend",
   "workspaceFolder": "/workspace",
-  
+
   // Robust startup sequence
   "initializeCommand": "bash scripts/fix_docker_env.sh",
   "onCreateCommand": "echo 'Container created successfully'",
   "postCreateCommand": "bash scripts/setup_dev_env.sh",
   "postStartCommand": "echo 'Development environment ready'",
-  
+
   // Development ports
   "forwardPorts": [8000, 8080, 5432],
   "portsAttributes": {
@@ -18,13 +18,13 @@
       "onAutoForward": "notify"
     }
   },
-  
+
   // Environment variables
   "containerEnv": {
     "PYTHONPATH": "/workspace/backend",
     "ENVIRONMENT": "development"
   },
-  
+
   // Mounts for persistent data
   "mounts": [
     "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
@@ -40,24 +40,38 @@
         "streetsidesoftware.code-spell-checker",
         "pkief.material-icon-theme",
         "johnpapa.peacock",
+        // Python Development
         "ms-python.python",
         "ms-python.vscode-pylance",
         "charliermarsh.ruff",
         "ms-toolsai.jupyter",
+        // Frontend Development
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-typescript-next",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+        "ms-playwright.playwright",
+        // Web & API Development
         "Vue.volar",
         "humao.rest-client",
+        // Git & GitHub
         "github.vscode-pull-request-github",
         "github.vscode-github-actions",
         "codezombiech.gitignore",
+        // DevOps & Containers
         "docker.docker",
         "ms-vscode-remote.remote-containers",
         "ms-azuretools.vscode-containers",
+        // Configuration & Documentation
         "redhat.vscode-yaml",
         "mikestead.dotenv",
         "davidanson.vscode-markdownlint",
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        // Additional Quality Tools
+        "ms-python.mypy-type-checker",
+        "ms-python.black-formatter"
       ]
     }
   }

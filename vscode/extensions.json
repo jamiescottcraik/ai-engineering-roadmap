@@ -11,23 +11,39 @@
     // --- Formatting & Linting ---
     "ms-python.black-formatter",
     "charliermarsh.ruff",
-    "davidanson.vscode-markdownlint", // ADDED: For consistent documentation
+    "davidanson.vscode-markdownlint",
     "editorconfig.editorconfig",
 
+    // --- Frontend Development ---
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "ms-playwright.playwright",
+
     // --- Git & Collaboration ---
-    "eamodio.gitlens", // ADDED: Powerful Git history and insights
+    "eamodio.gitlens",
     "github.vscode-github-actions",
     "ms-vscode-remote.remote-ssh-edit",
 
     // --- Secrets Management ---
-    "1password.op-vscode", // ADDED: Essential for your secrets workflow
+    "1password.op-vscode",
 
     // --- UI & File Support ---
     "pkief.material-icon-theme",
     "yzhang.markdown-all-in-one",
     "ms-vscode.vscode-json",
     "redhat.vscode-yaml",
-    "ms-edgedevtools.vscode-edge-devtools"
+    "ms-edgedevtools.vscode-edge-devtools",
+    "streetsidesoftware.code-spell-checker",
+
+    // --- Development Tools ---
+    "humao.rest-client",
+    "mikestead.dotenv",
+    "docker.docker",
+    "ms-azuretools.vscode-containers"
   ],
   "unwantedRecommendations": [
     // --- Prevents conflicts with our standard tools ---

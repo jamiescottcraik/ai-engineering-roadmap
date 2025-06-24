@@ -1,7 +1,27 @@
 # Production dependencies for the FastAPI application.
-fastapi
-uvicorn[standard]
-pydantic
-pydantic-settings
-httpx
-# Add other production libraries like SQLAlchemy, etc. here
+fastapi>=0.110.0
+uvicorn[standard]>=0.25.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+httpx>=0.25.0
+
+# Database & ORM
+sqlalchemy>=2.0.0
+alembic>=1.13.0
+asyncpg>=0.29.0
+
+# Security & Auth
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6
+
+# Monitoring & Logging
+structlog>=23.2.0
+sentry-sdk[fastapi]>=1.40.0
+
+# Background Tasks
+celery>=5.3.0
+redis>=5.0.0
+
+# Environment & Configuration
+python-dotenv>=1.0.0
