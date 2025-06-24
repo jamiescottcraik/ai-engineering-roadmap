@@ -17,16 +17,26 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Cognitive Color System - Learning Psychology */
-  --color-focus-primary: #3b82f6;
+  /* Cognitive Color System - brAInwav Brand Aligned */
+  --color-focus-primary: #2356ff; /* brAInwav Primary Blue */
   --color-focus-50: #eff6ff;
-  --color-focus-500: #3b82f6;
-  --color-focus-600: #2563eb;
+  --color-focus-500: #2356ff; /* brAInwav Primary Blue */
+  --color-focus-600: #1d47cc;
 
-  /* Learning State Colors */
-  --color-mastered: #22c55e; /* Green = completed/mastered */
-  --color-progress: #eab308; /* Yellow = in progress */
-  --color-review: #ef4444; /* Red = needs review/urgent */
+  /* brAInwav Brand Colors (from COLOR_GUIDE.md) */
+  --color-brand-primary: #2356ff; /* Primary Blue (Platform) */
+  --color-brand-accent: #ff2d7e; /* Accent Pink (Platform) */
+  --color-brand-electric: #0f4cff; /* Electric Blue (brAInwav Brand) */
+  --color-brand-orange: #ff6600; /* Bright Orange (brAInwav "AI" highlight) */
+  --color-brand-charcoal: #0d0d0d; /* Charcoal Black (brAInwav Brand) */
+  --color-brand-navy: #192346; /* Deep Navy (Platform) */
+  --color-brand-neutral: #f4f5f7; /* Neutral Gray (Platform) */
+  --color-brand-white: #ffffff; /* Pure White (brAInwav Brand) */
+
+  /* Learning State Colors - Brand Aligned */
+  --color-mastered: #16c784; /* Success Green */
+  --color-progress: #ffd600; /* Warning Gold */
+  --color-review: #ff3e3e; /* Error Red */
 
   /* Neutral System for Cognitive Load Reduction */
   --color-neutral-0: #ffffff;
@@ -134,66 +144,75 @@ body {
   border-radius: 4px;
 }
 
-/* Glass Morphism Utility Classes */
+/* Glass Morphism Utility Classes - brAInwav Brand */
 .glass-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(35, 86, 255, 0.08); /* brAInwav Primary Blue with opacity */
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(35, 86, 255, 0.2); /* brAInwav Primary Blue border */
   border-radius: 20px;
   box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.03),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    0 10px 40px rgba(35, 86, 255, 0.1),
+    /* brAInwav Primary Blue shadow */ inset 0 0 0 1px rgba(255, 255, 255, 0.5);
   isolation: isolate;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .glass-card-enhanced {
-  @apply glass-card;
-  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  background: rgba(35, 86, 255, 0.12); /* Stronger brAInwav Primary Blue */
   backdrop-filter: blur(60px) saturate(200%);
   -webkit-backdrop-filter: blur(60px) saturate(200%);
+  border: 1px solid rgba(255, 45, 126, 0.3); /* brAInwav Accent Pink border */
+  border-radius: 20px;
   box-shadow:
-    0 15px 50px rgba(0, 0, 0, 0.04),
-    0 5px 20px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.6);
+    0 15px 50px rgba(35, 86, 255, 0.15),
+    0 5px 20px rgba(255, 45, 126, 0.1),
+    /* brAInwav Accent Pink shadow */ inset 0 0 0 0.5px rgba(255, 255, 255, 0.6);
+  isolation: isolate;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .glass-nav {
   position: relative;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(25, 35, 70, 0.9); /* brAInwav Deep Navy */
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(35, 86, 255, 0.3); /* brAInwav Primary Blue */
   isolation: isolate;
 }
 
 .dynamic-island {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(25, 35, 70, 0.95); /* brAInwav Deep Navy */
   border-radius: 24px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(35, 86, 255, 0.2); /* brAInwav Primary Blue */
 }
 
-/* Dark mode glass styles */
+/* Dark mode glass styles - brAInwav Brand */
 @media (prefers-color-scheme: dark) {
   .glass-card {
-    background: rgba(17, 24, 39, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(25, 35, 70, 0.8); /* brAInwav Deep Navy */
+    border: 1px solid rgba(35, 86, 255, 0.3); /* brAInwav Primary Blue */
     box-shadow:
-      0 10px 40px rgba(0, 0, 0, 0.3),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      0 10px 40px rgba(25, 35, 70, 0.5),
+      inset 0 0 0 1px rgba(35, 86, 255, 0.2);
   }
 
   .glass-card-enhanced {
-    background: rgba(17, 24, 39, 0.5);
+    background: rgba(25, 35, 70, 0.7); /* brAInwav Deep Navy */
+    border: 1px solid rgba(255, 45, 126, 0.4); /* brAInwav Accent Pink */
+    box-shadow:
+      0 15px 50px rgba(25, 35, 70, 0.6),
+      0 5px 20px rgba(255, 45, 126, 0.2),
+      inset 0 0 0 0.5px rgba(35, 86, 255, 0.3);
   }
 
   .glass-nav {
-    background: rgba(17, 24, 39, 0.7);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(25, 35, 70, 0.95); /* brAInwav Deep Navy */
+    border-bottom: 1px solid rgba(35, 86, 255, 0.4); /* brAInwav Primary Blue */
   }
 }
 

@@ -1,101 +1,102 @@
-# COLOR GUIDE: Personal Learning Platform
+# 🎨 COLOR GUIDE: Personal Learning Platform + brAInwav Branding
 
-## Purpose
-
-This guide defines how to use color in the project to:
+## 🧭 Purpose
+Defines cohesive color usage to:
 - Maintain visual brand consistency
-- Enhance motivation, clarity, and focus via learning psychology
-- Support accessibility and user personalization
+- Boost motivation, clarity, and focus via learning psychology
+- Ensure accessibility and user personalization
 
 ---
 
-## 1. Brand Palette
+## 1. Brand Palette Comparison
 
-| Color Name   | Hex Code   | Usage Examples                                      |
-|--------------|------------|-----------------------------------------------------|
-| Primary Blue | `#2356FF`  | Navigation bar, primary buttons, links, highlights  |
-| Accent Pink  | `#FF2D7E`  | Action buttons, highlights, progress bar accent     |
-| Neutral Gray | `#F4F5F7`  | Backgrounds, cards, secondary UI                    |
-| Deep Navy    | `#192346`  | Headings, footers, code blocks, dark mode BG        |
-| Success Green| `#16C784`  | Success states, completed badges, streak progress   |
-| Warning Gold | `#FFD600`  | Achievements, milestones, caution, in-progress      |
-| Error Red    | `#FF3E3E`  | Errors, urgent review, failed quiz/answer           |
-
-*(Replace with your actual brand codes if different.)*
+| Role            | Personal Platform | brAInwav Brand      | Notes                               |
+| --------------- | ----------------- | ------------------- | ----------------------------------- |
+| Primary UI Blue | `#2356FF`         | —                   | Navbars, buttons, links             |
+| Accent Pink     | `#FF2D7E`         | —                   | Secondary accents                   |
+| Neutral Gray    | `#F4F5F7`         | —                   | Backgrounds, card fills             |
+| Deep Navy       | `#192346`         | —                   | Headings, code blocks, dark mode BG |
+| Success Green   | `#16C784`         | —                   | Positive states, completed items    |
+| Warning Gold    | `#FFD600`         | —                   | Milestones, in-progress             |
+| Error Red       | `#FF3E3E`         | —                   | Urgent alerts                       |
+| Charcoal Black  | —                 | `#0D0D0D`           | Dark mode BG, strong contrast       |
+| Electric Blue   | —                 | `#0F4CFF` (approx.) | Neural-graphic, tech accents        |
+| Bright Orange   | —                 | `#FF6600` (approx.) | “AI” in logo                        |
+| Pure White      | —                 | `#FFFFFF`           | Primary text, clarity               |
 
 ---
 
-## 2. Color in Learning Psychology
+## 2. Usage Roles & Differentiation
 
-### a. Motivation & Progress
+- **Identity vs. Function**
+  - The *brAInwav* brand palette (charcoal, electric blue, bright orange, white) shapes the visual identity and tonal brand image.
+  - The *Platform palette* provides practical UI cues (feedback states, layouts, interactive elements).
 
-- **Green (`#16C784` or brand variant):**  
-  - Used for completed items, mastery, and streaks.  
-  - Appears in progress bars, checkmarks, and positive feedback.
-- **Gold/Yellow (`#FFD600`):**  
-  - Used for in-progress, current focus, or milestone achievements.
-  - Progress bars transition from yellow to green as goals are reached.
-- **Red/Orange (`#FF3E3E` or orange variant):**  
-  - Signals errors, overdue reviews, or items needing urgent attention.
+- **Accent vs. Semantic Colors**
+  - Brand colors accentuate and reinforce identity.
+  - UI colors (green, red, gold, pink) communicate progress and actions.
+
+---
+
+## 3. Learning Psychology & Color Roles
+
+### a. Motivation & Feedback
+- ✅ **Success Green (`#16C784`)** – marks mastery, completion, streaks.
+- 🟡 **Warning Gold (`#FFD600`)** – highlights items in progress or milestones.
+- ❌ **Error Red (`#FF3E3E`)** – flags overdue tasks or errors.
 
 ### b. Focus & Cognitive Load
+- 🕶️ **Neutral backgrounds** (`#F4F5F7`, white, `#192346`) — reduce distractions.
+- 🎯 **Primary Blue / Pink accents** — guide attention to CTAs or new features; use sparingly.
 
-- **Neutral backgrounds (`#F4F5F7`, white, or dark navy):**  
-  - Minimize distraction and visual fatigue.
-- **Accent colors (brand pink, blue):**  
-  - Draw attention to primary actions or new features, but used sparingly.
-
-### c. Dual Coding & Memory
-
-- **Color-coded nodes/paths:**  
-  - Each learning node can use color to denote category or status (e.g., theory = blue, practice = green, project = gold).
-  - Consistent use of color improves recall and navigation.
+### c. Dual-Coding & Memory
+- Tag nodes using consistent colors for categories (e.g., theory = blue, practice = green, project = gold) to improve navigation and retention.
 
 ---
 
-## 3. Accessibility
-
-- Ensure WCAG AA contrast for all text/background and icon combinations.
-- Never use color alone to convey meaning—pair with icons, text, or patterns.
-- All status and progress indicators must have non-color cues (e.g., icons, labels).
-
----
-
-## 4. User Personalization
-
-- **Theme switching:**  
-  Support light, dark, and high-contrast modes.
-- **Custom node tagging:**  
-  Allow users to tag or highlight topics with their own color for emotion or motivation.
-- **Focus mode:**  
-  Option to reduce color saturation for deep work sessions.
+## 4. Accessibility & Inclusivity
+- Meet **WCAG AA** contrast requirements for all combinations.
+- Never rely on color alone—always pair with icons, text labels, or patterns.
+- Include non-color cues for all semantic indicators.
 
 ---
 
-## 5. Usage Examples
-
-| Element                     | Color/Style              | Rationale                             |
-|-----------------------------|--------------------------|---------------------------------------|
-| Complete node               | Green/Checkmark          | Mastery & positive reinforcement      |
-| In-progress node            | Gold/Animated bar        | Motivation, clarity of status         |
-| Needs review/urgent         | Red/Warning icon         | Attention, prompt for action          |
-| Navigation bar              | Primary blue             | Brand recognition                     |
-| Primary action button       | Accent pink              | Encourages engagement                 |
-| Background/content card     | Neutral gray/white/navy  | Reduces visual distraction            |
-| Milestone achieved          | Gold confetti/animation  | Celebration, dopamine hit             |
-| Progress bar                | Yellow ➔ Green gradient  | Visualizes advancement                |
+## 5. Personalization & Theme Flexibility
+- Support **Light, Dark**, and **High-Contrast** themes.
+- Enable **custom color tagging** for users to enhance motivation and personalization.
+- Offer **Focus Mode**, with reduced saturation for minimal distraction.
 
 ---
 
-## 6. Reference
+## 6. Usage Examples
 
-- Mayer, R. E. (2020). *Multimedia Learning*
-- Plass, J. L., Moreno, R., Brünken, R. (2010). *Cognitive Load Theory*
-- WCAG 2.1 Accessibility Guidelines
+| Component                 | Color(s) Used                     | Purpose & Rationale             |
+| ------------------------- | --------------------------------- | ------------------------------- |
+| Logo background           | Charcoal Black                    | Establishes brand depth         |
+| “AI” letters in logo      | Bright Orange                     | Brand highlight and focus       |
+| Neural-graphic visual     | Electric Blue                     | Technology motif                |
+| Navigation bar / Buttons  | Primary Blue                      | Consistent interaction cues     |
+| Primary CTAs              | Accent Pink                       | Drives action                   |
+| Content cards / Page BG   | Neutral Gray / White / Deep Navy  | Clean and minimal background    |
+| Completed node badge      | Success Green + checkmark icon    | Visual feedback & reinforcement |
+| In-progress node          | Warning Gold + progress indicator | Motivational tracking           |
+| Urgent node / Error state | Error Red + icon                  | Immediate attention draw        |
+| Milestone badge           | Gold + celebratory icon           | Rewards and dopamine trigger    |
 
 ---
 
-> **Summary:**  
-Start with your brand palette for identity, then layer on learning psychology colors for progress, motivation, and feedback. Always support accessibility and give users some control over their color experience.
+## 7. References
+- Mayer, R. E. (2020). *Multimedia Learning*
+- Plass, J. L., Moreno, R., & Brünken, R. (2010). *Cognitive Load Theory*
+- **WCAG 2.1** Web Content Accessibility Guidelines
 
-_Last updated: 2025-06-23_
+---
+
+### ✅ Summary
+- **Use brand palette** (charcoal, electric blue, bright orange, white) to define identity.
+- **Use platform palette** to guide function, feedback, and flow.
+- **Combine psychology + accessibility** to reinforce attention, motivation, and clarity.
+
+---
+
+Need me to generate CSS variables or a Figma swatch library next?

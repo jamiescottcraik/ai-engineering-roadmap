@@ -1,6 +1,6 @@
-import type { Config } from 'tailwindcss'
-import plugin from 'tailwindcss/plugin'
-import typographyPlugin from '@tailwindcss/typography'
+import typographyPlugin from '@tailwindcss/typography';
+import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 /**
  * Tailwind CSS Configuration for AI Engineering Roadmap
@@ -12,36 +12,47 @@ import typographyPlugin from '@tailwindcss/typography'
  * - Apple-inspired spatial design ergonomics
  */
 
-// Cognitive Color System - Learning Psychology Informed
+// brAInwav Brand Color System - Learning Psychology Informed
 const cognitiveColors = {
-  // Learning State Colors - Primary signals
+  // brAInwav Brand Colors (Updated from COLOR_GUIDE.md)
+  brand: {
+    primary: '#2356FF', // Primary Blue (Platform)
+    accent: '#FF2D7E', // Accent Pink (Platform)
+    electric: '#0F4CFF', // Electric Blue (brAInwav Brand)
+    orange: '#FF6600', // Bright Orange (brAInwav "AI" highlight)
+    charcoal: '#0D0D0D', // Charcoal Black (brAInwav Brand)
+    navy: '#192346', // Deep Navy (Platform)
+    neutral: '#F4F5F7', // Neutral Gray (Platform)
+    white: '#FFFFFF', // Pure White (brAInwav Brand)
+  },
+  // Learning State Colors - Brand-aligned
   mastered: {
     50: '#f0fdf4',
     100: '#dcfce7',
-    500: '#22c55e',  // Green = completed/mastered
-    600: '#16a34a',
-    900: '#14532d'
+    500: '#16C784', // Success Green (brand)
+    600: '#13a46e',
+    900: '#0f7c52',
   },
   progress: {
-    50: '#fefce8',
+    50: '#fffbeb',
     100: '#fef3c7',
-    500: '#eab308',  // Yellow = in progress
-    600: '#ca8a04',
-    900: '#713f12'
+    500: '#FFD600', // Warning Gold (brand)
+    600: '#d4af00',
+    900: '#a68600',
   },
   review: {
     50: '#fef2f2',
     100: '#fee2e2',
-    500: '#ef4444',  // Red/Orange = needs review/urgent
+    500: '#FF3E3E', // Error Red (brand)
     600: '#dc2626',
-    900: '#7f1d1d'
+    900: '#7f1d1d',
   },
   focus: {
     50: '#eff6ff',
     100: '#dbeafe',
-    500: '#3b82f6',  // Blue = focus/primary actions
-    600: '#2563eb',
-    900: '#1e3a8a'
+    500: '#2356FF', // Primary Blue (brand)
+    600: '#1d47cc',
+    900: '#192346', // Deep Navy (brand)
   },
   // Cognitive Load Minimizers - Neutral background system
   neutral: {
@@ -56,9 +67,9 @@ const cognitiveColors = {
     700: '#374151',
     800: '#1f2937',
     900: '#111827',
-    950: '#030712'
-  }
-}
+    950: '#030712',
+  },
+};
 
 const config: Config = {
   content: [
@@ -89,11 +100,11 @@ const config: Config = {
 
       // Typography Scale - Consistent Rhythm
       fontSize: {
-        'xs': ['0.75rem', { lineHeight: '1rem' }],
-        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-        'base': ['1rem', { lineHeight: '1.5rem' }],
-        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],
+        base: ['1rem', { lineHeight: '1.5rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],
         '2xl': ['1.5rem', { lineHeight: '2rem' }],
         '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
         '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
@@ -136,24 +147,24 @@ const config: Config = {
         learningPulse: {
           '0%, 100%': {
             opacity: '1',
-            transform: 'scale(1)'
+            transform: 'scale(1)',
           },
           '50%': {
             opacity: '0.8',
-            transform: 'scale(1.02)'
+            transform: 'scale(1.02)',
           },
-        }
+        },
       },
 
       // Backdrop blur for glass morphism effects
       backdropBlur: {
         xs: '2px',
-      }
+      },
     },
   },
   plugins: [
     // Cognitive Design System Plugin
-    plugin(function({ addUtilities, addComponents, theme }) {
+    plugin(function ({ addUtilities, addComponents, theme }) {
       // Learning State Utilities
       addUtilities({
         '.learning-mastered': {
@@ -177,8 +188,8 @@ const config: Config = {
           backgroundColor: 'rgba(0, 0, 0, 0.1)',
           backdropFilter: 'blur(10px)',
           border: '1px solid rgba(255, 255, 255, 0.1)',
-        }
-      })
+        },
+      });
 
       // Cognitive UI Components
       addComponents({
@@ -192,7 +203,7 @@ const config: Config = {
           '&:hover': {
             boxShadow: theme('boxShadow.2xl'),
             transform: 'translateY(-2px)',
-          }
+          },
         },
         '.cognitive-card-dark': {
           backgroundColor: theme('colors.neutral.800'),
@@ -207,8 +218,8 @@ const config: Config = {
           display: 'inline-flex',
           alignItems: 'center',
           gap: theme('spacing.3'),
-        }
-      })
+        },
+      });
     }),
 
     // Typography Plugin for markdown content
@@ -216,6 +227,6 @@ const config: Config = {
       className: 'prose-cognitive',
     }),
   ],
-}
+};
 
-export default config
+export default config;
