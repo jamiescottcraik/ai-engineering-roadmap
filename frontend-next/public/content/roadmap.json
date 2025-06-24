@@ -1,0 +1,1952 @@
+{
+  "metadata": {
+    "title": "AI Leadership Engineering Roadmap",
+    "description": "Step-by-step guide to becoming an AI engineering leader in 2025-2026",
+    "version": "2.0.0",
+    "createdAt": "2025-06-21",
+    "updatedAt": "2025-06-22",
+    "totalNodes": 30,
+    "estimatedHours": 920,
+    "phases": [
+      "phase1",
+      "phase2",
+      "phase3",
+      "phase4",
+      "phase5",
+      "phase6"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "p1_python_learn",
+      "title": "Master Advanced Python & Math",
+      "type": "concept",
+      "phase": "phase1",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "prerequisites": [],
+      "estimatedHours": 40,
+      "difficulty": "intermediate",
+      "description": "Deep dive into advanced Python patterns, data structures, algorithms, and mathematical foundations for AI",
+      "learningObjectives": [
+        "Implement 10+ advanced data structures from scratch",
+        "Solve 50+ LeetCode medium/hard problems",
+        "Apply linear algebra & calculus concepts in code"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Python 3 Programming (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/python-3-programming",
+            "description": "Comprehensive Python specialization covering fundamentals to advanced concepts, data structures, and algorithms.",
+            "estimatedTime": 300,
+            "difficulty": "beginner",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Building with Code: Programming (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/building-with-code-programming",
+            "description": "Hands-on programming specialization focusing on building real applications with code.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "Mathematics for Machine Learning (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/mathematics-machine-learning",
+            "description": "Comprehensive mathematical foundations for machine learning including linear algebra, multivariate calculus, and PCA.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_3",
+            "title": "Codecademy Python Track",
+            "type": "course",
+            "url": "https://www.codecademy.com/learn/learn-python-3",
+            "description": "Interactive Python course with hands-on coding exercises and projects.",
+            "estimatedTime": 120,
+            "difficulty": "beginner",
+            "isOptional": true
+          },
+          {
+            "id": "resource_4",
+            "title": "Khan Academy Math & Stats",
+            "type": "tutorial",
+            "url": "https://www.khanacademy.org/math/statistics-probability",
+            "description": "Free comprehensive mathematics and statistics courses.",
+            "estimatedTime": 150,
+            "difficulty": "beginner",
+            "isOptional": true
+          }
+        ]
+      },
+      "progress": {
+        "status": "in_progress",
+        "masteryLevel": 75,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "Data Structures",
+          "Algorithms",
+          "Linear Algebra",
+          "Statistics",
+          "Python Internals"
+        ],
+        "createdAt": "2025-06-24T00:20:34.379Z",
+        "updatedAt": "2025-06-24T00:20:34.379Z"
+      }
+    },
+    {
+      "id": "p1_python_practice",
+      "title": "Solve Algorithmic Challenges",
+      "type": "practice",
+      "phase": "phase1",
+      "position": {
+        "x": 350,
+        "y": 100
+      },
+      "prerequisites": [
+        "p1_python_learn"
+      ],
+      "estimatedHours": 30,
+      "difficulty": "intermediate",
+      "description": "Apply algorithmic thinking to solve complex computational problems efficiently",
+      "learningObjectives": [
+        "Complete 75+ algorithmic challenges across categories",
+        "Optimize solutions for time/space complexity",
+        "Document solution approaches and trade-offs"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "in_progress",
+        "masteryLevel": 50,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "Dynamic Programming",
+          "Graph Algorithms",
+          "Optimization",
+          "Complexity Analysis"
+        ],
+        "createdAt": "2025-06-24T00:20:34.379Z",
+        "updatedAt": "2025-06-24T00:20:34.379Z"
+      }
+    },
+    {
+      "id": "p1_deliverable_cli",
+      "title": "🏆 Deliver: GitHub Stats CLI Tool",
+      "type": "project",
+      "phase": "phase1",
+      "position": {
+        "x": 600,
+        "y": 100
+      },
+      "prerequisites": [
+        "p1_python_practice"
+      ],
+      "estimatedHours": 25,
+      "difficulty": "intermediate",
+      "description": "Build a professional CLI tool that generates beautiful statistical analysis cards from GitHub data",
+      "learningObjectives": [
+        "CLI with multiple output formats (JSON, CSV, visual cards)",
+        "90%+ test coverage with CI/CD",
+        "Published on PyPI with 10+ downloads",
+        "Complete documentation with usage examples"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "in_progress",
+        "masteryLevel": 25,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "CLI Development",
+          "API Integration",
+          "Data Visualization",
+          "Package Publishing"
+        ],
+        "createdAt": "2025-06-24T00:20:34.379Z",
+        "updatedAt": "2025-06-24T00:20:34.379Z"
+      }
+    },
+    {
+      "id": "p1_sql_learn",
+      "title": "Master Advanced SQL",
+      "type": "concept",
+      "phase": "phase1",
+      "position": {
+        "x": 100,
+        "y": 250
+      },
+      "prerequisites": [
+        "p1_deliverable_cli"
+      ],
+      "estimatedHours": 35,
+      "difficulty": "intermediate",
+      "description": "Master complex SQL queries, optimization, window functions, and database design patterns",
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Google Data Analytics (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/google-data-analytics",
+            "description": "Comprehensive data analytics specialization covering SQL, data visualization, and analytical thinking.",
+            "estimatedTime": 240,
+            "difficulty": "beginner",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Mode Advanced SQL Tutorial",
+            "type": "course",
+            "url": "https://mode.com/sql-tutorial/",
+            "description": "Comprehensive tutorial covering advanced SQL concepts, window functions, and optimization techniques.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "StrataScratch SQL Practice",
+            "type": "practice",
+            "url": "https://www.stratascratch.com/",
+            "description": "Real-world SQL interview questions and practice problems from top tech companies.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_3",
+            "title": "High Performance MySQL: Proven Strategies for Operating at Scale",
+            "type": "book",
+            "url": "https://www.oreilly.com/library/view/high-performance-mysql/9781492080503/",
+            "description": "Comprehensive guide to MySQL optimization, covering query performance, server tuning, and scaling strategies.",
+            "estimatedTime": 300,
+            "difficulty": "advanced",
+            "isOptional": true
+          },
+          {
+            "id": "resource_4",
+            "title": "Use The Index, Luke! - SQL Query Optimization Guide",
+            "type": "tutorial",
+            "url": "https://use-the-index-luke.com/",
+            "description": "In-depth tutorial on SQL query optimization and index usage patterns.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": true
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "Window Functions",
+          "CTEs",
+          "Query Optimization",
+          "Indexing",
+          "Database Design"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p1_sql_practice",
+      "title": "Build Complex Analytical Queries",
+      "type": "practice",
+      "phase": "phase1",
+      "position": {
+        "x": 350,
+        "y": 250
+      },
+      "prerequisites": [
+        "p1_sql_learn"
+      ],
+      "estimatedHours": 25,
+      "difficulty": "intermediate",
+      "description": "Practice with real-world complex SQL scenarios and performance optimization",
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "Performance Tuning",
+          "Complex Joins",
+          "Data Warehousing",
+          "Analytics"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p1_deliverable_sql",
+      "title": "🏆 Deliver: Automated SQL Reporting Service",
+      "type": "project",
+      "phase": "phase1",
+      "position": {
+        "x": 600,
+        "y": 250
+      },
+      "prerequisites": [
+        "p1_sql_practice"
+      ],
+      "estimatedHours": 30,
+      "difficulty": "intermediate",
+      "description": "Create an automated analytics dashboard powered by complex SQL queries and scheduled reports",
+      "learningObjectives": [
+        "Dashboard with real-time data visualization",
+        "Scheduled automated reports via email/Slack",
+        "Query performance monitoring and optimization",
+        "RESTful API for data access"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "Dashboard Development",
+          "Automated Reporting",
+          "API Design",
+          "Data Visualization"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p1_devtools_learn",
+      "title": "Master CI/CD & Pro Dev Tools",
+      "type": "concept",
+      "phase": "phase1",
+      "position": {
+        "x": 100,
+        "y": 400
+      },
+      "prerequisites": [
+        "p1_deliverable_sql"
+      ],
+      "estimatedHours": 30,
+      "difficulty": "intermediate",
+      "description": "Master modern development workflows, testing strategies, and CI/CD pipelines",
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Google IT Automation (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/google-it-automation",
+            "description": "Comprehensive automation course covering Python automation, Git, debugging, and configuration management.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Introduction to Docker (Coursera Course)",
+            "type": "course",
+            "url": "https://www.coursera.org/learn/introduction-to-docker/home/welcome",
+            "description": "Hands-on introduction to Docker containerization for application deployment.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "Packt Docker and Kubernetes Masterclass (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/packt-docker-and-kubernetes-masterclass-from-beginner-to-advanced",
+            "description": "Advanced Docker and Kubernetes specialization for containerization and orchestration.",
+            "estimatedTime": 300,
+            "difficulty": "advanced",
+            "isOptional": false
+          },
+          {
+            "id": "resource_3",
+            "title": "GitHub Actions Documentation",
+            "type": "tutorial",
+            "url": "https://docs.github.com/en/actions",
+            "description": "Official documentation for GitHub Actions CI/CD workflows.",
+            "estimatedTime": 90,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_4",
+            "title": "Professional Cloud DevOps Engineer (Google Cloud Skills Boost)",
+            "type": "course",
+            "url": "https://www.cloudskillsboost.google/paths/1951",
+            "description": "Professional certification path for cloud DevOps engineering on Google Cloud Platform.",
+            "estimatedTime": 240,
+            "difficulty": "advanced",
+            "isOptional": true
+          },
+          {
+            "id": "resource_5",
+            "title": "Testing in Production: The Safe Way",
+            "type": "book",
+            "url": "https://copyconstruct.medium.com/testing-in-production-the-safe-way-18ca102d0ef1",
+            "description": "Strategies for safely testing systems in production environments, including feature flags and canary deployments.",
+            "estimatedTime": 60,
+            "difficulty": "advanced",
+            "isOptional": true
+          },
+          {
+            "id": "resource_6",
+            "title": "Packt Selenium WebDriver 4 with Python (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/packt-selenium-webdriver-4-with-python-zero-to-hero",
+            "description": "Comprehensive web automation testing with Selenium WebDriver 4 and Python.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": true
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "CI/CD Pipelines",
+          "Automated Testing",
+          "Code Quality",
+          "Deployment Strategies"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p1_devtools_practice",
+      "title": "Implement Automated Testing Pipelines",
+      "type": "practice",
+      "phase": "phase1",
+      "position": {
+        "x": 350,
+        "y": 400
+      },
+      "prerequisites": [
+        "p1_devtools_learn"
+      ],
+      "estimatedHours": 25,
+      "difficulty": "intermediate",
+      "description": "Build comprehensive CI/CD pipelines with testing, security, and deployment automation",
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "Pipeline Design",
+          "Test Automation",
+          "Security Integration",
+          "Infrastructure as Code"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p1_deliverable_final",
+      "title": "🏆 DELIVERABLE: Data Analysis API (Fully Tested with CI/CD)",
+      "type": "project",
+      "phase": "phase1",
+      "position": {
+        "x": 600,
+        "y": 400
+      },
+      "prerequisites": [
+        "p1_devtools_practice"
+      ],
+      "estimatedHours": 45,
+      "difficulty": "intermediate",
+      "description": "Build and deploy a production-ready data analysis API with comprehensive testing and CI/CD",
+      "learningObjectives": [
+        "API handles multiple data formats with 99%+ uptime",
+        "95%+ test coverage with automated testing",
+        "Zero-downtime deployment pipeline",
+        "Comprehensive monitoring and alerting",
+        "API documentation with interactive examples"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "core-engineering-foundations"
+        ],
+        "skills": [
+          "API Development",
+          "Production Deployment",
+          "Monitoring",
+          "Documentation",
+          "Load Testing"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_rag_learn",
+      "title": "Master Advanced RAG & Evaluation",
+      "type": "concept",
+      "phase": "phase2",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "prerequisites": [],
+      "estimatedHours": 45,
+      "difficulty": "intermediate",
+      "description": "Deep dive into Retrieval-Augmented Generation, vector databases, and evaluation frameworks",
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Elements of AI",
+            "type": "course",
+            "url": "https://www.elementsofai.com/",
+            "description": "Free comprehensive introduction to AI concepts, applications, and societal implications.",
+            "estimatedTime": 60,
+            "difficulty": "beginner",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "DeepLearning.AI Short Courses",
+            "type": "course",
+            "url": "https://www.deeplearning.ai/short-courses/",
+            "description": "Collection of focused short courses on cutting-edge AI topics including RAG, agents, and prompt engineering.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "IBM Generative AI Engineering (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/ibm-generative-ai-engineering",
+            "description": "Comprehensive specialization covering generative AI engineering, deployment, and production practices.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_3",
+            "title": "Fast.ai Practical Deep Learning",
+            "type": "course",
+            "url": "https://course.fast.ai/",
+            "description": "Top-down approach to deep learning with practical applications and state-of-the-art techniques.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": true
+          },
+          {
+            "id": "resource_4",
+            "title": "Hugging Face Course",
+            "type": "course",
+            "url": "https://huggingface.co/learn",
+            "description": "Comprehensive course on transformers, natural language processing, and the Hugging Face ecosystem.",
+            "estimatedTime": 150,
+            "difficulty": "intermediate",
+            "isOptional": true
+          },
+          {
+            "id": "resource_5",
+            "title": "CS50's Intro to AI (Harvard)",
+            "type": "course",
+            "url": "https://cs50.harvard.edu/ai/",
+            "description": "Harvard's introduction to artificial intelligence covering search, knowledge, uncertainty, optimization, learning, and language.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": true
+          },
+          {
+            "id": "resource_6",
+            "title": "Vector Databases: The Complete Guide",
+            "type": "book",
+            "url": "https://www.pinecone.io/learn/vector-database/",
+            "description": "Comprehensive guide to vector databases, embeddings, and similarity search for RAG applications.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": true
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Vector Embeddings",
+          "Semantic Search",
+          "RAG Architectures",
+          "Evaluation Metrics",
+          "Chunking Strategies"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_rag_practice",
+      "title": "Engineer Multi-Modal RAG Pipelines",
+      "type": "practice",
+      "phase": "phase2",
+      "position": {
+        "x": 350,
+        "y": 100
+      },
+      "prerequisites": [
+        "p2_rag_learn"
+      ],
+      "estimatedHours": 35,
+      "difficulty": "intermediate",
+      "description": "Build advanced RAG systems with multi-modal inputs and sophisticated retrieval mechanisms",
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Multi-Modal Processing",
+          "Hybrid Search",
+          "Re-ranking",
+          "Retrieval Optimization"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_deliverable_rag",
+      "title": "🏆 Deliver: Cognitive Load Reducer App",
+      "type": "project",
+      "phase": "phase2",
+      "position": {
+        "x": 600,
+        "y": 100
+      },
+      "prerequisites": [
+        "p2_rag_practice"
+      ],
+      "estimatedHours": 40,
+      "difficulty": "intermediate",
+      "description": "Build an AI-powered app that reduces cognitive load by intelligently summarizing and contextualizing information",
+      "learningObjectives": [
+        "App processes multiple document types (PDF, web, text)",
+        "Sub-2-second response times for queries",
+        "User satisfaction score >4.5/5",
+        "Handles 100+ concurrent users"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Full-Stack Development",
+          "RAG Implementation",
+          "User Experience",
+          "Performance Optimization"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_agents_learn",
+      "title": "Master Multi-Agent Orchestration",
+      "type": "concept",
+      "phase": "phase2",
+      "position": {
+        "x": 100,
+        "y": 250
+      },
+      "prerequisites": [
+        "p2_deliverable_rag"
+      ],
+      "estimatedHours": 40,
+      "difficulty": "intermediate",
+      "description": "Design and implement collaborative AI agent systems with complex workflows",
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "AI Agents in Python (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/ai-agents-python",
+            "description": "Comprehensive specialization covering AI agent development, architecture, and implementation in Python.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Multi-Agent Systems with CrewAI",
+            "type": "course",
+            "url": "https://docs.crewai.com/",
+            "description": "Learn to build collaborative AI agent systems using the CrewAI framework for complex task orchestration.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "Generative AI for Data Scientists (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/generative-ai-for-data-scientists",
+            "description": "Specialized application of generative AI techniques for data science workflows and analysis.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": true
+          },
+          {
+            "id": "resource_3",
+            "title": "Generative AI Data Analyst (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/generative-ai-data-analyst",
+            "description": "Apply generative AI tools and techniques to enhance data analysis and reporting workflows.",
+            "estimatedTime": 150,
+            "difficulty": "intermediate",
+            "isOptional": true
+          },
+          {
+            "id": "resource_4",
+            "title": "CrewAI Framework Documentation",
+            "type": "tutorial",
+            "url": "https://docs.crewai.com/",
+            "description": "Official documentation for the CrewAI framework for building multi-agent systems.",
+            "estimatedTime": 60,
+            "difficulty": "intermediate",
+            "isOptional": true
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Agent Architectures",
+          "Task Orchestration",
+          "Inter-Agent Communication",
+          "Workflow Design"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_agents_practice",
+      "title": "Build Collaborative Agent Systems (CrewAI)",
+      "type": "practice",
+      "phase": "phase2",
+      "position": {
+        "x": 350,
+        "y": 250
+      },
+      "prerequisites": [
+        "p2_agents_learn"
+      ],
+      "estimatedHours": 35,
+      "difficulty": "intermediate",
+      "description": "Implement sophisticated multi-agent systems using CrewAI or similar frameworks",
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "DrivenData",
+            "type": "platform",
+            "url": "https://www.drivendata.org/",
+            "description": "Data science competitions focused on social impact and real-world problems.",
+            "estimatedTime": 100,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Zindi",
+            "type": "platform",
+            "url": "https://zindi.africa/competitions",
+            "description": "Africa's largest data science competition platform.",
+            "estimatedTime": 80,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "CodaLab",
+            "type": "platform",
+            "url": "https://competitions.codalab.org/",
+            "description": "Academic competition platform for machine learning and AI research challenges.",
+            "estimatedTime": 60,
+            "difficulty": "advanced",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "CrewAI Framework",
+          "Agent Coordination",
+          "Task Management",
+          "System Integration"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_deliverable_agents",
+      "title": "🏆 Deliver: Automated Learning Curator",
+      "type": "project",
+      "phase": "phase2",
+      "position": {
+        "x": 600,
+        "y": 250
+      },
+      "prerequisites": [
+        "p2_agents_practice"
+      ],
+      "estimatedHours": 45,
+      "difficulty": "intermediate",
+      "description": "Create an intelligent learning curator using multi-agent systems to personalize educational content",
+      "learningObjectives": [
+        "System curates content from 10+ sources",
+        "Personalization improves learning outcomes by 30%",
+        "Handles multiple learning styles and preferences",
+        "Real-time adaptation to user progress"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Educational AI",
+          "Personalization",
+          "Content Curation",
+          "Learning Analytics"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_mlops_learn",
+      "title": "Master MLOps & Efficient AI",
+      "type": "concept",
+      "phase": "phase2",
+      "position": {
+        "x": 100,
+        "y": 400
+      },
+      "prerequisites": [
+        "p2_deliverable_agents"
+      ],
+      "estimatedHours": 35,
+      "difficulty": "intermediate",
+      "description": "Master ML operations, model optimization, monitoring, and lifecycle management",
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "MLOps Engineering: Complete Production Course",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops",
+            "description": "End-to-end MLOps course covering model deployment, monitoring, and production management.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Microsoft AI and ML Engineering (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/microsoft-ai-and-ml-engineering",
+            "description": "Comprehensive specialization covering AI and ML engineering on Microsoft platforms.",
+            "estimatedTime": 200,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "Building AI Cloud Apps with Microsoft Azure (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/building-ai-cloud-apps-microsoft-azure",
+            "description": "Build and deploy AI applications on Microsoft Azure cloud platform.",
+            "estimatedTime": 200,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_3",
+            "title": "Google Cloud: Generative AI with Vertex AI (Coursera)",
+            "type": "course",
+            "url": "https://www.coursera.org/learn/googlecloud-generative-ai-with-vertex-ai-prompt-design-hajry/home/welcome",
+            "description": "Learn to build generative AI applications using Google Cloud's Vertex AI platform.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_4",
+            "title": "Generative AI with Vertex AI (Google Cloud Skills Boost)",
+            "type": "course",
+            "url": "https://www.cloudskillsboost.google/paths/118",
+            "description": "Hands-on learning path for generative AI with Google Cloud Vertex AI.",
+            "estimatedTime": 150,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_5",
+            "title": "Google Cloud Networking (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/google-cloud-networking",
+            "description": "Comprehensive networking specialization for Google Cloud Platform infrastructure.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": true
+          },
+          {
+            "id": "resource_6",
+            "title": "Amazon SageMaker Studio Lab",
+            "type": "platform",
+            "url": "https://studiolab.sagemaker.aws/",
+            "description": "Free ML development environment from AWS for experimentation and learning.",
+            "estimatedTime": 60,
+            "difficulty": "intermediate",
+            "isOptional": true
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Model Lifecycle",
+          "Deployment Strategies",
+          "Performance Monitoring",
+          "Model Optimization"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_mlops_practice",
+      "title": "Containerize & Deploy AI Services",
+      "type": "practice",
+      "phase": "phase2",
+      "position": {
+        "x": 350,
+        "y": 400
+      },
+      "prerequisites": [
+        "p2_mlops_learn"
+      ],
+      "estimatedHours": 30,
+      "difficulty": "intermediate",
+      "description": "Implement containerized AI deployments with comprehensive monitoring and auto-scaling",
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Containerization",
+          "Kubernetes",
+          "Service Mesh",
+          "Observability"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p2_deliverable_final",
+      "title": "🏆 DELIVERABLE: Deployed AI Services (Live Endpoints)",
+      "type": "project",
+      "phase": "phase2",
+      "position": {
+        "x": 600,
+        "y": 400
+      },
+      "prerequisites": [
+        "p2_mlops_practice"
+      ],
+      "estimatedHours": 50,
+      "difficulty": "intermediate",
+      "description": "Deploy multiple AI applications with full MLOps pipeline and production monitoring",
+      "learningObjectives": [
+        "3+ AI services running in production with 99.9% uptime",
+        "Automated model deployment and rollback capabilities",
+        "Comprehensive monitoring with alerts and dashboards",
+        "Load testing demonstrates scalability to 1000+ users",
+        "API documentation with live examples"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "masteryLevel": 0,
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "build-&-deploy-production-ai"
+        ],
+        "skills": [
+          "Production Deployment",
+          "Service Architecture",
+          "Monitoring",
+          "Scalability",
+          "API Design"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p3_safety_basics",
+      "title": "AI Safety: Baseline Fluency",
+      "type": "concept",
+      "phase": "phase3",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "prerequisites": [],
+      "estimatedHours": 20,
+      "difficulty": "intermediate",
+      "description": "Understand the fundamentals of AI safety, prompt injection, and societal risks.",
+      "learningObjectives": [
+        "Complete all code labs and quizzes",
+        "Demonstrate understanding of prompt injection and LLM risks"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Red Teaming LLM Applications",
+            "type": "course",
+            "url": "https://www.coursera.org/learn/red-teaming-llm-applications",
+            "description": "Intro to red teaming for LLMs: code labs, prompt injection, and LLM risks.",
+            "estimatedTime": 180,
+            "difficulty": "beginner",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Generative AI Safety (Google Cloud Skill Boost)",
+            "type": "course",
+            "url": "https://www.cloudskillsboost.google/paths/118",
+            "description": "Covers prompt injection, data leakage, and GCP tools.",
+            "estimatedTime": 120,
+            "difficulty": "beginner",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "AI For Everyone (Coursera, Andrew Ng)",
+            "type": "course",
+            "url": "https://www.coursera.org/learn/ai-for-everyone",
+            "description": "Ethics and societal risks, for mindset.",
+            "estimatedTime": 90,
+            "difficulty": "beginner",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "ai-safety-&-red-teaming"
+        ],
+        "skills": [
+          "Prompt Injection",
+          "AI Ethics",
+          "Societal Risks"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p3_safety_attacks",
+      "title": "AI Safety: Real-World Attacks & Defenses",
+      "type": "practice",
+      "phase": "phase3",
+      "position": {
+        "x": 350,
+        "y": 100
+      },
+      "prerequisites": [
+        "p3_safety_basics"
+      ],
+      "estimatedHours": 24,
+      "difficulty": "intermediate",
+      "description": "Hands-on adversarial attacks and defenses on transformers and LLM deployments.",
+      "learningObjectives": [
+        "Implement at least one adversarial attack and defense",
+        "Document findings and mitigation strategies"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Hugging Face: Adversarial Attacks & Defenses",
+            "type": "tutorial",
+            "url": "https://huggingface.co/learn/nlp-course/chapter9/9?fw=pt",
+            "description": "Code adversarial attacks/defenses on transformers.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "ai-safety-&-red-teaming"
+        ],
+        "skills": [
+          "Adversarial Attacks",
+          "Prompt Injection",
+          "LLM Security"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p3_safety_specialist",
+      "title": "AI Safety: Specialization & Professional Tools",
+      "type": "project",
+      "phase": "phase3",
+      "position": {
+        "x": 600,
+        "y": 100
+      },
+      "prerequisites": [
+        "p3_safety_attacks"
+      ],
+      "estimatedHours": 36,
+      "difficulty": "intermediate",
+      "description": "Credential-focused and advanced tools for consultants and practitioners.",
+      "learningObjectives": [
+        "Complete a credential/masterclass or open-source tool project",
+        "Demonstrate advanced red teaming or adversarial ML skills"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "NVIDIA: Exploring Adversarial ML",
+            "type": "course",
+            "url": "https://courses.nvidia.com/courses/course-v1:DLI+S-RX-02+V1/",
+            "description": "Deep technical weeds—use only if specializing.",
+            "estimatedTime": 120,
+            "difficulty": "advanced",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "NVIDIA Garak (GitHub)",
+            "type": "tool",
+            "url": "https://github.com/leondz/garak",
+            "description": "Open-source tool for adversarial testing of LLMs.",
+            "estimatedTime": 90,
+            "difficulty": "advanced",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "ai-safety-&-red-teaming"
+        ],
+        "skills": [
+          "Red Teaming",
+          "Adversarial ML",
+          "LLM Security",
+          "Credentialing"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p4_causal_foundations",
+      "title": "Causal Inference Foundations",
+      "type": "concept",
+      "phase": "phase4",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "prerequisites": [],
+      "estimatedHours": 18,
+      "difficulty": "intermediate",
+      "description": "Build a practical foundation in causal inference, DAGs, and real-world data analysis.",
+      "learningObjectives": [
+        "Complete all code labs and quizzes",
+        "Demonstrate understanding of DAGs and causal reasoning"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Google Cloud Skill Boost: Responsible AI—Causal Reasoning",
+            "type": "course",
+            "url": "https://www.cloudskillsboost.google/paths/68",
+            "description": "Industry/business focus on causal reasoning in AI.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Crash Course in Causality (U. Penn, Coursera)",
+            "type": "course",
+            "url": "https://www.coursera.org/learn/crash-course-in-causality",
+            "description": "Secondary resource, R focus, covers core concepts.",
+            "estimatedTime": 90,
+            "difficulty": "intermediate",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "causal-inference-&-modern-data-science"
+        ],
+        "skills": [
+          "Causal Inference",
+          "DAGs",
+          "Counterfactuals",
+          "Python Data Science"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p4_causal_hands_on",
+      "title": "Hands-On Causal Analysis & Domain Integration",
+      "type": "practice",
+      "phase": "phase4",
+      "position": {
+        "x": 350,
+        "y": 100
+      },
+      "prerequisites": [
+        "p4_causal_foundations"
+      ],
+      "estimatedHours": 20,
+      "difficulty": "intermediate",
+      "description": "Apply causal inference in business, NLP, and A/B testing with real code and datasets.",
+      "learningObjectives": [
+        "Implement at least one causal analysis project",
+        "Document findings and business impact"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Amazon Science: Causal Inference in the Field (YouTube)",
+            "type": "tutorial",
+            "url": "https://www.youtube.com/watch?v=J8SDgXjMa10",
+            "description": "A/B testing and business impact of causal inference.",
+            "estimatedTime": 60,
+            "difficulty": "intermediate",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "causal-inference-&-modern-data-science"
+        ],
+        "skills": [
+          "Causal Analysis",
+          "A/B Testing",
+          "NLP",
+          "Business Data Science"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p4_causal_advanced",
+      "title": "Advanced Causal Inference & Strategic Applications",
+      "type": "project",
+      "phase": "phase4",
+      "position": {
+        "x": 600,
+        "y": 100
+      },
+      "prerequisites": [
+        "p4_causal_hands_on"
+      ],
+      "estimatedHours": 28,
+      "difficulty": "intermediate",
+      "description": "Master's-level frameworks and real-world/medical data applications.",
+      "learningObjectives": [
+        "Complete an advanced causal inference project or research assignment"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Machine Learning for Healthcare (MIT, edX)",
+            "type": "course",
+            "url": "https://www.edx.org/course/machine-learning-for-healthcare",
+            "description": "Causal inference in real-world/medical data.",
+            "estimatedTime": 180,
+            "difficulty": "advanced",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "causal-inference-&-modern-data-science"
+        ],
+        "skills": [
+          "Advanced Causal Inference",
+          "Healthcare AI",
+          "Research Skills"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p5_quantum_fluency",
+      "title": "Quantum Computing: Conceptual Fluency",
+      "type": "concept",
+      "phase": "phase5",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "prerequisites": [],
+      "estimatedHours": 16,
+      "difficulty": "intermediate",
+      "description": "Understand the core concepts of quantum computing and its implications for AI.",
+      "learningObjectives": [
+        "Complete all conceptual modules and quizzes",
+        "Demonstrate understanding of quantum computing basics"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Introduction to Quantum Computing (Google Cloud/IBM)",
+            "type": "course",
+            "url": "https://www.cloudskillsboost.google/paths/127",
+            "description": "Hands-on labs for quantum computing basics.",
+            "estimatedTime": 90,
+            "difficulty": "beginner",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "quantum-machine-learning"
+        ],
+        "skills": [
+          "Quantum Computing",
+          "Qubits",
+          "Quantum Circuits"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p5_quantum_hands_on",
+      "title": "Hands-On Quantum ML & Integration",
+      "type": "practice",
+      "phase": "phase5",
+      "position": {
+        "x": 350,
+        "y": 100
+      },
+      "prerequisites": [
+        "p5_quantum_fluency"
+      ],
+      "estimatedHours": 18,
+      "difficulty": "intermediate",
+      "description": "Build and experiment with quantum machine learning models and classical-quantum integration.",
+      "learningObjectives": [
+        "Build and run a quantum ML model",
+        "Document integration of classical and quantum ML"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Quantum Country: Concepts & Flashcards",
+            "type": "tool",
+            "url": "https://quantum.country/",
+            "description": "Concepts and flashcards for retention and business impact.",
+            "estimatedTime": 60,
+            "difficulty": "intermediate",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "quantum-machine-learning"
+        ],
+        "skills": [
+          "Quantum ML",
+          "Qiskit",
+          "Quantum-Classical Integration"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p5_quantum_advanced",
+      "title": "Advanced Quantum ML & Algorithms",
+      "type": "project",
+      "phase": "phase5",
+      "position": {
+        "x": 600,
+        "y": 100
+      },
+      "prerequisites": [
+        "p5_quantum_hands_on"
+      ],
+      "estimatedHours": 24,
+      "difficulty": "intermediate",
+      "description": "Explore advanced quantum computing algorithms for AI and specialization pathways.",
+      "learningObjectives": [
+        "Complete an advanced quantum ML project or research assignment"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "quantum-machine-learning"
+        ],
+        "skills": [
+          "Quantum Algorithms",
+          "AI Specialization"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p6_ux_product",
+      "title": "UX Design & AI Product Strategy",
+      "type": "concept",
+      "phase": "phase6",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "prerequisites": [],
+      "estimatedHours": 35,
+      "difficulty": "intermediate",
+      "description": "Master user experience design principles and AI product strategy for building user-centered AI applications.",
+      "learningObjectives": [
+        "Complete UX design specialization",
+        "Create AI product design portfolio",
+        "Demonstrate user-centered design process"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "Google UX Design (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/google-ux-design",
+            "description": "Comprehensive UX design specialization covering user research, wireframing, prototyping, and testing.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Microsoft Copilot: Your Everyday AI Companion (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/microsoft-copilot-your-everyday-ai-companion",
+            "description": "Learn to effectively use and integrate AI assistants into daily workflows and productivity.",
+            "estimatedTime": 120,
+            "difficulty": "beginner",
+            "isOptional": false
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "ai-product-strategy-&-leadership"
+        ],
+        "skills": [
+          "UX Design",
+          "AI Product Strategy",
+          "User Research",
+          "Design Thinking"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p6_prompt_engineering",
+      "title": "Advanced Prompt Engineering & AI Productivity",
+      "type": "practice",
+      "phase": "phase6",
+      "position": {
+        "x": 350,
+        "y": 100
+      },
+      "prerequisites": [
+        "p6_ux_product"
+      ],
+      "estimatedHours": 25,
+      "difficulty": "intermediate",
+      "description": "Master prompt engineering techniques and AI productivity tools for professional workflows.",
+      "learningObjectives": [
+        "Master advanced prompt engineering techniques",
+        "Integrate AI tools into professional workflows",
+        "Document productivity improvements and best practices"
+      ],
+      "content": {
+        "resources": [
+          {
+            "id": "resource_0",
+            "title": "ChatGPT Free AI Tools to Excel (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/chatgpt-free-ai-tools-to-excel",
+            "description": "Learn to leverage ChatGPT and other AI tools for productivity and professional excellence.",
+            "estimatedTime": 120,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_1",
+            "title": "Prompt Engineering for Educators (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/prompt-engineering-for-educators",
+            "description": "Specialized prompt engineering techniques for educational and training contexts.",
+            "estimatedTime": 90,
+            "difficulty": "intermediate",
+            "isOptional": false
+          },
+          {
+            "id": "resource_2",
+            "title": "Getting Started with Google Workspace (Coursera Specialization)",
+            "type": "course",
+            "url": "https://www.coursera.org/specializations/getting-started-with-google-workspace",
+            "description": "Master Google Workspace tools for collaboration and productivity in professional settings.",
+            "estimatedTime": 60,
+            "difficulty": "beginner",
+            "isOptional": true
+          },
+          {
+            "id": "resource_3",
+            "title": "Associate Python Developer (DataCamp Career Track)",
+            "type": "course",
+            "url": "https://www.datacamp.com/tracks/associate-python-developer",
+            "description": "Professional Python development career track with industry-relevant projects and certification.",
+            "estimatedTime": 180,
+            "difficulty": "intermediate",
+            "isOptional": true
+          },
+          {
+            "id": "resource_4",
+            "title": "Associate AI Engineer for Developers (DataCamp Career Track)",
+            "type": "course",
+            "url": "https://app.datacamp.com/learn/career-tracks/associate-ai-engineer-for-developers",
+            "description": "Comprehensive AI engineering career track with hands-on projects and industry certification.",
+            "estimatedTime": 240,
+            "difficulty": "intermediate",
+            "isOptional": true
+          }
+        ]
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "ai-product-strategy-&-leadership"
+        ],
+        "skills": [
+          "Prompt Engineering",
+          "AI Productivity",
+          "Workflow Optimization",
+          "Professional Tools"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    },
+    {
+      "id": "p6_portfolio_launch",
+      "title": "🏆 DELIVERABLE: AI Product Launch & Public Portfolio",
+      "type": "project",
+      "phase": "phase6",
+      "position": {
+        "x": 600,
+        "y": 100
+      },
+      "prerequisites": [
+        "p6_prompt_engineering"
+      ],
+      "estimatedHours": 60,
+      "difficulty": "intermediate",
+      "description": "Launch a comprehensive AI product with user base and establish thought leadership through public portfolio.",
+      "learningObjectives": [
+        "Successfully launch AI product with measurable user adoption",
+        "Deliver public presentation or webinar with 1000+ attendees",
+        "Publish technical content with industry recognition",
+        "Establish thought leadership in AI product development"
+      ],
+      "content": {
+        "resources": []
+      },
+      "progress": {
+        "status": "locked",
+        "reviewCount": 0
+      },
+      "metadata": {
+        "tags": [
+          "ai-product-strategy-&-leadership"
+        ],
+        "skills": [
+          "Product Launch",
+          "Thought Leadership",
+          "Public Speaking",
+          "Industry Recognition"
+        ],
+        "createdAt": "2025-06-24T00:20:34.380Z",
+        "updatedAt": "2025-06-24T00:20:34.380Z"
+      }
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "checkpoint_python",
+      "title": "Python Mastery",
+      "description": "Advanced Python programming and algorithmic thinking",
+      "requiredNodes": [
+        "p1_deliverable_cli"
+      ],
+      "criteria": [
+        "CLI tool published",
+        "Algorithm challenges completed",
+        "Code quality demonstrated"
+      ],
+      "phase": "p1",
+      "order": 1
+    },
+    {
+      "id": "checkpoint_data",
+      "title": "Data Analysis Mastery",
+      "description": "SQL expertise and automated reporting capabilities",
+      "requiredNodes": [
+        "p1_deliverable_sql"
+      ],
+      "criteria": [
+        "Dashboard deployed",
+        "Complex queries optimized",
+        "Automated reports functional"
+      ],
+      "phase": "p1",
+      "order": 2
+    },
+    {
+      "id": "checkpoint_engineering",
+      "title": "Professional Engineering Complete",
+      "description": "Full-stack development with CI/CD and production deployment",
+      "requiredNodes": [
+        "p1_deliverable_final"
+      ],
+      "criteria": [
+        "Production API",
+        "CI/CD pipeline",
+        "Monitoring system"
+      ],
+      "phase": "p1",
+      "order": 3
+    },
+    {
+      "id": "checkpoint_rag",
+      "title": "RAG Mastery",
+      "description": "Advanced RAG systems and multi-modal processing",
+      "requiredNodes": [
+        "p2_deliverable_rag"
+      ],
+      "criteria": [
+        "RAG app deployed",
+        "Multi-modal support",
+        "Performance optimized"
+      ],
+      "phase": "p2",
+      "order": 4
+    },
+    {
+      "id": "checkpoint_agents",
+      "title": "Agent Systems Mastery",
+      "description": "Multi-agent orchestration and collaborative AI",
+      "requiredNodes": [
+        "p2_deliverable_agents"
+      ],
+      "criteria": [
+        "Agent system deployed",
+        "Personalization working",
+        "Analytics implemented"
+      ],
+      "phase": "p2",
+      "order": 5
+    },
+    {
+      "id": "checkpoint_production_ai",
+      "title": "Production AI Complete",
+      "description": "Multiple AI services with MLOps pipeline",
+      "requiredNodes": [
+        "p2_deliverable_final"
+      ],
+      "criteria": [
+        "3+ AI services live",
+        "MLOps automated",
+        "Monitoring comprehensive"
+      ],
+      "phase": "p2",
+      "order": 6
+    },
+    {
+      "id": "checkpoint_safety",
+      "title": "AI Safety Specialist",
+      "description": "Red teaming and adversarial ML expertise",
+      "requiredNodes": [
+        "p3_safety_specialist"
+      ],
+      "criteria": [
+        "Red teaming credential earned",
+        "Adversarial testing tools mastered",
+        "Safety frameworks implemented"
+      ],
+      "phase": "p3",
+      "order": 7
+    },
+    {
+      "id": "checkpoint_causal",
+      "title": "Causal Inference Specialist",
+      "description": "Advanced causal analysis and real-world applications",
+      "requiredNodes": [
+        "p4_causal_advanced"
+      ],
+      "criteria": [
+        "Causal analysis project completed",
+        "Business impact documented",
+        "Research skills demonstrated"
+      ],
+      "phase": "p4",
+      "order": 8
+    },
+    {
+      "id": "checkpoint_quantum",
+      "title": "Quantum ML Specialist",
+      "description": "Quantum computing and machine learning integration",
+      "requiredNodes": [
+        "p5_quantum_advanced"
+      ],
+      "criteria": [
+        "Quantum ML model built",
+        "Integration documented",
+        "Advanced algorithms explored"
+      ],
+      "phase": "p5",
+      "order": 9
+    },
+    {
+      "id": "checkpoint_product_leader",
+      "title": "AI Product Leader",
+      "description": "Thought leadership and industry influence established",
+      "requiredNodes": [
+        "p6_portfolio_launch"
+      ],
+      "criteria": [
+        "AI product launched",
+        "Public portfolio established",
+        "Industry recognition achieved"
+      ],
+      "phase": "p6",
+      "order": 10
+    }
+  ]
+}
