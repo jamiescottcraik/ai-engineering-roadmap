@@ -1,0 +1,72 @@
+graph TD
+    subgraph phase1 ["Core Engineering Foundations"]
+        p1_python_learn["Master Advanced Python & Math"]
+        p1_python_practice["Solve Algorithmic Challenges"]
+        p1_python_learn --> p1_python_practice
+        p1_deliverable_cli["🏆 Deliver: GitHub Stats CLI Tool"]
+        p1_python_practice --> p1_deliverable_cli
+        p1_sql_learn["Master Advanced SQL"]
+        p1_deliverable_cli --> p1_sql_learn
+        p1_sql_practice["Build Complex Analytical Queries"]
+        p1_sql_learn --> p1_sql_practice
+        p1_deliverable_sql["🏆 Deliver: Automated SQL Reporting Service"]
+        p1_sql_practice --> p1_deliverable_sql
+        p1_devtools_learn["Master CI/CD & Pro Dev Tools"]
+        p1_deliverable_sql --> p1_devtools_learn
+        p1_devtools_practice["Implement Automated Testing Pipelines"]
+        p1_devtools_learn --> p1_devtools_practice
+        p1_deliverable_final["🏆 DELIVERABLE: Data Analysis API (Fully Tested with CI/CD)"]
+        p1_devtools_practice --> p1_deliverable_final
+    end
+    subgraph phase2 ["Build & Deploy Production AI"]
+        p2_rag_learn["Master Advanced RAG & Evaluation"]
+        p2_rag_practice["Engineer Multi-Modal RAG Pipelines"]
+        p2_rag_learn --> p2_rag_practice
+        p2_deliverable_rag["🏆 Deliver: Cognitive Load Reducer App"]
+        p2_rag_practice --> p2_deliverable_rag
+        p2_agents_learn["Master Multi-Agent Orchestration"]
+        p2_deliverable_rag --> p2_agents_learn
+        p2_agents_practice["Build Collaborative Agent Systems (CrewAI)"]
+        p2_agents_learn --> p2_agents_practice
+        p2_deliverable_agents["🏆 Deliver: Automated Learning Curator"]
+        p2_agents_practice --> p2_deliverable_agents
+        p2_mlops_learn["Master MLOps & Efficient AI"]
+        p2_deliverable_agents --> p2_mlops_learn
+        p2_mlops_practice["Containerize & Deploy AI Services"]
+        p2_mlops_learn --> p2_mlops_practice
+        p2_deliverable_final["🏆 DELIVERABLE: Deployed AI Services (Live Endpoints)"]
+        p2_mlops_practice --> p2_deliverable_final
+    end
+    subgraph phase3 ["AI Safety & Red Teaming"]
+        p3_safety_basics["AI Safety: Baseline Fluency"]
+        p3_safety_attacks["AI Safety: Real-World Attacks & Defenses"]
+        p3_safety_basics --> p3_safety_attacks
+        p3_safety_specialist["AI Safety: Specialization & Professional Tools"]
+        p3_safety_attacks --> p3_safety_specialist
+    end
+    subgraph phase4 ["Causal Inference & Modern Data Science"]
+        p4_causal_foundations["Causal Inference Foundations"]
+        p4_causal_hands_on["Hands-On Causal Analysis & Domain Integration"]
+        p4_causal_foundations --> p4_causal_hands_on
+        p4_causal_advanced["Advanced Causal Inference & Strategic Applications"]
+        p4_causal_hands_on --> p4_causal_advanced
+    end
+    subgraph phase5 ["Quantum Machine Learning"]
+        p5_quantum_fluency["Quantum Computing: Conceptual Fluency"]
+        p5_quantum_hands_on["Hands-On Quantum ML & Integration"]
+        p5_quantum_fluency --> p5_quantum_hands_on
+        p5_quantum_advanced["Advanced Quantum ML & Algorithms"]
+        p5_quantum_hands_on --> p5_quantum_advanced
+    end
+    subgraph phase6 ["AI Product Strategy & Leadership"]
+        p6_ux_product["UX Design & AI Product Strategy"]
+        p6_prompt_engineering["Advanced Prompt Engineering & AI Productivity"]
+        p6_ux_product --> p6_prompt_engineering
+        p6_portfolio_launch["🏆 DELIVERABLE: AI Product Launch & Public Portfolio"]
+        p6_prompt_engineering --> p6_portfolio_launch
+    end
+    p1_deliverable_final --> p2_rag_learn
+    p2_deliverable_final --> p3_safety_basics
+    p3_safety_specialist --> p4_causal_foundations
+    p4_causal_advanced --> p5_quantum_fluency
+    p5_quantum_advanced --> p6_ux_product
