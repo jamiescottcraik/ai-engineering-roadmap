@@ -29,9 +29,7 @@
       "version": "3"
     },
     "ghcr.io/devcontainers/features/docker-in-docker:1": {},
-    "ghcr.io/devcontainers/features/ssh:1": {
-      "version": "latest"
-    },
+    "ghcr.io/devcontainers/features/sshd:1": {},
     "ghcr.io/devcontainers/features/1password-cli:1": {
       "version": "latest",
       "installPath": "/home/vscode/.local/bin/op"
