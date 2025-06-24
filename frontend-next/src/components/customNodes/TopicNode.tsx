@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import { Clock, CheckCircle, Lock, AlertCircle, Circle } from 'lucide-react';
+import { Clock, CheckCircle, Lock, AlertCircle, Circle, Play, Star } from 'lucide-react';
 import type { NodeStatus } from '../../types/roadmap';
+import { useVeteranRoadmap } from '../../context/VeteranRoadmapProvider';
 
 // Helper function to get status icon and styling
 const getStatusDisplay = (status: NodeStatus) => {
@@ -68,6 +69,7 @@ const getDifficultyColor = (difficulty?: string) => {
 
 interface TopicNodeProps {
   data: {
+    id: string;
     label: string;
     status: NodeStatus;
     nodeType: string;
@@ -81,21 +83,53 @@ interface TopicNodeProps {
 }
 
 const TopicNode: React.FC<TopicNodeProps> = ({ data, isConnectable = true }) => {
-  const { label, status, nodeType, difficulty, estimatedTime, childrenIds, isCurrentlyExpanded, description } = data;
+  const { state, actions } = useVeteranRoadmap();
+  const [showQuickActions, setShowQuickActions] = useState(false);
   
-  const statusDisplay = getStatusDisplay(status);
-  const isPhase = nodeType === 'category' && data.label.includes('Phase');
-  const isRoot = data.label === 'AI Engineering Roadmap';
+  const { id, label, status, nodeType, difficulty, estimatedTime, childrenIds, isCurrentlyExpanded, description } = data;
+  
+  // Get progress data from context
+  const progressData = state.nodeProgress[id];
+  const actualStatus = progressData?.status || status;
+  
+  const statusDisplay = getStatusDisplay(actualStatus);
+  const isPhase = nodeType === 'category' && label.includes('Phase');
+  const isRoot = label === 'AI Engineering Roadmap';
+
+  // Determine if node can be started (prerequisites met)
+  const canStart = actualStatus === 'todo'; // Simplified for demo
+  const canComplete = actualStatus === 'inProgress';
+
+  const handleStartNode = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (canStart) {
+      actions.startNode(id);
+    }
+  };
+
+  const handleCompleteNode = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (canComplete) {
+      // For demo, auto-complete with random mastery level
+      const masteryLevel = Math.floor(Math.random() * 2) + 4; // 4-5 stars
+      actions.completeNode(id, masteryLevel, "Great progress using military discipline and structure!");
+    }
+  };
 
   // Determine node size based on type
   const nodeWidth = isRoot ? 'w-80' : isPhase ? 'w-64' : 'w-48';
   const nodeSize = isRoot ? 'text-lg p-4' : isPhase ? 'text-base p-3' : 'text-sm p-3';
 
   return (
-    <div className={`${nodeWidth} ${nodeSize} ${statusDisplay.bgColor} ${statusDisplay.textColor} 
-                    rounded-lg shadow-lg border-2 ${statusDisplay.borderColor} 
-                    font-sans relative transition-all duration-200 cursor-pointer
-                    ${status === 'locked' ? 'opacity-60' : 'opacity-100'}`}>
+    <div 
+      className={`${nodeWidth} ${nodeSize} ${statusDisplay.bgColor} ${statusDisplay.textColor} 
+                  rounded-lg shadow-lg border-2 ${statusDisplay.borderColor} 
+                  font-sans relative transition-all duration-200 cursor-pointer
+                  ${actualStatus === 'locked' ? 'opacity-60' : 'opacity-100'}
+                  hover:shadow-xl hover:scale-105`}
+      onMouseEnter={() => setShowQuickActions(true)}
+      onMouseLeave={() => setShowQuickActions(false)}
+    >
       
       {/* Connection handles */}
       {!isRoot && (
@@ -112,8 +146,32 @@ const TopicNode: React.FC<TopicNodeProps> = ({ data, isConnectable = true }) => 
         {statusDisplay.icon}
       </div>
 
+      {/* Quick actions (on hover) */}
+      {showQuickActions && !isPhase && !isRoot && (
+        <div className="absolute top-2 left-2 flex space-x-1">
+          {canStart && (
+            <button
+              onClick={handleStartNode}
+              className="p-1 bg-green-600 hover:bg-green-700 rounded text-white opacity-90 hover:opacity-100 transition-all"
+              title="Start learning"
+            >
+              <Play className="w-3 h-3" />
+            </button>
+          )}
+          {canComplete && (
+            <button
+              onClick={handleCompleteNode}
+              className="p-1 bg-blue-600 hover:bg-blue-700 rounded text-white opacity-90 hover:opacity-100 transition-all"
+              title="Mark complete"
+            >
+              <CheckCircle className="w-3 h-3" />
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Expansion indicator */}
-      {childrenIds && childrenIds.length > 0 && (
+      {childrenIds && childrenIds.length > 0 && !showQuickActions && (
         <div className="absolute top-2 left-2 text-xs px-1.5 py-0.5 rounded bg-black bg-opacity-20 font-mono">
           {isCurrentlyExpanded ? '−' : '+'}
         </div>
@@ -126,6 +184,23 @@ const TopicNode: React.FC<TopicNodeProps> = ({ data, isConnectable = true }) => 
         {description && isPhase && (
           <div className="text-xs opacity-90 leading-relaxed">
             {description}
+          </div>
+        )}
+
+        {/* Progress info for completed nodes */}
+        {actualStatus === 'completed' && progressData && (
+          <div className="flex items-center space-x-2 text-xs">
+            <div className="flex items-center">
+              {[...Array(5)].map((_, i) => (
+                <Star 
+                  key={i} 
+                  className={`w-3 h-3 ${i < progressData.masteryLevel ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                />
+              ))}
+            </div>
+            <span className="text-xs opacity-75">
+              {Math.round(progressData.timeSpent / 60 * 10) / 10}h
+            </span>
           </div>
         )}
 

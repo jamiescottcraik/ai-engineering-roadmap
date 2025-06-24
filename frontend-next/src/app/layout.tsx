@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ProgressProvider } from "../context/ProgressProvider";
+import { VeteranRoadmapProvider } from "../context/VeteranRoadmapProvider";
 
 export const metadata: Metadata = {
   title: "AI Engineering Roadmap - Interactive Learning Platform",
@@ -13,9 +13,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
-        <ProgressProvider>{children}</ProgressProvider>
+    <html lang="en" className="scroll-smooth">
+      <body className="font-sans antialiased bg-gray-50">
+        <VeteranRoadmapProvider>{children}</VeteranRoadmapProvider>
       </body>
     </html>
   );

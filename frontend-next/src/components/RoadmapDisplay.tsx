@@ -21,16 +21,32 @@ import {
   type NodeTypes,
   BackgroundVariant,
 } from '@xyflow/react';
-import { type RoadmapNodeFlowData, type RoadmapData } from '../types/roadmap';
+import { type RoadmapNodeFlowData, type RoadmapData, type NodeStatus } from '../types/roadmap';
 import TopicNode from './customNodes/TopicNode';
 import { veteranRoadmapData, phaseColors } from '../data/veteranRoadmapData';
+import { useVeteranRoadmap } from '../context/VeteranRoadmapProvider';
+
+// Type for progress data from context
+interface ProgressData {
+  nodeId: string;
+  status: NodeStatus;
+  completedAt?: string;
+  timeSpent: number;
+  masteryLevel: number;
+  reviewCount: number;
+  nextReviewDate?: string;
+  notes: string;
+  veteranInsights?: string;
+  [key: string]: unknown;
+}
 
 import '@xyflow/react/dist/style.css';
 
 // Helper to create roadmap.sh-style positioned nodes and edges
 const generateRoadmapFlowElements = (
   roadmap: RoadmapData,
-  expandedNodes: Set<string>
+  expandedNodes: Set<string>,
+  nodeProgress: Record<string, ProgressData> = {} // Add progress data parameter
 ): { nodes: Node<RoadmapNodeFlowData>[]; edges: Edge[] } => {
   const nodes: Node<RoadmapNodeFlowData>[] = [];
   const edges: Edge[] = [];
@@ -95,10 +111,13 @@ const generateRoadmapFlowElements = (
       };
     }
 
-    // Create the node with enhanced data
+    // Create the node with enhanced data including progress
+    const progressData = nodeProgress[itemId];
     const nodeData: RoadmapNodeFlowData = {
       ...item,
-      isCurrentlyExpanded: expandedNodes.has(itemId)
+      isCurrentlyExpanded: expandedNodes.has(itemId),
+      // Override status with tracked progress if available
+      status: progressData?.status || item.status
     };
 
     const node: Node<RoadmapNodeFlowData> = {
@@ -108,7 +127,7 @@ const generateRoadmapFlowElements = (
       data: nodeData,
       style: {
         background: getPhaseColor(itemId),
-        border: `2px solid ${item.status === 'completed' ? phaseColors.completed : '#374151'}`,
+        border: `2px solid ${nodeData.status === 'completed' ? phaseColors.completed : '#374151'}`,
         borderRadius: '8px',
         minWidth: '160px'
       }
@@ -128,7 +147,7 @@ const generateRoadmapFlowElements = (
           strokeWidth: 2,
           strokeDasharray: '5,5'
         },
-        animated: item.status === 'inProgress'
+        animated: nodeData.status === 'inProgress'
       };
       edges.push(edge);
     }
@@ -155,14 +174,17 @@ const nodeTypes: NodeTypes = {
 
 
 function RoadmapDisplay() {
+  const { state, actions } = useVeteranRoadmap();
   const [nodes, setNodesState] = useState<Node<RoadmapNodeFlowData>[]>([]);
   const [edges, setEdgesState] = useState<Edge[]>([]);
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(veteranRoadmapData.rootItemIds)); // Expand root by default
+
+  // Use expandedNodes from context
+  const expandedNodes = state.expandedNodes;
 
   // Memoize flow elements to prevent re-calculation on every render unless dependencies change
   const flowElements = useMemo(() => {
-    return generateRoadmapFlowElements(veteranRoadmapData, expandedNodes);
-  }, [expandedNodes]); // veteranRoadmapData is constant
+    return generateRoadmapFlowElements(veteranRoadmapData, expandedNodes, state.nodeProgress as Record<string, ProgressData>);
+  }, [expandedNodes, state.nodeProgress]); // Include nodeProgress in dependencies
 
   React.useEffect(() => {
     setNodesState(flowElements.nodes);
@@ -189,17 +211,10 @@ function RoadmapDisplay() {
   const onNodeClick: NodeMouseHandler = useCallback((event, node) => {
     const clickedNodeData = veteranRoadmapData.items[node.id];
     if (clickedNodeData && clickedNodeData.childrenIds && clickedNodeData.childrenIds.length > 0) {
-      setExpandedNodes((prevExpanded) => {
-        const newExpanded = new Set(prevExpanded);
-        if (newExpanded.has(node.id)) {
-          newExpanded.delete(node.id);
-        } else {
-          newExpanded.add(node.id);
-        }
-        return newExpanded;
-      });
+      // Toggle expansion using context
+      actions.toggleNodeExpansion(node.id);
     }
-  }, []); // Removed sampleRoadmapData from deps as it's constant
+  }, [actions]); // Removed sampleRoadmapData from deps as it's constant
 
   return (
     <div style={{ height: '100vh', width: '100%' }} className="bg-slate-50 text-foreground">
@@ -233,8 +248,9 @@ function RoadmapDisplay() {
         />
         <MiniMap 
           nodeColor={(node) => {
-            const item = veteranRoadmapData.items[node.id];
-            return item?.status === 'completed' ? phaseColors.completed : phaseColors.todo;
+            const progressData = state.nodeProgress[node.id];
+            const status = progressData?.status || veteranRoadmapData.items[node.id]?.status;
+            return status === 'completed' ? phaseColors.completed : phaseColors.todo;
           }}
           className="bg-white shadow-lg border rounded-lg"
           pannable
