@@ -19,6 +19,7 @@ import {
   Moon,
   Sparkles,
   Star,
+  Timer,
 } from 'lucide-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
@@ -65,46 +66,21 @@ export default function ModernAIEngineeringRoadmap2025() {
   const [config, setConfig] = useState<RoadmapConfig>();
   const [done, setDone] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState('evening-review');
-  const [configError, setConfigError] = useState<string>('');
 
-  // Proper evening mode calculation using UTC (22:19 UTC = evening)
-  const currentHour = currentTime.getUTCHours();
-  const currentMinute = currentTime.getUTCMinutes();
-  const isEvening = currentHour >= 20 || currentHour < 6;
-  const hoursUntilBedtime = currentHour >= 20 ? 24 - currentHour : 6 - currentHour;
-  const minutesRemaining = 60 - currentMinute;
+  // It's 21:46 - evening mode active
+  const hoursUntilBedtime = 24 - currentTime.getHours(); // ~2 hours
+  const minutesRemaining = 60 - currentTime.getMinutes();
 
-  // LinkedIn post deadline (23:00 UTC)
-  const linkedinDeadlineHour = 23;
-  const minutesUntilLinkedIn = (linkedinDeadlineHour - currentHour) * 60 - currentMinute;
-  const isLinkedInUrgent = minutesUntilLinkedIn > 0 && minutesUntilLinkedIn <= 120; // Within 2 hours
-
-  // Load config and saved state with error handling
+  // Load config and saved state
   useEffect(() => {
-    const loadConfig = async () => {
-      try {
-        const response = await fetch('/config/roadmap-config-2025.json');
-        if (!response.ok) {
-          throw new Error(`Config not found: ${response.status}`);
-        }
-        const data = await response.json();
+    fetch('/config/roadmap-config-2025.json')
+      .then((res) => res.json())
+      .then((data) => {
         setConfig(data);
-
-        // Load saved progress with error handling
-        try {
-          const saved = localStorage.getItem('roadmap-jamie-progress');
-          if (saved) {
-            setDone(new Set(JSON.parse(saved)));
-          }
-        } catch {
-          setConfigError('Progress tracking unavailable');
-        }
-      } catch {
-        setConfigError('Configuration not available');
-      }
-    };
-
-    loadConfig();
+        // Load saved progress
+        const saved = localStorage.getItem('roadmap-jamie-progress');
+        if (saved) setDone(new Set(JSON.parse(saved)));
+      });
   }, []);
 
   // Real-time clock
@@ -121,16 +97,7 @@ export default function ModernAIEngineeringRoadmap2025() {
       } else {
         next.add(id);
       }
-
-      // Better persistence with error handling
-      try {
-        localStorage.setItem('roadmap-jamie-progress', JSON.stringify([...next]));
-        localStorage.setItem('last-save', new Date().toISOString());
-      } catch {
-        // Handle storage errors gracefully
-        setConfigError('Unable to save progress');
-      }
-
+      localStorage.setItem('roadmap-jamie-progress', JSON.stringify([...next]));
       return next;
     });
   }, []);
@@ -138,16 +105,8 @@ export default function ModernAIEngineeringRoadmap2025() {
   if (!config) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-950">
-        <motion.div className="text-center">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="mx-auto mb-4"
-          >
-            <Brain className="h-12 w-12 text-purple-400" />
-          </motion.div>
-          <p className="text-white/60">Loading brAInwav platform...</p>
-          {configError && <p className="mt-2 text-sm text-red-400">{configError}</p>}
+        <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity }}>
+          <Brain className="h-12 w-12 text-purple-400" />
         </motion.div>
       </div>
     );
@@ -167,8 +126,6 @@ export default function ModernAIEngineeringRoadmap2025() {
           config={config}
           currentTime={currentTime}
           hoursUntilBedtime={hoursUntilBedtime}
-          isEvening={isEvening}
-          isLinkedInUrgent={isLinkedInUrgent}
         />
 
         {/* Smart Navigation - Evening focused */}
@@ -225,14 +182,10 @@ const EveningHeader = ({
   config,
   currentTime,
   hoursUntilBedtime,
-  isEvening,
-  isLinkedInUrgent,
 }: {
   config: RoadmapConfig;
   currentTime: Date;
   hoursUntilBedtime: number;
-  isEvening: boolean;
-  isLinkedInUrgent: boolean;
 }) => (
   <motion.header
     initial={{ opacity: 0, y: -20 }}
@@ -246,7 +199,7 @@ const EveningHeader = ({
           <motion.div whileHover={{ scale: 1.05 }} className="relative">
             <Image
               src="/brAInwav-new.png"
-              alt="brAInwav - Signals from Lived Minds"
+              alt="brAInwav"
               width={60}
               height={60}
               className="rounded-xl object-contain"
@@ -255,13 +208,8 @@ const EveningHeader = ({
           </motion.div>
 
           <div>
-            <h1 className="text-2xl font-bold text-white">
-              Good {isEvening ? 'Evening' : 'Day'}, Jamie
-            </h1>
-            <p className="text-sm text-white/70">
-              {isEvening ? 'Time to wind down and reflect' : 'Signals from Lived Minds'}
-              {isLinkedInUrgent && ' • LinkedIn post due soon!'}
-            </p>
+            <h1 className="text-2xl font-bold text-white">Good Evening, Jamie</h1>
+            <p className="text-sm text-white/70">Time to wind down and reflect</p>
           </div>
         </div>
 
@@ -378,47 +326,22 @@ const EveningReviewView = ({
   hoursLeft: number;
   minutesLeft: number;
 }) => {
-  // Get current time context for urgency
-  const currentHour = new Date().getUTCHours();
-  const currentMinute = new Date().getUTCMinutes();
-  const minutesUntilLinkedIn = (23 - currentHour) * 60 - currentMinute; // LinkedIn deadline 23:00 UTC
-
   const eveningTasks = [
     {
-      id: 'linkedin-post-draft',
-      task: 'Draft LinkedIn reflection post (DUE: 23:00 UTC)',
-      time: `${Math.max(0, minutesUntilLinkedIn)} min left`,
-      urgent: minutesUntilLinkedIn > 0 && minutesUntilLinkedIn <= 120,
-      critical: minutesUntilLinkedIn <= 40,
-    },
-    {
-      id: 'blog-post-draft',
-      task: "Complete blog post draft - Today's deliverable",
-      time: '30 min',
-      urgent: true,
-      critical: false,
-    },
-    {
-      id: 'recall-ai-review',
-      task: 'Review and organize Recall.ai saves from today',
+      id: 'setup-python-env',
+      task: 'Set up Python development environment',
       time: '15 min',
       urgent: true,
-      critical: false,
     },
     {
-      id: 'tomorrow-planning',
-      task: "Plan tomorrow's focus areas and priorities",
-      time: '10 min',
-      urgent: false,
-      critical: false,
+      id: 'python-basics-review',
+      task: 'Review Python fundamentals checklist',
+      time: '20 min',
+      urgent: true,
     },
-    {
-      id: 'reflection-journal',
-      task: 'Write evening reflection and learning notes',
-      time: '15 min',
-      urgent: false,
-      critical: false,
-    },
+    { id: 'roadmap-planning', task: 'Plan Week 1 learning objectives', time: '15 min' },
+    { id: 'tools-setup', task: 'Set up VS Code, Git, and essential tools', time: '20 min' },
+    { id: 'github-profile', task: 'Create learning portfolio on GitHub', time: '10 min' },
   ];
 
   return (
@@ -427,71 +350,25 @@ const EveningReviewView = ({
       animate={{ opacity: 1 }}
       className="mx-auto max-w-4xl space-y-6"
     >
-      {/* Critical LinkedIn Alert */}
-      {minutesUntilLinkedIn > 0 && minutesUntilLinkedIn <= 120 && (
-        <motion.div
-          className={`rounded-xl border p-4 ${
-            minutesUntilLinkedIn <= 40
-              ? 'border-red-500/40 bg-red-500/10'
-              : 'border-amber-500/20 bg-amber-500/10'
-          }`}
-          animate={{
-            borderColor:
-              minutesUntilLinkedIn <= 40
-                ? ['rgba(239,68,68,0.4)', 'rgba(239,68,68,0.8)', 'rgba(239,68,68,0.4)']
-                : ['rgba(245,158,11,0.2)', 'rgba(245,158,11,0.4)', 'rgba(245,158,11,0.2)'],
-          }}
-          transition={{ duration: minutesUntilLinkedIn <= 40 ? 1 : 2, repeat: Infinity }}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Linkedin
-                className={`h-5 w-5 ${minutesUntilLinkedIn <= 40 ? 'text-red-400' : 'text-amber-400'}`}
-              />
-              <div>
-                <p
-                  className={`font-medium ${minutesUntilLinkedIn <= 40 ? 'text-red-300' : 'text-white'}`}
-                >
-                  {minutesUntilLinkedIn <= 40
-                    ? 'CRITICAL: LinkedIn Post Due!'
-                    : 'LinkedIn Post Reminder'}
-                </p>
-                <p className="text-sm text-white/60">
-                  {minutesUntilLinkedIn} minutes until 23:00 UTC deadline
-                </p>
-              </div>
-            </div>
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            >
-              <MessageSquare
-                className={`h-6 w-6 ${minutesUntilLinkedIn <= 40 ? 'text-red-400' : 'text-amber-400'}`}
-              />
-            </motion.div>
-          </div>
-        </motion.div>
-      )}
-
-      {/* General Evening Alert */}
+      {/* Pre-Launch alert */}
       <motion.div
-        className="rounded-xl border border-purple-500/20 bg-purple-500/10 p-4"
+        className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4"
         animate={{
-          borderColor: ['rgba(147,51,234,0.2)', 'rgba(147,51,234,0.4)', 'rgba(147,51,234,0.2)'],
+          borderColor: ['rgba(245,158,11,0.2)', 'rgba(245,158,11,0.4)', 'rgba(245,158,11,0.2)'],
         }}
         transition={{ duration: 2, repeat: Infinity }}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Moon className="h-5 w-5 text-purple-400" />
+            <Timer className="h-5 w-5 text-amber-400" />
             <div>
-              <p className="font-medium text-white">Evening Workflow Active</p>
+              <p className="font-medium text-white">Launch Day Approaching</p>
               <p className="text-sm text-white/60">
-                {hoursLeft}h {minutesLeft}m until rest period
+                Preparation time remaining: {hoursLeft}h {minutesLeft}m
               </p>
             </div>
           </div>
-          <Coffee className="h-6 w-6 text-purple-400/50" />
+          <Coffee className="h-6 w-6 text-amber-400/50" />
         </div>
       </motion.div>
 
@@ -543,17 +420,9 @@ const EveningReviewView = ({
         </motion.div>
       </div>
 
-      {/* Evening Tasks with Urgency */}
+      {/* Pre-Launch Tasks */}
       <div>
-        <div className="mb-4 flex items-center justify-between">
-          <h3 className="text-lg font-light text-white/60">Evening Workflow</h3>
-          {eveningTasks.filter((t) => t.critical).length > 0 && (
-            <div className="flex items-center gap-1 text-red-400">
-              <div className="h-2 w-2 animate-pulse rounded-full bg-red-400" />
-              <span className="text-xs">Critical tasks</span>
-            </div>
-          )}
-        </div>
+        <h3 className="mb-4 text-lg font-light text-white/60">Before Launch Day</h3>
         <div className="space-y-2">
           {eveningTasks.map((task) => (
             <motion.div
@@ -561,59 +430,25 @@ const EveningReviewView = ({
               whileHover={{ x: 4 }}
               onClick={() => toggle(task.id)}
               className={`
-                relative flex cursor-pointer items-center gap-3 rounded-xl p-3 transition-all
+                flex cursor-pointer items-center gap-3 rounded-xl p-3 transition-all
                 ${
                   done.has(task.id)
                     ? 'border border-green-500/20 bg-green-500/5'
-                    : task.critical
-                      ? 'border border-red-500/30 bg-red-500/5 hover:border-red-500/40'
-                      : task.urgent
-                        ? 'border border-amber-500/30 bg-amber-500/5 hover:border-amber-500/40'
-                        : 'border border-white/10 bg-white/5 hover:border-white/20'
+                    : 'border border-white/10 bg-white/5 hover:border-white/20'
                 }
               `}
             >
-              {/* Urgency indicator */}
-              {task.critical && !done.has(task.id) && (
-                <div className="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-red-500" />
-              )}
-              {task.urgent && !task.critical && !done.has(task.id) && (
-                <div className="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-amber-500" />
-              )}
-
               {done.has(task.id) ? (
                 <CheckCircle className="h-5 w-5 text-green-400" />
               ) : (
-                <Circle
-                  className={`h-5 w-5 ${
-                    task.critical
-                      ? 'text-red-400'
-                      : task.urgent
-                        ? 'text-amber-400'
-                        : 'text-white/30'
-                  }`}
-                />
+                <Circle className={`h-5 w-5 ${task.urgent ? 'text-amber-400' : 'text-white/30'}`} />
               )}
               <span
-                className={`flex-1 text-sm ${
-                  done.has(task.id)
-                    ? 'text-green-400'
-                    : task.critical
-                      ? 'text-red-200'
-                      : task.urgent
-                        ? 'text-amber-200'
-                        : 'text-white/80'
-                }`}
+                className={`flex-1 text-sm ${done.has(task.id) ? 'text-green-400' : 'text-white/80'}`}
               >
                 {task.task}
               </span>
-              <span
-                className={`text-xs ${
-                  task.critical ? 'text-red-300' : task.urgent ? 'text-amber-300' : 'text-white/40'
-                }`}
-              >
-                {task.time}
-              </span>
+              <span className="text-xs text-white/40">{task.time}</span>
             </motion.div>
           ))}
         </div>
