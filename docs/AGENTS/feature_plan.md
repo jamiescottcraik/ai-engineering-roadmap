@@ -29,7 +29,7 @@ Transform the `ai-engineering-roadmap` repository into a modern, interactive per
   - Integrate TailwindCSS for UI
   - Commit: "Scaffold Next.js project with TypeScript and TailwindCSS"
 
-- [ ] **Organize directories for personal learning**
+- [x] **Organize directories for personal learning**
   ```
   /content/      # Markdown/YAML learning nodes and resources
   /assets/       # Images, diagrams, screenshots
@@ -40,11 +40,11 @@ Transform the `ai-engineering-roadmap` repository into a modern, interactive per
   ```
   - Commit: "Restructure repository for personal learning organization"
 
-- [ ] **Set up IndexedDB/localStorage for progress tracking**
+- [x] **Set up IndexedDB/localStorage for progress tracking**
   - Bootstrapped with React Context
   - Commit: "Add local storage for progress tracking"
 
-- [ ] **Add enhanced global CSS**
+- [x] **Add enhanced global CSS**
   - Tailwind configuration, brand-aligned custom theme, dark/light mode
   - Commit: "Add enhanced CSS and theming"
 
