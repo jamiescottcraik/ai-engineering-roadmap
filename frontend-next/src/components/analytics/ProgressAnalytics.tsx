@@ -1,12 +1,5 @@
 import { motion } from 'framer-motion';
-import {
-  BarChart3,
-  Calendar,
-  Clock,
-  Target,
-  TrendingUp,
-  Trophy,
-} from 'lucide-react';
+import { BarChart3, Calendar, Clock, Target, TrendingUp, Trophy } from 'lucide-react';
 import { useMemo } from 'react';
 
 interface ProgressAnalyticsProps {
@@ -15,30 +8,33 @@ interface ProgressAnalyticsProps {
 
 export default function ProgressAnalytics({ className = '' }: ProgressAnalyticsProps) {
   // Mock data - in real app, this would come from localStorage, API, or state management
-  const analyticsData = useMemo(() => ({
-    weeklyProgress: [
-      { week: 'Week 1', completed: 85, target: 100 },
-      { week: 'Week 2', completed: 92, target: 100 },
-      { week: 'Week 3', completed: 78, target: 100 },
-      { week: 'Week 4', completed: 95, target: 100 },
-    ],
-    streakData: {
-      current: 4,
-      longest: 7,
-      thisMonth: 18,
-    },
-    timeInvested: {
-      today: 5.5,
-      week: 32,
-      month: 128,
-    },
-    skillProgress: [
-      { skill: 'Python', progress: 78, target: 90 },
-      { skill: 'Git/GitHub', progress: 85, target: 95 },
-      { skill: 'Data Structures', progress: 65, target: 80 },
-      { skill: 'Web Development', progress: 45, target: 70 },
-    ],
-  }), []);
+  const analyticsData = useMemo(
+    () => ({
+      weeklyProgress: [
+        { week: 'Week 1', completed: 85, target: 100 },
+        { week: 'Week 2', completed: 92, target: 100 },
+        { week: 'Week 3', completed: 78, target: 100 },
+        { week: 'Week 4', completed: 95, target: 100 },
+      ],
+      streakData: {
+        current: 4,
+        longest: 7,
+        thisMonth: 18,
+      },
+      timeInvested: {
+        today: 5.5,
+        week: 32,
+        month: 128,
+      },
+      skillProgress: [
+        { skill: 'Python', progress: 78, target: 90 },
+        { skill: 'Git/GitHub', progress: 85, target: 95 },
+        { skill: 'Data Structures', progress: 65, target: 80 },
+        { skill: 'Web Development', progress: 45, target: 70 },
+      ],
+    }),
+    []
+  );
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -73,9 +69,7 @@ export default function ProgressAnalytics({ className = '' }: ProgressAnalyticsP
             <p className="text-xs text-white/60">This Week</p>
           </div>
           <div className="rounded-lg bg-white/5 p-4 text-center">
-            <div className="mb-1 text-2xl font-light text-amber-400">
-              92%
-            </div>
+            <div className="mb-1 text-2xl font-light text-amber-400">92%</div>
             <p className="text-xs text-white/60">Avg Completion</p>
           </div>
         </div>
@@ -120,8 +114,8 @@ export default function ProgressAnalytics({ className = '' }: ProgressAnalyticsP
                         skill.progress >= skill.target
                           ? 'bg-green-500'
                           : skill.progress >= skill.target * 0.8
-                          ? 'bg-amber-500'
-                          : 'bg-purple-500'
+                            ? 'bg-amber-500'
+                            : 'bg-purple-500'
                       }`}
                     />
                   </div>
