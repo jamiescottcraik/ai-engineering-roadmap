@@ -21,11 +21,11 @@ Transform the `ai-engineering-roadmap` repository into a modern, interactive per
 
 ### Phase 1: Foundation & Structure Setup (Week 1)
 
-- [ ] **Create new branch: `learning-roadmap-modernization`**
+- [x] **Create new branch: `learning-roadmap-modernization`**
   - `git checkout -b learning-roadmap-modernization`
   - Commit: "Initial branch for personal learning roadmap modernization"
 
-- [ ] **Scaffold Next.js 14+ project with TypeScript**
+- [x] **Scaffold Next.js 14+ project with TypeScript**
   - Integrate TailwindCSS for UI
   - Commit: "Scaffold Next.js project with TypeScript and TailwindCSS"
 
@@ -52,9 +52,9 @@ Transform the `ai-engineering-roadmap` repository into a modern, interactive per
 
 ### Phase 2: Interactive Visualization & Core UI (Weeks 2–3)
 
-- [ ] **Integrate ReactFlow for roadmap visualization**
-  - Implement interactive, expandable nodes
-  - Show completion/in-progress overlays (color-coded)
+- [x] **Integrate ReactFlow for roadmap visualization**
+  - [x] Implement interactive, expandable nodes
+  - [x] Show completion/in-progress overlays (color-coded)
   - Commit: "Add interactive roadmap visualization with ReactFlow"
 
 - [ ] **Build filtering and search functionality**
