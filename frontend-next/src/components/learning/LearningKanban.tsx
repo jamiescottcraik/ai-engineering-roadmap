@@ -134,17 +134,22 @@ export const LearningKanban: React.FC = () => {
     return (
       <div
         ref={setNodeRef}
-        className={`${column.color} rounded-lg p-4 min-h-96 ${
-          isOver ? 'ring-2 ring-blue-400 bg-opacity-70' : ''
-        }`}
+        className={`${column.color} rounded-xl p-6 min-h-96 backdrop-blur-sm border border-white/20 shadow-lg ${
+          isOver ? 'ring-2 ring-blue-400 ring-opacity-50 bg-opacity-80 scale-105' : ''
+        } transition-all duration-300`}
       >
-        <h3 className="font-semibold text-lg mb-4">{column.title}</h3>
+        <h3 className="font-bold text-lg mb-6 text-gray-800 dark:text-gray-200 flex items-center gap-2">
+          {column.title}
+          <span className="bg-white/30 dark:bg-gray-700/50 px-2 py-1 rounded-full text-sm font-medium">
+            {column.topics.length}
+          </span>
+        </h3>
 
         <SortableContext
           items={column.topics.map(topic => topic.id)}
           strategy={verticalListSortingStrategy}
         >
-          <div className="min-h-80">
+          <div className="min-h-80 space-y-3">
             {column.topics.map((topic) => (
               <SortableTopicItem key={topic.id} topic={topic} />
             ))}
@@ -176,26 +181,50 @@ export const LearningKanban: React.FC = () => {
         style={style}
         {...attributes}
         {...listeners}
-        className={`bg-white dark:bg-gray-700 rounded-md p-3 mb-3 shadow-sm cursor-grab ${
-          isDragging ? 'shadow-lg opacity-50' : ''
+        className={`bg-white dark:bg-gray-700 rounded-lg p-4 mb-3 shadow-sm hover:shadow-md cursor-grab border border-gray-200 dark:border-gray-600 transition-all duration-200 ${
+          isDragging ? 'shadow-lg opacity-50 rotate-2' : ''
         }`}
       >
-        <h4 className="font-medium text-sm mb-2">{topic.title}</h4>
-        <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">
+        <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">{topic.title}</h4>
+        <p className="text-xs text-gray-600 dark:text-gray-300 mb-3 leading-relaxed">
           {topic.description}
         </p>
-        <div className="flex justify-between items-center text-xs">
-          <span className={`px-2 py-1 rounded ${
-            topic.difficulty === 'beginner' ? 'bg-green-200 text-green-800' :
-            topic.difficulty === 'intermediate' ? 'bg-yellow-200 text-yellow-800' :
-            'bg-red-200 text-red-800'
+        
+        {/* Resources Section */}
+        {topic.resources && topic.resources.length > 0 && (
+          <div className="mb-3">
+            <div className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">📚 Resources:</div>
+            <div className="flex flex-wrap gap-1">
+              {topic.resources.slice(0, 2).map((resource, index) => (
+                <span
+                  key={index}
+                  className="inline-block px-2 py-1 text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md border border-blue-200 dark:border-blue-700"
+                >
+                  {resource}
+                </span>
+              ))}
+              {topic.resources.length > 2 && (
+                <span className="inline-block px-2 py-1 text-xs bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-md border border-gray-200 dark:border-gray-600">
+                  +{topic.resources.length - 2} more
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-between items-center text-xs mb-2">
+          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+            topic.difficulty === 'beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
+            topic.difficulty === 'intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
+            'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
           }`}>
             {topic.difficulty}
           </span>
-          <span className="text-gray-500">{topic.timeEstimate}</span>
+          <span className="text-gray-500 dark:text-gray-400 font-medium">⏱️ {topic.timeEstimate}</span>
         </div>
+        
         {topic.completedAt && (
-          <div className="text-xs text-green-600 mt-2">
+          <div className="text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-md">
             ✅ Completed {topic.completedAt.toLocaleDateString()}
           </div>
         )}
@@ -292,9 +321,14 @@ export const LearningKanban: React.FC = () => {
 
   return (
     <div className="learning-kanban w-full h-full p-6">
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        🧠 Your AI Engineering Learning Journey
-      </h2>
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+          🧠 Your AI Engineering Learning Journey
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Organize your learning path with drag-and-drop simplicity. Track progress from exploration to mastery.
+        </p>
+      </div>
 
       <DndContext
         sensors={sensors}
@@ -303,7 +337,7 @@ export const LearningKanban: React.FC = () => {
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {columns.map(column => (
             <DroppableColumn key={column.id} column={column} />
           ))}

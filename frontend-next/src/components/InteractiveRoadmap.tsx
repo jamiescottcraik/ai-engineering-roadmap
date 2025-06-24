@@ -14,7 +14,8 @@ import {
   Target,
   Award,
   Lightbulb,
-  Settings
+  Settings,
+  BookOpen
 } from 'lucide-react';
 import { Badge } from './ui/badge';
 
@@ -43,12 +44,13 @@ interface LearningNodeData extends Record<string, unknown> {
   estimatedTime: string;
   prerequisites: string[];
   skills: string[];
+  resources?: string[];
   aiProvider?: 'ollama' | 'openai' | 'groq' | 'litellm';
   interactiveDemo?: boolean;
   collaborators?: number;
 }
 
-interface LearningNode extends Node<LearningNodeData> {}
+type LearningNode = Node<LearningNodeData>;
 
 const statusColors = {
   'todo': 'bg-gray-100 border-gray-300 text-gray-700',
@@ -118,6 +120,31 @@ function LearningNodeComponent({ data, selected }: { data: LearningNodeData; sel
       <h3 className="font-semibold text-sm mb-2 leading-tight">{data.title}</h3>
       <p className="text-xs text-gray-600 mb-3 leading-relaxed">{data.description}</p>
 
+      {/* Resources Section */}
+      {data.resources && data.resources.length > 0 && (
+        <div className="mb-3">
+          <div className="text-xs font-medium text-gray-700 mb-1 flex items-center gap-1">
+            <BookOpen className="h-3 w-3" />
+            Resources
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {data.resources.slice(0, 2).map((resource, index) => (
+              <span
+                key={index}
+                className="inline-block px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded-md border border-blue-200"
+              >
+                {resource}
+              </span>
+            ))}
+            {data.resources.length > 2 && (
+              <span className="inline-block px-2 py-1 text-xs bg-gray-50 text-gray-600 rounded-md border border-gray-200">
+                +{data.resources.length - 2} more
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Skills Tags */}
       {data.skills && data.skills.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-3">
@@ -179,6 +206,7 @@ const initialNodes: LearningNode[] = [
       estimatedTime: '2 weeks',
       prerequisites: [],
       skills: ['Python', 'Data Structures', 'Algorithms', 'Git'],
+      resources: ['Python.org tutorial', 'Learn Python the Hard Way', 'Automate the Boring Stuff'],
       collaborators: 12
     }
   },
@@ -194,6 +222,7 @@ const initialNodes: LearningNode[] = [
       estimatedTime: '3 weeks',
       prerequisites: ['Programming Foundations'],
       skills: ['Scikit-learn', 'Pandas', 'NumPy', 'Statistics'],
+      resources: ['Coursera ML Course', 'Hands-on ML book', 'Kaggle Learn'],
       aiProvider: 'ollama',
       interactiveDemo: true,
       collaborators: 8
@@ -211,6 +240,7 @@ const initialNodes: LearningNode[] = [
       estimatedTime: '4 weeks',
       prerequisites: ['Machine Learning Fundamentals'],
       skills: ['PyTorch', 'Neural Networks', 'CNN', 'RNN', 'GPU'],
+      resources: ['Deep Learning book', 'PyTorch tutorials', 'Fast.ai course'],
       aiProvider: 'openai',
       interactiveDemo: true,
       collaborators: 5
@@ -228,6 +258,7 @@ const initialNodes: LearningNode[] = [
       estimatedTime: '3 weeks',
       prerequisites: ['Deep Learning with PyTorch'],
       skills: ['Transformers', 'BERT', 'GPT', 'HuggingFace', 'Tokenization'],
+      resources: ['HuggingFace course', 'NLP with Python', 'Attention is All You Need paper'],
       aiProvider: 'groq',
       interactiveDemo: true,
       collaborators: 3
@@ -245,6 +276,7 @@ const initialNodes: LearningNode[] = [
       estimatedTime: '3 weeks',
       prerequisites: ['Deep Learning with PyTorch'],
       skills: ['OpenCV', 'YOLO', 'Mask R-CNN', 'GANs', 'Diffusion Models'],
+      resources: ['Computer Vision course', 'OpenCV docs', 'Papers with Code'],
       aiProvider: 'litellm',
       interactiveDemo: true,
       collaborators: 7
@@ -262,6 +294,7 @@ const initialNodes: LearningNode[] = [
       estimatedTime: '2 weeks',
       prerequisites: ['Natural Language Processing', 'Computer Vision'],
       skills: ['Docker', 'MLflow', 'FastAPI', 'AWS', 'Monitoring'],
+      resources: ['MLOps guide', 'Docker docs', 'FastAPI tutorial'],
       aiProvider: 'ollama',
       collaborators: 15
     }
@@ -469,6 +502,24 @@ export function InteractiveRoadmap() {
                         <Badge key={skill} variant="secondary" className="text-xs">
                           {skill}
                         </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Resources */}
+                {selectedNode.data.resources && selectedNode.data.resources.length > 0 && (
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block flex items-center gap-1">
+                      <BookOpen className="h-4 w-4" />
+                      Learning Resources:
+                    </label>
+                    <div className="space-y-2">
+                      {selectedNode.data.resources.map((resource, index) => (
+                        <div key={index} className="bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-md text-sm text-blue-700 dark:text-blue-300 flex items-center justify-between">
+                          <span>{resource}</span>
+                          <ExternalLink className="h-3 w-3 opacity-60" />
+                        </div>
                       ))}
                     </div>
                   </div>

@@ -94,21 +94,21 @@ export function LearningDashboard() {
   const weeklyProgressPercentage = (stats.weeklyProgress / stats.weeklyGoal) * 100;
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Navigation Tabs */}
-      <nav className="flex space-x-1 bg-white dark:bg-gray-800 rounded-lg p-1 shadow-sm border border-gray-200 dark:border-gray-700">
+      <nav className="flex space-x-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md rounded-xl p-2 shadow-lg border border-white/20 dark:border-gray-700/50">
         {[
-          { key: 'overview', label: 'Overview', icon: <Target className="h-4 w-4" /> },
-          { key: 'kanban', label: 'Learning Board', icon: <BookOpen className="h-4 w-4" /> },
-          { key: 'analytics', label: 'Analytics', icon: <TrendingUp className="h-4 w-4" /> }
+          { key: 'overview', label: 'Overview', icon: <Target className="h-5 w-5" /> },
+          { key: 'kanban', label: 'Learning Board', icon: <BookOpen className="h-5 w-5" /> },
+          { key: 'analytics', label: 'Analytics', icon: <TrendingUp className="h-5 w-5" /> }
         ].map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveView(tab.key as 'overview' | 'kanban' | 'analytics')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+            className={`flex items-center space-x-3 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${
               activeView === tab.key
-                ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700'
+                ? 'bg-blue-500 text-white shadow-lg scale-105'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-white/50 dark:hover:bg-gray-700/50'
             }`}
             aria-pressed={activeView === tab.key}
           >
@@ -129,33 +129,33 @@ export function LearningDashboard() {
             className="space-y-6"
           >
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700"
+                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-white/20 dark:border-gray-700/50 hover:shadow-2xl transition-all duration-300"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Overall Progress</p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Overall Progress</p>
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white">
                       {stats.completedLessons}/{stats.totalLessons}
                     </p>
                   </div>
-                  <div className="h-12 w-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                    <Target className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="h-16 w-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Target className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <div className="mt-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="mt-6 bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercentage}%` }}
                     transition={{ delay: 0.5, duration: 1 }}
-                    className="bg-blue-600 h-2 rounded-full"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full shadow-sm"
                   />
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 font-medium">
                   {progressPercentage.toFixed(1)}% complete
                 </p>
               </motion.div>
@@ -164,20 +164,20 @@ export function LearningDashboard() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700"
+                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-white/20 dark:border-gray-700/50 hover:shadow-2xl transition-all duration-300"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Current Streak</p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.currentStreak} days</p>
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Current Streak</p>
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white">{stats.currentStreak} days</p>
                   </div>
-                  <div className="h-12 w-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
-                    <Calendar className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+                  <div className="h-16 w-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Calendar className="h-8 w-8 text-white" />
                   </div>
                 </div>
                 <Badge
                   variant={stats.currentStreak >= 7 ? "default" : "secondary"}
-                  className="mt-2"
+                  className="mt-2 px-3 py-1"
                 >
                   {stats.currentStreak >= 7 ? 'On fire! 🔥' : 'Keep going!'}
                 </Badge>
@@ -187,28 +187,28 @@ export function LearningDashboard() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700"
+                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-white/20 dark:border-gray-700/50 hover:shadow-2xl transition-all duration-300"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Weekly Goal</p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Weekly Goal</p>
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white">
                       {stats.weeklyProgress}/{stats.weeklyGoal}
                     </p>
                   </div>
-                  <div className="h-12 w-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <div className="h-16 w-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <TrendingUp className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <div className="mt-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="mt-6 bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${weeklyProgressPercentage}%` }}
                     transition={{ delay: 0.7, duration: 1 }}
-                    className="bg-green-600 h-2 rounded-full"
+                    className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full shadow-sm"
                   />
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 font-medium">
                   {Math.round(weeklyProgressPercentage)}% of weekly goal
                 </p>
               </motion.div>
@@ -217,29 +217,29 @@ export function LearningDashboard() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 }}
-                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700"
+                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-white/20 dark:border-gray-700/50 hover:shadow-2xl transition-all duration-300"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Next Review</p>
-                    <p className="text-sm font-bold text-gray-900 dark:text-white">
-                      {stats.nextReview ? new Date(stats.nextReview).toLocaleTimeString() : 'None scheduled'}
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Next Review</p>
+                    <p className="text-lg font-bold text-gray-900 dark:text-white">
+                      {stats.nextReview ? new Date(stats.nextReview).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'None scheduled'}
                     </p>
                   </div>
-                  <div className="h-12 w-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                    <Brain className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  <div className="h-16 w-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Brain className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <Badge variant="outline" className="mt-2">
+                <Badge variant="outline" className="mt-2 px-3 py-1 border-purple-200 text-purple-700 dark:border-purple-700 dark:text-purple-300">
                   Spaced Repetition
                 </Badge>
               </motion.div>
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-white/20 dark:border-gray-700/50 mt-8">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Quick Actions</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {quickActions.map((action, index) => (
                   <motion.button
                     key={action.id}
@@ -247,27 +247,29 @@ export function LearningDashboard() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 + index * 0.1 }}
                     onClick={action.action}
-                    className={`${action.color} text-white rounded-lg p-4 text-left transition-all duration-200 transform hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                    className={`${action.color} text-white rounded-2xl p-6 text-left transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800`}
                     aria-label={`${action.title}: ${action.description}`}
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      {action.icon}
-                      <ChevronRight className="h-4 w-4" />
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="p-2 bg-white/20 rounded-xl">
+                        {action.icon}
+                      </div>
+                      <ChevronRight className="h-5 w-5 opacity-60" />
                     </div>
-                    <h3 className="font-medium text-sm">{action.title}</h3>
-                    <p className="text-xs opacity-90 mt-1">{action.description}</p>
+                    <h3 className="font-bold text-base mb-2">{action.title}</h3>
+                    <p className="text-sm opacity-90 leading-relaxed">{action.description}</p>
                   </motion.button>
                 ))}
               </div>
             </div>
 
             {/* Learning Path Preview */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Current Learning Path</h2>
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-white/20 dark:border-gray-700/50 mt-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Current Learning Path</h2>
                 <button
                   onClick={() => setActiveView('kanban')}
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium flex items-center space-x-1"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-semibold flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200"
                 >
                   <span>View Full Board</span>
                   <ChevronRight className="h-4 w-4" />
