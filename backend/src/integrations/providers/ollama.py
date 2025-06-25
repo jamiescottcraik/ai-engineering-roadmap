@@ -3,7 +3,7 @@ from __future__ import annotations
 import shutil
 from dataclasses import dataclass, field
 
-import requests  # type: ignore
+import requests
 
 
 @dataclass

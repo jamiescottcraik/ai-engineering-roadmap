@@ -175,6 +175,15 @@ ai-engineering-roadmap/
 - 95%+ test coverage with quality gates
 - Real-time analytics and performance monitoring
 
+### Backend API Endpoints
+
+| Method | Endpoint                | Description                                   |
+| ------ | ----------------------- | --------------------------------------------- |
+| `GET`  | `/`                     | Basic API health message                      |
+| `GET`  | `/health`               | Service health status                        |
+| `POST` | `/roadmap/fix-sequence` | Reorder roadmap weeks and update progress     |
+| `POST` | `/ollama/sync`          | Sync Ollama models for the current roadmap week |
+
 ---
 
 ## 🎯 Project Focus: P.A.R.A.gon AI

@@ -1,6 +1,9 @@
 import pytest
 
-from src.services.ollama_sync import OllamaIntegrationService, RoadmapConfig
+from src.integrations.providers.ollama import (
+    OllamaIntegrationService,
+    RoadmapConfig,
+)
 
 
 @pytest.mark.asyncio
