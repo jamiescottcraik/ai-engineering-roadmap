@@ -190,10 +190,11 @@ function LearningNodeComponent({ data, selected }: { data: LearningNodeData; sel
         </div>
       </div>
 
-      {/* Connection Handles */}
-      <div className="absolute -top-2 left-1/2 h-3 w-3 -translate-x-1/2 transform rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
-      <div className="absolute -bottom-2 left-1/2 h-3 w-3 -translate-x-1/2 transform rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
-    </motion.div>
+        {/* Connection Handles */}
+        <div className="absolute -top-2 left-1/2 h-3 w-3 -translate-x-1/2 transform rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
+        <div className="absolute -bottom-2 left-1/2 h-3 w-3 -translate-x-1/2 transform rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
+      </motion.div>
+    </div>
   );
 }
 
