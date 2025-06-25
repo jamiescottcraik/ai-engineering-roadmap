@@ -386,13 +386,13 @@ async function queryMCPServer(prompt: string, context: LearningContext | null): 
   // For now, we'll simulate AI responses with context awareness
 
   // Build contextual prompt for better responses
-  buildContextualPrompt(prompt, context);
+  const enhancedPrompt = buildContextualPrompt(prompt, context);
 
   try {
     // Simulate API call to MCP server
     await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network delay
 
-    return generateContextualResponse(prompt, context);
+    return generateContextualResponse(enhancedPrompt, context);
   } catch {
     throw new Error('Failed to query MCP server');
   }
