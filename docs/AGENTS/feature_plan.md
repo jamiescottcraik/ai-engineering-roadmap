@@ -1,11 +1,74 @@
-```markdown name=feature_plan.md
+# AGENT Feature Plan: AI Engineering Roadmap Modernization (Personal Learning Edition)
+
+## Objective
+
+Transform the `ai-engineering-roadmap` repository into a modern, interactive personal learning platform—surpassing roadmap.sh by focusing on personalized, AI-accelerated learning, spaced repetition, actionable analytics, and psychologically-informed design. Implementation will occur in a new branch with incremental commits, robust testing, and continuous improvement.
+
 ---
-title: brAInwav AI Engineering Roadmap - Feature Implementation Plan
-author: "@jamiescottcraik"
-last_updated: "2025-06-24 23:00:03 UTC"
-governed_by: "/.ai/AGENT.md"
-status: "ACTIVE"
-priority_updates: "OLLAMA_SYNC, ROADMAP_SEQUENCE"
+
+## ✅ Completed Tasks
+
+- [x] Initial repository setup with basic HTML structure (90.9% of codebase)
+- [x] Basic Vue components integration (5.2% of codebase)
+- [x] Preliminary Python scripts (1.2% of codebase)
+- [x] Basic CSS styling implementation (0.8% of codebase)
+- [x] JavaScript functionality foundation (0.8% of codebase)
+- [x] Initial TypeScript typing (0.7% of codebase)
+
+---
+
+## 🚀 Implementation Plan (Personal Learning Roadmap Upgrade)
+
+### Phase 1: Foundation & Structure Setup (Week 1)
+
+- [x] **Create new branch: `learning-roadmap-modernization`**
+  - `git checkout -b learning-roadmap-modernization`
+  - Commit: "Initial branch for personal learning roadmap modernization"
+
+- [x] **Scaffold Next.js 14+ project with TypeScript**
+  - Integrate TailwindCSS for UI
+  - Commit: "Scaffold Next.js project with TypeScript and TailwindCSS"
+
+- [x] **Organize directories for personal learning**
+  ```
+  /content/      # Markdown/YAML learning nodes and resources
+  /assets/       # Images, diagrams, screenshots
+  /notes/        # Personal notes and study logs
+  /components/   # React/Next.js UI components
+  /public/       # Static exports and visualization assets
+  /scripts/      # Automation and validation tools
+  ```
+  - Commit: "Restructure repository for personal learning organization"
+
+- [x] **Set up IndexedDB/localStorage for progress tracking**
+  - Bootstrapped with React Context
+  - Commit: "Add local storage for progress tracking"
+
+- [x] **Add enhanced global CSS**
+  - Tailwind configuration, brand-aligned custom theme, dark/light mode
+  - Commit: "Add enhanced CSS and theming"
+
+---
+
+### Phase 2: Interactive Visualization & Core UI (Weeks 2–3)
+
+- [x] **Integrate ReactFlow for roadmap visualization**
+  - [x] Implement interactive, expandable nodes
+  - [x] Show completion/in-progress overlays (color-coded)
+  - Commit: "Add interactive roadmap visualization with ReactFlow"
+
+- [ ] **Build filtering and search functionality**
+  - By topic, difficulty, and progress
+  - Commit: "Implement roadmap filtering and search"
+
+- [ ] **Progress dashboard**
+  - Track per-topic and overall completion, streaks, analytics (visual feedback with color)
+  - Commit: "Create progress dashboard and analytics"
+
+- [ ] **Mobile responsiveness & accessibility**
+  - Responsive layouts, touch support, ARIA labels, keyboard navigation
+  - Commit: "Enhance mobile and accessibility"
+
 ---
 
 # Feature Implementation Plan for AI Agents

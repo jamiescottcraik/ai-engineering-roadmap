@@ -1,5 +1,9 @@
-import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { ProgressProvider } from "../context/ProgressContext";
+
 
 import { CognitiveThemeProvider } from '@/lib/theme';
 import './globals.css';
@@ -47,6 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+
     <html
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable}`}

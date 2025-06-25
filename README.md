@@ -38,6 +38,7 @@ Transforming from technical foundations to AI leadership through structured lear
 - **📱 Mobile Responsive**: Optimized for all device sizes
 - **🔗 Resource Type Icons**: Visual indicators for courses, books, tutorials, and more
 - **🏁 Checkpoint System**: Clear milestones and deliverable tracking
+- **🔄 Local Progress Context**: Personal progress stored privately in your browser
 - **💡 Learning Rationale**: "Why this matters" context for each milestone
 - **🦙 Ollama Integration**: Status card and evening assistant components for local model interaction
 

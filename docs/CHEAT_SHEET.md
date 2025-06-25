@@ -40,11 +40,21 @@
     uv pip install -r backend/dev-requirements.txt
     ```
 
-4. **Connect to Secrets (1Password)**
+4. **Setup Secrets (Optional 1Password)**
 
     ```bash
-    # Ensure you are logged into the 1Password CLI
+    # Option 1: Use automated setup (recommended)
+    bash scripts/setup_dev_env.sh
+    
+    # Option 2: Install 1Password CLI manually
+    bash scripts/setup/onepassword.sh
     op signin
+    python scripts/fetch_secrets.py
+    
+    # Option 3: Manual .env file setup
+    cp backend/.env.example backend/.env  # if exists
+    # Edit backend/.env with your actual secrets
+    ```
     ```
 
 5. **Install Git Hooks & Run Linters**

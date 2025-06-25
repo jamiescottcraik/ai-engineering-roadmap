@@ -6,38 +6,20 @@ set -euo pipefail
 
 echo "🚀 Setting up development environment..."
 
-# Test environment
-cd /workspace
+# Get the repository root directory
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
+echo "ℹ️  Working from: $REPO_ROOT"
 
-# Install and configure uv (Python package manager)
-echo "📦 Setting up Python environment..."
-if ! command -v uv &> /dev/null; then
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-    export PATH="/root/.local/bin:$PATH"
-fi
+# Run core environment setup
+echo ""
+echo "🔧 Running core environment setup..."
+bash scripts/setup/core_env.sh
 
-# Install dependencies
-echo "📚 Installing Python dependencies..."
-cd backend
-if [ -f "requirements.txt" ] && [ -f "dev-requirements.txt" ]; then
-    uv pip install --system --no-cache-dir -r requirements.txt -r dev-requirements.txt
-else
-    echo "⚠️  Requirements files not found, skipping Python dependencies"
-fi
-
-# Setup pre-commit hooks (if in git repo)
-echo "🔧 Setting up pre-commit hooks..."
-cd /workspace
-if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    if command -v pre-commit &> /dev/null; then
-        pre-commit install
-        echo "✅ Pre-commit hooks installed"
-    else
-        echo "⚠️  pre-commit not available, skipping hook installation"
-    fi
-else
-    echo "ℹ️  Not a git repository, skipping pre-commit setup"
-fi
+# Setup secrets (optional 1Password integration)
+echo ""
+echo "🔑 Setting up secrets management..."
+bash scripts/setup/secrets.sh
 
 # Install 1Password CLI
 echo "🔐 Setting up 1Password CLI..."
@@ -241,6 +223,7 @@ if [ -f "/workspace/.gitignore" ]; then
 fi
 
 # Run initial tests to verify setup (if tests exist)
+echo ""
 echo "🧪 Running initial validation..."
 if [ -d "tests" ] && command -v pytest &> /dev/null; then
     pytest tests/ -v --tb=short || echo "⚠️  Some tests failed, but continuing setup"
@@ -256,6 +239,7 @@ else
     echo "ℹ️  Quality validation script not found, skipping"
 fi
 
+echo ""
 echo "🎉 Development environment ready!"
 echo ""
 echo "💡 Available commands:"
@@ -263,13 +247,18 @@ echo "  - Run tests: pytest tests/"
 echo "  - Quality check: bash scripts/validate_pr.sh"
 echo "  - Start backend: uvicorn backend.src.main:app --reload"
 echo ""
-echo "🔐 1Password Commands:"
-echo "  - Sign in: ops"
-echo "  - Load secrets: openv"
-echo "  - Load GitHub SSH: ssh_github_load"
-echo "  - Security check: security_check"
+echo "🔧 Component setup scripts:"
+echo "  - Core environment: bash scripts/setup/core_env.sh"
+echo "  - 1Password CLI: bash scripts/setup/onepassword.sh"
+echo "  - Secrets management: bash scripts/setup/secrets.sh"
 echo ""
-echo "📋 Next steps:"
-echo "  1. Run 'source ~/.bashrc' to load 1Password helpers"
-echo "  2. Run 'ops' to sign in to 1Password"
-echo "  3. Run 'openv' to create your .env file with secrets"
+if command -v op &> /dev/null; then
+    echo "🔐 1Password CLI available:"
+    echo "  - Fetch secrets: python scripts/fetch_secrets.py"
+    echo "  - Sign in to 1Password: op signin"
+else
+    echo "ℹ️  1Password CLI not available:"
+    echo "  - Install 1Password CLI: bash scripts/setup/onepassword.sh"
+    echo "  - Manually edit backend/.env with your secrets"
+    echo "  - For 1Password setup: https://developer.1password.com/docs/cli/get-started/"
+fi
