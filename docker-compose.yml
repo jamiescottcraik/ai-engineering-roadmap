@@ -1,23 +1,42 @@
 # docker-compose.yml
-# Orchestrates all services for the brAInwav MAS project environment.
+# Orchestrates all services for the brAInwav AI Platform
 # Run with: docker-compose up -d
 
 services:
-  # The Python backend service, where you will do most of your development.
-  backend:
+  # FastAPI backend service
+  api:
     build:
-      context: ./backend
+      context: ./apps/api
       dockerfile: Dockerfile
-    container_name: brainwav-backend
+    container_name: brainwav-api
     ports:
       - "8000:8000"
     volumes:
-      - ./:/workspace
+      - ./apps/api:/app
     env_file:
-      - ./backend/.env
+      - ./apps/api/.env.example
     depends_on:
       db:
         condition: service_healthy
+    restart: unless-stopped
+
+  # Next.js frontend service
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: brainwav-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - api
+    restart: unless-stopped
       ollama:
         condition: service_started
     networks:

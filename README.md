@@ -1,35 +1,134 @@
-# AI Leadership Engineering Roadmap
+# brAInwav AI Platform
+
+A full-stack AI engineering platform with monorepo architecture, designed for scalable AI agent development and deployment.
+
+## 🏗️ Architecture
+
+This repository follows a modern monorepo structure optimized for full-stack AI development:
+
+```
+brainwav-ai-platform/
+├── apps/                    # Application layer
+│   ├── api/                # FastAPI backend
+│   │   ├── src/           # Python source code
+│   │   ├── tests/         # Backend tests
+│   │   └── requirements.txt
+│   └── web/               # Next.js frontend
+│       ├── src/app/       # App router
+│       ├── src/components/
+│       └── package.json
+├── packages/              # Shared packages
+│   ├── types/            # Shared TypeScript types
+│   ├── ui/               # Reusable UI components
+│   └── utils/            # Shared utilities
+├── infrastructure/       # Infrastructure as Code
+├── docs/                # Documentation
+└── scripts/            # Automation scripts
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** ≥18.0.0
+- **pnpm** ≥8.0.0  
+- **Python** ≥3.11
+- **Docker** (optional)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/jamiescottcraik/ai-engineering-roadmap.git
+cd ai-engineering-roadmap
+
+# Install all dependencies
+pnpm install
+
+# Install Python dependencies for API
+cd apps/api && pip install -r requirements.txt -r dev-requirements.txt
+```
+
+### Development
+
+```bash
+# Start all services in development mode
+pnpm dev
+
+# Or start services individually:
+pnpm api:dev    # FastAPI backend on http://localhost:8000
+pnpm web:dev    # Next.js frontend on http://localhost:3000
+```
+
+### Build & Test
+
+```bash
+# Build all packages and applications
+pnpm build
+
+# Run all tests
+pnpm test
+
+# Lint all code
+pnpm lint
+```
+
+## 📦 Package Structure
+
+### Apps
+
+- **`apps/api`**: FastAPI backend with AI agent infrastructure
+- **`apps/web`**: Next.js frontend with interactive roadmap visualization
+
+### Packages
+
+- **`packages/types`**: Shared TypeScript type definitions
+- **`packages/ui`**: Reusable React UI components  
+- **`packages/utils`**: Shared utility functions and helpers
+
+## 🧪 Testing
+
+```bash
+# Backend tests (Python)
+cd apps/api
+python -m pytest tests/ -v --cov=src
+
+# Frontend tests (TypeScript/React)
+cd apps/web  
+npm run test
+```
+
+## 🔧 Development Tools
+
+- **Turborepo**: Build system and task runner
+- **pnpm**: Package manager with workspace support
+- **TypeScript**: Type safety across frontend packages
+- **ESLint/Prettier**: Code formatting and linting
+- **pytest**: Python testing framework
+
+## 📚 AI Engineering Roadmap
+
+This platform includes a comprehensive **34-week AI Leadership Engineering Roadmap** - a self-directed journey to master the skills of a modern AI architect and product leader.
 
 ```html
 <img src="assets/brAInwav.png" alt="brAInwav Logo" width="120" height="120" />
 ```
-
-## A 34-Week, Self-Directed Journey to Master the Skills of a Modern AI Architect and Product Leader
 
 > "The future belongs to those who can navigate the intersection of artificial intelligence, human insight, and ethical responsibility."
 
 [![Roadmap Status](https://img.shields.io/badge/Status-Phase%201%20Active-1f4e79?style=for-the-badge&logo=github)](https://github.com/jamiescottcraik/ai-engineering-roadmap)
 [![Progress](https://img.shields.io/badge/Progress-25%25-4b8a36?style=for-the-badge&logo=target)](https://jamiescottcraik.github.io/ai-engineering-roadmap/)
 [![Duration](https://img.shields.io/badge/Duration-12--18%20Months-7030a0?style=for-the-badge&logo=calendar)](https://github.com/jamiescottcraik/ai-engineering-roadmap/blob/main/frontend/public/roadmap.json)
-[![Focus Project](https://img.shields.io/badge/Focus-P.A.R.A.gon%20AI-c00000?style=for-the-badge&logo=rocket)](https://github.com/jamiescottcraik/ai-engineering-roadmap#project-focus)
 
-// cSpell:ignore architecting deeplearning Kleppmann Aurélien Géron Forsgren
+### 🗺️ Interactive Roadmap
 
----
-
-## 🎯 Mission
-
-Transforming from technical foundations to AI leadership through structured learning, hands-on projects, and measurable deliverables. This roadmap represents a comprehensive pathway from advanced programming to architecting ethical AI systems and leading product teams.
-
-## 🗺️ Interactive Roadmap
+**[🚀 VIEW FULL INTERACTIVE ROADMAP](https://jamiescottcraik.github.io/ai-engineering-roadmap/)**
 
 ![AI Leadership Engineering Roadmap](docs/roadmap.svg)
 
 **[📄 View Mermaid Source](docs/roadmap.mmd) | [🖼️ SVG Version](docs/roadmap.svg)**
 
-**[🚀 VIEW FULL INTERACTIVE ROADMAP](https://jamiescottcraik.github.io/ai-engineering-roadmap/)**
-
-### ✨ New Enhanced Features
+### ✨ Features
 
 - **📚 Direct Resource Access**: Every node displays learning resources with direct links
 - **🎯 Vertical roadmap.sh-style Layout**: Step-by-step progression with visual connectors
@@ -41,13 +140,21 @@ Transforming from technical foundations to AI leadership through structured lear
 - **🔄 Local Progress Context**: Personal progress stored privately in your browser
 - **💡 Learning Rationale**: "Why this matters" context for each milestone
 
-Explore the complete roadmap with progress tracking, detailed descriptions, and milestone checkpoints
+### 📊 Current Status
 
----
+**🚀 Current Phase:** 1 - Advanced Technical Foundations
 
-## 📊 Current Status
+## 🏛️ Governance
 
-**🚀 Current Phase:** 1 - Advanced Technical Foundations  
+This repository follows the [brAInwav Agent Constitution](.ai/RULES_OF_AI.md) and implements governance patterns defined in [.ai/AGENT.md](.ai/AGENT.md).
+
+## 🤝 Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.  
 **🎯 Current Focus:** Environment setup and Python fundamentals  
 **📅 Week:** 1 of 34  
 **🏆 Next Deliverable:** GitHub Stats Generator (target: July 5, 2025)  

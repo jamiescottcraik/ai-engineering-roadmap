@@ -1,0 +1,19 @@
+{
+  "name": "@brainwav/api",
+  "version": "2.0.0",
+  "description": "FastAPI backend for brAInwav AI platform",
+  "private": true,
+  "scripts": {
+    "dev": "uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload",
+    "build": "echo 'No build step required for Python FastAPI'",
+    "test": "python -m pytest tests/ -v --cov=src --cov-report=xml:coverage/coverage.xml",
+    "test:watch": "python -m pytest tests/ -v --watch",
+    "lint": "ruff check src/ tests/",
+    "lint:fix": "ruff check --fix src/ tests/",
+    "format": "black src/ tests/",
+    "type-check": "mypy src/",
+    "clean": "rm -rf .pytest_cache __pycache__ .coverage coverage/ .mypy_cache"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
