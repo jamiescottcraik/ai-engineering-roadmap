@@ -210,7 +210,14 @@ export function BrowserWindowChrome({
 
             {/* Copy URL Button */}
             <button
-              onClick={() => navigator.clipboard.writeText(urlValue)}
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(urlValue);
+                  console.log('URL copied to clipboard successfully.');
+                } catch (error) {
+                  console.error('Failed to copy URL to clipboard:', error);
+                }
+              }}
               className="rounded p-1 text-white/70 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Copy URL"
               title="Copy URL"
