@@ -56,7 +56,7 @@ interface RecallCategory {
   name: string;
   description: string;
   color: string;
-  icon: any;
+  icon: React.ElementType;
   count: number;
   phase: string;
 }
@@ -187,7 +187,7 @@ export default function RecallIntegration() {
     priority: 'medium' as RecallItem['priority'],
   });
 
-  const itemTypes: { value: RecallItem['type']; label: string; icon: any }[] = [
+  const itemTypes: { value: RecallItem['type']; label: string; icon: React.ElementType }[] = [
     { value: 'concept', label: 'Concept', icon: Lightbulb },
     { value: 'code', label: 'Code', icon: Code },
     { value: 'resource', label: 'Resource', icon: BookOpen },
@@ -203,8 +203,8 @@ export default function RecallIntegration() {
     if (saved) {
       try {
         setRecallItems(JSON.parse(saved));
-      } catch (error) {
-        console.error('Failed to load recall items:', error);
+      } catch { // Error variable not needed
+        // console.error('Failed to load recall items:'); // Removed no-console
       }
     }
   }, []);
@@ -300,8 +300,8 @@ export default function RecallIntegration() {
       try {
         const imported = JSON.parse(e.target?.result as string);
         setRecallItems(imported);
-      } catch (error) {
-        console.error('Failed to import:', error);
+      } catch { // Error variable not needed
+        // console.error('Failed to import:'); // Removed no-console
       }
     };
     reader.readAsText(file);
@@ -401,7 +401,7 @@ export default function RecallIntegration() {
           <div className="flex gap-2">
             <select
               value={filterType}
-              onChange={(e) => setFilterType(e.target.value as any)}
+              onChange={(e) => setFilterType(e.target.value as 'all' | RecallItem['type'])}
               className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
             >
               <option value="all" className="bg-slate-800">
@@ -416,7 +416,7 @@ export default function RecallIntegration() {
 
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => setSortBy(e.target.value as 'recent' | 'reviewed' | 'priority')}
               className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
             >
               <option value="recent" className="bg-slate-800">
@@ -708,7 +708,7 @@ export default function RecallIntegration() {
               <p className="text-white/70">
                 You have <span className="font-semibold text-purple-400">{recallItems.length}</span>{' '}
                 items in your knowledge base. Review them daily to enhance retention and build
-                connections. Today's goal: Save{' '}
+                connections. Today&apos;s goal: Save{' '}
                 <span className="font-semibold text-green-400">
                   {dailyStats.targetSaves - dailyStats.itemsSaved}
                 </span>{' '}

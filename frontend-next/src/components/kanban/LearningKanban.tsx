@@ -35,11 +35,15 @@ interface Attachment {
   type: 'link' | 'file' | 'video' | 'article';
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const validColumnColors = ['gray', 'blue', 'yellow', 'orange', 'green'] as const;
+type ColumnColor = (typeof validColumnColors)[number];
+
 interface KanbanColumn {
   id: string;
   title: string;
   tasks: LearningTask[];
-  color: string;
+  color: ColumnColor;
   limit?: number;
 }
 
@@ -107,7 +111,7 @@ export default function LearningKanban() {
     };
 
     loadTasks();
-  }, []);
+  }, [initializeSampleTasks]); // Added initializeSampleTasks to dependency array
 
   // Save tasks to localStorage whenever columns change
   useEffect(() => {
@@ -120,7 +124,7 @@ export default function LearningKanban() {
   }, [columns]);
 
   // Initialize with sample learning tasks
-  const initializeSampleTasks = () => {
+  const initializeSampleTasks = useCallback(() => {
     const sampleTasks: LearningTask[] = [
       {
         id: 'task-1',
@@ -209,7 +213,7 @@ export default function LearningKanban() {
     });
 
     setColumns(updatedColumns);
-  };
+  }, [columns]); // Added columns dependency
 
   // Handle drag end
   const handleDragEnd = useCallback(

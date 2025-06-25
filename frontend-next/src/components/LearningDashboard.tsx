@@ -51,7 +51,7 @@ interface QuickAction {
 
 export function LearningDashboard() {
   const [activeView, setActiveView] = useState<'overview' | 'kanban' | 'analytics'>('overview');
-  const { getLearningStateColor } = useCognitiveTheme();
+  const { resolvedTheme } = useCognitiveTheme(); // TODO: Restore full useCognitiveTheme capabilities
 
   const [stats] = useState<LearningStats>({
     totalLessons: 47,
@@ -110,8 +110,9 @@ export function LearningDashboard() {
   const weeklyProgressPercentage = (stats.weeklyProgress / stats.weeklyGoal) * 100;
 
   // Explicit color values for dynamic styling
-  const focusColor = getLearningStateColor('focus');
-  const masteredColor = getLearningStateColor('mastered');
+  // TODO: Restore theme logic for colors
+  const focusColor = resolvedTheme === 'dark' ? '#3b82f6' : '#2563eb';
+  const masteredColor = resolvedTheme === 'dark' ? '#10b981' : '#059669';
 
   return (
     <div className="flex min-h-screen flex-col bg-background">

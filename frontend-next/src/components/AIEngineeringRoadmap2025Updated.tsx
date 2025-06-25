@@ -60,10 +60,13 @@ interface RoadmapConfig {
   newsAndBlogs?: Record<string, any>;
   communities?: Record<string, any>;
   openSourceAI?: Record<string, any>;
-  recallIntegration: any;
-  immediateActions: Record<string, any>;
-  successMetrics: Record<string, any>;
+  recallIntegration: any; // TODO: Define specific type if structure is known
+  immediateActions: Record<string, any>; // TODO: Define specific type
+  successMetrics: Record<string, any>; // TODO: Define specific type for technical/career metrics
 }
+// TODO: Consider defining more specific types for nested records within RoadmapConfig
+// if their structure becomes stable and well-understood. For now, `any` is used
+// to allow flexibility with the evolving JSON configuration.
 
 type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 
@@ -76,6 +79,66 @@ interface LiveStatus {
   currentActivity: string;
   energyLevel: 'high' | 'medium' | 'low';
   focusRecommendation: string;
+}
+
+interface PhaseInfo {
+  title: string;
+  description: string;
+  weeks: string | number;
+  duration: string;
+  keyDeliverables?: string[];
+}
+
+interface DailyScheduleItem {
+  morning: string;
+  afternoon: string;
+  evening: string;
+  deliverable: string;
+  recallFocus: string;
+}
+
+interface CourseraCourseInfo {
+  title: string;
+  instructor: string;
+  duration: string;
+  phase: string;
+  recallStrategy: string;
+  link: string;
+}
+
+interface ShortCourseInfo {
+  title: string;
+  duration: string;
+  focus: string;
+  recallFocus: string;
+  link: string;
+}
+
+interface CompetitionPlatformInfo {
+  platform: string;
+  bestFor: string;
+  portfolioValue: string;
+  link: string;
+}
+
+interface CodingPracticePlatformInfo {
+  platform: string;
+  focus: string;
+  freeTier: string;
+  link: string;
+}
+
+interface OllamaModelInfo {
+  model: string;
+  size: string;
+  useCase: string;
+  ramNeeded: string;
+  command: string;
+}
+
+interface SuccessMetricValue {
+  current: number;
+  target: number;
 }
 
 const useLiveStatus = (): LiveStatus => {
@@ -294,7 +357,7 @@ export default function AIEngineeringRoadmap2025() {
               className="space-y-6"
             >
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {Object.entries(config.phases).map(([phaseId, phase]: [string, any]) => (
+                {Object.entries(config.phases).map(([phaseId, phase]: [string, PhaseInfo]) => (
                   <GlassCard key={phaseId} className="p-6">
                     <div className="mb-4 flex items-center gap-3">
                       <div
@@ -362,7 +425,7 @@ export default function AIEngineeringRoadmap2025() {
                 {/* Daily Schedule */}
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
                   {Object.entries(config.currentWeek.dailySchedule).map(
-                    ([day, schedule]: [string, any]) => {
+                    ([day, schedule]: [string, DailyScheduleItem]) => {
                       const isToday = day === liveStatus.dayOfWeek.toLowerCase();
                       return (
                         <div
@@ -471,7 +534,7 @@ export default function AIEngineeringRoadmap2025() {
                     Coursera - Your Enrolled Courses
                   </h2>
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {config.platforms.coursera.courses?.map((course: any, idx: number) => (
+                    {config.platforms.coursera.courses?.map((course: CourseraCourseInfo, idx: number) => (
                       <div
                         key={idx}
                         className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-4"
@@ -506,7 +569,7 @@ export default function AIEngineeringRoadmap2025() {
                   </h2>
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {config.platforms.deeplearning_ai.shortCourses?.map(
-                      (course: any, idx: number) => (
+                      (course: ShortCourseInfo, idx: number) => (
                         <div
                           key={idx}
                           className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-4"
@@ -550,7 +613,7 @@ export default function AIEngineeringRoadmap2025() {
                 </h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {config.practicesPlatforms.competitionPlatforms?.map(
-                    (platform: any, idx: number) => (
+                    (platform: CompetitionPlatformInfo, idx: number) => (
                       <div
                         key={idx}
                         className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4"
@@ -581,7 +644,7 @@ export default function AIEngineeringRoadmap2025() {
                   Coding Practice Sites
                 </h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
-                  {config.practicesPlatforms.codingPractice?.map((platform: any, idx: number) => (
+                    {config.practicesPlatforms.codingPractice?.map((platform: CodingPracticePlatformInfo, idx: number) => (
                     <div
                       key={idx}
                       className="rounded-lg border border-green-500/30 bg-green-500/10 p-4"
@@ -617,7 +680,7 @@ export default function AIEngineeringRoadmap2025() {
                     </code>
                   </div>
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    {config.openSourceAI.ollama.essentialModels?.map((model: any, idx: number) => (
+                    {config.openSourceAI.ollama.essentialModels?.map((model: OllamaModelInfo, idx: number) => (
                       <div
                         key={idx}
                         className="rounded-lg border border-purple-500/30 bg-purple-500/10 p-4"
@@ -666,7 +729,7 @@ export default function AIEngineeringRoadmap2025() {
                 </h2>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                   {Object.entries(config.successMetrics.technical).map(
-                    ([key, metric]: [string, any]) => (
+                    ([key, metric]: [string, SuccessMetricValue]) => (
                       <div key={key} className="text-center">
                         <div className="mb-2 text-3xl font-bold text-blue-400">
                           {metric.current}/{metric.target}
@@ -696,7 +759,7 @@ export default function AIEngineeringRoadmap2025() {
                 </h2>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                   {Object.entries(config.successMetrics.career).map(
-                    ([key, metric]: [string, any]) => (
+                    ([key, metric]: [string, SuccessMetricValue]) => (
                       <div key={key} className="text-center">
                         <div className="mb-2 text-3xl font-bold text-green-400">
                           {metric.current}/{metric.target}

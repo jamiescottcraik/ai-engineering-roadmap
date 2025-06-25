@@ -8,7 +8,7 @@
  * - TypeScript strict typing
  */
 
-"use client";
+'use client';
 
 import { motion } from 'framer-motion';
 import { Github, BookOpen, Heart, Zap } from 'lucide-react';
@@ -27,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({
   showLearningResources = true,
   className = '',
 }) => {
-  const { theme } = useCognitiveTheme();
+  const { theme, accessibility } = useCognitiveTheme(); // TODO: Restore full theme object structure if needed
   const currentYear = new Date().getFullYear();
 
   const learningResources = [
@@ -37,7 +37,11 @@ export const Footer: React.FC<FooterProps> = ({
   ];
 
   const socialLinks = [
-    { name: 'GitHub', href: 'https://github.com/jamiescottcraik/ai-engineering-roadmap', icon: <Github className="h-4 w-4" /> },
+    {
+      name: 'GitHub',
+      href: 'https://github.com/jamiescottcraik/ai-engineering-roadmap',
+      icon: <Github className="h-4 w-4" />,
+    },
   ];
 
   return (
@@ -47,22 +51,19 @@ export const Footer: React.FC<FooterProps> = ({
       transition={{ duration: 0.3, delay: 0.2 }}
       className={`
         mt-auto
-        border-t border-neutral-200 dark:border-neutral-700
-        bg-neutral-50 dark:bg-neutral-900
+        border-t border-neutral-200 bg-neutral-50
+        dark:border-neutral-700 dark:bg-neutral-900
         ${className}
       `}
     >
-      <div className="max-w-8xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
+      <div className="mx-auto max-w-8xl px-6 py-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Brand Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">
-              AI Engineering Roadmap
-            </h3>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              A cognitive-adaptive learning platform designed with psychology-informed
-              patterns for accelerated AI skill development.
+            <h3 className="text-lg font-semibold text-foreground">AI Engineering Roadmap</h3>
+            <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+              A cognitive-adaptive learning platform designed with psychology-informed patterns for
+              accelerated AI skill development.
             </p>
             <div className="flex items-center space-x-1 text-sm text-neutral-500">
               <span>Built with</span>
@@ -82,9 +83,9 @@ export const Footer: React.FC<FooterProps> = ({
                       href={resource.href}
                       className="
                         inline-flex items-center space-x-2
-                        text-sm text-neutral-600 dark:text-neutral-400
-                        hover:text-foreground
-                        transition-colors duration-200
+                        text-sm text-neutral-600 transition-colors
+                        duration-200
+                        hover:text-foreground dark:text-neutral-400
                       "
                     >
                       {resource.icon}
@@ -99,7 +100,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Technical Info */}
           <div className="space-y-4">
             <h4 className="font-semibold text-foreground">Technical Details</h4>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+            <div className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
               <p>Next.js 15 + TypeScript</p>
               <p>Tailwind CSS v4 + Cognitive Design</p>
               <p>Framer Motion + React 19</p>
@@ -115,11 +116,11 @@ export const Footer: React.FC<FooterProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
-                      p-2 rounded-lg
-                      bg-neutral-200 dark:bg-neutral-800
-                      hover:bg-neutral-300 dark:hover:bg-neutral-700
-                      transition-all duration-200
-                      hover:scale-105
+                      rounded-lg bg-neutral-200
+                      p-2 transition-all
+                      duration-200 hover:scale-105
+                      hover:bg-neutral-300 dark:bg-neutral-800
+                      dark:hover:bg-neutral-700
                     "
                     aria-label={link.name}
                   >
@@ -132,20 +133,23 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Bar */}
-        <div className="
-          mt-8 pt-6
-          border-t border-neutral-200 dark:border-neutral-700
-          flex flex-col sm:flex-row justify-between items-center
-          space-y-2 sm:space-y-0
-        ">
+        <div
+          className="
+          mt-8 flex
+          flex-col items-center justify-between
+          space-y-2 border-t border-neutral-200 pt-6 dark:border-neutral-700
+          sm:flex-row sm:space-y-0
+        "
+        >
           <p className="text-sm text-neutral-500">
             © {currentYear} AI Engineering Roadmap. Personal Learning Edition.
           </p>
 
+          {/* TODO: Verify theme object structure and restore if needed */}
           <div className="flex items-center space-x-4 text-xs text-neutral-400">
-            <span>Theme: {theme.mode}</span>
+            <span>Theme: {theme}</span>
             <span>•</span>
-            <span>Accessibility: {theme.accessibilityMode}</span>
+            <span>Accessibility: {accessibility}</span>
             <span>•</span>
             <span>Constitutional AI Compliance</span>
           </div>
