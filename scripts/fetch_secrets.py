@@ -52,7 +52,7 @@ def main() -> None:
     print("🔑 Fetching secrets for the brAInwav project...")
     
     # Check if 1Password CLI is available
-    if not subprocess.run(["which", "op"], capture_output=True).returncode == 0:
+    if not subprocess.run(["command", "-v", "op"], capture_output=True).returncode == 0:
         print("❌ 1Password CLI not found.", file=sys.stderr)
         print("   Creating a template .env file instead...", file=sys.stderr)
         create_env_template()
