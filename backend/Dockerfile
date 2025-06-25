@@ -36,7 +36,7 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
 ENV PATH="/root/.local/bin:$PATH"
 
 # Copy requirements files for dependency caching
-COPY ./requirements.txt ./dev-requirements.txt /workspace/
+COPY requirements.txt dev-requirements.txt ./
 
 # Install Python dependencies with fallback handling
 RUN uv pip install --system --no-cache-dir -r requirements.txt -r dev-requirements.txt \

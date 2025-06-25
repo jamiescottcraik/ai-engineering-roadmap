@@ -1,0 +1,1896 @@
+{
+  "metadata": {
+    "title": "🧩 Unified AI Engineering Learning Roadmap & Resource Directory (2025)",
+    "description": "Your Complete Path: From Python to AI Leadership",
+    "version": "13.0",
+    "curator": "Jamie Scott Craik (@jamiescottcraik)",
+    "lastUpdated": "2025-06-24T19:10:30Z",
+    "startDate": "2025-06-21",
+    "currentDate": "2025-06-24T19:10:30Z",
+    "totalWeeks": 48,
+    "totalResources": 450,
+    "totalCourses": 70,
+    "currentWeek": 1,
+    "currentDay": 4,
+    "currentPhase": "phase1",
+    "currentPosition": "Week 1, Phase 1 (Started June 21, 2025)",
+    "completionPercentage": 0.6,
+    "enhancedLearningCycle": "Learn → Practice → RECALL → Project → Publish",
+    "coreMethodology": "LPRPPI",
+    "recallIntegration": true,
+    "portfolioFirst": true,
+    "buildInPublic": true,
+    "platforms": {
+      "coursera": {
+        "status": "enrolled",
+        "activeCoursesCount": 15,
+        "completedCount": 0,
+        "courses": [
+          {
+            "title": "AI For Everyone",
+            "instructor": "Andrew Ng",
+            "duration": "6 hours",
+            "phase": "Phase 1",
+            "link": "https://www.coursera.org/learn/ai-for-everyone",
+            "recallStrategy": "Save all videos + quiz answers"
+          },
+          {
+            "title": "Python for Everybody",
+            "instructor": "University of Michigan",
+            "duration": "8 months",
+            "phase": "Phase 1",
+            "link": "https://www.coursera.org/specializations/python",
+            "recallStrategy": "Code snippets + exercises"
+          },
+          {
+            "title": "Python 3 Programming",
+            "instructor": "University of Michigan",
+            "duration": "5 months",
+            "phase": "Phase 1",
+            "link": "https://www.coursera.org/specializations/python-3-programming",
+            "recallStrategy": "Project solutions + patterns"
+          },
+          {
+            "title": "Machine Learning Specialization",
+            "instructor": "DeepLearning.AI",
+            "duration": "3 months",
+            "phase": "Phase 2",
+            "link": "https://www.coursera.org/specializations/machine-learning-introduction",
+            "recallStrategy": "Algorithm implementations"
+          },
+          {
+            "title": "Deep Learning Specialization",
+            "instructor": "DeepLearning.AI",
+            "duration": "5 months",
+            "phase": "Phase 2",
+            "link": "https://www.coursera.org/specializations/deep-learning",
+            "recallStrategy": "Architecture diagrams"
+          },
+          {
+            "title": "NLP Specialization",
+            "instructor": "DeepLearning.AI",
+            "duration": "4 months",
+            "phase": "Phase 3",
+            "link": "https://www.coursera.org/specializations/natural-language-processing",
+            "recallStrategy": "NLP techniques library"
+          },
+          {
+            "title": "MLOps Specialization",
+            "instructor": "DeepLearning.AI",
+            "duration": "4 months",
+            "phase": "Phase 4",
+            "link": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops",
+            "recallStrategy": "Production checklists"
+          },
+          {
+            "title": "TensorFlow Developer",
+            "instructor": "DeepLearning.AI",
+            "duration": "4 months",
+            "phase": "Phase 2",
+            "link": "https://www.coursera.org/professional-certificates/tensorflow-in-practice",
+            "recallStrategy": "TF code patterns"
+          },
+          {
+            "title": "Prompt Engineering for ChatGPT",
+            "instructor": "Vanderbilt",
+            "duration": "6 weeks",
+            "phase": "Phase 3",
+            "link": "https://www.coursera.org/learn/prompt-engineering",
+            "recallStrategy": "Prompt templates"
+          },
+          {
+            "title": "Generative AI Basics",
+            "instructor": "IBM",
+            "duration": "3 weeks",
+            "phase": "Phase 3",
+            "link": "https://www.coursera.org/learn/generative-ai-prompt-engineering-for-everyone",
+            "recallStrategy": "GenAI concepts map"
+          },
+          {
+            "title": "AI Ethics & Societal Challenges",
+            "instructor": "Lund University",
+            "duration": "4 weeks",
+            "phase": "Phase 5",
+            "link": "https://www.coursera.org/learn/ai-ethics",
+            "recallStrategy": "Ethics framework"
+          },
+          {
+            "title": "AI for Business",
+            "instructor": "Wharton",
+            "duration": "4 months",
+            "phase": "Phase 5",
+            "link": "https://www.coursera.org/specializations/ai-for-business-wharton",
+            "recallStrategy": "Business cases"
+          },
+          {
+            "title": "AI Product Management",
+            "instructor": "Duke",
+            "duration": "2 months",
+            "phase": "Phase 4",
+            "link": "https://www.coursera.org/learn/ai-for-product-management",
+            "recallStrategy": "Product frameworks"
+          },
+          {
+            "title": "Blockchain Basics",
+            "instructor": "Buffalo",
+            "duration": "4 weeks",
+            "phase": "Phase 5",
+            "link": "https://www.coursera.org/learn/blockchain-basics",
+            "recallStrategy": "Blockchain + AI connections"
+          },
+          {
+            "title": "Crash Course in Causality",
+            "instructor": "Penn",
+            "duration": "5 weeks",
+            "phase": "Phase 3",
+            "link": "https://www.coursera.org/learn/crash-course-in-causality",
+            "recallStrategy": "Causal diagrams"
+          }
+        ]
+      },
+      "deeplearning_ai": {
+        "status": "active",
+        "shortCoursesAvailable": 12,
+        "completedCount": 0,
+        "shortCourses": [
+          {
+            "title": "ChatGPT Prompt Engineering for Developers",
+            "duration": "1.5h",
+            "focus": "API usage",
+            "link": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+            "recallFocus": "API patterns"
+          },
+          {
+            "title": "Building Systems with ChatGPT",
+            "duration": "1.5h",
+            "focus": "Production",
+            "link": "https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/",
+            "recallFocus": "System design"
+          },
+          {
+            "title": "LangChain for LLM Application Development",
+            "duration": "1h",
+            "focus": "LLM apps",
+            "link": "https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/",
+            "recallFocus": "Chain patterns"
+          },
+          {
+            "title": "LangChain: Chat with Your Data",
+            "duration": "1h",
+            "focus": "RAG",
+            "link": "https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/",
+            "recallFocus": "RAG architecture"
+          },
+          {
+            "title": "Building Applications with Vector Databases",
+            "duration": "1.5h",
+            "focus": "Embeddings",
+            "link": "https://www.deeplearning.ai/short-courses/building-applications-with-vector-databases/",
+            "recallFocus": "Vector DB comparison"
+          },
+          {
+            "title": "Functions, Tools and Agents with LangChain",
+            "duration": "1.5h",
+            "focus": "Agents",
+            "link": "https://www.deeplearning.ai/short-courses/functions-tools-agents-langchain/",
+            "recallFocus": "Agent patterns"
+          },
+          {
+            "title": "How Diffusion Models Work",
+            "duration": "1h",
+            "focus": "Gen AI",
+            "link": "https://www.deeplearning.ai/short-courses/how-diffusion-models-work/",
+            "recallFocus": "Diffusion theory"
+          },
+          {
+            "title": "Building Generative AI Applications with Gradio",
+            "duration": "1h",
+            "focus": "UI/UX",
+            "link": "https://www.deeplearning.ai/short-courses/building-generative-ai-applications-with-gradio/",
+            "recallFocus": "UI patterns"
+          },
+          {
+            "title": "Evaluating and Debugging Generative AI",
+            "duration": "1h",
+            "focus": "Testing",
+            "link": "https://www.deeplearning.ai/short-courses/evaluating-debugging-generative-ai/",
+            "recallFocus": "Test strategies"
+          },
+          {
+            "title": "Large Language Models with Semantic Search",
+            "duration": "1h",
+            "focus": "Search",
+            "link": "https://www.deeplearning.ai/short-courses/large-language-models-semantic-search/",
+            "recallFocus": "Search optimization"
+          },
+          {
+            "title": "Finetuning Large Language Models",
+            "duration": "1h",
+            "focus": "Training",
+            "link": "https://www.deeplearning.ai/short-courses/finetuning-large-language-models/",
+            "recallFocus": "Fine-tuning recipes"
+          },
+          {
+            "title": "Generative AI for Everyone",
+            "duration": "3h",
+            "focus": "Overview",
+            "link": "https://www.deeplearning.ai/courses/generative-ai-for-everyone/",
+            "recallFocus": "GenAI landscape"
+          }
+        ]
+      },
+      "huggingface": {
+        "status": "community_member",
+        "spacesDeployed": 0,
+        "modelsShared": 0,
+        "courses": [
+          {
+            "title": "NLP Course",
+            "duration": "40 hours",
+            "projects": "10+",
+            "link": "https://huggingface.co/learn/nlp-course"
+          },
+          {
+            "title": "Deep RL Course",
+            "duration": "60 hours",
+            "projects": "8 environments",
+            "link": "https://huggingface.co/learn/deep-rl-course"
+          },
+          {
+            "title": "Diffusion Models",
+            "duration": "20 hours",
+            "projects": "5 models",
+            "link": "https://huggingface.co/learn/diffusion-course"
+          },
+          {
+            "title": "Audio Processing",
+            "duration": "30 hours",
+            "projects": "Speech + Music",
+            "link": "https://huggingface.co/learn/audio-course"
+          }
+        ]
+      },
+      "kaggle": {
+        "status": "competitor",
+        "competitionsEntered": 0,
+        "notebooksPublished": 0,
+        "portfolioValue": "⭐⭐⭐⭐⭐",
+        "link": "https://www.kaggle.com/"
+      },
+      "github": {
+        "status": "contributor",
+        "username": "jamiescottcraik",
+        "reposCreated": 0,
+        "contributionStreak": 0
+      },
+      "cloudPlatforms": {
+        "googleCloud": [
+          {
+            "title": "Introduction to Generative AI",
+            "duration": "1 hour",
+            "link": "https://www.cloudskillsboost.google/course_templates/536"
+          },
+          {
+            "title": "Generative AI with Vertex AI: Prompt Design",
+            "duration": "3 hours",
+            "link": "https://www.cloudskillsboost.google/course_templates/970"
+          },
+          {
+            "title": "ML Engineer Learning Path",
+            "duration": "40 hours",
+            "link": "https://www.cloudskillsboost.google/paths/17"
+          },
+          {
+            "title": "Generative AI Learning Path",
+            "duration": "25 hours",
+            "link": "https://www.cloudskillsboost.google/paths/118"
+          },
+          {
+            "title": "AI Safety & Red Teaming Labs",
+            "duration": "NEW 2025",
+            "link": "https://www.cloudskillsboost.google/catalog?keywords=ai%20safety"
+          }
+        ],
+        "microsoftLearn": [
+          {
+            "title": "AI Fundamentals",
+            "duration": "10 hours",
+            "link": "https://learn.microsoft.com/en-us/training/paths/get-started-with-artificial-intelligence-on-azure/"
+          },
+          {
+            "title": "Azure AI Engineer",
+            "duration": "40 hours",
+            "link": "https://learn.microsoft.com/en-us/training/paths/azure-ai-engineer/"
+          },
+          {
+            "title": "Develop AI Agents",
+            "duration": "8 hours",
+            "link": "https://learn.microsoft.com/en-us/azure/ai-services/agents/"
+          },
+          {
+            "title": "AI Security",
+            "duration": "6 hours",
+            "link": "https://learn.microsoft.com/en-us/training/paths/secure-ai-services/"
+          }
+        ],
+        "aws": [
+          {
+            "title": "AWS ML University",
+            "cost": "Free",
+            "link": "https://aws.amazon.com/machine-learning/mlu/"
+          },
+          {
+            "title": "SageMaker Immersion Day",
+            "duration": "8 hours",
+            "link": "https://catalog.workshops.aws/sagemaker-immersionday/en-US"
+          },
+          {
+            "title": "AWS AI Services",
+            "duration": "Various",
+            "link": "https://aws.amazon.com/machine-learning/ai-services/"
+          }
+        ]
+      }
+    }
+  },
+  "practicesPlatforms": {
+    "competitionPlatforms": [
+      {
+        "platform": "Kaggle",
+        "bestFor": "ML competitions, datasets",
+        "portfolioValue": "⭐⭐⭐⭐⭐",
+        "link": "https://www.kaggle.com/"
+      },
+      {
+        "platform": "Hugging Face Spaces",
+        "bestFor": "Demo deployment",
+        "portfolioValue": "⭐⭐⭐⭐⭐",
+        "link": "https://huggingface.co/spaces"
+      },
+      {
+        "platform": "DrivenData",
+        "bestFor": "Social impact ML",
+        "portfolioValue": "⭐⭐⭐⭐",
+        "link": "https://www.drivendata.org/"
+      },
+      {
+        "platform": "Zindi",
+        "bestFor": "Africa-focused challenges",
+        "portfolioValue": "⭐⭐⭐",
+        "link": "https://zindi.africa/"
+      },
+      {
+        "platform": "CodaLab",
+        "bestFor": "Research competitions",
+        "portfolioValue": "⭐⭐⭐",
+        "link": "https://codalab.lisn.upsaclay.fr/"
+      },
+      {
+        "platform": "AIcrowd",
+        "bestFor": "Reinforcement learning",
+        "portfolioValue": "⭐⭐⭐",
+        "link": "https://www.aicrowd.com/"
+      }
+    ],
+    "codingPractice": [
+      {
+        "platform": "LeetCode",
+        "focus": "Algorithms, DS",
+        "freeTier": "2000+ problems",
+        "link": "https://leetcode.com/"
+      },
+      {
+        "platform": "HackerRank",
+        "focus": "AI/ML challenges",
+        "freeTier": "All basic",
+        "link": "https://www.hackerrank.com/domains/ai"
+      },
+      {
+        "platform": "Exercism",
+        "focus": "Mentored practice",
+        "freeTier": "100% free",
+        "link": "https://exercism.org/"
+      },
+      {
+        "platform": "Project Euler",
+        "focus": "Math + programming",
+        "freeTier": "800+ problems",
+        "link": "https://projecteuler.net/"
+      },
+      {
+        "platform": "Codewars",
+        "focus": "Kata challenges",
+        "freeTier": "Free",
+        "link": "https://www.codewars.com/"
+      },
+      {
+        "platform": "CodinGame",
+        "focus": "Game-based coding",
+        "freeTier": "Free",
+        "link": "https://www.codingame.com/"
+      },
+      {
+        "platform": "TopCoder",
+        "focus": "Competitive programming",
+        "freeTier": "Free",
+        "link": "https://www.topcoder.com/"
+      },
+      {
+        "platform": "AtCoder",
+        "focus": "Japanese algorithms",
+        "freeTier": "Free",
+        "link": "https://atcoder.jp/"
+      },
+      {
+        "platform": "Codeforces",
+        "focus": "Competitive programming",
+        "freeTier": "Free",
+        "link": "https://codeforces.com/"
+      },
+      {
+        "platform": "StrataScratch",
+        "focus": "Data science interviews",
+        "freeTier": "Limited free",
+        "link": "https://www.stratascratch.com/"
+      }
+    ],
+    "mlPractice": [
+      {
+        "platform": "Google Colab",
+        "features": "Free GPU/TPU",
+        "link": "https://colab.research.google.com/"
+      },
+      {
+        "platform": "Amazon SageMaker Studio Lab",
+        "features": "Free cloud Jupyter",
+        "link": "https://studiolab.sagemaker.aws/"
+      },
+      {
+        "platform": "Paperspace Gradient",
+        "features": "Free GPU tier",
+        "link": "https://gradient.run/"
+      },
+      {
+        "platform": "Lightning AI Studios",
+        "features": "Free cloud development",
+        "link": "https://lightning.ai/"
+      },
+      {
+        "platform": "Deepnote",
+        "features": "Collaborative notebooks",
+        "link": "https://deepnote.com/"
+      }
+    ]
+  },
+  "essentialBooks": {
+    "coreLibrary": [
+      {
+        "title": "Grokking Algorithms",
+        "author": "Aditya Bhargava",
+        "phase": "Phase 1",
+        "link": "https://www.manning.com/books/grokking-algorithms",
+        "recallFocus": "Visual explanations"
+      },
+      {
+        "title": "Python Crash Course",
+        "author": "Eric Matthes",
+        "phase": "Phase 1",
+        "link": "https://nostarch.com/pythoncrashcourse2e",
+        "recallFocus": "Code examples"
+      },
+      {
+        "title": "Hands-On Machine Learning",
+        "author": "Aurélien Géron",
+        "phase": "Phase 2",
+        "link": "https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/",
+        "recallFocus": "Implementation patterns"
+      },
+      {
+        "title": "Deep Learning",
+        "author": "Ian Goodfellow",
+        "phase": "Phase 2",
+        "link": "https://www.deeplearningbook.org/",
+        "recallFocus": "Mathematical foundations"
+      },
+      {
+        "title": "Deep Learning with Python",
+        "author": "François Chollet",
+        "phase": "Phase 2",
+        "link": "https://www.manning.com/books/deep-learning-with-python-second-edition",
+        "recallFocus": "Keras patterns"
+      },
+      {
+        "title": "Pattern Recognition and ML",
+        "author": "Christopher Bishop",
+        "phase": "Phase 3",
+        "link": "https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf",
+        "recallFocus": "Theory connections"
+      },
+      {
+        "title": "The Elements of Statistical Learning",
+        "author": "Hastie, Tibshirani",
+        "phase": "Phase 3",
+        "link": "https://hastie.su.domains/ElemStatLearn/",
+        "recallFocus": "Statistical methods"
+      },
+      {
+        "title": "Natural Language Processing with Transformers",
+        "author": "Lewis Tunstall et al.",
+        "phase": "Phase 3",
+        "link": "https://transformersbook.com/",
+        "recallFocus": "Transformer architectures"
+      },
+      {
+        "title": "Designing Data-Intensive Applications",
+        "author": "Martin Kleppmann",
+        "phase": "Phase 4",
+        "link": "https://dataintensive.net/",
+        "recallFocus": "System design patterns"
+      },
+      {
+        "title": "Machine Learning Engineering",
+        "author": "Andriy Burkov",
+        "phase": "Phase 4",
+        "link": "http://www.mlebook.com/wiki/doku.php",
+        "recallFocus": "MLOps practices"
+      },
+      {
+        "title": "The Hundred-Page ML Book",
+        "author": "Andriy Burkov",
+        "phase": "Phase 2",
+        "link": "http://themlbook.com/",
+        "recallFocus": "Concise overview"
+      },
+      {
+        "title": "AI Superpowers",
+        "author": "Kai-Fu Lee",
+        "phase": "Phase 5",
+        "link": "https://www.aisuperpowers.com/",
+        "recallFocus": "Industry insights"
+      },
+      {
+        "title": "Weapons of Math Destruction",
+        "author": "Cathy O'Neil",
+        "phase": "Phase 5",
+        "link": "https://weaponsofmathdestructionbook.com/",
+        "recallFocus": "Ethics considerations"
+      },
+      {
+        "title": "AI Ethics",
+        "author": "Mark Coeckelbergh",
+        "phase": "Phase 5",
+        "link": "https://mitpress.mit.edu/9780262538190/ai-ethics/",
+        "recallFocus": "Ethical frameworks"
+      }
+    ],
+    "2025Additions": [
+      {
+        "title": "The Alignment Problem",
+        "author": "Brian Christian",
+        "category": "AI Safety",
+        "link": "https://brianchristian.org/the-alignment-problem/"
+      },
+      {
+        "title": "The Book of Why",
+        "author": "Judea Pearl",
+        "category": "Causal AI",
+        "link": "https://www.amazon.com/Book-Why-Science-Cause-Effect/dp/046509760X"
+      },
+      {
+        "title": "Quantum Computing: An Applied Approach",
+        "author": "Hidary",
+        "category": "Quantum ML",
+        "link": "https://www.springer.com/gp/book/9783030239213"
+      }
+    ]
+  },
+  "youtubeChannels": {
+    "tier1MustSubscribe": [
+      {
+        "channel": "3Blue1Brown",
+        "focus": "Math visualization",
+        "mustWatch": "Neural Network series",
+        "link": "https://www.youtube.com/@3blue1brown"
+      },
+      {
+        "channel": "Andrej Karpathy",
+        "focus": "Building from scratch",
+        "mustWatch": "makemore, nanoGPT",
+        "link": "https://www.youtube.com/@AndrejKarpathy"
+      },
+      {
+        "channel": "StatQuest",
+        "focus": "Statistics explained",
+        "mustWatch": "ML fundamentals",
+        "link": "https://www.youtube.com/@statquest"
+      },
+      {
+        "channel": "Two Minute Papers",
+        "focus": "Latest research",
+        "mustWatch": "Weekly updates",
+        "link": "https://www.youtube.com/@TwoMinutePapers"
+      },
+      {
+        "channel": "Yannic Kilcher",
+        "focus": "Paper reviews",
+        "mustWatch": "Deep dives",
+        "link": "https://www.youtube.com/@YannicKilcher"
+      }
+    ],
+    "tier2DomainSpecific": [
+      {
+        "channel": "Jeremy Howard",
+        "focus": "Fast.ai lectures",
+        "link": "https://www.youtube.com/@howardjeremyp"
+      },
+      {
+        "channel": "Lex Fridman",
+        "focus": "Long-form interviews",
+        "link": "https://www.youtube.com/@lexfridman"
+      },
+      {
+        "channel": "sentdex",
+        "focus": "Python + ML tutorials",
+        "link": "https://www.youtube.com/@sentdex"
+      },
+      {
+        "channel": "Corey Schafer",
+        "focus": "Python deep dives",
+        "link": "https://www.youtube.com/@coreyms"
+      },
+      {
+        "channel": "Luis Serrano",
+        "focus": "ML for beginners",
+        "link": "https://www.youtube.com/@SerranoAcademy"
+      },
+      {
+        "channel": "Machine Learning Street Talk",
+        "focus": "Research discussions",
+        "link": "https://www.youtube.com/@MachineLearningStreetTalk"
+      },
+      {
+        "channel": "ArXiv Insights",
+        "focus": "Paper explanations",
+        "link": "https://www.youtube.com/@ArxivInsights"
+      },
+      {
+        "channel": "Robert Miles AI Safety",
+        "focus": "AI alignment",
+        "link": "https://www.youtube.com/@RobertMilesAI"
+      },
+      {
+        "channel": "Matthew Berman",
+        "focus": "Open source AI news",
+        "link": "https://www.youtube.com/@matthew_berman"
+      },
+      {
+        "channel": "Sam Witteveen",
+        "focus": "Red Dragon AI",
+        "link": "https://www.youtube.com/@samwitteveenai"
+      }
+    ]
+  },
+  "newsAndBlogs": {
+    "essentialNewsletters": [
+      {
+        "newsletter": "The Batch",
+        "frequency": "Weekly",
+        "focus": "Best AI curation",
+        "link": "https://www.deeplearning.ai/the-batch/"
+      },
+      {
+        "newsletter": "Import AI",
+        "frequency": "Weekly",
+        "focus": "Research + policy",
+        "link": "https://importai.substack.com/"
+      },
+      {
+        "newsletter": "The Gradient",
+        "frequency": "Weekly",
+        "focus": "Technical depth",
+        "link": "https://thegradient.pub/"
+      },
+      {
+        "newsletter": "AI Weekly",
+        "frequency": "Weekly",
+        "focus": "Industry news",
+        "link": "http://aiweekly.co/"
+      },
+      {
+        "newsletter": "ML News",
+        "frequency": "Weekly",
+        "focus": "Research papers",
+        "link": "https://mln.dev/top/1"
+      },
+      {
+        "newsletter": "TLDR AI",
+        "frequency": "Daily",
+        "focus": "Quick updates",
+        "link": "https://tldr.tech/ai"
+      },
+      {
+        "newsletter": "Alpha Signal",
+        "frequency": "3x/week",
+        "focus": "AI investing",
+        "link": "https://alphasignal.ai/"
+      }
+    ],
+    "topAIBlogs": [
+      {
+        "blog": "Google AI Blog",
+        "focus": "Research",
+        "rss": "https://ai.googleblog.com/feeds/posts/default",
+        "link": "https://ai.googleblog.com/"
+      },
+      {
+        "blog": "OpenAI Blog",
+        "focus": "Products",
+        "rss": "https://openai.com/blog/rss.xml",
+        "link": "https://openai.com/blog/"
+      },
+      {
+        "blog": "DeepMind Blog",
+        "focus": "Research",
+        "rss": "https://deepmind.com/blog/feed/basic/",
+        "link": "https://deepmind.com/blog"
+      },
+      {
+        "blog": "Hugging Face Blog",
+        "focus": "Open source",
+        "rss": "https://huggingface.co/blog/feed.xml",
+        "link": "https://huggingface.co/blog"
+      },
+      {
+        "blog": "BAIR Blog",
+        "focus": "Berkeley research",
+        "rss": "https://bair.berkeley.edu/blog/feed.xml",
+        "link": "https://bair.berkeley.edu/blog/"
+      },
+      {
+        "blog": "Distill.pub",
+        "focus": "Interactive ML",
+        "rss": "https://distill.pub/rss.xml",
+        "link": "https://distill.pub/"
+      },
+      {
+        "blog": "MIT News AI",
+        "focus": "Academic",
+        "rss": "https://news.mit.edu/rss/topic/artificial-intelligence2",
+        "link": "https://news.mit.edu/topic/artificial-intelligence2"
+      },
+      {
+        "blog": "AI Alignment Forum",
+        "focus": "AI safety",
+        "rss": "https://www.alignmentforum.org/feed.xml",
+        "link": "https://www.alignmentforum.org/"
+      }
+    ],
+    "researchPapers": [
+      {
+        "platform": "arXiv AI",
+        "description": "Latest papers",
+        "link": "https://arxiv.org/list/cs.AI/recent"
+      },
+      {
+        "platform": "Papers with Code",
+        "description": "Implementation focus",
+        "link": "https://paperswithcode.com/"
+      },
+      {
+        "platform": "arXiv Sanity",
+        "description": "Curated papers",
+        "link": "http://www.arxiv-sanity.com/"
+      },
+      {
+        "platform": "Semantic Scholar",
+        "description": "AI-powered search",
+        "link": "https://www.semanticscholar.org/"
+      },
+      {
+        "platform": "Google Scholar",
+        "description": "Academic search",
+        "link": "https://scholar.google.com/"
+      },
+      {
+        "platform": "Connected Papers",
+        "description": "Paper graphs",
+        "link": "https://www.connectedpapers.com/"
+      }
+    ]
+  },
+  "communities": {
+    "primaryCommunities": [
+      {
+        "community": "Hugging Face",
+        "size": "30k+",
+        "platform": "Discord",
+        "bestFor": "NLP/LLMs",
+        "link": "https://discord.gg/hugging-face-879548962464493619"
+      },
+      {
+        "community": "Fast.ai Forums",
+        "size": "50k+",
+        "platform": "Discourse",
+        "bestFor": "Deep learning",
+        "link": "https://forums.fast.ai/"
+      },
+      {
+        "community": "MLOps Community",
+        "size": "15k+",
+        "platform": "Slack",
+        "bestFor": "Production ML",
+        "link": "https://mlops.community/slack/"
+      },
+      {
+        "community": "r/MachineLearning",
+        "size": "2.9M",
+        "platform": "Reddit",
+        "bestFor": "Research",
+        "link": "https://reddit.com/r/MachineLearning"
+      },
+      {
+        "community": "Kaggle",
+        "size": "10M+",
+        "platform": "Forums",
+        "bestFor": "Competitions",
+        "link": "https://www.kaggle.com/discussions"
+      },
+      {
+        "community": "AI Village",
+        "size": "5k+",
+        "platform": "Discord",
+        "bestFor": "AI security",
+        "link": "https://aivillage.org/"
+      }
+    ],
+    "redditCommunities": [
+      "r/MachineLearning (2.9M members)",
+      "r/deeplearning (236k members)",
+      "r/LearnMachineLearning (488k members)",
+      "r/MLQuestions (83k members)",
+      "r/DataScience (1.3M members)",
+      "r/LocalLLaMA (395k members)",
+      "r/OpenAI (842k members)",
+      "r/singularity (2.6M members)",
+      "r/ArtificialIntelligence (952k members)"
+    ],
+    "discordSlackCommunities": [
+      "Papers with Code - Research focus",
+      "Weights & Biases - MLOps community",
+      "EleutherAI - Open research",
+      "LAION - Open datasets",
+      "Cohere Community - NLP focus",
+      "Yannic Kilcher Discord - Paper discussions",
+      "TheBloke Discord - Quantization",
+      "Ollama Discord - Local models"
+    ]
+  },
+  "recallIntegration": {
+    "setupInstructions": "Install Recall.ai extension from https://www.getrecall.ai/",
+    "categories": [
+      "01_Python_Fundamentals/",
+      "02_Machine_Learning/",
+      "03_Deep_Learning/",
+      "04_LLMs_GenAI/",
+      "05_MLOps_Production/",
+      "06_Open_Source_AI/",
+      "07_AI_Security/",
+      "08_Projects/",
+      "09_Career_Portfolio/",
+      "10_Daily_Learning_Logs/"
+    ],
+    "dailyTarget": "10+ items saved per day",
+    "weeklyReview": "Sunday evening recall session"
+  },
+  "learningPhilosophy": {
+    "principles": [
+      "Build in public from day 1",
+      "Document everything you learn",
+      "Ship something every week",
+      "Teach what you learn immediately",
+      "Focus on real-world applications",
+      "Prioritize open source contributions",
+      "Network actively in the community"
+    ],
+    "dailyHabits": [
+      "Morning: Check AI news (15 min)",
+      "Code for at least 2 hours",
+      "Save 10+ items to Recall.ai",
+      "Make 1 GitHub commit minimum",
+      "Engage on LinkedIn (30 min)",
+      "Evening reflection journal (15 min)"
+    ],
+    "weeklyRituals": [
+      "Monday: Plan week & set goals",
+      "Wednesday: Mid-week checkpoint",
+      "Friday: Ship something publicly",
+      "Sunday: Review & blog post"
+    ]
+  },
+  "phases": {
+    "phase1": {
+      "id": "phase1",
+      "title": "Python Mastery & Foundations",
+      "weeks": "1-8",
+      "duration": "8 weeks",
+      "startDate": "2025-06-21",
+      "endDate": "2025-08-15",
+      "description": "Master Python, Git, SQL, and basic algorithms while building your first AI portfolio projects",
+      "learningObjectives": [
+        "Write production-quality Python code",
+        "Master Git workflows and collaboration",
+        "Understand data structures & algorithms",
+        "Build and deploy web applications",
+        "Create a professional portfolio site",
+        "Establish daily learning habits"
+      ],
+      "keyDeliverables": [
+        "GitHub Stats CLI Tool (Week 1)",
+        "Personal Portfolio Website (Week 2)",
+        "Python Web Scraper (Week 3)",
+        "REST API Project (Week 4)",
+        "SQL Database Project (Week 5)",
+        "Data Pipeline Tool (Week 6)",
+        "Algorithm Visualizer (Week 7)",
+        "Capstone: Full Stack App (Week 8)"
+      ],
+      "resources": {
+        "courses": [
+          "Python for Everybody Specialization",
+          "CS50's Introduction to Computer Science",
+          "SQL for Data Science"
+        ],
+        "books": ["Python Crash Course", "Grokking Algorithms", "Clean Code"],
+        "practice": [
+          "LeetCode Easy (2/day)",
+          "HackerRank Python",
+          "Project Euler"
+        ]
+      },
+      "recallCategories": [
+        "01_Python_Fundamentals",
+        "02_Data_Structures",
+        "03_Algorithms",
+        "08_Projects",
+        "09_Career_Portfolio"
+      ],
+      "weeklyTimeCommitment": {
+        "learning": 10,
+        "practice": 10,
+        "projects": 5,
+        "community": 3,
+        "total": 28
+      }
+    },
+    "phase2": {
+      "id": "phase2",
+      "title": "Machine Learning & Deep Learning",
+      "weeks": "9-20",
+      "duration": "12 weeks",
+      "startDate": "2025-08-16",
+      "endDate": "2025-11-07",
+      "description": "Core ML algorithms, deep learning with PyTorch/TensorFlow, Kaggle competitions",
+      "learningObjectives": [
+        "Implement ML algorithms from scratch",
+        "Master scikit-learn, PyTorch, TensorFlow",
+        "Understand neural network architectures",
+        "Deploy ML models to production",
+        "Win Kaggle medals",
+        "Build ML portfolio projects"
+      ],
+      "keyDeliverables": [
+        "Linear Regression from Scratch (Week 9)",
+        "Classification Model Comparison (Week 10)",
+        "Neural Network Library (Week 11)",
+        "CNN Image Classifier (Week 12)",
+        "RNN Text Generator (Week 13)",
+        "Kaggle Competition Entry (Week 14)",
+        "Time Series Forecaster (Week 15)",
+        "Recommendation System (Week 16)",
+        "GANs Implementation (Week 17)",
+        "Transfer Learning Project (Week 18)",
+        "ML Web App Deployment (Week 19)",
+        "Capstone: End-to-End ML Pipeline (Week 20)"
+      ],
+      "resources": {
+        "courses": [
+          "Machine Learning Specialization (Andrew Ng)",
+          "Deep Learning Specialization",
+          "Fast.ai Practical Deep Learning"
+        ],
+        "books": [
+          "Hands-On Machine Learning",
+          "Deep Learning (Goodfellow)",
+          "The Hundred-Page ML Book"
+        ],
+        "competitions": [
+          "Kaggle Getting Started",
+          "Kaggle Playground Series",
+          "DrivenData Competitions"
+        ]
+      },
+      "recallCategories": [
+        "02_Machine_Learning",
+        "03_Deep_Learning",
+        "04_Neural_Networks",
+        "08_Projects"
+      ]
+    },
+    "phase3": {
+      "id": "phase3",
+      "title": "LLMs, GenAI & Advanced NLP",
+      "weeks": "21-32",
+      "duration": "12 weeks",
+      "startDate": "2025-11-08",
+      "endDate": "2026-01-30",
+      "description": "Large Language Models, Transformers, RAG systems, prompt engineering, agents",
+      "learningObjectives": [
+        "Master transformer architecture",
+        "Build RAG applications",
+        "Fine-tune language models",
+        "Deploy LLM applications",
+        "Master prompt engineering",
+        "Create AI agents"
+      ],
+      "keyDeliverables": [
+        "Transformer from Scratch (Week 21)",
+        "Prompt Engineering Toolkit (Week 22)",
+        "RAG Document QA System (Week 23)",
+        "LangChain Application (Week 24)",
+        "Fine-tuned Model (Week 25)",
+        "Multi-Agent System (Week 26)",
+        "Voice Assistant (Week 27)",
+        "Code Generation Tool (Week 28)",
+        "Multimodal AI App (Week 29)",
+        "Local LLM Deployment (Week 30)",
+        "Production RAG System (Week 31)",
+        "Capstone: AI SaaS Product (Week 32)"
+      ],
+      "resources": {
+        "courses": [
+          "NLP Specialization",
+          "All DeepLearning.AI Short Courses",
+          "Hugging Face NLP Course"
+        ],
+        "tools": [
+          "LangChain",
+          "Ollama",
+          "Hugging Face Transformers",
+          "OpenAI API",
+          "Vector Databases"
+        ]
+      },
+      "recallCategories": [
+        "04_LLMs_GenAI",
+        "05_NLP_Advanced",
+        "06_Agents",
+        "08_Projects"
+      ]
+    },
+    "phase4": {
+      "id": "phase4",
+      "title": "MLOps & Production Systems",
+      "weeks": "33-40",
+      "duration": "8 weeks",
+      "startDate": "2026-01-31",
+      "endDate": "2026-03-27",
+      "description": "Production ML pipelines, monitoring, CI/CD, containerization, cloud deployment",
+      "learningObjectives": [
+        "Design ML systems architecture",
+        "Implement CI/CD for ML",
+        "Master containerization",
+        "Deploy at scale",
+        "Monitor model performance",
+        "Optimize costs"
+      ],
+      "keyDeliverables": [
+        "Docker ML Pipeline (Week 33)",
+        "Kubernetes Deployment (Week 34)",
+        "Model Monitoring Dashboard (Week 35)",
+        "A/B Testing Framework (Week 36)",
+        "Cost Optimization Tool (Week 37)",
+        "MLOps Platform (Week 38)",
+        "Edge Deployment (Week 39)",
+        "Capstone: Production ML System (Week 40)"
+      ],
+      "resources": {
+        "courses": [
+          "MLOps Specialization",
+          "Full Stack Deep Learning",
+          "Cloud Provider ML Paths"
+        ],
+        "tools": [
+          "Docker",
+          "Kubernetes",
+          "MLflow",
+          "Weights & Biases",
+          "Cloud Platforms"
+        ]
+      },
+      "recallCategories": ["05_MLOps_Production", "07_DevOps", "08_Projects"]
+    },
+    "phase5": {
+      "id": "phase5",
+      "title": "AI Safety, Ethics & Open Source",
+      "weeks": "41-44",
+      "duration": "4 weeks",
+      "startDate": "2026-03-28",
+      "endDate": "2026-04-24",
+      "description": "AI alignment, red teaming, security, ethics, major open source contributions",
+      "learningObjectives": [
+        "Understand AI safety principles",
+        "Implement security best practices",
+        "Contribute to major OSS projects",
+        "Build ethical AI frameworks",
+        "Red team AI systems"
+      ],
+      "keyDeliverables": [
+        "AI Safety Audit Tool (Week 41)",
+        "Red Teaming Framework (Week 42)",
+        "Major OSS Contribution (Week 43)",
+        "Ethics Case Study (Week 44)"
+      ],
+      "resources": {
+        "courses": [
+          "AI Ethics courses",
+          "Security courses",
+          "Red teaming labs"
+        ],
+        "communities": ["AI Village", "AI Safety groups"]
+      },
+      "recallCategories": ["06_Open_Source_AI", "07_AI_Security", "09_Ethics"]
+    },
+    "phase6": {
+      "id": "phase6",
+      "title": "Specialization & Leadership",
+      "weeks": "45-48",
+      "duration": "4 weeks",
+      "startDate": "2026-04-25",
+      "endDate": "2026-05-22",
+      "description": "Choose specialization, complete capstone, prepare for leadership roles",
+      "specializations": [
+        {
+          "name": "Quantum ML",
+          "description": "Quantum computing for ML",
+          "deliverable": "Quantum ML algorithm"
+        },
+        {
+          "name": "Causal AI",
+          "description": "Causal inference in AI",
+          "deliverable": "Causal analysis framework"
+        },
+        {
+          "name": "AI Leadership",
+          "description": "Technical leadership",
+          "deliverable": "AI strategy document"
+        }
+      ],
+      "keyDeliverables": [
+        "Specialization Project (Week 45-46)",
+        "Technical Publication (Week 47)",
+        "Conference Presentation (Week 48)",
+        "Leadership Portfolio"
+      ],
+      "targetRoles": [
+        "Lead GenAI Developer",
+        "AI Solutions Architect",
+        "Head of AI",
+        "AI Consultant",
+        "Technical Co-founder"
+      ]
+    }
+  },
+  "currentWeek": {
+    "weekNumber": 1,
+    "phase": "phase1",
+    "title": "Python Mastery Bootcamp",
+    "startDate": "2025-06-21",
+    "endDate": "2025-06-27",
+    "currentDay": "Tuesday",
+    "daysRemaining": 3,
+    "primaryGoal": "Complete Python fundamentals and ship GitHub Stats CLI v1.0",
+    "progressSoFar": {
+      "tasksCompleted": [
+        "Python environment setup",
+        "GitHub account configured",
+        "Recall.ai installed"
+      ],
+      "tasksInProgress": [
+        "GitHub Stats CLI development",
+        "First blog post draft"
+      ],
+      "tasksPending": [
+        "Deploy CLI v1.0",
+        "Publish blog post",
+        "Portfolio site setup"
+      ]
+    },
+    "dailySchedule": {
+      "monday": {
+        "date": "2025-06-24",
+        "status": "completed",
+        "morning": {
+          "task": "Python for Everybody Ch1-2",
+          "duration": "2h",
+          "completed": true,
+          "recallSaves": 12
+        },
+        "afternoon": {
+          "task": "GitHub Stats CLI setup",
+          "duration": "2h",
+          "completed": true,
+          "githubCommits": 3
+        },
+        "evening": {
+          "task": "Git + Blog setup",
+          "duration": "1h",
+          "completed": true,
+          "deliverable": "Repo created"
+        }
+      },
+      "tuesday": {
+        "date": "2025-06-25",
+        "status": "in_progress",
+        "currentTime": "19:52:10",
+        "morning": {
+          "task": "DataCamp Python Fundamentals",
+          "duration": "2h",
+          "completed": true,
+          "recallSaves": 8
+        },
+        "afternoon": {
+          "task": "CLI: GitHub API integration",
+          "duration": "2h",
+          "completed": true,
+          "progress": "API auth working, fetching user stats"
+        },
+        "evening": {
+          "task": "LinkedIn post + Blog draft",
+          "duration": "1h",
+          "completed": false,
+          "todo": "Write about Day 1 learnings"
+        },
+        "nextActions": [
+          "Complete LinkedIn post about journey start",
+          "Finish blog post draft",
+          "Review today's Recall saves",
+          "Plan Wednesday's LeetCode problems"
+        ]
+      },
+      "wednesday": {
+        "date": "2025-06-26",
+        "status": "upcoming",
+        "morning": {
+          "task": "LeetCode Easy x2 + Review",
+          "duration": "2h",
+          "problems": ["Two Sum", "Valid Parentheses"]
+        },
+        "afternoon": {
+          "task": "CLI: Parse and format data",
+          "duration": "2h",
+          "goal": "Beautiful CLI output"
+        },
+        "evening": {
+          "task": "Kaggle account + first notebook",
+          "duration": "1h",
+          "deliverable": "Python basics notebook"
+        }
+      },
+      "thursday": {
+        "date": "2025-06-27",
+        "status": "upcoming",
+        "morning": {
+          "task": "Python advanced: decorators, generators",
+          "duration": "2h"
+        },
+        "afternoon": {
+          "task": "CLI: Add visualizations",
+          "duration": "2h"
+        },
+        "evening": {
+          "task": "Deploy to Hugging Face Space",
+          "duration": "1h"
+        }
+      },
+      "friday": {
+        "date": "2025-06-28",
+        "status": "upcoming",
+        "morning": {
+          "task": "Math for ML: Linear Algebra basics",
+          "duration": "2h"
+        },
+        "afternoon": {
+          "task": "CLI: Polish, test, documentation",
+          "duration": "2h"
+        },
+        "evening": {
+          "task": "Blog post #2: Building the CLI",
+          "duration": "1h"
+        },
+        "milestone": "🚀 Ship CLI v1.0!"
+      },
+      "saturday": {
+        "date": "2025-06-29",
+        "status": "upcoming",
+        "morning": {
+          "task": "Kaggle Python course",
+          "duration": "2h"
+        },
+        "afternoon": {
+          "task": "Ollama setup + explore models",
+          "duration": "2h"
+        },
+        "evening": {
+          "task": "Open source contribution research",
+          "duration": "1h"
+        }
+      },
+      "sunday": {
+        "date": "2025-06-30",
+        "status": "upcoming",
+        "morning": {
+          "task": "Week 1 complete review",
+          "duration": "2h"
+        },
+        "afternoon": {
+          "task": "Recall.ai weekly analysis",
+          "duration": "2h"
+        },
+        "evening": {
+          "task": "Plan Week 2 + Blog summary",
+          "duration": "1h"
+        }
+      }
+    },
+    "weeklyMetrics": {
+      "hoursLearned": 12,
+      "hoursTarget": 28,
+      "githubCommits": 3,
+      "recallSaves": 20,
+      "blogPosts": 0,
+      "linkedinPosts": 0,
+      "projectsProgress": {
+        "githubStatsCLI": 40,
+        "portfolioSite": 10
+      }
+    }
+  },
+  "todaysFocus": {
+    "date": "2025-06-24T19:52:10Z",
+    "dayOfWeek": "Tuesday",
+    "timeRemaining": "4h 8m until day end",
+    "immediateActions": [
+      {
+        "priority": 1,
+        "task": "Complete LinkedIn post about starting journey",
+        "duration": "20 min",
+        "why": "Build in public from day 1"
+      },
+      {
+        "priority": 2,
+        "task": "Finish blog post draft: 'Day 1 of My AI Journey'",
+        "duration": "40 min",
+        "why": "Document learning immediately"
+      },
+      {
+        "priority": 3,
+        "task": "Review and organize Recall.ai saves from today",
+        "duration": "15 min",
+        "why": "Consolidate learning"
+      },
+      {
+        "priority": 4,
+        "task": "Push CLI progress to GitHub",
+        "duration": "10 min",
+        "why": "Maintain commit streak"
+      },
+      {
+        "priority": 5,
+        "task": "Set up tomorrow's LeetCode problems",
+        "duration": "15 min",
+        "why": "Prepare for success"
+      }
+    ],
+    "energyManagement": {
+      "currentEnergy": "Evening - Lower focus",
+      "recommendation": "Focus on community engagement and planning tasks",
+      "tomorrowPrep": "Set out materials for morning deep work"
+    }
+  },
+  "portfolioInfrastructure": {
+    "website": {
+      "domain": "jamiecraik.ai",
+      "status": "pending_registration",
+      "framework": "Astro + Tailwind",
+      "deployment": "Vercel",
+      "sections": [
+        "Hero with current learning status",
+        "Projects showcase with live demos",
+        "Blog with technical articles",
+        "Learning roadmap visualization",
+        "About and contact"
+      ],
+      "seo": {
+        "targetKeywords": [
+          "AI engineer portfolio",
+          "machine learning projects",
+          "Jamie Craik AI"
+        ],
+        "metaDescription": "AI Engineering portfolio of Jamie Scott Craik - Python, ML, LLMs, and production AI systems"
+      }
+    },
+    "blog": {
+      "platforms": [
+        {
+          "name": "Personal Blog",
+          "url": "jamiecraik.ai/blog",
+          "purpose": "Primary content hub"
+        },
+        {
+          "name": "Dev.to",
+          "url": "dev.to/jamiescottcraik",
+          "purpose": "Developer community"
+        },
+        {
+          "name": "Medium",
+          "url": "medium.com/@jamiescottcraik",
+          "purpose": "Broader reach"
+        },
+        {
+          "name": "LinkedIn Articles",
+          "purpose": "Professional network"
+        }
+      ],
+      "contentCalendar": {
+        "monday": "Week kickoff post",
+        "wednesday": "Technical tutorial",
+        "friday": "Project showcase",
+        "sunday": "Week reflection"
+      },
+      "upcomingPosts": [
+        {
+          "title": "Day 1 of My AI Engineering Journey",
+          "date": "2025-06-24",
+          "status": "drafting"
+        },
+        {
+          "title": "Building a GitHub Stats CLI in Python",
+          "date": "2025-06-28",
+          "status": "planned"
+        },
+        {
+          "title": "Week 1: Lessons from 28 Hours of Learning",
+          "date": "2025-06-30",
+          "status": "planned"
+        }
+      ]
+    },
+    "social": {
+      "linkedin": {
+        "username": "jamiescottcraik",
+        "currentFollowers": 0,
+        "targetFollowers": 5000,
+        "postingSchedule": "Daily at 9 AM and 5 PM",
+        "contentPillars": [
+          "Learning journey updates (30%)",
+          "Technical insights (40%)",
+          "Project showcases (20%)",
+          "Community engagement (10%)"
+        ]
+      },
+      "github": {
+        "username": "jamiescottcraik",
+        "targetStars": 500,
+        "pinnedRepos": [
+          "ai-learning-roadmap",
+          "github-stats-cli",
+          "ml-project-showcase"
+        ]
+      },
+      "twitter": {
+        "username": "@jamiescottcraik",
+        "purpose": "Quick updates and engagement"
+      }
+    }
+  },
+  "recallIntegration": {
+    "setup": {
+      "username": "jamiescottcraik_ai",
+      "categories": [
+        "01_Python_Fundamentals",
+        "02_Machine_Learning",
+        "03_Deep_Learning",
+        "04_LLMs_GenAI",
+        "05_MLOps_Production",
+        "06_Open_Source_AI",
+        "07_AI_Security",
+        "08_Projects",
+        "09_Career_Portfolio",
+        "10_Daily_Learning_Logs"
+      ],
+      "autoTagRules": {
+        "youtube.com/@3blue1brown": ["math", "visualization"],
+        "youtube.com/@AndrejKarpathy": ["implementation", "advanced"],
+        "coursera.org": ["course", "structured"],
+        "arxiv.org": ["research", "paper"],
+        "github.com": ["code", "implementation"]
+      }
+    },
+    "dailyWorkflow": {
+      "morning": {
+        "duration": "10 min",
+        "tasks": [
+          "Review yesterday's saves",
+          "Check knowledge connections",
+          "Identify learning gaps"
+        ]
+      },
+      "throughout": {
+        "target": "Save everything valuable",
+        "minimum": "10 saves/day"
+      },
+      "evening": {
+        "duration": "10 min",
+        "tasks": ["Organize saves", "Add manual notes", "Export for blog ideas"]
+      }
+    },
+    "weeklyReview": {
+      "schedule": "Sunday 2-4 PM",
+      "tasks": [
+        "Analyze knowledge graph",
+        "Identify patterns",
+        "Generate blog content",
+        "Plan next week focus"
+      ]
+    },
+    "metrics": {
+      "dailySaves": 10,
+      "weeklySaves": 70,
+      "monthlyConnections": 200,
+      "knowledgeRetention": "Test monthly"
+    }
+  },
+  "learningResources": {
+    "phase1Resources": {
+      "courses": {
+        "primary": [
+          {
+            "name": "Python for Everybody",
+            "platform": "Coursera",
+            "url": "https://www.coursera.org/specializations/python",
+            "duration": "8 months",
+            "priority": "high"
+          },
+          {
+            "name": "CS50x",
+            "platform": "edX",
+            "url": "https://cs50.harvard.edu/x/",
+            "duration": "12 weeks",
+            "priority": "medium"
+          }
+        ],
+        "supplementary": [
+          {
+            "name": "DataCamp Python Track",
+            "url": "https://www.datacamp.com/tracks/python-programming",
+            "duration": "25 hours"
+          },
+          {
+            "name": "Google's Python Class",
+            "url": "https://developers.google.com/edu/python/",
+            "duration": "2 days"
+          }
+        ]
+      },
+      "books": [
+        {
+          "title": "Python Crash Course",
+          "author": "Eric Matthes",
+          "priority": "must-read",
+          "chapters": 20
+        },
+        {
+          "title": "Grokking Algorithms",
+          "author": "Aditya Bhargava",
+          "priority": "must-read",
+          "chapters": 11
+        },
+        {
+          "title": "Clean Code",
+          "author": "Robert Martin",
+          "priority": "reference",
+          "chapters": 17
+        }
+      ],
+      "practice": {
+        "daily": [
+          {
+            "platform": "LeetCode",
+            "target": "2 Easy problems",
+            "time": "1 hour"
+          },
+          {
+            "platform": "HackerRank",
+            "target": "1 Python challenge",
+            "time": "30 min"
+          }
+        ],
+        "weekly": [
+          {
+            "platform": "Project Euler",
+            "target": "1 problem",
+            "time": "2 hours"
+          },
+          {
+            "platform": "Kaggle",
+            "target": "1 notebook",
+            "time": "3 hours"
+          }
+        ]
+      },
+      "youtube": [
+        {
+          "channel": "Corey Schafer",
+          "focus": "Python tutorials",
+          "mustWatch": "Python OOP series"
+        },
+        {
+          "channel": "mCoding",
+          "focus": "Python deep dives",
+          "mustWatch": "Python pitfalls"
+        }
+      ]
+    }
+  },
+  "communityEngagement": {
+    "joinedCommunities": [],
+    "targetCommunities": [
+      {
+        "name": "Hugging Face Discord",
+        "url": "https://discord.gg/hugging-face-879548962464493619",
+        "purpose": "LLM discussions",
+        "joinBy": "Week 1"
+      },
+      {
+        "name": "r/MachineLearning",
+        "url": "https://reddit.com/r/MachineLearning",
+        "purpose": "Research updates",
+        "joinBy": "Week 1"
+      },
+      {
+        "name": "FastAI Forums",
+        "url": "https://forums.fast.ai/",
+        "purpose": "Deep learning help",
+        "joinBy": "Week 2"
+      }
+    ],
+    "engagementStrategy": {
+      "daily": [
+        "Answer 1 question in forums",
+        "Comment on 3 LinkedIn posts",
+        "Share 1 learning insight"
+      ],
+      "weekly": [
+        "Write 1 helpful forum post",
+        "Connect with 5 AI professionals",
+        "Join 1 virtual meetup"
+      ]
+    }
+  },
+  "accountabilitySystem": {
+    "publicCommitments": [
+      {
+        "commitment": "365-day GitHub streak",
+        "startDate": "2025-06-24",
+        "currentStreak": 0
+      },
+      {
+        "commitment": "Weekly blog post",
+        "frequency": "Every Sunday",
+        "published": 0
+      },
+      {
+        "commitment": "Monthly project ship",
+        "nextDeadline": "2025-07-21",
+        "planned": "GitHub Stats CLI"
+      }
+    ],
+    "trackingMethods": [
+      "Public GitHub contributions graph",
+      "LinkedIn weekly updates",
+      "Blog RSS feed",
+      "Twitter build-in-public thread"
+    ],
+    "accountabilityPartners": [
+      {
+        "platform": "Find on Discord",
+        "goal": "Weekly check-ins",
+        "status": "seeking"
+      }
+    ]
+  },
+  "financialInvestment": {
+    "budget": {
+      "monthly": 200,
+      "allocation": {
+        "courses": 50,
+        "books": 30,
+        "cloudServices": 50,
+        "tools": 30,
+        "conferences": 40
+      }
+    },
+    "investments": [
+      {
+        "item": "Coursera Plus",
+        "cost": 49,
+        "frequency": "monthly",
+        "value": "Unlimited courses"
+      },
+      {
+        "item": "GitHub Copilot",
+        "cost": 10,
+        "frequency": "monthly",
+        "value": "Faster coding"
+      },
+      {
+        "item": "Cloud credits",
+        "cost": 50,
+        "frequency": "monthly",
+        "value": "GPU access"
+      }
+    ],
+    "roi": {
+      "targetSalaryIncrease": "50%",
+      "timeframe": "12 months",
+      "currentSalary": "baseline",
+      "targetRole": "Senior AI Engineer"
+    }
+  },
+  "healthAndWellbeing": {
+    "schedule": {
+      "workBlocks": [
+        "9:00-11:00 - Deep work",
+        "11:30-13:30 - Project work",
+        "14:30-16:30 - Learning",
+        "17:00-18:00 - Community"
+      ],
+      "breaks": [
+        "11:00-11:30 - Walk",
+        "13:30-14:30 - Lunch + Rest",
+        "16:30-17:00 - Exercise"
+      ]
+    },
+    "burnoutPrevention": [
+      "Weekend mornings off",
+      "Daily exercise",
+      "Weekly social time",
+      "Monthly full day off"
+    ]
+  },
+  "successMetrics": {
+    "technical": {
+      "githubCommits": {
+        "target": 500,
+        "current": 3,
+        "pace": "below_target"
+      },
+      "recallSavesPerWeek": {
+        "target": 100,
+        "current": 20,
+        "pace": "below_target"
+      },
+      "blogPosts": {
+        "target": 50,
+        "current": 0,
+        "pace": "need_to_start"
+      },
+      "projectsDeployed": {
+        "target": 20,
+        "current": 0,
+        "pace": "on_track"
+      },
+      "openSourcePRs": {
+        "target": 10,
+        "current": 0,
+        "pace": "not_started"
+      }
+    },
+    "portfolio": {
+      "websiteLive": {
+        "target": true,
+        "current": false,
+        "deadline": "2025-06-30"
+      },
+      "linkedinFollowers": {
+        "target": 5000,
+        "current": 0,
+        "monthlyGrowthNeeded": 417
+      },
+      "emailSubscribers": {
+        "target": 1000,
+        "current": 0,
+        "conversionRate": "2%"
+      }
+    },
+    "career": {
+      "interviewsPerMonth": {
+        "target": 5,
+        "current": 0,
+        "startDate": "Month 6"
+      },
+      "jobOffersReceived": {
+        "target": 10,
+        "current": 0,
+        "timeline": "Months 9-12"
+      },
+      "speakingEngagements": {
+        "target": 5,
+        "current": 0,
+        "firstTarget": "Month 6"
+      }
+    }
+  },
+  "immediateActions": {
+    "next60Minutes": [
+      {
+        "task": "Complete LinkedIn post about journey",
+        "time": "20 min",
+        "template": "Starting my 48-week AI engineering journey today! Following a structured path from Python basics to AI leadership. Week 1 focus: Python mastery and building a GitHub Stats CLI. Follow along as I learn in public! #AIEngineering #BuildInPublic #MachineLearning"
+      },
+      {
+        "task": "Finish blog post draft",
+        "time": "40 min",
+        "outline": [
+          "Why I'm starting this journey",
+          "My 48-week roadmap overview",
+          "Week 1 goals and projects",
+          "Learning stack and tools",
+          "How to follow along"
+        ]
+      }
+    ],
+    "beforeBedTonight": [
+      "Review Recall.ai saves",
+      "Push GitHub commits",
+      "Set up tomorrow's tasks",
+      "Journal reflection (15 min)"
+    ],
+    "endOfWeek": [
+      "CLI v1.0 deployed",
+      "3 blog posts published",
+      "Portfolio site live (basic)",
+      "20 LinkedIn connections",
+      "Joined 3 communities"
+    ]
+  },
+  "motivationalReminders": [
+    "Every expert was once a beginner",
+    "Consistency beats perfection",
+    "Build in public from day 1",
+    "Your portfolio is your real resume",
+    "Network is net worth",
+    "Document everything you learn",
+    "Ship early, ship often"
+  ]
+}

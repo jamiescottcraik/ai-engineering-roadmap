@@ -1,0 +1,14 @@
+# Ignore artifacts and dependencies
+node_modules
+.next
+out
+build
+
+# Ignore shell scripts if they are being picked up
+healthcheck.js
+healthcheck.sh
+
+# Other standard ignores
+coverage
+dist
+*.log

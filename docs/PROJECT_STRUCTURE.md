@@ -1,15 +1,20 @@
-# brAInwav MAS Project Scaffold — Production-Grade Template
+# brAInwav AI Engineering Roadmap — Clean Project Structure
 
-**Owner:** jamiescottcraik  
-**Status:** Production-ready, constitution-aligned  
-**Updated:** 2025-06-19
+**Owner:** jamiescottcraik
+**Status:** Production-ready, streamlined after major cleanup
+**Updated:** 2025-06-24
 
 ---
 
 ## Purpose
 
-This scaffold is the canonical, company-critical foundation for all brAInwav Multi-Agent System (MAS) projects.
-It guarantees strict AI governance, reproducible environments, and automated auditability—ready for solo or team scale.
+This is the clean, streamlined structure for the AI Engineering Roadmap personal learning platform.
+After major cleanup (June 2025), redundant directories and files have been removed, leaving only the essential components:
+
+- **frontend-next/**: Next.js 15 + React 19 frontend (Glass UI, interactive roadmap)
+- **backend/**: FastAPI backend with AI integrations
+- **docs/**: Documentation and feature planning
+- Clean configuration and development tooling
 
 ---
 
@@ -17,113 +22,169 @@ It guarantees strict AI governance, reproducible environments, and automated aud
 
 ```text
 ai-engineering-roadmap/
-├── .ai/                          # Centralized AI governance & dynamic context
-│   ├── context/
-│   │   └── project_context.md    # Live project summary for agent consumption
-│   └── RULES_OF_AI.md            # Supreme, protected AI constitution
+├── .ai/                          # AI governance & rules
+│   ├── AGENT.md                  # AI agent operational framework
+│   └── RULES_OF_AI.md            # Supreme AI constitution
 ├── .devcontainer/
-│   └── devcontainer.json         # VS Code Dev Container config (portable, reproducible)
+│   └── devcontainer.json         # VS Code Dev Container config
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── ai_task.yml           # Task prompt template for AI agents
-│   │   └── bug_report.yml        # Standardized bug report template
 │   ├── workflows/
-│   │   ├── backend-ci.yml        # CI/CD for backend
-│   │   └── frontend-ci.yml       # CI/CD for frontend
-│   ├── CODEOWNERS                # Enforces owner review for protected files
-│   ├── copilot-instructions.md   # Explicit Copilot guidance for repo
-│   ├── SECURITY.md               # Security policy and vulnerability disclosure
-│   ├── PULL_REQUEST_TEMPLATE.md  # Checklist for AI/human PRs
-│   └── CONTRIBUTING.md           # Contribution guidelines
+│   │   ├── backend-ci.yml        # Backend CI/CD
+│   │   └── frontend-ci.yml       # Frontend CI/CD
+│   ├── CODEOWNERS                # Protected file ownership
+│   └── copilot-instructions.md   # GitHub Copilot guidance
 ├── .vscode/
-│   └── settings.json             # Editor/AI tool config (not governance)
-├── backend/
+│   ├── extensions.json           # Recommended VS Code extensions
+│   ├── launch.json               # Debug configurations
+│   ├── settings.json             # Workspace settings
+│   └── tasks.json                # Development tasks
+├── assets/
+│   ├── brAInwav.png              # Project logo/assets
+│   └── brAInwav-new.png
+├── backend/                      # FastAPI Backend
 │   ├── src/
-│   │   ├── agents/               # Modular AI agent implementations
-│   │   ├── config.py             # Central config (env, settings)
-│   │   ├── core/                 # Core logic/utilities (non-agent)
-│   │   ├── features/             # Main business features
-│   │   ├── integrations/
-│   │   │   └── providers/        # AI/LLM provider integrations
-│   │   ├── main.py               # App entrypoint
-│   │   └── schemas/              # Data schemas / validation
-│   ├── .env.example              # Backend environment variable template
-│   └── requirements.txt          # Python dependencies
-├── docs/
+│   │   ├── config.py             # Configuration management
+│   │   └── main.py               # FastAPI application entry
+│   ├── tests/
+│   │   ├── conftest.py           # Pytest configuration
+│   │   └── test_main.py          # Backend tests
+│   ├── .env                      # Environment variables
+│   ├── .env.example              # Environment template
+│   ├── Dockerfile                # Backend container
+│   ├── dev-requirements.txt      # Development dependencies
+│   └── requirements.txt          # Production dependencies
+├── docs/                         # Documentation
 │   ├── adr/
-│   │   └── 000-template-for-new-adr.md # Architecture decision record starter
+│   │   └── 000-template-for-new-adr.md # Architecture decisions
+│   ├── AGENTS/
+│   │   ├── enhanced-features.md  # Feature enhancements
+│   │   ├── feature_plan.md       # Main feature roadmap
+│   │   └── learning-psychology-features.md # Learning features
+│   ├── assets/                   # Documentation assets
 │   ├── quickstart/
-│   │   └── ONE_COMMAND_SETUP.md        # One-command dev environment setup
-│   ├── AI_PARTNERSHIP.md               # Human/AI collaboration philosophy
-│   ├── feature_plan.md                 # Feature planning docs
-│   ├── model_selection_guide.md        # LLM/model selection & rationale
-│   ├── PROJECT_STRUCTURE.md            # This canonical structure and rationale
-│   └── QUALITY_GATES.md                # Release/merge quality requirements
-├── frontend/
+│   │   └── ONE_COMMAND_SETUP.md  # Quick setup guide
+│   ├── AI_PARTNERSHIP.md         # Human/AI collaboration guide
+│   ├── CHEAT_SHEET.md           # Development cheat sheet
+│   ├── PROJECT_STRUCTURE.md     # This file
+│   └── README.md                 # Documentation index
+├── frontend-next/                # Next.js 15 Frontend (ACTIVE)
 │   ├── src/
-│   │   ├── assets/                     # Static assets (images, etc.)
-│   │   ├── components/                 # Vue/React components
-│   │   ├── services/                   # API/data services
-│   │   ├── views/                      # Page views
-│   │   ├── App.vue                     # Main Vue app entry
-│   │   └── main.ts                     # Frontend entrypoint
-│   ├── .env.example                    # Frontend environment variable template
-│   └── package.json                    # Frontend dependencies/scripts
-├── scripts/
+│   │   ├── app/                  # Next.js App Router
+│   │   │   ├── api/              # API routes
+│   │   │   ├── globals.css       # Global styles
+│   │   │   ├── layout.tsx        # Root layout
+│   │   │   ├── page.tsx          # Home page
+│   │   │   └── roadmap/          # Roadmap pages
+│   │   ├── components/           # React components
+│   │   │   ├── layout/           # Layout components
+│   │   │   ├── learning/         # Learning features
+│   │   │   └── ui/               # UI components
+│   │   └── lib/                  # Utilities and hooks
+│   ├── public/
+│   │   └── content/              # Static content (roadmap data)
+│   ├── coverage/                 # Test coverage reports
+│   ├── scripts/                  # Build and utility scripts
+│   ├── .prettierrc.js           # Code formatting config
+│   ├── Dockerfile               # Frontend container
+│   ├── Dockerfile.optimized     # Optimized production build
+│   ├── eslint.config.mjs        # Linting configuration
+│   ├── healthcheck.js           # Docker health check
+│   ├── jest.config.js           # Testing configuration
+│   ├── next.config.ts           # Next.js configuration
+│   ├── package.json             # Dependencies and scripts
+│   ├── tailwind.config.ts       # Tailwind CSS config
+│   └── tsconfig.json            # TypeScript configuration
+├── reports/                      # Test and coverage reports
+│   ├── coverage.xml             # Coverage data
+│   └── README.md                # Reports documentation
+├── scripts/                      # Utility scripts
 │   ├── ai/
-│   │   ├── sync_context.py             # Auto-sync AI context at commit/push
-│   │   └── update_audit_log.py         # Auto-update AI_CONTRIB_LOG.yaml
-│   └── dev/
-│       └── one_command_start.sh        # Launches all core dev services at once
-├── shared/
-│   └── contracts/
-│       └── api-schema.yaml             # OpenAPI contract (auto-generated, protected)
-├── tests/
-│   ├── backend/                        # Backend tests (unit/integration)
-│   └── frontend/                       # Frontend tests (unit/component)
-├── .editorconfig                       # Coding style unification across all editors
-├── .gitignore                          # Ignore rules for Git
-├── .pre-commit-config.yaml             # Pre-commit: lint, test, AI audit, context sync
-├── AI_CONTRIB_LOG.yaml                 # Immutable log of all AI involvement (auto-updated)
-├── CHANGELOG.md                        # Required for release and audit traceability
-├── docker-compose.yml                  # Orchestrates dev/test infrastructure (DB, Ollama, etc.)
-├── LICENSE                             # Open source/commercial license
-├── pyproject.toml                      # Python build/config standard
-└── README.md                           # Main entrypoint for project documentation
+│   │   └── update_roadmap_progress.py # Progress tracking
+│   ├── ci/                       # CI/CD scripts
+│   ├── dev/                      # Development utilities
+│   ├── audit-links.py           # Link validation
+│   ├── fetch_secrets.py         # Secret management
+│   ├── pre-commit-check.sh      # Pre-commit validation
+│   └── setup_dev_env.sh         # Environment setup
+├── .editorconfig                 # Editor configuration
+├── .env                          # Environment variables
+├── .gitignore                    # Git ignore rules
+├── .pre-commit-config.yaml       # Pre-commit hooks
+├── AI_CONTRIB_LOG.yaml           # AI contribution audit log
+├── CHANGELOG.md                  # Project changelog
+├── CONTRIBUTING.md               # Contribution guidelines
+├── docker-compose.yml            # Multi-service orchestration
+├── LICENSE                       # Project license
+├── pyproject.toml                # Python project configuration
+├── README.md                     # Main project documentation
+├── RESOURCE_OVERVIEW.md          # Resource documentation
+└── uv.lock                       # Python dependency lock file
 ```
 
 ---
 
 ## Key Principles
 
-- **AI Governance:**  
-  `.ai/RULES_OF_AI.md` is the single, protected source of truth for all agent behavior.  
-  `.ai/context/` is the live, dynamic “brain” for all AI agents.
+- **Clean Architecture:**
+  Streamlined structure with only essential components after major cleanup (June 2025)
 
-- **Automation & Audit:**  
-  Pre-commit, scripts, and CI ensure context freshness and that every AI action is logged in `AI_CONTRIB_LOG.yaml`.
+- **Modern Stack:**
+  - Frontend: Next.js 15 + React 19 + TypeScript + TailwindCSS
+  - Backend: FastAPI + Python with AI integrations
+  - Container: Docker with optimized multi-stage builds
 
-- **Separation of Concerns:**  
-  - `.ai/` for governance, context, and agent rules  
-  - `.vscode/`, `.editorconfig` for tool/editor config (not governance)  
-  - `backend/` and `frontend/` for business/application code only  
-  - `shared/` for strict, contract-first API schemas
+- **Feature-Focused:**
+  - Glass UI design system (Apple-style glassmorphism)
+  - Interactive learning roadmap with drag-and-drop
+  - AI tutor integration with local LLM support
+  - Progressive Web App capabilities
 
-- **Industry Leading Onboarding:**  
-  All critical docs (`PROJECT_STRUCTURE.md`, `AI_PARTNERSHIP.md`, `ONE_COMMAND_SETUP.md`) are included for instant clarity.
+- **Development Experience:**
+  - VS Code dev containers for consistent environment
+  - Comprehensive testing (Jest + RTL for frontend, pytest for backend)
+  - Pre-commit hooks for code quality
+  - Automated CI/CD pipelines
 
-- **Self-Enforcing:**  
-  `.github/CODEOWNERS` ensures protected files cannot be changed without explicit owner review.
+- **Documentation-Driven:**
+  All features planned and documented in `docs/AGENTS/feature_plan.md`
+
+---
+
+## Current Implementation Status
+
+### ✅ Completed (Phase 1-4)
+
+- Next.js 15 + React 19 frontend with TypeScript
+- Glass UI design system with glassmorphism effects
+- Interactive roadmap visualization
+- Learning Kanban board with drag-and-drop
+- AI tutor chat interface
+- Comprehensive testing infrastructure
+- Docker containerization
+
+### 🚀 In Progress (Phase 5)
+
+- Browser window chrome (OpenUI-style)
+- Production Docker optimization
+- Local data persistence
+- PWA offline support
+
+### 📋 Planned Features
+
+- Enhanced learning psychology features
+- Time tracking and analytics
+- Gamification elements
+- Collaborative learning tools
 
 ---
 
 ## PARA Mapping
 
-- **Projects:** `backend/`, `frontend/`, `shared/`, `tests/`
-- **Areas:** `.ai/`, `.github/`, `scripts/`
-- **Resources:** `docs/`, `.devcontainer/`, `.vscode/`
-- **Archives:** `AI_CONTRIB_LOG.yaml`, `docs/adr/`, `CHANGELOG.md`
+- **Projects:** `frontend-next/`, `backend/` (active development)
+- **Areas:** `.ai/`, `.github/`, `scripts/` (governance and tooling)
+- **Resources:** `docs/`, `.devcontainer/`, `.vscode/` (documentation and config)
+- **Archives:** `AI_CONTRIB_LOG.yaml`, `docs/adr/`, `CHANGELOG.md` (historical records)
 
 ---
 
-**This structure is the gold standard for all brAInwav MAS and agent-based projects—every directory and file has a clear, justified purpose. All governance, audit, and automation requirements are met out-of-the-box.**
+**This structure represents a clean, modern personal learning platform focused on AI engineering education. Every component serves a clear purpose in delivering a beautiful, functional, and maintainable application.**

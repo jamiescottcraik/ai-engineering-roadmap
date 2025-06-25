@@ -40,6 +40,7 @@ Transforming from technical foundations to AI leadership through structured lear
 - **🏁 Checkpoint System**: Clear milestones and deliverable tracking
 - **🔄 Local Progress Context**: Personal progress stored privately in your browser
 - **💡 Learning Rationale**: "Why this matters" context for each milestone
+- **🦙 Ollama Integration**: Status card and evening assistant components for local model interaction
 
 Explore the complete roadmap with progress tracking, detailed descriptions, and milestone checkpoints
 
@@ -174,6 +175,15 @@ ai-engineering-roadmap/
 - 99%+ uptime with automated deployment
 - 95%+ test coverage with quality gates
 - Real-time analytics and performance monitoring
+
+### Backend API Endpoints
+
+| Method | Endpoint                | Description                                   |
+| ------ | ----------------------- | --------------------------------------------- |
+| `GET`  | `/`                     | Basic API health message                      |
+| `GET`  | `/health`               | Service health status                        |
+| `POST` | `/roadmap/fix-sequence` | Reorder roadmap weeks and update progress     |
+| `POST` | `/ollama/sync`          | Sync Ollama models for the current roadmap week |
 
 ---
 

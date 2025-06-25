@@ -1,9 +1,9 @@
 /**
  * Learning Context Provider
- * 
+ *
  * Manages learning progress, spaced repetition, and analytics for the AI roadmap.
  * Integrates with the migrated roadmap data structure.
- * 
+ *
  * @author GitHub Copilot (ai-assisted)
  * @adheresTo /.ai/AGENT.md §2 (Core Requirements), §3.2 (Error Handling)
  */
@@ -120,7 +120,10 @@ interface LearningState {
 type LearningAction =
   | { type: 'LOAD_ROADMAP_SUCCESS'; payload: { nodes: LearningNode[]; checkpoints: Checkpoint[] } }
   | { type: 'LOAD_ROADMAP_ERROR'; payload: string }
-  | { type: 'UPDATE_NODE_PROGRESS'; payload: { nodeId: string; progress: Partial<LearningNode['progress']> } }
+  | {
+      type: 'UPDATE_NODE_PROGRESS';
+      payload: { nodeId: string; progress: Partial<LearningNode['progress']> };
+    }
   | { type: 'COMPLETE_NODE'; payload: { nodeId: string; masteryLevel: number } }
   | { type: 'START_NODE'; payload: string }
   | { type: 'SCHEDULE_REVIEW'; payload: { nodeId: string; reviewDate: string } }
@@ -140,17 +143,17 @@ const initialState: LearningState = {
     longestStreak: 0,
     averageMasteryLevel: 0,
     skillsAcquired: [],
-    dailyProgress: []
+    dailyProgress: [],
   },
   currentPhase: 'phase1',
   preferences: {
     dailyGoalHours: 2,
     reminderTime: '09:00',
     difficultyPreference: 'intermediate',
-    learningStyle: 'mixed'
+    learningStyle: 'mixed',
   },
   isLoading: false,
-  error: null
+  error: null,
 };
 
 function learningReducer(state: LearningState, action: LearningAction): LearningState {
@@ -162,28 +165,28 @@ function learningReducer(state: LearningState, action: LearningAction): Learning
         checkpoints: action.payload.checkpoints,
         analytics: calculateAnalytics(action.payload.nodes),
         isLoading: false,
-        error: null
+        error: null,
       };
 
     case 'LOAD_ROADMAP_ERROR':
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        error: action.payload,
       };
 
     case 'UPDATE_NODE_PROGRESS':
       return {
         ...state,
-        nodes: state.nodes.map(node =>
+        nodes: state.nodes.map((node) =>
           node.id === action.payload.nodeId
             ? { ...node, progress: { ...node.progress, ...action.payload.progress } }
             : node
-        )
+        ),
       };
 
     case 'COMPLETE_NODE':
-      const updatedNodes = state.nodes.map(node =>
+      const updatedNodes = state.nodes.map((node) =>
         node.id === action.payload.nodeId
           ? {
               ...node,
@@ -193,8 +196,8 @@ function learningReducer(state: LearningState, action: LearningAction): Learning
                 completedAt: new Date().toISOString(),
                 masteryLevel: action.payload.masteryLevel,
                 reviewCount: node.progress.reviewCount + 1,
-                nextReviewDate: calculateNextReviewDate(node.progress.reviewCount + 1)
-              }
+                nextReviewDate: calculateNextReviewDate(node.progress.reviewCount + 1),
+              },
             }
           : node
       );
@@ -205,51 +208,54 @@ function learningReducer(state: LearningState, action: LearningAction): Learning
       return {
         ...state,
         nodes: unlockedNodes,
-        analytics: calculateAnalytics(unlockedNodes)
+        analytics: calculateAnalytics(unlockedNodes),
       };
 
     case 'START_NODE':
       return {
         ...state,
-        nodes: state.nodes.map(node =>
+        nodes: state.nodes.map((node) =>
           node.id === action.payload
             ? { ...node, progress: { ...node.progress, status: 'in_progress' } }
             : node
-        )
+        ),
       };
 
     case 'SCHEDULE_REVIEW':
       return {
         ...state,
-        nodes: state.nodes.map(node =>
+        nodes: state.nodes.map((node) =>
           node.id === action.payload.nodeId
             ? { ...node, progress: { ...node.progress, nextReviewDate: action.payload.reviewDate } }
             : node
-        )
+        ),
       };
 
     case 'UPDATE_PREFERENCES':
       return {
         ...state,
-        preferences: { ...state.preferences, ...action.payload }
+        preferences: { ...state.preferences, ...action.payload },
       };
 
     case 'RECORD_STUDY_SESSION':
       // Record study session and update daily progress
       const today = new Date().toISOString().split('T')[0];
-      const existingProgressIndex = state.analytics.dailyProgress.findIndex(p => p.date === today);
-      
-      let updatedDailyProgress = [...state.analytics.dailyProgress];
+      const existingProgressIndex = state.analytics.dailyProgress.findIndex(
+        (p) => p.date === today
+      );
+
+      const updatedDailyProgress = [...state.analytics.dailyProgress];
       if (existingProgressIndex >= 0) {
         updatedDailyProgress[existingProgressIndex] = {
           ...updatedDailyProgress[existingProgressIndex],
-          hoursStudied: updatedDailyProgress[existingProgressIndex].hoursStudied + action.payload.duration
+          hoursStudied:
+            updatedDailyProgress[existingProgressIndex].hoursStudied + action.payload.duration,
         };
       } else {
         updatedDailyProgress.push({
           date: today,
           nodesCompleted: 0,
-          hoursStudied: action.payload.duration
+          hoursStudied: action.payload.duration,
         });
       }
 
@@ -257,8 +263,8 @@ function learningReducer(state: LearningState, action: LearningAction): Learning
         ...state,
         analytics: {
           ...state.analytics,
-          dailyProgress: updatedDailyProgress
-        }
+          dailyProgress: updatedDailyProgress,
+        },
       };
 
     default:
@@ -269,19 +275,21 @@ function learningReducer(state: LearningState, action: LearningAction): Learning
 // Helper functions
 
 function calculateAnalytics(nodes: LearningNode[]): LearningAnalytics {
-  const completedNodes = nodes.filter(n => n.progress.status === 'completed');
-  const inProgressNodes = nodes.filter(n => n.progress.status === 'in_progress');
-  
+  const completedNodes = nodes.filter((n) => n.progress.status === 'completed');
+  const inProgressNodes = nodes.filter((n) => n.progress.status === 'in_progress');
+
   const totalHours = nodes.reduce((sum, node) => sum + node.estimatedHours, 0);
   const completedHours = completedNodes.reduce((sum, node) => sum + node.estimatedHours, 0);
-  
-  const averageMasteryLevel = completedNodes.length > 0
-    ? completedNodes.reduce((sum, node) => sum + node.progress.masteryLevel, 0) / completedNodes.length
-    : 0;
 
-  const skillsAcquired = Array.from(new Set(
-    completedNodes.flatMap(node => node.metadata.skills)
-  ));
+  const averageMasteryLevel =
+    completedNodes.length > 0
+      ? completedNodes.reduce((sum, node) => sum + node.progress.masteryLevel, 0) /
+        completedNodes.length
+      : 0;
+
+  const skillsAcquired = Array.from(
+    new Set(completedNodes.flatMap((node) => node.metadata.skills))
+  );
 
   return {
     totalNodes: nodes.length,
@@ -293,15 +301,15 @@ function calculateAnalytics(nodes: LearningNode[]): LearningAnalytics {
     longestStreak: 0, // TODO: Calculate based on daily progress
     averageMasteryLevel,
     skillsAcquired,
-    dailyProgress: [] // Will be populated from localStorage
+    dailyProgress: [], // Will be populated from localStorage
   };
 }
 
 function updateNodeAvailability(nodes: LearningNode[]): LearningNode[] {
-  return nodes.map(node => {
+  return nodes.map((node) => {
     // Check if all prerequisites are completed
-    const allPrerequisitesCompleted = node.prerequisites.every(prereqId => {
-      const prerequisite = nodes.find(n => n.id === prereqId);
+    const allPrerequisitesCompleted = node.prerequisites.every((prereqId) => {
+      const prerequisite = nodes.find((n) => n.id === prereqId);
       return prerequisite?.progress.status === 'completed';
     });
 
@@ -309,7 +317,7 @@ function updateNodeAvailability(nodes: LearningNode[]): LearningNode[] {
     if (node.progress.status === 'locked' && allPrerequisitesCompleted) {
       return {
         ...node,
-        progress: { ...node.progress, status: 'available' }
+        progress: { ...node.progress, status: 'available' },
       };
     }
 
@@ -322,10 +330,10 @@ function calculateNextReviewDate(reviewCount: number): string {
   const intervals = [1, 3, 7, 14, 30, 90];
   const intervalIndex = Math.min(reviewCount - 1, intervals.length - 1);
   const intervalDays = intervals[intervalIndex];
-  
+
   const nextReview = new Date();
   nextReview.setDate(nextReview.getDate() + intervalDays);
-  
+
   return nextReview.toISOString().split('T')[0];
 }
 
@@ -358,14 +366,17 @@ export function LearningProvider({ children }: { children: React.ReactNode }) {
   // Save state to localStorage whenever it changes
   useEffect(() => {
     if (state.nodes.length > 0) {
-      localStorage.setItem('learning-progress', JSON.stringify({
-        nodeProgress: state.nodes.map(node => ({
-          id: node.id,
-          progress: node.progress
-        })),
-        preferences: state.preferences,
-        analytics: state.analytics
-      }));
+      localStorage.setItem(
+        'learning-progress',
+        JSON.stringify({
+          nodeProgress: state.nodes.map((node) => ({
+            id: node.id,
+            progress: node.progress,
+          })),
+          preferences: state.preferences,
+          analytics: state.analytics,
+        })
+      );
     }
   }, [state]);
 
@@ -375,13 +386,13 @@ export function LearningProvider({ children }: { children: React.ReactNode }) {
       if (!response.ok) {
         throw new Error('Failed to load roadmap data');
       }
-      
+
       const roadmapData = await response.json();
-      
+
       // Load saved progress from localStorage
       const savedProgress = localStorage.getItem('learning-progress');
       let nodeProgress: Array<{ id: string; progress: LearningNode['progress'] }> = [];
-      
+
       if (savedProgress) {
         const parsed = JSON.parse(savedProgress);
         nodeProgress = parsed.nodeProgress || [];
@@ -389,10 +400,8 @@ export function LearningProvider({ children }: { children: React.ReactNode }) {
 
       // Merge saved progress with roadmap data
       const nodesWithProgress = roadmapData.nodes.map((node: LearningNode) => {
-        const savedNodeProgress = nodeProgress.find(p => p.id === node.id);
-        return savedNodeProgress
-          ? { ...node, progress: savedNodeProgress.progress }
-          : node;
+        const savedNodeProgress = nodeProgress.find((p) => p.id === node.id);
+        return savedNodeProgress ? { ...node, progress: savedNodeProgress.progress } : node;
       });
 
       // Update node availability based on prerequisites
@@ -402,65 +411,65 @@ export function LearningProvider({ children }: { children: React.ReactNode }) {
         type: 'LOAD_ROADMAP_SUCCESS',
         payload: {
           nodes: updatedNodes,
-          checkpoints: roadmapData.checkpoints
-        }
+          checkpoints: roadmapData.checkpoints,
+        },
       });
-
     } catch (error) {
       dispatch({
         type: 'LOAD_ROADMAP_ERROR',
-        payload: error instanceof Error ? error.message : 'Unknown error loading roadmap'
+        payload: error instanceof Error ? error.message : 'Unknown error loading roadmap',
       });
     }
   };
 
   const actions = {
     loadRoadmap,
-    
+
     completeNode: (nodeId: string, masteryLevel: number) => {
       dispatch({ type: 'COMPLETE_NODE', payload: { nodeId, masteryLevel } });
     },
-    
+
     startNode: (nodeId: string) => {
       dispatch({ type: 'START_NODE', payload: nodeId });
     },
-    
+
     scheduleReview: (nodeId: string, reviewDate: string) => {
       dispatch({ type: 'SCHEDULE_REVIEW', payload: { nodeId, reviewDate } });
     },
-    
+
     recordStudySession: (nodeId: string, duration: number) => {
       dispatch({ type: 'RECORD_STUDY_SESSION', payload: { nodeId, duration } });
     },
-    
+
     updatePreferences: (preferences: Partial<LearningState['preferences']>) => {
       dispatch({ type: 'UPDATE_PREFERENCES', payload: preferences });
     },
-    
+
     getNodeById: (id: string) => {
-      return state.nodes.find(node => node.id === id);
+      return state.nodes.find((node) => node.id === id);
     },
-    
+
     getAvailableNodes: () => {
-      return state.nodes.filter(node => node.progress.status === 'available');
+      return state.nodes.filter((node) => node.progress.status === 'available');
     },
-    
+
     getNodesForReview: () => {
       const today = new Date().toISOString().split('T')[0];
-      return state.nodes.filter(node => 
-        node.progress.status === 'completed' &&
-        node.progress.nextReviewDate &&
-        node.progress.nextReviewDate <= today
+      return state.nodes.filter(
+        (node) =>
+          node.progress.status === 'completed' &&
+          node.progress.nextReviewDate &&
+          node.progress.nextReviewDate <= today
       );
     },
-    
+
     getPhaseProgress: (phaseId: string) => {
-      const phaseNodes = state.nodes.filter(node => node.phase === phaseId);
+      const phaseNodes = state.nodes.filter((node) => node.phase === phaseId);
       if (phaseNodes.length === 0) return 0;
-      
-      const completedNodes = phaseNodes.filter(node => node.progress.status === 'completed');
+
+      const completedNodes = phaseNodes.filter((node) => node.progress.status === 'completed');
       return Math.round((completedNodes.length / phaseNodes.length) * 100);
-    }
+    },
   };
 
   return (
