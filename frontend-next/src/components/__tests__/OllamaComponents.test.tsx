@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { OllamaStatusCard } from "../OllamaStatusCard";
+
 import { EveningOllamaAssistant } from "../EveningOllamaAssistant";
+import { OllamaStatusCard } from "../OllamaStatusCard";
 
 jest.mock("../OllamaStatusCard", () => ({
   OllamaStatusCard: () => <div>status</div>,

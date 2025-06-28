@@ -146,7 +146,7 @@ export default function ProgressAnalytics({ className = '' }: ProgressAnalyticsP
             { title: 'Python Chapter Complete', date: 'Today', icon: TrendingUp },
             { title: 'First GitHub PR', date: '2 days ago', icon: Calendar },
             { title: 'Study Marathon', date: '3 days ago', icon: Clock },
-          ].map((achievement, index) => (
+          ].map((achievement, _index) => (
             <motion.div
               key={achievement.title}
               whileHover={{ x: 4 }}

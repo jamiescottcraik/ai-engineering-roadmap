@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, AlertCircle, Loader2, Terminal } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const checkOllamaSync = async () => {
   // placeholder check implementation

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Brain } from "lucide-react";
+import { useState } from "react";
 
 export const EveningOllamaAssistant = () => {
   const [query, setQuery] = useState("");

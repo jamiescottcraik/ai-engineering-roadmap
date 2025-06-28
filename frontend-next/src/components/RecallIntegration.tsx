@@ -203,8 +203,7 @@ export default function RecallIntegration() {
     if (saved) {
       try {
         setRecallItems(JSON.parse(saved));
-      } catch (error) {
-        console.error('Failed to load recall items:', error);
+      } catch {
       }
     }
   }, []);
@@ -300,8 +299,7 @@ export default function RecallIntegration() {
       try {
         const imported = JSON.parse(e.target?.result as string);
         setRecallItems(imported);
-      } catch (error) {
-        console.error('Failed to import:', error);
+      } catch {
       }
     };
     reader.readAsText(file);
