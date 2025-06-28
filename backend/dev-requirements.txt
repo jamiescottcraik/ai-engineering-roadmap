@@ -32,3 +32,4 @@ factory-boy>=3.3.0
 # Security Testing
 bandit>=1.7.5
 safety>=2.3.0
+types-requests>=2.32.4
