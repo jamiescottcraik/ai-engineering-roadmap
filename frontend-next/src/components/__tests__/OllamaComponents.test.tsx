@@ -1,4 +1,9 @@
-import { render, screen } from '@testing-library/react';
+
+import { render, screen } from "@testing-library/react";
+
+import { EveningOllamaAssistant } from "../EveningOllamaAssistant";
+import { OllamaStatusCard } from "../OllamaStatusCard";
+
 
 import { EveningOllamaAssistant } from '../EveningOllamaAssistant';
 import { OllamaStatusCard } from '../OllamaStatusCard';

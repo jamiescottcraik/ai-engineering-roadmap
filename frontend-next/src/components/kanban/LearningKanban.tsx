@@ -213,7 +213,40 @@ export default function LearningKanban() {
     });
 
     setColumns(updatedColumns);
-  }, [columns]); // Added columns dependency
+
+  }, [columns]);
+
+  // Load tasks from localStorage
+  useEffect(() => {
+    const loadTasks = () => {
+      try {
+        const savedColumns = localStorage.getItem('brainwav-kanban-columns');
+        if (savedColumns) {
+          setColumns(JSON.parse(savedColumns));
+        } else {
+          // Initialize with sample tasks
+          initializeSampleTasks();
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load kanban tasks:', error);
+        initializeSampleTasks();
+      }
+    };
+
+    loadTasks();
+  }, [initializeSampleTasks]);
+
+  // Save tasks to localStorage whenever columns change
+  useEffect(() => {
+    try {
+      localStorage.setItem('brainwav-kanban-columns', JSON.stringify(columns));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to save kanban tasks:', error);
+    }
+  }, [columns]);
+
 
   // Handle drag end
   const handleDragEnd = useCallback(
@@ -371,7 +404,7 @@ const KanbanColumn: React.FC<{
   };
 
   return (
-    <div className={`rounded-xl border ${colorClasses[column.color]} p-4`}>
+    <div className={`rounded-xl border ${colorClasses[column.color as keyof typeof colorClasses]} p-4`}>
       {/* Column Header */}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
