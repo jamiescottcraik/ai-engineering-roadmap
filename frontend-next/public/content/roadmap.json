@@ -7,14 +7,7 @@
     "updatedAt": "2025-06-22",
     "totalNodes": 30,
     "estimatedHours": 920,
-    "phases": [
-      "phase1",
-      "phase2",
-      "phase3",
-      "phase4",
-      "phase5",
-      "phase6"
-    ]
+    "phases": ["phase1", "phase2", "phase3", "phase4", "phase5", "phase6"]
   },
   "nodes": [
     {
@@ -95,9 +88,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
+        "tags": ["core-engineering-foundations"],
         "skills": [
           "Data Structures",
           "Algorithms",
@@ -118,9 +109,7 @@
         "x": 350,
         "y": 100
       },
-      "prerequisites": [
-        "p1_python_learn"
-      ],
+      "prerequisites": ["p1_python_learn"],
       "estimatedHours": 30,
       "difficulty": "intermediate",
       "description": "Apply algorithmic thinking to solve complex computational problems efficiently",
@@ -138,9 +127,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
+        "tags": ["core-engineering-foundations"],
         "skills": [
           "Dynamic Programming",
           "Graph Algorithms",
@@ -160,9 +147,7 @@
         "x": 600,
         "y": 100
       },
-      "prerequisites": [
-        "p1_python_practice"
-      ],
+      "prerequisites": ["p1_python_practice"],
       "estimatedHours": 25,
       "difficulty": "intermediate",
       "description": "Build a professional CLI tool that generates beautiful statistical analysis cards from GitHub data",
@@ -181,9 +166,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
+        "tags": ["core-engineering-foundations"],
         "skills": [
           "CLI Development",
           "API Integration",
@@ -203,9 +186,7 @@
         "x": 100,
         "y": 250
       },
-      "prerequisites": [
-        "p1_deliverable_cli"
-      ],
+      "prerequisites": ["p1_deliverable_cli"],
       "estimatedHours": 35,
       "difficulty": "intermediate",
       "description": "Master complex SQL queries, optimization, window functions, and database design patterns",
@@ -269,16 +250,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
-        "skills": [
-          "Window Functions",
-          "CTEs",
-          "Query Optimization",
-          "Indexing",
-          "Database Design"
-        ],
+        "tags": ["core-engineering-foundations"],
+        "skills": ["Window Functions", "CTEs", "Query Optimization", "Indexing", "Database Design"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -292,9 +265,7 @@
         "x": 350,
         "y": 250
       },
-      "prerequisites": [
-        "p1_sql_learn"
-      ],
+      "prerequisites": ["p1_sql_learn"],
       "estimatedHours": 25,
       "difficulty": "intermediate",
       "description": "Practice with real-world complex SQL scenarios and performance optimization",
@@ -307,15 +278,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
-        "skills": [
-          "Performance Tuning",
-          "Complex Joins",
-          "Data Warehousing",
-          "Analytics"
-        ],
+        "tags": ["core-engineering-foundations"],
+        "skills": ["Performance Tuning", "Complex Joins", "Data Warehousing", "Analytics"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -329,9 +293,7 @@
         "x": 600,
         "y": 250
       },
-      "prerequisites": [
-        "p1_sql_practice"
-      ],
+      "prerequisites": ["p1_sql_practice"],
       "estimatedHours": 30,
       "difficulty": "intermediate",
       "description": "Create an automated analytics dashboard powered by complex SQL queries and scheduled reports",
@@ -350,9 +312,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
+        "tags": ["core-engineering-foundations"],
         "skills": [
           "Dashboard Development",
           "Automated Reporting",
@@ -372,9 +332,7 @@
         "x": 100,
         "y": 400
       },
-      "prerequisites": [
-        "p1_deliverable_sql"
-      ],
+      "prerequisites": ["p1_deliverable_sql"],
       "estimatedHours": 30,
       "difficulty": "intermediate",
       "description": "Master modern development workflows, testing strategies, and CI/CD pipelines",
@@ -458,15 +416,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
-        "skills": [
-          "CI/CD Pipelines",
-          "Automated Testing",
-          "Code Quality",
-          "Deployment Strategies"
-        ],
+        "tags": ["core-engineering-foundations"],
+        "skills": ["CI/CD Pipelines", "Automated Testing", "Code Quality", "Deployment Strategies"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -480,9 +431,7 @@
         "x": 350,
         "y": 400
       },
-      "prerequisites": [
-        "p1_devtools_learn"
-      ],
+      "prerequisites": ["p1_devtools_learn"],
       "estimatedHours": 25,
       "difficulty": "intermediate",
       "description": "Build comprehensive CI/CD pipelines with testing, security, and deployment automation",
@@ -495,9 +444,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
+        "tags": ["core-engineering-foundations"],
         "skills": [
           "Pipeline Design",
           "Test Automation",
@@ -517,9 +464,7 @@
         "x": 600,
         "y": 400
       },
-      "prerequisites": [
-        "p1_devtools_practice"
-      ],
+      "prerequisites": ["p1_devtools_practice"],
       "estimatedHours": 45,
       "difficulty": "intermediate",
       "description": "Build and deploy a production-ready data analysis API with comprehensive testing and CI/CD",
@@ -539,9 +484,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "core-engineering-foundations"
-        ],
+        "tags": ["core-engineering-foundations"],
         "skills": [
           "API Development",
           "Production Deployment",
@@ -646,9 +589,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
         "skills": [
           "Vector Embeddings",
           "Semantic Search",
@@ -669,9 +610,7 @@
         "x": 350,
         "y": 100
       },
-      "prerequisites": [
-        "p2_rag_learn"
-      ],
+      "prerequisites": ["p2_rag_learn"],
       "estimatedHours": 35,
       "difficulty": "intermediate",
       "description": "Build advanced RAG systems with multi-modal inputs and sophisticated retrieval mechanisms",
@@ -684,9 +623,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
         "skills": [
           "Multi-Modal Processing",
           "Hybrid Search",
@@ -706,9 +643,7 @@
         "x": 600,
         "y": 100
       },
-      "prerequisites": [
-        "p2_rag_practice"
-      ],
+      "prerequisites": ["p2_rag_practice"],
       "estimatedHours": 40,
       "difficulty": "intermediate",
       "description": "Build an AI-powered app that reduces cognitive load by intelligently summarizing and contextualizing information",
@@ -727,9 +662,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
         "skills": [
           "Full-Stack Development",
           "RAG Implementation",
@@ -749,9 +682,7 @@
         "x": 100,
         "y": 250
       },
-      "prerequisites": [
-        "p2_deliverable_rag"
-      ],
+      "prerequisites": ["p2_deliverable_rag"],
       "estimatedHours": 40,
       "difficulty": "intermediate",
       "description": "Design and implement collaborative AI agent systems with complex workflows",
@@ -815,9 +746,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
         "skills": [
           "Agent Architectures",
           "Task Orchestration",
@@ -837,9 +766,7 @@
         "x": 350,
         "y": 250
       },
-      "prerequisites": [
-        "p2_agents_learn"
-      ],
+      "prerequisites": ["p2_agents_learn"],
       "estimatedHours": 35,
       "difficulty": "intermediate",
       "description": "Implement sophisticated multi-agent systems using CrewAI or similar frameworks",
@@ -883,9 +810,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
         "skills": [
           "CrewAI Framework",
           "Agent Coordination",
@@ -905,9 +830,7 @@
         "x": 600,
         "y": 250
       },
-      "prerequisites": [
-        "p2_agents_practice"
-      ],
+      "prerequisites": ["p2_agents_practice"],
       "estimatedHours": 45,
       "difficulty": "intermediate",
       "description": "Create an intelligent learning curator using multi-agent systems to personalize educational content",
@@ -926,15 +849,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
-        "skills": [
-          "Educational AI",
-          "Personalization",
-          "Content Curation",
-          "Learning Analytics"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
+        "skills": ["Educational AI", "Personalization", "Content Curation", "Learning Analytics"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -948,9 +864,7 @@
         "x": 100,
         "y": 400
       },
-      "prerequisites": [
-        "p2_deliverable_agents"
-      ],
+      "prerequisites": ["p2_deliverable_agents"],
       "estimatedHours": 35,
       "difficulty": "intermediate",
       "description": "Master ML operations, model optimization, monitoring, and lifecycle management",
@@ -1034,9 +948,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
         "skills": [
           "Model Lifecycle",
           "Deployment Strategies",
@@ -1056,9 +968,7 @@
         "x": 350,
         "y": 400
       },
-      "prerequisites": [
-        "p2_mlops_learn"
-      ],
+      "prerequisites": ["p2_mlops_learn"],
       "estimatedHours": 30,
       "difficulty": "intermediate",
       "description": "Implement containerized AI deployments with comprehensive monitoring and auto-scaling",
@@ -1071,15 +981,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
-        "skills": [
-          "Containerization",
-          "Kubernetes",
-          "Service Mesh",
-          "Observability"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
+        "skills": ["Containerization", "Kubernetes", "Service Mesh", "Observability"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1093,9 +996,7 @@
         "x": 600,
         "y": 400
       },
-      "prerequisites": [
-        "p2_mlops_practice"
-      ],
+      "prerequisites": ["p2_mlops_practice"],
       "estimatedHours": 50,
       "difficulty": "intermediate",
       "description": "Deploy multiple AI applications with full MLOps pipeline and production monitoring",
@@ -1115,9 +1016,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "build-&-deploy-production-ai"
-        ],
+        "tags": ["build-&-deploy-production-ai"],
         "skills": [
           "Production Deployment",
           "Service Architecture",
@@ -1185,14 +1084,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "ai-safety-&-red-teaming"
-        ],
-        "skills": [
-          "Prompt Injection",
-          "AI Ethics",
-          "Societal Risks"
-        ],
+        "tags": ["ai-safety-&-red-teaming"],
+        "skills": ["Prompt Injection", "AI Ethics", "Societal Risks"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1206,9 +1099,7 @@
         "x": 350,
         "y": 100
       },
-      "prerequisites": [
-        "p3_safety_basics"
-      ],
+      "prerequisites": ["p3_safety_basics"],
       "estimatedHours": 24,
       "difficulty": "intermediate",
       "description": "Hands-on adversarial attacks and defenses on transformers and LLM deployments.",
@@ -1235,14 +1126,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "ai-safety-&-red-teaming"
-        ],
-        "skills": [
-          "Adversarial Attacks",
-          "Prompt Injection",
-          "LLM Security"
-        ],
+        "tags": ["ai-safety-&-red-teaming"],
+        "skills": ["Adversarial Attacks", "Prompt Injection", "LLM Security"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1256,9 +1141,7 @@
         "x": 600,
         "y": 100
       },
-      "prerequisites": [
-        "p3_safety_attacks"
-      ],
+      "prerequisites": ["p3_safety_attacks"],
       "estimatedHours": 36,
       "difficulty": "intermediate",
       "description": "Credential-focused and advanced tools for consultants and practitioners.",
@@ -1295,15 +1178,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "ai-safety-&-red-teaming"
-        ],
-        "skills": [
-          "Red Teaming",
-          "Adversarial ML",
-          "LLM Security",
-          "Credentialing"
-        ],
+        "tags": ["ai-safety-&-red-teaming"],
+        "skills": ["Red Teaming", "Adversarial ML", "LLM Security", "Credentialing"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1354,15 +1230,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "causal-inference-&-modern-data-science"
-        ],
-        "skills": [
-          "Causal Inference",
-          "DAGs",
-          "Counterfactuals",
-          "Python Data Science"
-        ],
+        "tags": ["causal-inference-&-modern-data-science"],
+        "skills": ["Causal Inference", "DAGs", "Counterfactuals", "Python Data Science"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1376,9 +1245,7 @@
         "x": 350,
         "y": 100
       },
-      "prerequisites": [
-        "p4_causal_foundations"
-      ],
+      "prerequisites": ["p4_causal_foundations"],
       "estimatedHours": 20,
       "difficulty": "intermediate",
       "description": "Apply causal inference in business, NLP, and A/B testing with real code and datasets.",
@@ -1405,15 +1272,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "causal-inference-&-modern-data-science"
-        ],
-        "skills": [
-          "Causal Analysis",
-          "A/B Testing",
-          "NLP",
-          "Business Data Science"
-        ],
+        "tags": ["causal-inference-&-modern-data-science"],
+        "skills": ["Causal Analysis", "A/B Testing", "NLP", "Business Data Science"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1427,9 +1287,7 @@
         "x": 600,
         "y": 100
       },
-      "prerequisites": [
-        "p4_causal_hands_on"
-      ],
+      "prerequisites": ["p4_causal_hands_on"],
       "estimatedHours": 28,
       "difficulty": "intermediate",
       "description": "Master's-level frameworks and real-world/medical data applications.",
@@ -1455,14 +1313,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "causal-inference-&-modern-data-science"
-        ],
-        "skills": [
-          "Advanced Causal Inference",
-          "Healthcare AI",
-          "Research Skills"
-        ],
+        "tags": ["causal-inference-&-modern-data-science"],
+        "skills": ["Advanced Causal Inference", "Healthcare AI", "Research Skills"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1503,14 +1355,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "quantum-machine-learning"
-        ],
-        "skills": [
-          "Quantum Computing",
-          "Qubits",
-          "Quantum Circuits"
-        ],
+        "tags": ["quantum-machine-learning"],
+        "skills": ["Quantum Computing", "Qubits", "Quantum Circuits"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1524,9 +1370,7 @@
         "x": 350,
         "y": 100
       },
-      "prerequisites": [
-        "p5_quantum_fluency"
-      ],
+      "prerequisites": ["p5_quantum_fluency"],
       "estimatedHours": 18,
       "difficulty": "intermediate",
       "description": "Build and experiment with quantum machine learning models and classical-quantum integration.",
@@ -1553,14 +1397,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "quantum-machine-learning"
-        ],
-        "skills": [
-          "Quantum ML",
-          "Qiskit",
-          "Quantum-Classical Integration"
-        ],
+        "tags": ["quantum-machine-learning"],
+        "skills": ["Quantum ML", "Qiskit", "Quantum-Classical Integration"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1574,15 +1412,11 @@
         "x": 600,
         "y": 100
       },
-      "prerequisites": [
-        "p5_quantum_hands_on"
-      ],
+      "prerequisites": ["p5_quantum_hands_on"],
       "estimatedHours": 24,
       "difficulty": "intermediate",
       "description": "Explore advanced quantum computing algorithms for AI and specialization pathways.",
-      "learningObjectives": [
-        "Complete an advanced quantum ML project or research assignment"
-      ],
+      "learningObjectives": ["Complete an advanced quantum ML project or research assignment"],
       "content": {
         "resources": []
       },
@@ -1591,13 +1425,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "quantum-machine-learning"
-        ],
-        "skills": [
-          "Quantum Algorithms",
-          "AI Specialization"
-        ],
+        "tags": ["quantum-machine-learning"],
+        "skills": ["Quantum Algorithms", "AI Specialization"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1649,15 +1478,8 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "ai-product-strategy-&-leadership"
-        ],
-        "skills": [
-          "UX Design",
-          "AI Product Strategy",
-          "User Research",
-          "Design Thinking"
-        ],
+        "tags": ["ai-product-strategy-&-leadership"],
+        "skills": ["UX Design", "AI Product Strategy", "User Research", "Design Thinking"],
         "createdAt": "2025-06-24T00:20:34.380Z",
         "updatedAt": "2025-06-24T00:20:34.380Z"
       }
@@ -1671,9 +1493,7 @@
         "x": 350,
         "y": 100
       },
-      "prerequisites": [
-        "p6_ux_product"
-      ],
+      "prerequisites": ["p6_ux_product"],
       "estimatedHours": 25,
       "difficulty": "intermediate",
       "description": "Master prompt engineering techniques and AI productivity tools for professional workflows.",
@@ -1741,9 +1561,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "ai-product-strategy-&-leadership"
-        ],
+        "tags": ["ai-product-strategy-&-leadership"],
         "skills": [
           "Prompt Engineering",
           "AI Productivity",
@@ -1763,9 +1581,7 @@
         "x": 600,
         "y": 100
       },
-      "prerequisites": [
-        "p6_prompt_engineering"
-      ],
+      "prerequisites": ["p6_prompt_engineering"],
       "estimatedHours": 60,
       "difficulty": "intermediate",
       "description": "Launch a comprehensive AI product with user base and establish thought leadership through public portfolio.",
@@ -1783,9 +1599,7 @@
         "reviewCount": 0
       },
       "metadata": {
-        "tags": [
-          "ai-product-strategy-&-leadership"
-        ],
+        "tags": ["ai-product-strategy-&-leadership"],
         "skills": [
           "Product Launch",
           "Thought Leadership",
@@ -1802,9 +1616,7 @@
       "id": "checkpoint_python",
       "title": "Python Mastery",
       "description": "Advanced Python programming and algorithmic thinking",
-      "requiredNodes": [
-        "p1_deliverable_cli"
-      ],
+      "requiredNodes": ["p1_deliverable_cli"],
       "criteria": [
         "CLI tool published",
         "Algorithm challenges completed",
@@ -1817,9 +1629,7 @@
       "id": "checkpoint_data",
       "title": "Data Analysis Mastery",
       "description": "SQL expertise and automated reporting capabilities",
-      "requiredNodes": [
-        "p1_deliverable_sql"
-      ],
+      "requiredNodes": ["p1_deliverable_sql"],
       "criteria": [
         "Dashboard deployed",
         "Complex queries optimized",
@@ -1832,14 +1642,8 @@
       "id": "checkpoint_engineering",
       "title": "Professional Engineering Complete",
       "description": "Full-stack development with CI/CD and production deployment",
-      "requiredNodes": [
-        "p1_deliverable_final"
-      ],
-      "criteria": [
-        "Production API",
-        "CI/CD pipeline",
-        "Monitoring system"
-      ],
+      "requiredNodes": ["p1_deliverable_final"],
+      "criteria": ["Production API", "CI/CD pipeline", "Monitoring system"],
       "phase": "p1",
       "order": 3
     },
@@ -1847,14 +1651,8 @@
       "id": "checkpoint_rag",
       "title": "RAG Mastery",
       "description": "Advanced RAG systems and multi-modal processing",
-      "requiredNodes": [
-        "p2_deliverable_rag"
-      ],
-      "criteria": [
-        "RAG app deployed",
-        "Multi-modal support",
-        "Performance optimized"
-      ],
+      "requiredNodes": ["p2_deliverable_rag"],
+      "criteria": ["RAG app deployed", "Multi-modal support", "Performance optimized"],
       "phase": "p2",
       "order": 4
     },
@@ -1862,14 +1660,8 @@
       "id": "checkpoint_agents",
       "title": "Agent Systems Mastery",
       "description": "Multi-agent orchestration and collaborative AI",
-      "requiredNodes": [
-        "p2_deliverable_agents"
-      ],
-      "criteria": [
-        "Agent system deployed",
-        "Personalization working",
-        "Analytics implemented"
-      ],
+      "requiredNodes": ["p2_deliverable_agents"],
+      "criteria": ["Agent system deployed", "Personalization working", "Analytics implemented"],
       "phase": "p2",
       "order": 5
     },
@@ -1877,14 +1669,8 @@
       "id": "checkpoint_production_ai",
       "title": "Production AI Complete",
       "description": "Multiple AI services with MLOps pipeline",
-      "requiredNodes": [
-        "p2_deliverable_final"
-      ],
-      "criteria": [
-        "3+ AI services live",
-        "MLOps automated",
-        "Monitoring comprehensive"
-      ],
+      "requiredNodes": ["p2_deliverable_final"],
+      "criteria": ["3+ AI services live", "MLOps automated", "Monitoring comprehensive"],
       "phase": "p2",
       "order": 6
     },
@@ -1892,9 +1678,7 @@
       "id": "checkpoint_safety",
       "title": "AI Safety Specialist",
       "description": "Red teaming and adversarial ML expertise",
-      "requiredNodes": [
-        "p3_safety_specialist"
-      ],
+      "requiredNodes": ["p3_safety_specialist"],
       "criteria": [
         "Red teaming credential earned",
         "Adversarial testing tools mastered",
@@ -1907,9 +1691,7 @@
       "id": "checkpoint_causal",
       "title": "Causal Inference Specialist",
       "description": "Advanced causal analysis and real-world applications",
-      "requiredNodes": [
-        "p4_causal_advanced"
-      ],
+      "requiredNodes": ["p4_causal_advanced"],
       "criteria": [
         "Causal analysis project completed",
         "Business impact documented",
@@ -1922,9 +1704,7 @@
       "id": "checkpoint_quantum",
       "title": "Quantum ML Specialist",
       "description": "Quantum computing and machine learning integration",
-      "requiredNodes": [
-        "p5_quantum_advanced"
-      ],
+      "requiredNodes": ["p5_quantum_advanced"],
       "criteria": [
         "Quantum ML model built",
         "Integration documented",
@@ -1937,9 +1717,7 @@
       "id": "checkpoint_product_leader",
       "title": "AI Product Leader",
       "description": "Thought leadership and industry influence established",
-      "requiredNodes": [
-        "p6_portfolio_launch"
-      ],
+      "requiredNodes": ["p6_portfolio_launch"],
       "criteria": [
         "AI product launched",
         "Public portfolio established",

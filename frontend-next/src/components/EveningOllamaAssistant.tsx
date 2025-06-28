@@ -1,11 +1,12 @@
-"use client";
+'use client';
+
 
 import { Brain } from "lucide-react";
 import { useState } from "react";
 
 export const EveningOllamaAssistant = () => {
-  const [query, setQuery] = useState("");
-  const [response, setResponse] = useState("");
+  const [query, setQuery] = useState('');
+  const [response, setResponse] = useState('');
 
   const askOllama = async (prompt: string) => {
     const enhancedPrompt = `
@@ -16,11 +17,11 @@ export const EveningOllamaAssistant = () => {
       Provide a helpful, concise response suitable for evening review.
     `;
 
-    const res = await fetch("http://localhost:11434/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('http://localhost:11434/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: "mistral:latest",
+        model: 'mistral:latest',
         prompt: enhancedPrompt,
         stream: false,
       }),
@@ -31,28 +32,26 @@ export const EveningOllamaAssistant = () => {
   };
 
   return (
-    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-      <h4 className="text-white mb-3 flex items-center gap-2">
-        <Brain className="w-5 h-5 text-purple-400" />
+    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+      <h4 className="mb-3 flex items-center gap-2 text-white">
+        <Brain className="h-5 w-5 text-purple-400" />
         Evening Review Assistant
       </h4>
       <textarea
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Ask about today's learning..."
-        className="w-full p-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/30"
+        className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-white placeholder-white/30"
         rows={3}
       />
       <button
         onClick={() => askOllama(query)}
-        className="mt-2 px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 rounded-lg text-white text-sm"
+        className="mt-2 rounded-lg bg-purple-500/20 px-4 py-2 text-sm text-white hover:bg-purple-500/30"
       >
         Ask Ollama
       </button>
       {response && (
-        <div className="mt-3 p-3 bg-white/5 rounded-lg text-white/80 text-sm">
-          {response}
-        </div>
+        <div className="mt-3 rounded-lg bg-white/5 p-3 text-sm text-white/80">{response}</div>
       )}
     </div>
   );

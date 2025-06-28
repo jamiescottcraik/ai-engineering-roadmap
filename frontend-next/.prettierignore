@@ -1,10 +1,14 @@
+# Ignore artifacts and dependencies
 node_modules
 .next
 out
-dist
 build
+
+# Ignore shell scripts if they are being picked up
+healthcheck.js
+healthcheck.sh
+
+# Other standard ignores
 coverage
-.env*.local
+dist
 *.log
-.DS_Store
-.vscode/settings.json

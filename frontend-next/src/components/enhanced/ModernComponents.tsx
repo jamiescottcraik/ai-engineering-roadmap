@@ -125,10 +125,28 @@ export const EnhancedGlassCard: React.FC<EnhancedGlassCardProps> = ({
   );
 };
 
+// Minimal types based on usage in this component
+interface ModernHeaderConfig {
+  currentWeek?: {
+    weekNumber?: number;
+  };
+  // Add other properties from RoadmapConfig if specifically used by ModernHeader
+}
+
+interface ModernHeaderLiveStatus {
+  currentTime: string;
+  dayOfWeek: string;
+  currentDate: string;
+  focusRecommendation: string;
+  energyLevel: 'high' | 'medium' | 'low';
+  // Add other properties from MainLiveStatus if specifically used by ModernHeader
+}
+
+
 // Modern Header Component
 interface ModernHeaderProps {
-  config: any;
-  liveStatus: any;
+  config: ModernHeaderConfig; // Use the more specific local type
+  liveStatus: ModernHeaderLiveStatus; // Use the more specific local type
 }
 
 export const ModernHeader: React.FC<ModernHeaderProps> = ({ config, liveStatus }) => {

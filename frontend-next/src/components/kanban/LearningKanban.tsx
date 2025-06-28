@@ -35,11 +35,15 @@ interface Attachment {
   type: 'link' | 'file' | 'video' | 'article';
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const validColumnColors = ['gray', 'blue', 'yellow', 'orange', 'green'] as const;
+type ColumnColor = (typeof validColumnColors)[number];
+
 interface KanbanColumn {
   id: string;
   title: string;
   tasks: LearningTask[];
-  color: string;
+  color: ColumnColor;
   limit?: number;
 }
 
@@ -87,6 +91,37 @@ export default function LearningKanban() {
 
   const [selectedTask, setSelectedTask] = useState<LearningTask | null>(null);
   const [isAddingTask, setIsAddingTask] = useState<string | null>(null);
+
+  // Load tasks from localStorage
+  useEffect(() => {
+    const loadTasks = () => {
+      try {
+        const savedColumns = localStorage.getItem('brainwav-kanban-columns');
+        if (savedColumns) {
+          setColumns(JSON.parse(savedColumns));
+        } else {
+          // Initialize with sample tasks
+          initializeSampleTasks();
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load kanban tasks:', error);
+        initializeSampleTasks();
+      }
+    };
+
+    loadTasks();
+  }, [initializeSampleTasks]); // Added initializeSampleTasks to dependency array
+
+  // Save tasks to localStorage whenever columns change
+  useEffect(() => {
+    try {
+      localStorage.setItem('brainwav-kanban-columns', JSON.stringify(columns));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to save kanban tasks:', error);
+    }
+  }, [columns]);
 
   // Initialize with sample learning tasks
   const initializeSampleTasks = useCallback(() => {
@@ -178,6 +213,7 @@ export default function LearningKanban() {
     });
 
     setColumns(updatedColumns);
+
   }, [columns]);
 
   // Load tasks from localStorage
@@ -210,6 +246,7 @@ export default function LearningKanban() {
       console.error('Failed to save kanban tasks:', error);
     }
   }, [columns]);
+
 
   // Handle drag end
   const handleDragEnd = useCallback(

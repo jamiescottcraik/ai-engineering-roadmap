@@ -128,6 +128,7 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
+
     <BrowserContainer title="brAInwav - AI Engineering Roadmap 2025">
       <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-orange-50 dark:from-slate-900 dark:via-blue-900 dark:to-gray-900">
         <div className="bg-grid-pattern absolute inset-0 opacity-[0.02] dark:opacity-[0.05]"></div>
