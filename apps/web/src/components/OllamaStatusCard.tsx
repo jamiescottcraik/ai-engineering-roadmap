@@ -5,8 +5,15 @@ import { motion } from "framer-motion";
 import { CheckCircle, AlertCircle, Loader2, Terminal } from "lucide-react";
 
 const checkOllamaSync = async () => {
-  // placeholder check implementation
-  return { status: "synced", activeModel: "mistral:latest", progress: {} };
+  const res = await fetch("http://localhost:8000/ollama/sync", {
+    method: "POST",
+  });
+
+  if (!res.ok) {
+    throw new Error("Sync failed");
+  }
+
+  return res.json();
 };
 
 export const OllamaStatusCard = () => {
