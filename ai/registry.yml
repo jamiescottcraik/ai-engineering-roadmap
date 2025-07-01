@@ -1,0 +1,100 @@
+version: "3.0"
+last_updated: "2025-06-25"
+
+#==============================================================================#
+#  PART I: ENFORCEABLE POLICY
+#  This is the machine-readable version of RULES_OF_AI.md, consumed by CI
+#  pipelines and automated scripts for direct enforcement.
+#==============================================================================#
+policy:
+  enforcement_level: "strict"
+  owner: "@jamiescottcraik"
+  version_control:
+    protected_branches:
+      - main
+      - develop
+    require_conventional_commits: true
+    merge_strategy: squash
+  architecture:
+    provider_neutrality:
+      enforced: true
+      logic_directories: ["apps/api/src/services"]
+      provider_directory: "apps/api/src/providers"
+    type_safety_mode: "strict"
+  testing:
+    coverage_threshold: 90
+    mock_externals_required: true
+  security:
+    secrets_management_tool: "1password_cli"
+    enforce_dependency_scanning: true
+  documentation:
+    require_adr_for_major_decisions: true
+  accessibility:
+    standard: "WCAG 2.1 AA"
+    enforce_on_pr: true
+  logging:
+    structured_json_required: true
+
+#==============================================================================#
+#  PART II: AGENT REGISTRY
+#  Defines the capabilities and operational parameters for each AI agent.
+#==============================================================================#
+agents:
+  github_copilot:
+    version: "latest"
+    capabilities:
+      - code_generation
+      - test_generation
+      - documentation
+      - refactoring
+    limits:
+      max_file_size: "100KB"
+      timeout: "30s"
+    integration:
+      type: "native"
+      auth: "github_token"
+
+  openai_codex:
+    version: "gpt-4"
+    capabilities:
+      - code_completion
+      - code_review
+      - optimization
+      - security_analysis
+    limits:
+      max_tokens: 8192
+      timeout: "60s"
+    integration:
+      type: "api"
+      auth: "op://Development/OPENAI_API_KEY"
+
+  google_jules:
+    version: "2025.6"
+    capabilities:
+      - architecture_review
+      - performance_analysis
+      - system_design
+      - scalability_assessment
+    limits:
+      read_only: true
+      timeout: "120s"
+    integration:
+      type: "api"
+      auth: "op://Development/GOOGLE_JULES_KEY"
+
+#==============================================================================#
+#  PART III: TASK DELEGATION LOGIC
+#  Defines the rules for how tasks are routed to agents.
+#==============================================================================#
+task_delegation:
+  code_generation:
+    preferred_order: [github_copilot, openai_codex]
+    consensus_required: false
+
+  security_review:
+    preferred_order: [openai_codex]
+    consensus_required: false # A single specialized agent is sufficient
+
+  architecture_decisions:
+    preferred_order: [google_jules]
+    human_approval_required: true

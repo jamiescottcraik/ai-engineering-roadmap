@@ -1,1 +1,52 @@
-# AI contribution and audit log (auto-updated)
+# AI_CONTRIB_LOG.yaml
+#
+# This file serves as the immutable, auditable log of all AI-assisted contributions
+# to the brAInwav MAS Platform. It is automatically updated by the
+# 'scripts/ai/update_audit_log.py' script.
+#
+# Each entry in this log adheres to the JSON schema defined in
+# 'docs/advanced_confidence_log.md', including details on the agent,
+# the action performed, its self-assessed confidence, and relevant artifacts.
+#
+# This file MUST NOT be manually edited.
+#
+# Example entries would look like:
+#
+# - log_id: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+#   timestamp: "2025-06-25T14:30:00.123456Z"
+#   task_id: "BRAIN-456"
+#   agent_id: "openai_codex"
+#   action:
+#     type: "code_generation"
+#     summary: "Generated initial FastAPI endpoint for user management."
+#   confidence:
+#     score: 0.95
+#     level: "HIGH"
+#     justification: "Prompt was clear, all constraints met. Unit tests generated pass."
+#   flags:
+#     human_oversight_required: false
+#     escalation_triggered: false
+#   artifacts:
+#   - type: "file_path"
+#     path: "apps/api/src/routers/user.py"
+#   - type: "generated_content"
+#     path: ".ai/logs/generated-code-uuid.txt"
+#
+# - log_id: "f9e8d7c6-b5a4-3210-fedc-ba9876543210"
+#   timestamp: "2025-06-25T15:00:00.000000Z"
+#   task_id: "SECURITY-007"
+#   agent_id: "google_jules"
+#   action:
+#     type: "security_review"
+#     summary: "Identified potential SQL injection vulnerability in query parameter."
+#   confidence:
+#     score: 0.75
+#     level: "MEDIUM"
+#     justification: "Pattern matched known vulnerability, but context for parameter sanitization was incomplete. Manual review advised."
+#   flags:
+#     human_oversight_required: true
+#     escalation_triggered: false
+#   artifacts:
+#   - type: "pr_comment_url"
+#     path: "https://github.com/brAInwav/repo/pull/123#issuecomment-456"
+#

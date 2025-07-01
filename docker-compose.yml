@@ -1,69 +1,69 @@
-# docker-compose.yml
-# Orchestrates all services for the brAInwav MAS project environment.
-# Run with: docker-compose up -d
+# docker-compose.yml — brAInwav MAS base stack
+# ─────────────────────────────────────────────────────────────────────────────
+# Production‑grade baseline; development overrides live in docker-compose.dev.yml
+#   prod  : docker-compose up -d
+#   dev   : docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+version: "3.8"
+
+x-env: &default-env
+  env_file:
+    - apps/api/.env
 
 services:
-  # The Next.js frontend service for the learning platform - Optimized Production Build
-  frontend:
+  # ─── FastAPI backend ──────────────────────────────────────────────────────
+  api:
+    <<: *default-env
     build:
-      context: ./frontend-next
-      dockerfile: Dockerfile.optimized
-      target: runner
-    container_name: brainwav-frontend
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-    networks:
-      - brainwav-net
-    restart: unless-stopped
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "wget",
-          "--no-verbose",
-          "--tries=1",
-          "--spider",
-          "http://localhost:3000/api/health",
-          "||",
-          "exit",
-          "1",
-        ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
-  # Development frontend service with hot reload
-  frontend-dev:
-    build:
-      context: ./frontend-next
+      context: apps/api
       dockerfile: Dockerfile
-      target: builder
-    container_name: brainwav-frontend-dev
+    container_name: brainwav-api
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    networks: [brainwav-net]
+    # prod cmd (no reload)
+    command: >-
+      uv run uvicorn src.main:app --host 0.0.0.0 --port 8000
     ports:
-      - "3001:3000"
+      - "8000:8000"  # expose for external load balancer, health‑checks etc.
+
+  # ─── PostgreSQL ──────────────────────────────────────────────────────────
+  db:
+    image: postgres:15-alpine
+    container_name: brainwav-db
+    ports: ["5432:5432"]
     volumes:
-      - ./frontend-next:/app
-      - /app/node_modules
-      - /app/.next
-    environment:
-      - NODE_ENV=development
-      - NEXT_TELEMETRY_DISABLED=1
-    networks:
-      - brainwav-net
-    restart: unless-stopped
-    command: npm run dev
-    profiles:
-      - dev
+      - postgres_data:/var/lib/postgresql/data
+    <<: *default-env
+    networks: [brainwav-net]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
-  # The Python backend service, where you will do most of your development.
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+  # ─── Ollama LLM runtime ──────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: brainwav-ollama
+    ports: ["11434:11434"]
+    volumes:
+      - ollama_data:/root/.ollama
+    networks: [brainwav-net]
+    # Optional first‑boot model pull
+    # command: >-
+    #   bash -c "ollama serve & ollama pull llama2 && wait"
+
+volumes:
+  postgres_data:
+  ollama_data:
+
+networks:
+  brainwav-net:
+    driver: bridge
     container_name: brainwav-backend
     ports:
       - "8000:8000"

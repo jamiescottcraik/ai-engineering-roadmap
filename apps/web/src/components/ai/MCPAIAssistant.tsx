@@ -75,7 +75,7 @@ export default function MCPAIAssistant() {
     const loadContext = () => {
       try {
         const completedTasks = JSON.parse(
-          localStorage.getItem('brainwav-roadmap-completed') || '[]'
+          localStorage.getItem('brainwav-roadmap-completed') || '[]',
         );
         const currentWeek = parseInt(localStorage.getItem('brainwav-current-week') || '1');
 
@@ -168,7 +168,7 @@ What would you like to work on today?`,
         setIsLoading(false);
       }
     },
-    [learningContext, isLoading]
+    [learningContext, isLoading],
   );
 
   // Handle key press for sending messages
@@ -179,7 +179,7 @@ What would you like to work on today?`,
         sendMessage(inputValue);
       }
     },
-    [inputValue, sendMessage]
+    [inputValue, sendMessage],
   );
 
   // Quick action buttons

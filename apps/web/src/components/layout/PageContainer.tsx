@@ -8,7 +8,7 @@
  * - Type-safe props with React.FC
  */
 
-"use client";
+'use client';
 
 import { motion } from 'framer-motion';
 import React from 'react';

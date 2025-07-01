@@ -1,6 +1,57 @@
-/.ai/RULES_FOR_AI.md        @jamiescottcraik
-/.ai/AGENTS.md    @jamiescottcraik
-/.ai/copilot-instructions.md    @jamiescottcraik
-/docs/feature_plan.md      @jamiescottcraik
-/docs/PROJECT_STRUCTURE.md @jamiescottcraik
-/.github/CODEOWNERS       @jamiescottcraik
+# .github/CODEOWNERS
+#
+# This file specifies the individuals or teams that own code in this repository.
+# When a pull request modifies code in a path owned by someone, those owners
+# are automatically requested for review.
+#
+# This is a critical part of our self-enforcing governance, ensuring that
+# changes to core parts of the brAInwav MAS Platform receive appropriate review.
+#
+# Governed by: RULES_OF_AI.md
+# Referenced in: docs/PROJECT_STRUCTURE.md, docs/QUALITY_GATES.md
+
+# --- Default Owners ---
+# These owners are suggested for review on every pull request by default,
+# unless more specific owners are defined below.
+# This often represents the core maintainers or lead.
+* @jamiescottcraik # Primary project owner and maintainer
+
+# --- Core Governance & Documentation ---
+# Changes to governance documents require review by the project owner.
+/.ai/                           @jamiescottcraik
+/docs/                          @jamiescottcraik
+/RULES_OF_AI.md                 @jamiescottcraik
+/.github/                       @jamiescottcraik # For CI/CD workflows, templates, CODEOWNERS itself
+
+# --- Applications ---
+# Specific owners for the backend and frontend applications.
+/apps/api/                      @jamiescottcraik # Backend Application
+/apps/web/                      @jamiescottcraik # Frontend Application
+
+# --- Shared Packages ---
+# Owners for reusable code shared across applications.
+/packages/                      @jamiescottcraik # Shared Monorepo Packages
+
+# --- Infrastructure & Orchestration ---
+# Owners for core infrastructure definition.
+/docker-compose.yml             @jamiescottcraik
+/docker-compose.dev.yml         @jamiescottcraik
+
+# --- Scripts & Automation ---
+# Owners for critical automation scripts.
+/scripts/                       @jamiescottcraik
+
+# --- Root Configuration Files ---
+# Owners for root-level configuration files.
+/pyproject.toml                 @jamiescottcraik
+/package.json                   @jamiescottcraik
+/pnpm-workspace.yaml            @jamiescottcraik
+/turbo.json                     @jamiescottcraik
+/.editorconfig                  @jamiescottcraik
+/.gitignore                     @jamiescottcraik
+/.pre-commit-config.yaml        @jamiescottcraik
+/.env.example                   @jamiescottcraik
+/AI_CONTRIB_LOG.yaml            @jamiescottcraik # This file is auto-generated, but changes to handling logic are owned.
+/CHANGELOG.md                   @jamiescottcraik
+/LICENSE                        @jamiescottcraik
+/README.md                      @jamiescottcraik

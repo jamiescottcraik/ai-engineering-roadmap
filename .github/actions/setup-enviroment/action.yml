@@ -1,0 +1,74 @@
+# /.github/actions/setup-environment/action.yml
+#
+# This is a reusable composite action that sets up the complete
+# development environment for any CI job within the brAInwav MAS Platform.
+# It handles code checkout, tool setup (Python/Node), dependency installation,
+# and authentication to secrets management.
+
+name: "Setup Monorepo Environment"
+description: "Checks out code, sets up Python/Node.js with caching, installs all dependencies, and authenticates to 1Password."
+
+# --- Action Inputs ---
+inputs:
+  op-service-account-token:
+    description: "The 1Password service account token for CI/CD."
+    required: true
+
+# --- Action Outputs ---
+outputs:
+  op-session-token:
+    description: "The temporary session token for authenticating subsequent 1Password CLI commands."
+    value: ${{ steps.op-signin.outputs.op-session-token }}
+
+runs:
+  using: "composite"
+  steps:
+    # 1. Checkout Code
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. Setup Python Environment with UV
+    - name: Set up Python v3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install uv (Modern Python Packager)
+      run: pipx install uv
+      shell: bash
+
+    - name: Configure uv Cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/uv
+        key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-
+
+    - name: Install Backend Dependencies with uv
+      run: uv sync --system --all-extras
+      shell: bash
+      working-directory: ./apps/api
+
+    # 3. Setup Node.js Environment with PNPM
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 8
+
+    - name: Set up Node.js v20 with pnpm Caching
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+        cache: "pnpm"
+
+    - name: Install Frontend Dependencies with pnpm
+      run: pnpm install --frozen-lockfile
+      shell: bash
+
+    # 4. Authenticate to 1Password Secrets Management
+    - name: Sign in to 1Password
+      id: op-signin # Give this step an ID to reference its outputs
+      uses: 1password/op-actions/signin@v2
+      with:
+        service-account-token: ${{ inputs.op-service-account-token }}

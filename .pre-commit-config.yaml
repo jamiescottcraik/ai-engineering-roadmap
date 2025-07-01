@@ -1,30 +1,79 @@
+# .pre-commit-config.yaml
+# Governed by RULES_OF_AI.md
+# This file defines the pre-commit hooks that run automatically to enforce
+# code quality, style, and project-specific governance rules
+# before commits are created.
+
+# Minimum version of pre-commit required to use this configuration.
+minimum_pre_commit_version: "2.10.0" # Recommended to set explicitly
+
+ci:
+  autofix_commit_msg: "style: auto-fixes from pre-commit"
+  autoupdate_commit_msg: "chore: update pre-commit hooks"
+
 repos:
+  # --------------------------------------------------------------------------
+  #  Standard Code Hygiene & Quality Hooks
+  #  These hooks enforce general best practices across all file types.
+  # --------------------------------------------------------------------------
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0 # Updated to a more recent version
+    rev: v4.6.0 # Pinned version for stability
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-added-large-files
-      - id: check-merge-conflict
-      - id: debug-statements
+      - id: trailing-whitespace # Trims trailing whitespace
+      - id: end-of-file-fixer # Ensures a single newline at the end of files
+      - id: check-yaml # Checks YAML file syntax
+      - id: check-json # Checks JSON file syntax (useful for .ai/config, package.json etc.)
+      - id: check-added-large-files # Prevents committing excessively large files
+      - id: check-merge-conflict # Checks for unresolved merge conflict markers
+      - id: debug-statements # Disallows common debug statements (e.g., pdb.set_trace())
 
-  - repo: https://github.com/psf/black
-    rev: 24.4.2 # Updated to a more recent version
-    hooks:
-      - id: black
-        args: [--line-length=88]
-
+  # --------------------------------------------------------------------------
+  #  Python Formatting, Linting & Type Checking
+  #  This section ensures all Python code adheres to project standards.
+  # --------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.4 # Updated to a more recent version
+    rev: v0.4.5 # Pinned version for Ruff
     hooks:
+      # Run the linter and auto-fix any issues.
+      # Automatically fixes linting errors and formats code according to ruff's config.
       - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
-      - id: ruff-format # It's also good practice to let ruff handle formatting if desired
+        args: ["--fix", "--exit-non-zero-on-fix"] # --exit-non-zero-on-fix ensures pre-commit fails if fixes are applied (forcing a re-add)
+      # Run the formatter (separate pass for formatting).
+      - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0 # Updated to a more recent version
+    rev: v1.10.0 # Pinned version for Mypy
     hooks:
       - id: mypy
-        # By removing the 'args', mypy will automatically use the stricter
-        # configuration from your pyproject.toml file, ensuring consistency.
+        # Mypy will automatically use the configuration from your pyproject.toml
+        # or mypy.ini file for strictness rules and paths.
+        # `additional_dependencies` are for packages that mypy needs to understand
+        # types from, but are not direct project dependencies (e.g., stubs).
+        additional_dependencies:
+          - "pydantic>=2.0" # Add pydantic for type checking pydantic models
+          - "sqlalchemy>=2.0" # Add sqlalchemy for ORM type checking
+          - "alembic>=1.12" # Add alembic types if relevant to models
+          - "types-python-jose" # For python-jose types if available
+          - "types-passlib" # For passlib types if available
+
+  # --------------------------------------------------------------------------
+  #  brAInwav Custom Governance Hooks
+  #  This section automates the project's unique AI governance rules locally.
+  # --------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      # This hook runs your context synchronization script. It ensures that
+      # governance documents and agent configurations are always in sync.
+      - id: sync-ai-context
+        name: Sync AI Context Files
+        entry: python scripts/ai/sync_context.py # Path to your sync script
+        language: system # Runs the script using the system's python
+        stages: [commit] # Runs before the commit is made
+        # It's crucial that this script handles its own logging/exit codes.
+
+      # IMPORTANT: The 'update-ai-audit-log' hook is intentionally removed from
+      # pre-commit here. The AI_CONTRIB_LOG.yaml is now updated by the
+      # higher-level AI orchestration engine (e.g., scripts/ai/run-orchestration.py)
+      # after agents complete tasks and generate confidence logs.
+      # This ensures the audit log reflects actual AI execution and confidence,
+      # rather than just commit message tags.

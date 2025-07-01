@@ -1,47 +1,89 @@
+# .github/workflows/frontend-ci.yml
+#
+# This GitHub Actions workflow defines the Continuous Integration (CI) pipeline
+# for the brAInwav MAS Platform's Next.js Frontend application (apps/web/).
+# It ensures code quality, security, and adherence to project standards
+# for every Pull Request targeting the main branch.
+#
+# Governed by: RULES_OF_AI.md
+# Referenced in: docs/QUALITY_GATES.md, docs/PROJECT_STRUCTURE.md
+
 name: Frontend CI
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yml'
   pull_request:
-    branches: [main]
+    branches:
+      - main # Or 'develop' if you use a development branch
+    types: [opened, synchronize, reopened, ready_for_review] # Run on PR open, updates, or when ready
     paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yml'
+      - "apps/web/**" # Trigger only if changes are within the apps/web directory
+      - "packages/ui/**" # Trigger if shared UI package changes
+      - "packages/types/**" # Trigger if shared types package changes
+      - "packages/utils/**" # Trigger if shared utils package changes
+      - "pnpm-lock.yaml" # Trigger if pnpm lockfile changes
+      - "package.json" # Trigger if root package.json changes
+      - "turbo.json" # Trigger if Turborepo config changes
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
-    
+  build_and_test_frontend:
+    name: Build & Test Frontend
+    runs-on: ubuntu-latest # Using Ubuntu for the runner environment
+    timeout-minutes: 10 # Set a timeout for the job
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Lint and format check
-      run: |
-        npm run lint || echo "Linting not configured yet"
-        npm run format:check || echo "Format checking not configured yet"
-    
-    - name: Type check
-      run: npm run type-check || echo "Type checking not configured yet"
-    
-    - name: Run tests
-      run: npm run test || echo "Tests not configured yet"
-    
-    - name: Build
-      run: npm run build
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history if needed for tools like semantic-release or deep linting
+
+      - name: Set up Node.js 18 (for Next.js 14)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # Next.js 14 is compatible with Node.js 18
+          cache: "pnpm" # Cache pnpm dependencies
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false # Don't run pnpm install here, it will be run explicitly below
+
+      - name: Install Monorepo Dependencies
+        # This will install dependencies for all workspace packages (apps/web, packages/*)
+        # as defined in pnpm-workspace.yaml and their respective package.json files.
+        run: pnpm install --frozen-lockfile # Use --frozen-lockfile for CI to ensure reproducibility
+
+      - name: Run Type Check (tsc --noEmit)
+        run: pnpm --filter @brainwav/web type-check # Run type check only for the web app
+        # This ensures TypeScript errors are caught early, as per QUALITY_GATES.md
+
+      - name: Run ESLint
+        run: pnpm --filter @brainwav/web lint # Run ESLint only for the web app
+        # This checks for linting errors, as per QUALITY_GATES.md
+
+      - name: Build Frontend Application
+        run: pnpm --filter @brainwav/web build # Build the Next.js application
+        # This step verifies that the application can be built successfully for deployment.
+
+      # Optional: Add Frontend Tests (e.g., Jest, React Testing Library)
+      # This step assumes you have a 'test' script defined in apps/web/package.json
+      # - name: Run Frontend Tests
+      #   run: pnpm --filter @brainwav/web test
+      #   env:
+      #     CI: true # Set CI environment variable for test runners
+      # Optional: Frontend Dependency Vulnerability Scan
+      - name: Run npm audit (or pnpm audit)
+        run: pnpm --filter @brainwav/web audit --audit-level=high
+        continue-on-error: true # Don't fail CI for warnings, but log them
+        # This checks for known vulnerabilities in frontend dependencies, as per QUALITY_GATES.md
+
+      # Optional: Accessibility Scan (e.g., pa11y, Axe-core via Cypress/Playwright)
+      # This requires a test setup that can run a browser to perform accessibility checks.
+      # Example with Cypress:
+      # - name: Install Cypress (if used for a11y tests)
+      #   run: pnpm install cypress --filter @brainwav/web
+      # - name: Run Accessibility Tests
+      #   run: pnpm --filter @brainwav/web cypress run --spec "cypress/e2e/a11y.cy.ts"
+      #   env:
+      #     CI: true
+      # This step helps ensure WCAG 2.1 Level AA standards are met, as per QUALITY_GATES.md

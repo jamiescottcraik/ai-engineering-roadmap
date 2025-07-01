@@ -181,7 +181,7 @@ export class RoadmapErrorBoundary extends Component<Props, State> {
  */
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
-  fallback?: ReactNode
+  fallback?: ReactNode,
 ) {
   const WrappedComponent = (props: P) => (
     <RoadmapErrorBoundary fallback={fallback}>

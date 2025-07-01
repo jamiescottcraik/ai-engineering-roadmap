@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "brAInwav MAS - AI Agent Configuration Schema",
+  "description": "Defines the canonical structure for an AI agent's configuration file. This schema validates files like 'codex-agent.json' and 'jules.json'.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "A reference to this schema file for editor validation and discovery."
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "A unique, machine-readable identifier for the agent configuration (e.g., 'github_copilot_contributor')."
+    },
+    "description": {
+      "type": "string",
+      "description": "A human-readable summary of the agent's purpose and role."
+    },
+    "model_identifier": {
+      "type": "string",
+      "description": "The specific model name or version the agent uses (e.g., 'gpt-4o', 'codex-1', 'jules-architect-v1')."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "description": "The semantic version of this configuration file itself (e.g., '1.0.0')."
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Toggles whether this agent is active in the orchestration workflow.",
+      "default": true
+    },
+    "authority_level": {
+      "type": "string",
+      "description": "The agent's role within the system, aligned with the AI Governance Manual.",
+      "enum": ["CONTRIBUTOR", "ASSISTANT", "CONSULTANT", "ARCHITECT"]
+    },
+    "capabilities": {
+      "type": "array",
+      "description": "A list of tasks the agent is capable of performing.",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "integration": {
+      "type": "object",
+      "description": "Details for how the MAS communicates with the agent.",
+      "properties": {
+        "type": {
+          "description": "The method of integration.",
+          "enum": ["native_ide", "api", "platform"]
+        },
+        "environment": {
+          "type": "string",
+          "description": "For platform integrations, describes the execution environment (e.g., 'sandboxed_cloud_container')."
+        },
+        "auth": {
+          "type": "object",
+          "properties": {
+            "provider": { "type": "string", "enum": ["1password", "github"] },
+            "secret_path": {
+              "type": "string",
+              "description": "The path to the secret in the specified provider (e.g., 'op://...')."
+            },
+            "token_type": {
+              "type": "string",
+              "description": "For native auth, the type of token (e.g., 'user_auth_token')."
+            }
+          },
+          "required": ["provider"]
+        }
+      },
+      "required": ["type", "auth"]
+    },
+    "limits": {
+      "type": "object",
+      "description": "Operational constraints to control cost, performance, and safety. Properties vary by agent type.",
+      "properties": {
+        "timeout_seconds": { "type": "integer", "minimum": 1 },
+        "max_file_context_kb": { "type": "integer", "minimum": 1 },
+        "max_tokens": { "type": "integer", "minimum": 1 },
+        "read_only": { "type": "boolean" },
+        "max_task_duration_minutes": { "type": "integer", "minimum": 1 },
+        "parallel_tasks": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": true
+    },
+    "task_preferences": {
+      "type": "array",
+      "description": "An ordered list of tasks the agent is best suited for, used for smarter delegation.",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "agent_id",
+    "description",
+    "model_identifier",
+    "version",
+    "enabled",
+    "authority_level",
+    "capabilities",
+    "integration"
+  ],
+  "additionalProperties": false
+}

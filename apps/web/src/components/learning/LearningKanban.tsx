@@ -118,7 +118,7 @@ export const LearningKanban: React.FC = () => {
       activationConstraint: {
         distance: 8,
       },
-    })
+    }),
   );
 
   // Droppable Column Component
@@ -312,7 +312,7 @@ export const LearningKanban: React.FC = () => {
         }
       }
     },
-    [columns]
+    [columns],
   );
 
   const activeItem = activeId

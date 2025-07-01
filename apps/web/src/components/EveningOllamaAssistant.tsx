@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Brain } from "lucide-react";
+import { useState } from 'react';
+import { Brain } from 'lucide-react';
 
 export const EveningOllamaAssistant = () => {
-  const [query, setQuery] = useState("");
-  const [response, setResponse] = useState("");
+  const [query, setQuery] = useState('');
+  const [response, setResponse] = useState('');
 
   const askOllama = async (prompt: string) => {
     const enhancedPrompt = `
@@ -16,11 +16,11 @@ export const EveningOllamaAssistant = () => {
       Provide a helpful, concise response suitable for evening review.
     `;
 
-    const res = await fetch("http://localhost:11434/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('http://localhost:11434/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: "mistral:latest",
+        model: 'mistral:latest',
         prompt: enhancedPrompt,
         stream: false,
       }),
@@ -50,9 +50,7 @@ export const EveningOllamaAssistant = () => {
         Ask Ollama
       </button>
       {response && (
-        <div className="mt-3 p-3 bg-white/5 rounded-lg text-white/80 text-sm">
-          {response}
-        </div>
+        <div className="mt-3 p-3 bg-white/5 rounded-lg text-white/80 text-sm">{response}</div>
       )}
     </div>
   );

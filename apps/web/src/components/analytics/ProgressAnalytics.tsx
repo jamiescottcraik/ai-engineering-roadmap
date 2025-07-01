@@ -33,7 +33,7 @@ export default function ProgressAnalytics({ className = '' }: ProgressAnalyticsP
         { skill: 'Web Development', progress: 45, target: 70 },
       ],
     }),
-    []
+    [],
   );
 
   return (

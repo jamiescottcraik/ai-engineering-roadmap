@@ -8,7 +8,7 @@
  * - TypeScript strict typing
  */
 
-"use client";
+'use client';
 
 import { motion } from 'framer-motion';
 import { Github, BookOpen, Heart, Zap } from 'lucide-react';
@@ -37,7 +37,11 @@ export const Footer: React.FC<FooterProps> = ({
   ];
 
   const socialLinks = [
-    { name: 'GitHub', href: 'https://github.com/jamiescottcraik/ai-engineering-roadmap', icon: <Github className="h-4 w-4" /> },
+    {
+      name: 'GitHub',
+      href: 'https://github.com/jamiescottcraik/ai-engineering-roadmap',
+      icon: <Github className="h-4 w-4" />,
+    },
   ];
 
   return (
@@ -54,15 +58,12 @@ export const Footer: React.FC<FooterProps> = ({
     >
       <div className="max-w-8xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
           {/* Brand Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">
-              AI Engineering Roadmap
-            </h3>
+            <h3 className="text-lg font-semibold text-foreground">AI Engineering Roadmap</h3>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              A cognitive-adaptive learning platform designed with psychology-informed
-              patterns for accelerated AI skill development.
+              A cognitive-adaptive learning platform designed with psychology-informed patterns for
+              accelerated AI skill development.
             </p>
             <div className="flex items-center space-x-1 text-sm text-neutral-500">
               <span>Built with</span>
@@ -132,12 +133,14 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Bar */}
-        <div className="
+        <div
+          className="
           mt-8 pt-6
           border-t border-neutral-200 dark:border-neutral-700
           flex flex-col sm:flex-row justify-between items-center
           space-y-2 sm:space-y-0
-        ">
+        "
+        >
           <p className="text-sm text-neutral-500">
             © {currentYear} AI Engineering Roadmap. Personal Learning Edition.
           </p>

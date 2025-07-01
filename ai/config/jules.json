@@ -1,0 +1,28 @@
+{
+  "$schema": "../schemas/agent-config.schema.json",
+  "agent_id": "google_jules_architect",
+  "description": "An advisory agent for architecture review, performance analysis, and system design, based on Google's Jules models.",
+  "model_identifier": "jules-architect-v1",
+  "version": "1.0.0",
+  "enabled": true,
+  "authority_level": "ARCHITECT",
+  "capabilities": [
+    "architecture_review",
+    "performance_analysis",
+    "system_design_consultation",
+    "scalability_assessment",
+    "code_pattern_validation"
+  ],
+  "integration": {
+    "type": "api",
+    "auth": {
+      "provider": "1password",
+      "secret_path": "op://Development/GOOGLE_JULES_KEY"
+    }
+  },
+  "limits": {
+    "read_only": true,
+    "timeout_seconds": 120
+  },
+  "task_preferences": ["architecture_review", "performance_analysis"]
+}

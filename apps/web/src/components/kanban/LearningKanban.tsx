@@ -267,7 +267,7 @@ export default function LearningKanban() {
         return newColumns;
       });
     },
-    [columns]
+    [columns],
   );
 
   // Add new task
@@ -290,8 +290,8 @@ export default function LearningKanban() {
 
     setColumns((prevColumns) =>
       prevColumns.map((column) =>
-        column.id === columnId ? { ...column, tasks: [...column.tasks, newTask] } : column
-      )
+        column.id === columnId ? { ...column, tasks: [...column.tasks, newTask] } : column,
+      ),
     );
   }, []);
 
@@ -329,9 +329,9 @@ export default function LearningKanban() {
                 prevColumns.map((column) => ({
                   ...column,
                   tasks: column.tasks.map((task) =>
-                    task.id === updatedTask.id ? updatedTask : task
+                    task.id === updatedTask.id ? updatedTask : task,
                   ),
-                }))
+                })),
               );
               setSelectedTask(updatedTask);
             }}

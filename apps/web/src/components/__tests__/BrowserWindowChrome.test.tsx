@@ -118,7 +118,7 @@ describe('BrowserWindowChrome', () => {
         {...defaultProps}
         onDeviceChange={mockOnDeviceChange}
         activeDevice="desktop"
-      />
+      />,
     );
 
     const tabletButton = screen.getByLabelText('Switch to Tablet view');
@@ -138,7 +138,7 @@ describe('BrowserWindowChrome', () => {
         onBack={mockOnBack}
         onForward={mockOnForward}
         onHome={mockOnHome}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByLabelText('Go back'));

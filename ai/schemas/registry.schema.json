@@ -1,0 +1,183 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "brAInwav MAS - Central Registry Schema",
+  "description": "Validates the structure of the root /.ai/registry.yml file, which is the single source of truth for the AI orchestration engine.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "description": "The semantic version of this registry file."
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date",
+      "description": "The date this file was last updated, in YYYY-MM-DD format."
+    },
+    "owner": {
+      "type": "string",
+      "description": "The maintainer or owner of this configuration file."
+    },
+    "policy": {
+      "type": "object",
+      "description": "The machine-readable version of RULES_OF_AI.md, for direct enforcement.",
+      "properties": {
+        "enforcement_level": { "type": "string", "enum": ["strict", "audit"] },
+        "version_control": {
+          "type": "object",
+          "properties": {
+            "protected_branches": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "require_conventional_commits": { "type": "boolean" },
+            "merge_strategy": {
+              "type": "string",
+              "enum": ["squash", "merge", "rebase"]
+            }
+          },
+          "required": [
+            "protected_branches",
+            "require_conventional_commits",
+            "merge_strategy"
+          ]
+        },
+        "architecture": {
+          "type": "object",
+          "properties": {
+            "provider_neutrality_enforced": { "type": "boolean" },
+            "strict_type_safety_required": { "type": "boolean" }
+          },
+          "required": [
+            "provider_neutrality_enforced",
+            "strict_type_safety_required"
+          ]
+        },
+        "testing": {
+          "type": "object",
+          "properties": {
+            "coverage_threshold_percent": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "mock_externals_required": { "type": "boolean" }
+          },
+          "required": ["coverage_threshold_percent", "mock_externals_required"]
+        },
+        "security": {
+          "type": "object",
+          "properties": {
+            "secrets_management_tool": { "type": "string" },
+            "enforce_dependency_scanning": { "type": "boolean" }
+          },
+          "required": ["secrets_management_tool", "enforce_dependency_scanning"]
+        },
+        "documentation": {
+          "type": "object",
+          "properties": {
+            "require_adr_for_major_decisions": { "type": "boolean" }
+          },
+          "required": ["require_adr_for_major_decisions"]
+        },
+        "accessibility": {
+          "type": "object",
+          "properties": {
+            "standard": { "type": "string" }
+          },
+          "required": ["standard"]
+        }
+      },
+      "required": [
+        "version_control",
+        "architecture",
+        "testing",
+        "security",
+        "documentation"
+      ]
+    },
+    "agents": {
+      "type": "array",
+      "description": "A list of all recognized AI agents in the system.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of the agent, matching its config."
+          },
+          "config_path": {
+            "type": "string",
+            "description": "The absolute path to the agent's JSON configuration file."
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Toggles whether this agent is active."
+          }
+        },
+        "required": ["id", "config_path", "enabled"]
+      }
+    },
+    "task_delegation": {
+      "type": "object",
+      "description": "Defines the rules for how tasks are routed to agents based on their roles.",
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "$ref": "#/definitions/taskRule"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "version",
+    "last_updated",
+    "owner",
+    "policy",
+    "agents",
+    "task_delegation"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "taskRule": {
+      "type": "object",
+      "description": "Delegation rules for a specific task type (e.g., 'code_review').",
+      "properties": {
+        "description": { "type": "string" },
+        "delegation_strategy": {
+          "type": "object",
+          "properties": {
+            "primary_agent": { "type": "string" },
+            "secondary_agents": {
+              "type": "array",
+              "items": { "type": "string" },
+              "uniqueItems": true
+            },
+            "validating_agents": {
+              "type": "array",
+              "items": { "type": "string" },
+              "uniqueItems": true
+            }
+          },
+          "required": ["primary_agent"]
+        },
+        "consensus_policy": {
+          "type": "object",
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "enum": ["unanimous_validator_approval", "any_validator_approval"]
+            }
+          },
+          "required": ["strategy"]
+        },
+        "human_approval_required": { "type": "boolean" }
+      },
+      "required": [
+        "description",
+        "delegation_strategy",
+        "human_approval_required"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "agent_id": "code_reviewer_agent",
+  "provider_type": "anthropic",
+  "model_name": "claude-3-5-sonnet",
+  "capabilities": ["Automated Code Review"],
+  "description": "Specialized agent for performing automated code reviews, focusing on quality, security, and architectural adherence.",
+  "api_type": "chat",
+  "model_params": {
+    "temperature": 0.2,
+    "max_tokens": 4096
+  }
+}

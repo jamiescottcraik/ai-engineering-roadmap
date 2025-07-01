@@ -1,0 +1,248 @@
+# .github/workflows/ai-code-review.yml
+#
+# This GitHub Actions workflow automates code reviews using AI agents for the
+# brAInwav MAS Platform. It is triggered on Pull Request activity and delegates
+# the review task to a configured AI agent, then posts the feedback to the PR.
+#
+# Governed by: RULES_OF_AI.md
+# Referenced in: docs/QUALITY_GATES.md, docs/PROJECT_STRUCTURE.md, .github/ISSUE_TEMPLATE/ai_task.yml
+
+name: AI Code Review
+
+on:
+  pull_request:
+    branches:
+      - main # Target branch for pull requests (e.g., 'main' or 'develop')
+    types: [opened, synchronize, reopened, ready_for_review] # Run on PR open, updates, or when ready for review
+    paths:
+      - 'apps/api/**'           # Trigger if backend code changes
+      - 'apps/web/**'           # Trigger if frontend code changes
+      - 'packages/**'           # Trigger if shared packages change
+      - 'scripts/ai/delegate-task.py' # Trigger if the delegation script changes
+      - 'scripts/ai/agent-monitor.py' # Trigger if the monitor script changes
+      - '.ai/config/**'         # Trigger if agent configurations change
+      - '.github/workflows/ai-code-review.yml' # Trigger if this workflow changes
+
+jobs:
+  # Job to set up environment and install dependencies, callable by other jobs
+  setup_build_env:
+    name: Setup Build Environment
+    runs-on: ubuntu-latest
+    outputs:
+      # Output necessary paths/settings if other jobs need them
+      python-path: ${{ steps.set-python-path.outputs.path }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch full history for diffs and other git-based tools
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        id: setup-python-uv
+        with:
+          python-version: "3.11"
+          cache: 'uv' # Cache uv dependencies
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "/home/runner/.cargo/bin" >> $GITHUB_PATH # Add uv to PATH
+        shell: bash
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false # Don't run pnpm install here, run it explicitly below
+
+      - name: Install Monorepo Dependencies
+        # This will install dependencies for all workspace packages (apps/web, packages/*)
+        # as defined in pnpm-workspace.yaml and their respective package.json files.
+        run: |
+          pnpm install --frozen-lockfile # Use --frozen-lockfile for CI to ensure reproducibility
+          cd apps/api && uv sync # Install Python dependencies for the backend
+        shell: bash
+        env:
+          # Set PYTHONPATH for the Python application context.
+          PYTHONPATH: "${{ github.workspace }}/apps/api/src:${{ github.workspace }}"
+
+      - name: Set Python Path for output
+        id: set-python-path
+        run: echo "path=${{ github.workspace }}/apps/api/src:${{ github.workspace }}" >> $GITHUB_OUTPUT
+
+
+  # Job to set up 1Password CLI and authenticate, callable by other jobs.
+  # This makes use of the reusable workflow for 1Password setup.
+  setup_1password_cli:
+    name: Setup 1Password CLI
+    uses: ./.github/workflows/1password-setup.yml # Reference the reusable workflow
+    secrets:
+      OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+    # This job doesn't need to run on specific paths as it's called.
+
+  # Main job to run the AI code review
+  run_ai_code_review:
+    name: Run AI Code Review
+    runs-on: ubuntu-latest
+    needs: [setup_build_env, setup_1password_cli] # Ensure environment and 1Password are ready
+    timeout-minutes: 20 # Allow more time for AI processing
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Essential for git diff to compare base and head
+
+      - name: Set up Python Path from previous job
+        run: echo "PYTHONPATH=${{ needs.setup_build_env.outputs.python-path }}" >> $GITHUB_ENV
+
+      - name: Install uv and pnpm (if not already cached)
+        # Re-install uv and pnpm here to ensure they are available in this job's PATH.
+        # Although cached in setup_build_env, paths might not persist across jobs.
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "/home/runner/.cargo/bin" >> $GITHUB_PATH
+          pnpm setup --force # Ensure pnpm is in PATH
+          echo "/home/runner/.local/share/pnpm" >> $GITHUB_PATH # Add pnpm's global bin to PATH
+        shell: bash
+
+      - name: Re-Install Monorepo Dependencies
+        # Dependencies are installed in setup_build_env, but often need to be re-installed
+        # or cached/restored in subsequent jobs if they are large. For simplicity, re-run here.
+        run: |
+          pnpm install --frozen-lockfile
+          cd apps/api && uv sync
+        shell: bash
+
+      - name: Authenticate 1Password CLI for this job
+        # Although the setup_1password_cli job runs, its authentication might not persist
+        # directly in this job's environment without explicitly re-authenticating
+        # or using 1Password Connect. For simplicity, we re-authenticate using the secret.
+        # This is okay since the secret is passed via GitHub Actions secrets.
+        run: |
+          echo "${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}" | op signin --raw > /dev/null
+          echo "🔑 1Password CLI re-authenticated for this job."
+        shell: bash
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+      - name: Get Pull Request Diff
+        id: get_diff
+        run: |
+          # Fetch the diff between the base and head of the pull request
+          PR_DIFF=$(git diff --full-index ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} || true)
+          # Truncate the diff if it's too large for an environment variable or prompt
+          # Max GitHub Actions output is 1MB, typical LLM contexts vary (e.g., 128k, 1M tokens)
+          MAX_DIFF_LENGTH=500000 # Example: 500KB limit for diff string
+          if [ ${#PR_DIFF} -gt $MAX_DIFF_LENGTH ]; then
+            PR_DIFF=$(echo "$PR_DIFF" | head -c $MAX_DIFF_LENGTH)
+            echo "::warning::PR diff truncated to $MAX_DIFF_LENGTH characters."
+          fi
+          echo "PR_DIFF<<EOF" >> $GITHUB_ENV
+          echo "$PR_DIFF" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Run AI Code Review Delegation Script
+        id: delegate_review
+        run: |
+          # The prompt for the AI to perform a code review
+          REVIEW_PROMPT="You are an expert software engineer performing a code review.
+          Review the following code changes for bugs, logical errors, security vulnerabilities,
+          performance issues, code style, adherence to architectural patterns (e.g., provider neutrality in services),
+          and completeness according to typical feature requirements.
+          Provide actionable suggestions and critique. Be concise and focus on high-impact areas.
+
+          Project Context: This is a monorepo for the brAInwav MAS Platform, using FastAPI (Python), Next.js (React),
+          and a strong emphasis on AI governance, modularity, and auditability.
+          Pay attention to changes in 'apps/api/' for Python, 'apps/web/' for Next.js/React,
+          and 'packages/' for shared code.
+
+          Code Changes (diff format):
+          \`\`\`diff
+          ${{ env.PR_DIFF }}
+          \`\`\`
+
+          Provide your review comments."
+
+          # Execute the delegate-task.py script with dynamic arguments
+          # The agent 'code_reviewer_agent' must have a config file in .ai/config/
+          # and be set up with a capable provider (e.g., Anthropic Claude, OpenAI GPT-4o).
+          python scripts/ai/delegate-task.py \
+            --agent code_reviewer_agent \
+            --task-summary "Automated Code Review" \
+            --task-prompt "${REVIEW_PROMPT}" \
+            --pr-number "${{ github.event.pull_request.number }}" \
+            --output-dir ".ai/logs" > delegate_output.json
+        shell: bash
+        env:
+          # Required for delegate-task.py to resolve modules like apps.api.src
+          PYTHONPATH: "${{ github.workspace }}/apps/api/src:${{ github.workspace }}"
+
+      - name: Process AI Review Output & Post Comment
+        # This step parses the output from delegate_review and posts a comment to the PR.
+        # It also checks the confidence flags to add labels if human oversight is required.
+        run: |
+          # Read the output JSON from the delegate-task.py script
+          DELEGATE_RESULT=$(cat delegate_output.json)
+          LOG_FILE=$(echo "$DELEGATE_RESULT" | jq -r '.log_file')
+          GENERATED_OUTPUT_FILE=$(echo "$DELEGATE_RESULT" | jq -r '.generated_output_file')
+
+          if [[ -z "$LOG_FILE" || -z "$GENERATED_OUTPUT_FILE" ]]; then
+            echo "::error::Failed to get log_file or generated_output_file from delegate-task.py output."
+            exit 1
+          fi
+
+          # Read the actual AI review content
+          AI_REVIEW_CONTENT=$(cat "$GENERATED_OUTPUT_FILE")
+
+          # Read the confidence log entry
+          CONFIDENCE_LOG=$(cat "$LOG_FILE")
+          HUMAN_OVERSIGHT_REQUIRED=$(echo "$CONFIDENCE_LOG" | jq -r '.flags.human_oversight_required')
+          ESCALATION_TRIGGERED=$(echo "$CONFIDENCE_LOG" | jq -r '.flags.escalation_triggered')
+          CONFIDENCE_LEVEL=$(echo "$CONFIDENCE_LOG" | jq -r '.confidence.level')
+          CONFIDENCE_JUSTIFICATION=$(echo "$CONFIDENCE_LOG" | jq -r '.confidence.justification')
+
+          REVIEW_SUMMARY="**AI Code Review for PR #${{ github.event.pull_request.number }}**\n\n"
+          REVIEW_SUMMARY+="**AI Confidence:** \`${CONFIDENCE_LEVEL}\` (Score: $(echo "$CONFIDENCE_LOG" | jq -r '.confidence.score | tostring | split(".")[0] + "." + (.[1] | .[0:2])))\n"
+          REVIEW_SUMMARY+="**Confidence Justification:** ${CONFIDENCE_JUSTIFICATION}\n\n"
+
+          # Add review content, truncated if too long for a single comment
+          MAX_COMMENT_LENGTH=65535 # GitHub API comment limit
+          TRUNCATED_MESSAGE="\n\n... (Review truncated due to length. See full review in workflow artifacts.)"
+          if [ ${#AI_REVIEW_CONTENT} -gt $MAX_COMMENT_LENGTH ]; then
+            AI_REVIEW_CONTENT=$(echo "$AI_REVIEW_CONTENT" | head -c $((MAX_COMMENT_LENGTH - ${#TRUNCATED_MESSAGE})))
+            REVIEW_SUMMARY+="${AI_REVIEW_CONTENT}${TRUNCATED_MESSAGE}"
+          else
+            REVIEW_SUMMARY+="${AI_REVIEW_CONTENT}"
+          fi
+
+          # Post the AI review as a PR comment
+          echo "Posting AI review comment to PR..."
+          gh pr comment ${{ github.event.pull_request.number }} --body "${REVIEW_SUMMARY}"
+
+          # Apply labels based on confidence flags
+          if [[ "$HUMAN_OVERSIGHT_REQUIRED" == "true" ]]; then
+            echo "::notice::Applying label: 'ai-review:human-oversight-required'"
+            gh pr edit ${{ github.event.pull_request.number }} --add-label "ai-review:human-oversight-required"
+          fi
+
+          if [[ "$ESCALATION_TRIGGERED" == "true" ]]; then
+            echo "::error::Applying label: 'ai-review:escalation-triggered'"
+            gh pr edit ${{ github.event.pull_request.number }} --add-label "ai-review:escalation-triggered"
+            exit 1 # Fail the workflow if escalation is triggered
+          fi
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed for gh CLI
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+
+      - name: Upload AI Review Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-code-review-artifacts-${{ github.event.pull_request.number }}
+          path: .ai/logs/
+          retention-days: 7 # Keep artifacts for 7 days

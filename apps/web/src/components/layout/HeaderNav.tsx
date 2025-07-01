@@ -13,7 +13,7 @@
  * - Learning state indicators
  */
 
-"use client";
+'use client';
 
 import { motion } from 'framer-motion';
 import { Brain, Menu, Settings, User, Moon, Sun, Monitor } from 'lucide-react';
@@ -29,19 +29,23 @@ interface HeaderNavProps {
 }
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({
-  title = "AI Engineering Roadmap",
+  title = 'AI Engineering Roadmap',
   showUserMenu = true,
   onMenuToggle,
-  className = "",
+  className = '',
 }) => {
   const { theme, toggleTheme } = useCognitiveTheme();
 
   const getThemeIcon = () => {
     switch (theme.mode) {
-      case 'light': return <Sun className="h-4 w-4" />;
-      case 'dark': return <Moon className="h-4 w-4" />;
-      case 'system': return <Monitor className="h-4 w-4" />;
-      default: return <Sun className="h-4 w-4" />;
+      case 'light':
+        return <Sun className="h-4 w-4" />;
+      case 'dark':
+        return <Moon className="h-4 w-4" />;
+      case 'system':
+        return <Monitor className="h-4 w-4" />;
+      default:
+        return <Sun className="h-4 w-4" />;
     }
   };
 
@@ -85,12 +89,8 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
             </div>
 
             <div>
-              <h1 className="text-xl font-bold text-foreground leading-tight">
-                {title}
-              </h1>
-              <p className="text-sm text-neutral-500 leading-tight">
-                Personal Learning Edition
-              </p>
+              <h1 className="text-xl font-bold text-foreground leading-tight">{title}</h1>
+              <p className="text-sm text-neutral-500 leading-tight">Personal Learning Edition</p>
             </div>
           </div>
         </div>
@@ -156,7 +156,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         <div className="h-1 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: "25%" }}
+            animate={{ width: '25%' }}
             transition={{ duration: 1, delay: 0.5 }}
             className="h-full rounded-full"
             style={{ backgroundColor: theme.colors.progress }}

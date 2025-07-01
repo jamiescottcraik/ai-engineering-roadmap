@@ -200,7 +200,7 @@ async function processOfflineAction(action: string, data: unknown): Promise<void
 export function useOfflineData<T>(
   key: string,
   fetchFn: () => Promise<T>,
-  syncFn?: (data: T) => Promise<void>
+  syncFn?: (data: T) => Promise<void>,
 ) {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -244,7 +244,7 @@ export function useOfflineData<T>(
             JSON.stringify({
               data: freshData,
               timestamp: new Date().toISOString(),
-            })
+            }),
           );
         }
       } catch (err) {
@@ -265,7 +265,7 @@ export function useOfflineData<T>(
         setIsLoading(false);
       }
     },
-    [key, fetchFn, isOnline]
+    [key, fetchFn, isOnline],
   );
 
   // Update data (with offline queueing)
@@ -279,7 +279,7 @@ export function useOfflineData<T>(
         JSON.stringify({
           data: newData,
           timestamp: new Date().toISOString(),
-        })
+        }),
       );
 
       // If online, sync immediately
@@ -293,7 +293,7 @@ export function useOfflineData<T>(
         addToQueue('SYNC_DATA', { key, data: newData });
       }
     },
-    [key, isOnline, syncFn, addToQueue]
+    [key, isOnline, syncFn, addToQueue],
   );
 
   // Initial load

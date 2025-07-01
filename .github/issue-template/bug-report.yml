@@ -1,0 +1,108 @@
+# /.github/ISSUE_TEMPLATE/bug_report.yml
+#
+# This file defines the issue form for reporting bugs.
+# It ensures all necessary details are captured in a structured format,
+# enabling efficient triage, reproduction, and resolution.
+
+name: "🐞 Bug Report"
+description: "Create a report to help us improve the brAInwav MAS Platform."
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees:
+  - jamiescottcraik
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for helping improve the brAInwav MAS Platform!**
+
+        > [!IMPORTANT]
+        > **Do not report security vulnerabilities here.** If you believe you have found a security vulnerability, please follow the private disclosure steps outlined in the `SECURITY.md` file at the root of this repository.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: "Provide a clear and concise description of what the bug is. What's going wrong?"
+      placeholder: "e.g., The application crashes when I click the 'Save Settings' button on the user profile page."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: "Provide the exact steps to consistently reproduce the behavior."
+      value: |
+        1.
+        2.
+        3.
+      placeholder: |
+        1. Navigate to the '/profile' page.
+        2. Enter 'test' in the username field.
+        3. Click the 'Save Settings' button.
+        4. Observe the application crash.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: "A clear and concise description of what you expected to happen."
+      placeholder: "I expected the settings to be saved successfully and a confirmation toast to appear."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: "How critical is this bug? This helps prioritize our efforts."
+      options:
+        - "Critical: Blocks core functionality or causes data loss."
+        - "High: Severely impacts a major feature."
+        - "Medium: A non-critical feature is behaving incorrectly."
+        - "Low: A minor cosmetic or UI issue."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affected-components
+    attributes:
+      label: Affected Components
+      description: "Select all components of the monorepo that are affected by this bug."
+      options:
+        - label: Backend API (`/apps/api`)
+        - label: Frontend Web App (`/apps/web`)
+        - label: Shared Contracts (`/shared/contracts`)
+        - label: CI/CD Workflows (`/.github/workflows`)
+        - label: Documentation (`/docs`)
+        - label: Dev Container (`/.devcontainer`)
+
+  - type: textarea
+    id: environment-details
+    attributes:
+      label: Environment Details
+      description: "Please provide any relevant details about the environment you experienced the bug in."
+      placeholder: |
+        - OS: [e.g., macOS Sonoma, Windows 11]
+        - Browser: [e.g., Chrome 125, Firefox 124]
+        - App Version: [e.g., Git commit hash `a1b2c3d`, local dev server]
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context & Logs
+      description: "Add any other context, logs, or screenshots about the bug here. Please wrap logs in code blocks."
+      render: shell
+
+  - type: input
+    id: follow-up-task
+    attributes:
+      label: Follow-up AI Task
+      description: "(Optional) If a new AI Task issue is created to fix this bug, link it here for traceability."
+      placeholder: "e.g., #124"

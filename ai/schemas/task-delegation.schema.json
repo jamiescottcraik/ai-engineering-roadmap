@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "brAInwav MAS - Task Delegation Schema",
+  "description": "Defines the structure for task delegation rules within the /.ai/registry.yml file. This schema dictates how the orchestration engine assigns tasks to different AI agents based on their roles.",
+  "type": "object",
+  "patternProperties": {
+    "^[a-z_]+$": {
+      "type": "object",
+      "description": "Delegation rules for a specific task type (e.g., 'code_review', 'security_analysis').",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "A human-readable summary of what this task entails."
+        },
+        "delegation_strategy": {
+          "type": "object",
+          "description": "Defines the roles and order of agents assigned to this task.",
+          "properties": {
+            "primary_agent": {
+              "type": "string",
+              "description": "The first agent assigned to perform the task."
+            },
+            "secondary_agents": {
+              "type": "array",
+              "description": "A list of fallback agents to try in order if the primary agent fails.",
+              "items": { "type": "string" },
+              "uniqueItems": true
+            },
+            "validating_agents": {
+              "type": "array",
+              "description": "A list of agents that review the output of the primary/secondary agent.",
+              "items": { "type": "string" },
+              "uniqueItems": true
+            }
+          },
+          "required": ["primary_agent"]
+        },
+        "consensus_policy": {
+          "type": "object",
+          "description": "Defines the rules for agreement between multiple agents.",
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "description": "The method for reaching consensus.",
+              "enum": ["unanimous_validator_approval", "any_validator_approval"]
+            }
+          },
+          "required": ["strategy"]
+        },
+        "human_approval_required": {
+          "type": "boolean",
+          "description": "If true, this task's output requires explicit human approval before being merged or finalized.",
+          "default": false
+        }
+      },
+      "required": ["description", "delegation_strategy"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,11 @@
+# .devcontainer/Dockerfile.dev
+# Defines the base environment for the dedicated Dev Container service.
+
+FROM mcr.microsoft.com/devcontainers/base:ubuntu
+
+# Install Node.js (via nvm), pnpm, and Python tools (uv)
+RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && nvm install --lts && npm install -g pnpm"
+RUN pipx install uv
+
+# You can add other tools you need for development here
+# e.g., RUN apt-get update && apt-get install -y <some-tool>

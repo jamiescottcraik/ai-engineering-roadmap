@@ -9,9 +9,9 @@ assignees: ''
 
 ## Resource Information
 
-**Resource Title**:  
-**Provider/Author**:  
-**URL**:  
+**Resource Title**:
+**Provider/Author**:
+**URL**:
 **Type**: [Course/Book/Tutorial/Article/Video/Other]
 
 ## Suggested Phase/Topic
@@ -29,10 +29,10 @@ Explain why this resource would be valuable for the roadmap:
 
 ## Resource Details
 
-**Estimated Time**:  
+**Estimated Time**:
 **Difficulty Level**: [Beginner/Intermediate/Advanced]
 **Cost**: [Free/Paid/Subscription]
-**Prerequisites**: 
+**Prerequisites**:
 
 ## Quality Assessment
 

@@ -1,6 +1,15 @@
-"use client";
+'use client';
 
-import { ReactFlow, Node, Edge, addEdge, Background, Controls, MiniMap, Connection } from '@xyflow/react';
+import {
+  ReactFlow,
+  Node,
+  Edge,
+  addEdge,
+  Background,
+  Controls,
+  MiniMap,
+  Connection,
+} from '@xyflow/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
@@ -14,7 +23,7 @@ import {
   Award,
   Lightbulb,
   Settings,
-  BookOpen
+  BookOpen,
 } from 'lucide-react';
 import React, { useState, useCallback } from 'react';
 
@@ -54,23 +63,23 @@ interface LearningNodeData extends Record<string, unknown> {
 type LearningNode = Node<LearningNodeData>;
 
 const statusColors = {
-  'todo': 'bg-gray-100 border-gray-300 text-gray-700',
+  todo: 'bg-gray-100 border-gray-300 text-gray-700',
   'in-progress': 'bg-blue-50 border-blue-300 text-blue-700',
-  'completed': 'bg-green-50 border-green-300 text-green-700',
-  'review': 'bg-yellow-50 border-yellow-300 text-yellow-700'
+  completed: 'bg-green-50 border-green-300 text-green-700',
+  review: 'bg-yellow-50 border-yellow-300 text-yellow-700',
 };
 
 const difficultyColors = {
-  'beginner': 'bg-green-100 text-green-800',
-  'intermediate': 'bg-yellow-100 text-yellow-800',
-  'advanced': 'bg-red-100 text-red-800'
+  beginner: 'bg-green-100 text-green-800',
+  intermediate: 'bg-yellow-100 text-yellow-800',
+  advanced: 'bg-red-100 text-red-800',
 };
 
 const aiProviderIcons = {
-  'ollama': '🦙',
-  'openai': '🤖',
-  'groq': '⚡',
-  'litellm': '🔄'
+  ollama: '🦙',
+  openai: '🤖',
+  groq: '⚡',
+  litellm: '🔄',
 };
 
 // Custom Learning Node Component
@@ -201,15 +210,16 @@ const initialNodes: LearningNode[] = [
     position: { x: 250, y: 50 },
     data: {
       title: 'Programming Foundations',
-      description: 'Master Python basics, data structures, and algorithmic thinking for AI development.',
+      description:
+        'Master Python basics, data structures, and algorithmic thinking for AI development.',
       status: 'completed',
       difficulty: 'beginner',
       estimatedTime: '2 weeks',
       prerequisites: [],
       skills: ['Python', 'Data Structures', 'Algorithms', 'Git'],
       resources: ['Python.org tutorial', 'Learn Python the Hard Way', 'Automate the Boring Stuff'],
-      collaborators: 12
-    }
+      collaborators: 12,
+    },
   },
   {
     id: '2',
@@ -217,7 +227,8 @@ const initialNodes: LearningNode[] = [
     position: { x: 50, y: 200 },
     data: {
       title: 'Machine Learning Fundamentals',
-      description: 'Understanding supervised/unsupervised learning, feature engineering, and model evaluation.',
+      description:
+        'Understanding supervised/unsupervised learning, feature engineering, and model evaluation.',
       status: 'in-progress',
       difficulty: 'intermediate',
       estimatedTime: '3 weeks',
@@ -226,8 +237,8 @@ const initialNodes: LearningNode[] = [
       resources: ['Coursera ML Course', 'Hands-on ML book', 'Kaggle Learn'],
       aiProvider: 'ollama',
       interactiveDemo: true,
-      collaborators: 8
-    }
+      collaborators: 8,
+    },
   },
   {
     id: '3',
@@ -244,8 +255,8 @@ const initialNodes: LearningNode[] = [
       resources: ['Deep Learning book', 'PyTorch tutorials', 'Fast.ai course'],
       aiProvider: 'openai',
       interactiveDemo: true,
-      collaborators: 5
-    }
+      collaborators: 5,
+    },
   },
   {
     id: '4',
@@ -262,8 +273,8 @@ const initialNodes: LearningNode[] = [
       resources: ['HuggingFace course', 'NLP with Python', 'Attention is All You Need paper'],
       aiProvider: 'groq',
       interactiveDemo: true,
-      collaborators: 3
-    }
+      collaborators: 3,
+    },
   },
   {
     id: '5',
@@ -271,7 +282,8 @@ const initialNodes: LearningNode[] = [
     position: { x: 350, y: 350 },
     data: {
       title: 'Computer Vision',
-      description: 'Image processing, object detection, semantic segmentation, and generative models.',
+      description:
+        'Image processing, object detection, semantic segmentation, and generative models.',
       status: 'todo',
       difficulty: 'advanced',
       estimatedTime: '3 weeks',
@@ -280,8 +292,8 @@ const initialNodes: LearningNode[] = [
       resources: ['Computer Vision course', 'OpenCV docs', 'Papers with Code'],
       aiProvider: 'litellm',
       interactiveDemo: true,
-      collaborators: 7
-    }
+      collaborators: 7,
+    },
   },
   {
     id: '6',
@@ -297,9 +309,9 @@ const initialNodes: LearningNode[] = [
       skills: ['Docker', 'MLflow', 'FastAPI', 'AWS', 'Monitoring'],
       resources: ['MLOps guide', 'Docker docs', 'FastAPI tutorial'],
       aiProvider: 'ollama',
-      collaborators: 15
-    }
-  }
+      collaborators: 15,
+    },
+  },
 ];
 
 const initialEdges: Edge[] = [
@@ -320,36 +332,31 @@ export function InteractiveRoadmap() {
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    [setEdges],
   );
 
-  const onNodeClick = useCallback(
-    (event: React.MouseEvent, node: LearningNode) => {
-      setSelectedNode(node);
-    },
-    []
-  );
+  const onNodeClick = useCallback((event: React.MouseEvent, node: LearningNode) => {
+    setSelectedNode(node);
+  }, []);
 
   const updateNodeStatus = useCallback(
     (nodeId: string, newStatus: LearningNode['data']['status']) => {
       setNodes((nodes) =>
         nodes.map((node) =>
-          node.id === nodeId
-            ? { ...node, data: { ...node.data, status: newStatus } }
-            : node
-        )
+          node.id === nodeId ? { ...node, data: { ...node.data, status: newStatus } } : node,
+        ),
       );
     },
-    []
+    [],
   );
 
   // Calculate progress statistics
   const progressStats = {
     total: nodes.length,
-    completed: nodes.filter(n => n.data.status === 'completed').length,
-    inProgress: nodes.filter(n => n.data.status === 'in-progress').length,
-    todo: nodes.filter(n => n.data.status === 'todo').length,
-    review: nodes.filter(n => n.data.status === 'review').length
+    completed: nodes.filter((n) => n.data.status === 'completed').length,
+    inProgress: nodes.filter((n) => n.data.status === 'in-progress').length,
+    todo: nodes.filter((n) => n.data.status === 'todo').length,
+    review: nodes.filter((n) => n.data.status === 'review').length,
   };
 
   return (
@@ -423,8 +430,11 @@ export function InteractiveRoadmap() {
               className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg"
               nodeColor={(node) => {
                 const status = (node as LearningNode).data.status;
-                return status === 'completed' ? '#10b981' :
-                       status === 'in-progress' ? '#3b82f6' : '#6b7280';
+                return status === 'completed'
+                  ? '#10b981'
+                  : status === 'in-progress'
+                    ? '#3b82f6'
+                    : '#6b7280';
               }}
             />
           </ReactFlow>
@@ -461,7 +471,10 @@ export function InteractiveRoadmap() {
                     <Badge variant="outline" className={statusColors[selectedNode.data.status]}>
                       {selectedNode.data.status.replace('-', ' ')}
                     </Badge>
-                    <Badge variant="outline" className={difficultyColors[selectedNode.data.difficulty]}>
+                    <Badge
+                      variant="outline"
+                      className={difficultyColors[selectedNode.data.difficulty]}
+                    >
                       {selectedNode.data.difficulty}
                     </Badge>
                   </div>
@@ -517,7 +530,10 @@ export function InteractiveRoadmap() {
                     </label>
                     <div className="space-y-2">
                       {selectedNode.data.resources.map((resource, index) => (
-                        <div key={index} className="bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-md text-sm text-blue-700 dark:text-blue-300 flex items-center justify-between">
+                        <div
+                          key={index}
+                          className="bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-md text-sm text-blue-700 dark:text-blue-300 flex items-center justify-between"
+                        >
                           <span>{resource}</span>
                           <ExternalLink className="h-3 w-3 opacity-60" />
                         </div>
@@ -530,13 +546,16 @@ export function InteractiveRoadmap() {
                 {selectedNode.data.aiProvider && (
                   <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
                     <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-lg">{aiProviderIcons[selectedNode.data.aiProvider]}</span>
+                      <span className="text-lg">
+                        {aiProviderIcons[selectedNode.data.aiProvider]}
+                      </span>
                       <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
                         AI-Enhanced Learning
                       </span>
                     </div>
                     <p className="text-xs text-blue-600 dark:text-blue-400">
-                      This module includes AI-powered examples and practice using {selectedNode.data.aiProvider}.
+                      This module includes AI-powered examples and practice using{' '}
+                      {selectedNode.data.aiProvider}.
                     </p>
                   </div>
                 )}

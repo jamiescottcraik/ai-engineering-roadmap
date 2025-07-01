@@ -1,0 +1,103 @@
+// turbo.json
+// Turborepo configuration for the brAInwav MAS Platform monorepo.
+// This file defines task pipelines, caching strategies, and global dependencies
+// to optimize builds and development across applications and packages.
+{
+  "$schema": "https://turbo.build/schema.json",
+  // The base branch to compare against for incremental builds (e.g., your main/master branch).
+  "baseBranch": "origin/main",
+  // Global dependencies are files that, if changed, invalidate the cache for all tasks.
+  // This typically includes root-level configuration files that affect the entire monorepo.
+  "globalDependencies": [
+    ".env", // If .env changes, might affect all services
+    "pnpm-lock.yaml", // Crucial for Node.js dependency consistency
+    "uv.lock", // Crucial for Python dependency consistency
+    "alembic.ini", // Database migration config
+    "docker-compose.yml", // Core infrastructure definition
+    "docker-compose.dev.yml", // Dev infrastructure overrides
+    "pyproject.toml", // Root Python build config
+    "turbo.json", // This file itself
+    ".eslintrc.js", // Root ESLint config (if any)
+    "prettier.config.js", // Root Prettier config (if any)
+    "tailwind.config.js", // Root Tailwind config (if any)
+    ".editorconfig", // Editor settings
+    ".pre-commit-config.yaml" // Pre-commit hooks config
+  ],
+  // The pipeline defines the tasks that Turborepo should manage.
+  // Each task can specify its dependencies, outputs, and caching behavior.
+  "pipeline": {
+    "build": {
+      // Inputs are files that a task depends on. Changes to these invalidate the cache.
+      // `["**"]` means all files in the package.
+      // `["!dist/**", "!node_modules/**"]` excludes common build outputs and dependencies.
+      "inputs": ["**"],
+      // Outputs are files that a task produces. These are cached.
+      "outputs": ["dist/**", ".next/**", "build/**"],
+      // Tasks this task depends on. Turborepo will run these first.
+      // "^build" means run the 'build' task in all dependent packages first.
+      "dependsOn": ["^build"]
+    },
+    "dev": {
+      // `cache: false` means this task will never be cached.
+      // `persistent: true` means this task will run continuously.
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "inputs": ["**"],
+      "outputs": [], // Linters typically don't produce persistent outputs
+      "dependsOn": []
+    },
+    "test": {
+      "inputs": ["**"],
+      "outputs": ["coverage/**", "reports/**"], // Test reports
+      "dependsOn": ["build"] // Tests typically depend on a successful build
+    },
+    "clean": {
+      // `cache: false` means this task will never be cached.
+      // `outputs: []` means this task cleans outputs, it doesn't produce them.
+      "cache": false,
+      "outputs": []
+    },
+    "install:all": {
+      // `install:all` will be a script to install all dev/prod deps
+      "cache": false,
+      "outputs": [
+        "node_modules/**",
+        "apps/*/node_modules/**",
+        "apps/*/.venv/**",
+        "uv.lock"
+      ]
+    },
+    "dev:api": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["install:all"] // Depends on dependencies being installed
+    },
+    "dev:web": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["install:all"]
+    },
+    "test:api": {
+      "inputs": ["**"],
+      "outputs": ["coverage.xml", "reports/**"],
+      "dependsOn": ["build", "install:all"]
+    },
+    "lint:api": {
+      "inputs": ["**"],
+      "outputs": [],
+      "dependsOn": ["install:all"]
+    },
+    "format:api": {
+      "inputs": ["**"],
+      "outputs": [],
+      "dependsOn": ["install:all"]
+    },
+    "build:web": {
+      "inputs": ["**"],
+      "outputs": ["apps/web/.next/**", "apps/web/out/**"],
+      "dependsOn": ["^build", "install:all"] // Web build depends on shared packages being built
+    }
+  }
+}

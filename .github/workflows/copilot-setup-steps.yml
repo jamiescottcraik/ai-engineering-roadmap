@@ -1,502 +1,82 @@
-name: "Copilot Setup Steps"
+# /.github/workflows/copilot-setup-steps.yml
+#
+# This workflow defines the complete development environment for the GitHub Copilot coding agent.
+# It ensures the agent has access to all necessary tools and dependencies for both
+# the frontend and the backend, allowing it to adhere to all quality gates.
+#
+# As per GitHub documentation, this file MUST be named 'copilot-setup-steps.yml'
+# and the primary job MUST be named 'copilot-setup-steps'.
+
+name: "Copilot Agent Environment Setup"
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - .github/workflows/copilot-setup-steps.yml
-  pull_request:
-    paths:
-      - .github/workflows/copilot-setup-steps.yml
+      # Re-validate if this setup file itself changes.
+      - ".github/workflows/copilot-setup-steps.yml"
+      # Re-validate if core dependencies for either app change.
+      - "apps/api/pyproject.toml"
+      - "pnpm-lock.yaml"
 
 jobs:
-  # MUST be named exactly 'copilot-setup-steps'
+  # The job MUST be called `copilot-setup-steps` or it will not be picked up by Copilot.
   copilot-setup-steps:
     runs-on: ubuntu-latest
-
     permissions:
-      contents: read
+      contents: read # Required for actions/checkout
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Validate brAInwav governance structure
-      - name: Validate governance files
-        run: |
-          echo "🏛️ Checking brAInwav governance structure..."
+      # --- 1. Backend Setup (Python & uv) ---
+      - name: Set up Python v3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-          # Check for AGENT.md (supreme authority)
-          if [ ! -f ".ai/AGENT.md" ]; then
-            echo "ERROR: .ai/AGENT.md not found. This is REQUIRED for brAInwav projects."
-            echo "Copilot cannot proceed without operational guidelines."
-            exit 1
-          else
-            echo "✓ Found .ai/AGENT.md - Copilot will follow these operational guidelines"
-          fi
+      - name: Install uv (Python Package Installer)
+        run: pipx install uv
+        shell: bash
 
-          # Check for RULES_OF_AI.md
-          if [ -f "RULES_OF_AI.md" ]; then
-            echo "✓ Found RULES_OF_AI.md - Supreme policy loaded"
-          fi
+      - name: Configure uv Cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
 
-          # Check for copilot instructions
-          if [ -f ".github/copilot-instructions.md" ]; then
-            echo "✓ Found GitHub Copilot instructions"
-          fi
+      - name: Install Backend Dependencies
+        run: uv sync --all-extras
+        shell: bash
+        working-directory: ./apps/api
 
-      # Install 1Password CLI
-      - name: Install 1Password CLI
-        run: |
-          echo "🔐 Installing 1Password CLI..."
-          # Detect architecture
-          ARCH=$(dpkg --print-architecture)
+      # --- 2. Frontend Setup (Node.js & pnpm) ---
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-          # Download appropriate version
-          if [ "$ARCH" = "amd64" ]; then
-            curl -sSfLo op.zip "https://cache.agilebits.com/dist/1P/op2/pkg/v2.30.0/op_linux_amd64_v2.30.0.zip"
-          elif [ "$ARCH" = "arm64" ]; then
-            curl -sSfLo op.zip "https://cache.agilebits.com/dist/1P/op2/pkg/v2.30.0/op_linux_arm64_v2.30.0.zip"
-          else
-            echo "Unsupported architecture: $ARCH"
-            exit 1
-          fi
-
-          # Install
-          sudo unzip -o op.zip -d /usr/local/bin/
-          rm op.zip
-
-          # Verify installation
-          op --version
-
-          # Create op helper functions
-          cat > /tmp/op-helpers.sh << 'OPHELPERS'
-          #!/bin/bash
-          # 1Password CLI helper functions for development
-
-          # Function to check if we're signed in
-          op_check_signin() {
-              if ! op account list &>/dev/null; then
-                  echo "⚠️  1Password CLI not signed in"
-                  echo "Run: eval \$(op signin)"
-                  return 1
-              fi
-              return 0
-          }
-
-          # Function to load .env from 1Password
-          op_load_env() {
-              local vault="${1:-Personal}"
-              local item_name="${2:-.env}"
-
-              if op_check_signin; then
-                  echo "Loading $item_name from 1Password vault: $vault"
-                  op document get "$item_name" --vault="$vault" > .env 2>/dev/null || {
-                      echo "⚠️  Could not load $item_name from 1Password"
-                      echo "Make sure the item exists in vault: $vault"
-                      return 1
-                  }
-                  echo "✓ Loaded environment variables from 1Password"
-              fi
-          }
-
-          # Function to inject secrets into environment
-          op_inject_env() {
-              if [ -f ".env.1password" ]; then
-                  echo "🔐 Injecting secrets from 1Password..."
-                  op inject -i .env.1password -o .env
-                  echo "✓ Secrets injected into .env"
-              fi
-          }
-
-          # Export functions
-          export -f op_check_signin
-          export -f op_load_env
-          export -f op_inject_env
-          OPHELPERS
-
-          # Make helpers available
-          chmod +x /tmp/op-helpers.sh
-          echo "source /tmp/op-helpers.sh" >> $GITHUB_ENV
-
-      # Install uv - the fast Python package manager
-      - name: Install uv
-        run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
-      # Node.js Setup (for Vue/TypeScript frontend)
-      - name: Detect Node.js version
-        id: node-version
-        run: |
-          if [ -f ".nvmrc" ]; then
-            echo "version=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-          elif [ -f "package.json" ] && grep -q '"node"' package.json; then
-            version=$(grep -A1 '"engines"' package.json | grep '"node"' | sed -E 's/.*"([0-9]+).*/\1/')
-            echo "version=${version:-20}" >> $GITHUB_OUTPUT
-          else
-            echo "version=20" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Set up Node.js
+      - name: Set up Node.js v20 with pnpm Caching
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ steps.node-version.outputs.version }}
-          cache: "npm"
+          node-version: "20"
+          cache: "pnpm"
 
-      - name: Install Node.js dependencies
+      - name: Install Frontend Dependencies
+        run: pnpm install --frozen-lockfile
+        shell: bash
+
+      # --- 3. Final Verification ---
+      - name: Display Installed Tool Versions
         run: |
-          echo "📦 Installing frontend dependencies..."
-          npm ci
-
-          # Install global tools needed for Vue/TypeScript development
-          npm install -g \
-            @vue/cli \
-            vite \
-            typescript \
-            ts-node \
-            tsx \
-            prettier \
-            eslint \
-            @biomejs/biome
-
-      # Python Setup with uv
-      - name: Detect Python version
-        id: python-version
-        run: |
-          if [ -f ".python-version" ]; then
-            echo "version=$(cat .python-version)" >> $GITHUB_OUTPUT
-          elif [ -f "pyproject.toml" ] && grep -q "requires-python" pyproject.toml; then
-            version=$(grep "requires-python" pyproject.toml | sed -E 's/.*"[>=~]*([0-9]+\.[0-9]+).*/\1/')
-            echo "version=$version" >> $GITHUB_OUTPUT
-          else
-            echo "version=3.11" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Set up Python with uv
-        run: |
-          # Install Python using uv
-          uv python install ${{ steps.python-version.outputs.version }}
-          uv python pin ${{ steps.python-version.outputs.version }}
-
-          # Create virtual environment
-          uv venv
-
-          # Activate venv for subsequent steps
-          echo "$(pwd)/.venv/bin" >> $GITHUB_PATH
-          echo "VIRTUAL_ENV=$(pwd)/.venv" >> $GITHUB_ENV
-
-      - name: Install Python dependencies with uv
-        run: |
-          # Core development tools required by AGENT.md
-          uv pip install \
-            black \
-            ruff \
-            mypy \
-            pytest \
-            pytest-cov \
-            pytest-asyncio \
-            pytest-mock \
-            pre-commit \
-            bandit \
-            safety \
-            pip-audit
-
-          # Project dependencies
-          if [ -f "uv.lock" ]; then
-            echo "Installing from uv.lock..."
-            uv sync --all-extras --dev
-          elif [ -f "pyproject.toml" ]; then
-            echo "Installing from pyproject.toml..."
-            uv pip install -e ".[dev]" || uv pip install -e "."
-          elif [ -f "requirements.txt" ]; then
-            echo "Installing from requirements.txt..."
-            uv pip install -r requirements.txt
-          fi
-
-          # Additional dependencies for ai-engineering-roadmap
-          uv pip install \
-            fastapi \
-            uvicorn \
-            pydantic \
-            httpx \
-            python-multipart \
-            python-jose[cryptography] \
-            passlib[bcrypt] \
-            sqlalchemy \
-            alembic \
-            asyncpg \
-            redis \
-            celery \
-            flower \
-            sentry-sdk
-
-      # Install AI/ML tools
-      - name: Install AI/ML development tools
-        run: |
-          uv pip install \
-            openai \
-            anthropic \
-            langchain \
-            langchain-community \
-            chromadb \
-            tiktoken \
-            transformers \
-            sentence-transformers \
-            instructor \
-            litellm \
-            guidance \
-            marvin \
-            pandas \
-            numpy \
-            matplotlib \
-            scikit-learn \
-            torch \
-            torchvision
-
-      # Docker setup
-      - name: Validate Docker configuration
-        run: |
-          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ]; then
-            echo "✓ Docker Compose configuration found"
-            docker compose version
-            docker compose config > /dev/null && echo "✓ Docker Compose file is valid"
-          fi
-
-          if [ -f "Dockerfile" ]; then
-            echo "✓ Dockerfile found"
-            grep -q "FROM.*AS" Dockerfile && echo "✓ Multi-stage Dockerfile detected"
-          fi
-
-            # GitHub SSH Setup
-      - name: Setup GitHub SSH
-        run: |
-          echo "🔐 Setting up GitHub SSH..."
-
-          # Check if 1Password CLI is available and signed in
-          if command -v op &> /dev/null && op account list &>/dev/null 2>&1; then
-            # Try to load SSH key from 1Password
-            mkdir -p ~/.ssh
-            chmod 700 ~/.ssh
-
-            # Load GitHub SSH private key
-            op document get "GitHub SSH Private Key" --vault="Personal" > ~/.ssh/github_ed25519 2>/dev/null && {
-              chmod 600 ~/.ssh/github_ed25519
-              echo "✓ Loaded GitHub SSH private key from 1Password"
-
-              # Load public key
-              op document get "GitHub SSH Public Key" --vault="Personal" > ~/.ssh/github_ed25519.pub 2>/dev/null
-              chmod 644 ~/.ssh/github_ed25519.pub
-
-              # Configure SSH
-              cat >> ~/.ssh/config << 'SSHEOF'
-          Host github.com
-              HostName github.com
-              User git
-              IdentityFile ~/.ssh/github_ed25519
-              StrictHostKeyChecking accept-new
-          SSHEOF
-              chmod 600 ~/.ssh/config
-
-              # Add to known hosts
-              ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-
-              echo "✓ GitHub SSH configured"
-            } || echo "⚠️  GitHub SSH keys not found in 1Password"
-          else
-            echo "⚠️  1Password CLI not available - skipping SSH setup"
-          fi
-
-      # Ollama Setup (for local AI models)
-      - name: Setup Ollama
-        run: |
-          echo "🦙 Checking Ollama setup..."
-
-          # Install Ollama if requested via environment variable
-          if [ "${INSTALL_OLLAMA:-false}" = "true" ]; then
-            curl -fsSL https://ollama.com/install.sh | sh
-
-            # Pull common models for development
-            ollama pull llama3.2
-            ollama pull codellama
-
-            echo "✓ Ollama installed with development models"
-          else
-            echo "ℹ️  Ollama installation skipped (set INSTALL_OLLAMA=true to enable)"
-          fi
-
-      # Database tools
-      - name: Install database tools
-        run: |
-          sudo apt-get update && sudo apt-get install -y \
-            postgresql-client \
-            redis-tools \
-            sqlite3 \
-            jq \
-            httpie
-
-      # Create .env template for 1Password
-      - name: Create 1Password .env template
-        run: |
-          if [ ! -f ".env.1password" ]; then
-            echo "📝 Creating .env.1password template..."
-            cat > .env.1password << 'ENVTEMPLATE'
-          # 1Password Secret References
-          # Use: op inject -i .env.1password -o .env
-
-          # API Keys
-          OPENAI_API_KEY="op://Personal/OpenAI/api_key"
-          ANTHROPIC_API_KEY="op://Personal/Anthropic/api_key"
-          GITHUB_TOKEN="op://Personal/GitHub/personal_access_token"
-
-          # Database
-          DATABASE_URL="op://Personal/Database/connection_string"
-          REDIS_URL="op://Personal/Redis/connection_string"
-
-          # Authentication
-          JWT_SECRET_KEY="op://Personal/App Secrets/jwt_secret"
-          SECRET_KEY="op://Personal/App Secrets/secret_key"
-
-          # External Services
-          SENTRY_DSN="op://Personal/Sentry/dsn"
-          STRIPE_API_KEY="op://Personal/Stripe/api_key"
-          SENDGRID_API_KEY="op://Personal/SendGrid/api_key"
-
-          # Development
-          DEBUG=true
-          ENVIRONMENT=development
-          ENVTEMPLATE
-            echo "✓ Created .env.1password template"
-            echo "⚠️  Remember to customize the vault and item references!"
-          fi
-
-      # Set up pre-commit hooks
-      - name: Configure pre-commit
-        run: |
-          if [ -f ".pre-commit-config.yaml" ]; then
-            pre-commit install-hooks
-            echo "✓ Pre-commit hooks installed"
-          else
-            echo "⚠️  No .pre-commit-config.yaml found - creating one per AGENT.md requirements"
-            cat > .pre-commit-config.yaml << 'PRECOMMIT'
-          repos:
-            - repo: https://github.com/pre-commit/pre-commit-hooks
-              rev: v4.5.0
-              hooks:
-                - id: trailing-whitespace
-                - id: end-of-file-fixer
-                - id: check-yaml
-                - id: check-added-large-files
-                - id: check-merge-conflict
-                - id: detect-private-key  # Important for 1Password users!
-
-            - repo: https://github.com/psf/black
-              rev: 24.3.0
-              hooks:
-                - id: black
-
-            - repo: https://github.com/charliermarsh/ruff-pre-commit
-              rev: v0.3.0
-              hooks:
-                - id: ruff
-                  args: [--fix]
-
-            - repo: https://github.com/pre-commit/mirrors-prettier
-              rev: v3.1.0
-              hooks:
-                - id: prettier
-                  types_or: [javascript, typescript, vue, css, scss, json, yaml, markdown]
-
-            - repo: https://github.com/Yelp/detect-secrets
-              rev: v1.4.0
-              hooks:
-                - id: detect-secrets
-                  args: ['--baseline', '.secrets.baseline']
-          PRECOMMIT
-            pre-commit install-hooks
-          fi
-
-      # Create project structure
-      - name: Setup brAInwav project structure
-        run: |
-          # Core directories required by AGENT.md
-          mkdir -p .ai src tests docs
-          mkdir -p src/{agents,core,utils,api,components,services}
-          mkdir -p tests/{unit,integration,e2e}
-          mkdir -p docs/{api,architecture,guides}
-
-          # Frontend structure for Vue
-          mkdir -p src/{views,layouts,stores,composables,types}
-          mkdir -p public/assets
-
-          # Backend structure for Python
-          mkdir -p src/{models,schemas,routers,dependencies}
-          mkdir -p migrations scripts
-
-      # Run quality checks
-      - name: Run brAInwav Quality Assurance
-        run: |
-          echo "=== Running brAInwav QA Script (§5) ==="
-
-          # Check for secrets in code
-          echo "🔐 Checking for exposed secrets..."
-          if command -v detect-secrets &> /dev/null; then
-            detect-secrets scan --baseline .secrets.baseline || echo "⚠️  Potential secrets detected"
-          fi
-
-          # Python checks
-          if [ -n "$(find . -name '*.py' -type f)" ]; then
-            echo "🐍 Python Quality Checks:"
-            black --check . || echo "⚠️  Code formatting issues (run: black .)"
-            ruff check . || echo "⚠️  Linting issues (run: ruff check . --fix)"
-            bandit -r src -ll 2>/dev/null || echo "⚠️  Security issues found"
-          fi
-
-          # TypeScript/Vue checks
-          if [ -f "tsconfig.json" ]; then
-            echo "📘 TypeScript Quality Checks:"
-            npm run type-check || npx vue-tsc --noEmit || echo "⚠️  Type errors found"
-          fi
-
-      # Environment summary
-      - name: brAInwav Environment Summary
-        run: |
-          echo "╔══════════════════════════════════════════════════════════════╗"
-          echo "║          brAInwav Copilot Environment Ready                  ║"
-          echo "╚══════════════════════════════════════════════════════════════╝"
+          echo "--- Python Environment ---"
+          python --version
+          uv --version
           echo ""
-          echo "📋 Governance Structure:"
-          echo "  ✓ AGENT.md loaded (supreme operational authority)"
-          [ -f "RULES_OF_AI.md" ] && echo "  ✓ RULES_OF_AI.md (policy governance)"
-          [ -f ".github/copilot-instructions.md" ] && echo "  ✓ GitHub Copilot instructions"
-          echo ""
-          echo "🔐 Security Tools:"
-          echo "  ✓ 1Password CLI: $(op --version)"
-          echo "  ✓ Secret scanning configured"
-          echo "  ✓ Pre-commit hooks with private key detection"
-          echo ""
-          echo "🛠️  Development Stack:"
-          echo "  Frontend:"
-          echo "    - Node.js: $(node --version)"
-          echo "    - npm: $(npm --version)"
-          echo "    - Vue/TypeScript configured"
-          echo ""
-          echo "  Backend:"
-          echo "    - Python: $(python --version)"
-          echo "    - uv: $(uv --version)"
-          echo "    - FastAPI ready"
-          echo ""
-          echo "⚡ 1Password Quick Commands:"
-          echo "  Sign in:        eval \$(op signin)"
-          echo "  Load .env:      op inject -i .env.1password -o .env"
-          echo "  Get secret:     op read 'op://Personal/OpenAI/api_key'"
-          echo "  List vaults:    op vault list"
-          echo ""
-          echo "📁 Project Structure:"
-          tree -L 2 -d -I 'node_modules|__pycache__|.git|.venv|dist|build' || ls -la
-          echo ""
-          echo "🚨 SECURITY REMINDER:"
-          echo "  - NEVER commit .env files (only .env.1password templates)"
-          echo "  - Use 'op inject' to populate secrets locally"
-          echo "  - Run 'detect-secrets scan' before commits"
-          echo "  - All secrets MUST be in 1Password"
+          echo "--- Node.js Environment ---"
+          node --version
+          pnpm --version
+        shell: bash

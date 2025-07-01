@@ -407,7 +407,7 @@ export default function AIEngineeringRoadmap2025() {
                           </div>
                         </div>
                       );
-                    }
+                    },
                   )}
                 </div>
               </GlassCard>
@@ -535,7 +535,7 @@ export default function AIEngineeringRoadmap2025() {
                             Start <ExternalLink className="h-3 w-3" />
                           </a>
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 </GlassCard>
@@ -578,7 +578,7 @@ export default function AIEngineeringRoadmap2025() {
                           Compete <ExternalLink className="h-3 w-3" />
                         </a>
                       </div>
-                    )
+                    ),
                   )}
                 </div>
               </GlassCard>
@@ -692,7 +692,7 @@ export default function AIEngineeringRoadmap2025() {
                           />
                         </div>
                       </div>
-                    )
+                    ),
                   )}
                 </div>
               </GlassCard>
@@ -722,7 +722,7 @@ export default function AIEngineeringRoadmap2025() {
                           />
                         </div>
                       </div>
-                    )
+                    ),
                   )}
                 </div>
               </GlassCard>

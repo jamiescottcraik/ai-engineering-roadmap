@@ -1,7 +1,66 @@
 {
-  "name": "ai-engineering-roadmap-devcontainer",
+  "name": "brainwav-mas-platform",
   "dockerComposeFile": ["../docker-compose.yml"],
-  "service": "backend",
+  "service": "api",
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "docker-compose build backend && docker-compose up -d"
-}
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "github.copilot-chat",
+        "eamodio.gitlens",
+        "editorconfig.editorconfig",
+        "streetsidesoftware.code-spell-checker",
+        "pkief.material-icon-theme",
+        "1password.op-vscode",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-toolsai.jupyter",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "github.vscode-pull-request-github",
+        "github.vscode-github-actions",
+        "docker.docker",
+        "redhat.vscode-yaml",
+        "mikestead.dotenv",
+        "davidanson.vscode-markdownlint",
+        "yzhang.markdown-all-in-one",
+        "christopherafbjur.vscode-theme-onedarker",
+        "74th.monokai-charcoal-high-contrast"
+      ],
+      "settings": {
+        // Global
+        "editor.formatOnSave": true,
+
+        // Python — Ruff handles both format & lint
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true
+          }
+        },
+
+        // Front‑end: Prettier
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+
+        // Interpreter path *inside* the container
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  },
+  "forwardPorts": [8000, 3000],
+  "portsAttributes": {
+    "8000": { "label": "FastAPI" },
+    "3000": { "label": "Next.js" }
+  },
+  "postCreateCommand": "bash /workspace/scripts/dev/one_command_start.sh",
+  "mounts": [
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached",

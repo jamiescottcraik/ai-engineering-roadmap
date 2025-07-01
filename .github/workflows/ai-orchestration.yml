@@ -1,0 +1,143 @@
+# .github/workflows/ai-orchestration.yml
+# Canonical AI Orchestration Engine workflow for brAInwav MAS Platform.
+
+name: AI Orchestration Engine
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [labeled, opened, synchronize, reopened, ready_for_review]
+    paths:
+      - ".ai/**"
+      - "apps/api/src/agents/**"
+      - "scripts/ai/**"
+      - "docs/feature_plan.md"
+      - "docs/model_selection_guide.md"
+      - "pyproject.toml"
+      - "uv.lock"
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull Request number to orchestrate task for (e.g., 123)."
+        required: true
+        type: string
+      task_file_path:
+        description: "Path to the task definition JSON file relative to repo root (e.g., docs/tasks/my_feature_gen.json)."
+        required: true
+        type: string
+
+jobs:
+  setup_build_env:
+    name: Setup Build Environment
+    uses: ./.github/workflows/backend-ci.yml
+    with:
+      run_full_checks: false
+    secrets: inherit
+
+  setup_1password_cli:
+    name: Setup 1Password CLI
+    uses: ./.github/workflows/1password-setup.yml
+    secrets:
+      OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+  orchestrate_ai_tasks:
+    name: Run AI Orchestration
+    runs-on: ubuntu-latest
+    needs: [setup_build_env, setup_1password_cli]
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install uv and pnpm (re-run for job context)
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "/home/runner/.cargo/bin" >> $GITHUB_PATH
+          pnpm setup --force
+          echo "/home/runner/.local/share/pnpm" >> $GITHUB_PATH
+        shell: bash
+      - name: Install Monorepo Dependencies (re-run for job context)
+        run: |
+          pnpm install --frozen-lockfile
+          cd apps/api && uv sync
+        shell: bash
+      - name: Authenticate 1Password CLI (re-authenticate for this job)
+        run: |
+          echo "${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}" | op signin --raw > /dev/null
+          echo "🔑 1Password CLI re-authenticated for this job."
+        shell: bash
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+      - name: Determine PR Number and Task File Path
+        id: set_task_context
+        run: |
+          PR_NUM="${{ github.event.pull_request.number || github.event.inputs.pr_number }}"
+          TASK_FILE_PATH="${{ github.event.inputs.task_file_path }}"
+          if [[ -z "$PR_NUM" ]]; then
+            echo "::error::PR number not found. This workflow must be triggered by a PR or dispatched with 'pr_number' input."
+            exit 1
+          fi
+          if [[ -z "$TASK_FILE_PATH" ]]; then
+            echo "::error::Task file path not provided. This workflow must be dispatched with 'task_file_path' input."
+            exit 1
+          fi
+          echo "PR_NUMBER=$PR_NUM" >> $GITHUB_ENV
+          echo "TASK_FILE_PATH=$TASK_FILE_PATH" >> $GITHUB_ENV
+          echo "::notice::Orchestrating task for PR #${PR_NUM} using task file: ${TASK_FILE_PATH}"
+        shell: bash
+      - name: Run AI Orchestration Script
+        run: |
+          python scripts/ai/run-orchestration.py --task-path "${{ env.TASK_FILE_PATH }}"
+        shell: bash
+        env:
+          PYTHONPATH: "${{ github.workspace }}/apps/api/src:${{ github.workspace }}"
+      - name: Consolidate AI Agent Reports
+        id: consolidate_reports
+        run: |
+          python scripts/ai/agent-monitor.py \
+            --input-dir ".ai/logs" \
+            --output-file ".ai/logs/consolidated_ai_report.json" > monitor_output.json
+          CONSOLIDATED_REPORT_PATH=".ai/logs/consolidated_ai_report.json"
+          echo "CONSOLIDATED_REPORT_PATH=$CONSOLIDATED_REPORT_PATH" >> $GITHUB_ENV
+          echo "::notice::Consolidated report created at ${CONSOLIDATED_REPORT_PATH}"
+        shell: bash
+        env:
+          PYTHONPATH: "${{ github.workspace }}/apps/api/src:${{ github.workspace }}"
+      - name: Analyze Consolidated Report & Post PR Status
+        run: |
+          CONSOLIDATED_REPORT=$(cat "${{ env.CONSOLIDATED_REPORT_PATH }}")
+          OVERALL_STATUS=$(echo "$CONSOLIDATED_REPORT" | jq -r '.summary.overall_status')
+          HUMAN_OVERSIGHT=$(echo "$CONSOLIDATED_REPORT" | jq -r '.summary.overall_human_oversight_required')
+          ESCALATION_TRIGGERED=$(echo "$CONSOLIDATED_REPORT" | jq -r '.summary.overall_escalation_triggered')
+          SUMMARY_MESSAGE=$(echo "$CONSOLIDATED_REPORT" | jq -r '.summary.message')
+          COMMENT_BODY="**AI Orchestration Report for PR #${{ env.PR_NUMBER }}**\n\n"
+          COMMENT_BODY+="**Overall Status:** \`${OVERALL_STATUS}\`\n"
+          COMMENT_BODY+="**Summary Message:** ${SUMMARY_MESSAGE}\n"
+          COMMENT_BODY+="**Human Oversight Required:** \`${HUMAN_OVERSIGHT}\`\n"
+          COMMENT_BODY+="**Escalation Triggered:** \`${ESCALATION_TRIGGERED}\`\n\n"
+          COMMENT_BODY+="For detailed reports, see workflow artifacts or `/.ai/logs/consolidated_ai_report.json`."
+          gh pr comment ${{ env.PR_NUMBER }} --body "${COMMENT_BODY}"
+          if [[ "$HUMAN_OVERSIGHT" == "true" ]]; then
+            echo "::notice::Applying label: 'ai-orchestration:human-oversight-required'"
+            gh pr edit ${{ env.PR_NUMBER }} --add-label "ai-orchestration:human-oversight-required"
+          fi
+          if [[ "$ESCALATION_TRIGGERED" == "true" ]]; then
+            echo "::error::Applying label: 'ai-orchestration:escalation-triggered'"
+            gh pr edit ${{ env.PR_NUMBER }} --add-label "ai-orchestration:escalation-triggered"
+            exit 1
+          fi
+          if [[ "$OVERALL_STATUS" == "failure" ]]; then
+            echo "::error::AI orchestration process reported overall failure."
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+      - name: Upload AI Orchestration Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-orchestration-artifacts-${{ env.PR_NUMBER }}
+          path: .ai/logs/
+          retention-days: 7

@@ -1,0 +1,89 @@
+# .github/workflows/ai-security-scan.yml
+#
+# This GitHub Actions workflow defines specialized security checks
+# for AI-related components of the brAInwav MAS Platform.
+# It complements general dependency scans by focusing on vulnerabilities
+# unique to AI models, data interactions, and prompt integrity.
+#
+# Governed by: RULES_OF_AI.md
+# Referenced in: docs/QUALITY_GATES.md, docs/PROJECT_STRUCTURE.md
+
+name: AI Security Scan
+
+on:
+  pull_request:
+    branches:
+      - main # Or 'develop' if you use a development branch
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - ".ai/**" # Trigger if AI governance or config changes
+      - "apps/api/src/agents/**" # Trigger if AI agent implementations change
+      - "apps/api/src/services/**" # Trigger if services interacting with AI change
+      - "apps/api/src/core/integrations/providers/**" # Trigger if AI provider logic changes
+      - "scripts/ai/**" # Trigger if AI-related scripts change
+      - "docs/model_selection_guide.md" # Changes in model selection rationale
+      - "docs/advanced_confidence_log.md" # Changes in confidence logging schema
+      - "pyproject.toml" # Global Python deps
+      - "uv.lock" # Python lockfile
+
+jobs:
+  ai_security_scan:
+    name: Run AI Security Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15 # Allow sufficient time for scanning
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed for tools that inspect git history or diffs
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "uv" # Cache uv dependencies
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "/home/runner/.cargo/bin" >> $GITHUB_PATH
+        shell: bash
+
+      - name: Install Python Dependencies (apps/api/)
+        # Ensure dependencies for AI-related scripts/modules are installed
+        run: |
+          cd apps/api
+          uv sync # Installs all dependencies for the backend, including potential security libs
+        shell: bash
+
+      # --- AI-Specific Security Scan ---
+      # This is a placeholder for actual AI security tooling.
+      # This step would execute a custom Python script or integrate a dedicated AI security scanner.
+      - name: Run Custom AI Security Scanner
+        id: ai_scan
+        # Replace 'scripts/ai/security_scanner.py' with your actual custom script.
+        # This script would typically:
+        # - Analyze prompt templates for injection vulnerabilities.
+        # - Check for sensitive data leakage patterns in expected AI outputs.
+        # - Evaluate model configurations against security best practices.
+        # - Potentially integrate with specialized LLM security tools.
+        run: |
+          echo "Placeholder: Executing AI-specific security checks..."
+          # Example: python scripts/ai/security_scanner.py --repo-path . --config .ai/security_config.json
+          # If this script outputs a SARIF file, you can upload it in a subsequent step.
+          # For now, it will simply succeed. Fail this step if your script detects issues:
+          # exit 1 # Example if script finds a critical issue
+        shell: bash
+        env:
+          PYTHONPATH: "${{ github.workspace }}/apps/api/src:${{ github.workspace }}"
+
+      # Optional: Upload SARIF results if the custom scanner generates them
+      # - name: Upload AI Security Scan Results (SARIF) to GitHub Security
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   if: always() # Always run to ensure scan results are uploaded
+      #   with:
+      #     sarif_file: 'ai-security-results.sarif' # Ensure your custom script generates this file
+
+      - name: AI Security Scan Complete
+        run: echo "AI-specific security scan finished."

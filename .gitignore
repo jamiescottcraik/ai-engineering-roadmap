@@ -70,13 +70,6 @@ Thumbs.db
 
 # PARA scaffold additions
 src/calculator.py
-__pycache__/
-*.pyc
-*.pyo
-*.env
-.env
-.vscode/
-.DS_Store
 
 # AI-generated temporary files
 *.ai_temp

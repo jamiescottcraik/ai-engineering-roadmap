@@ -1,58 +1,110 @@
+# .github/workflows/backend-ci.yml
+#
+# This GitHub Actions workflow defines the Continuous Integration (CI) pipeline
+# for the brAInwav MAS Platform's Python FastAPI Backend application (apps/api/).
+# It ensures code quality, testing standards, and basic security checks
+# for every Pull Request targeting the main branch.
+#
+# Governed by: RULES_OF_AI.md
+# Referenced in: docs/QUALITY_GATES.md, docs/PROJECT_STRUCTURE.md
+
 name: Backend CI
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'backend/**'
-      - '.github/workflows/backend-ci.yml'
+  workflow_call:
+    inputs:
+      run_full_checks:
+        required: false
+        type: boolean
   pull_request:
-    branches: [main]
+    branches:
+      - main # Or 'develop' if you use a development branch
+    types: [opened, synchronize, reopened, ready_for_review] # Run on PR open, updates, or when ready
     paths:
-      - 'backend/**'
-      - '.github/workflows/backend-ci.yml'
+      - "apps/api/**" # Trigger only if changes are within the apps/api directory
+      - "pyproject.toml" # Trigger if root pyproject.toml changes
+      - "uv.lock" # Trigger if uv lockfile changes
+      - "alembic/**" # Trigger if migration files change
+      - "scripts/**" # Trigger if any scripts change (especially validate_pr.sh, fetch_secrets.py, etc.)
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
-    
+  build_and_test_backend:
+    name: Build & Test Backend
+    runs-on: ubuntu-latest # Using Ubuntu for the runner environment
+    timeout-minutes: 15 # Set a timeout for the job
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    
-    - name: Install uv
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-    
-    - name: Install dependencies
-      run: |
-        uv pip install --system -r requirements.txt -r dev-requirements.txt
-    
-    - name: Lint and format check
-      run: |
-        black --check src/ tests/
-        ruff check src/ tests/
-        ruff format --check src/ tests/
-    
-    - name: Type check
-      run: mypy src/
-    
-    - name: Create reports directory
-      run: mkdir -p ../reports
-    
-    - name: Run tests
-      run: pytest tests/ --cov=src --cov-fail-under=80 --cov-report=xml:../reports/coverage.xml
-    
-    - name: Upload coverage to codecov
-      uses: codecov/codecov-action@v4
-      with:
-        file: ./reports/coverage.xml
-        fail_ci_if_error: false
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for accurate git-based checks and pre-commit
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "uv" # Cache uv dependencies to speed up dependency installation
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "/home/runner/.cargo/bin" >> $GITHUB_PATH # Add uv to PATH
+        shell: bash
+
+      # Install Python dependencies using uv sync for the backend application
+      - name: Install Python Dependencies (apps/api/)
+        run: |
+          cd apps/api # Change to the backend application directory
+          uv sync # Install dependencies as defined in pyproject.toml
+        shell: bash
+
+      # Execute the master validation script.
+      # This script runs all defined quality gates (linting, formatting, typing, testing, architectural checks).
+      # The script itself handles error reporting and exits with a non-zero code on failure.
+      - name: Run Master Quality Gate Script (scripts/validate_pr.sh)
+        run: bash scripts/validate_pr.sh
+        shell: bash
+        env:
+          # Ensure PYTHONPATH is correctly set for tests and type checkers
+          PYTHONPATH: "${{ github.workspace }}/apps/api/src:${{ github.workspace }}"
+
+      # Optional: Build Docker Image (for later security scanning/deployment preparation)
+      # This step is critical if you want to perform a Trivy scan.
+      - name: Build Docker Image for Backend
+        uses: docker/build-push-action@v5
+        id: docker_build_backend
+        with:
+          context: . # Build context is the monorepo root
+          file: apps/api/Dockerfile # Point to the backend's Dockerfile
+          push: false # Don't push to a registry yet
+          tags: brainwav-backend-ci:${{ github.sha }} # Tag with commit SHA
+          load: true # Load the image to Docker daemon for subsequent steps (e.g., Trivy)
+
+      # Optional: Backend Dependency Vulnerability Scan (Trivy)
+      # This requires the Docker image to be built in the previous step.
+      - name: Run Trivy Scan on Backend Docker Image
+        uses: aquasecurity/trivy-action@v0.19.0
+        if: always() # Run even if previous steps fail, to get scan results
+        with:
+          image-ref: "brainwav-backend-ci:${{ github.sha }}"
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "HIGH,CRITICAL" # Fail CI for High and Critical vulnerabilities
+          exit-code: "1" # Exit with 1 if vulnerabilities are found
+          ignore-unfixed: true # Only report on fixed vulnerabilities
+          # You might want to upload SARIF results to GitHub Security tab
+      - name: Upload Trivy Scan Results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always() # Upload even if the Trivy scan itself had issues
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      # Upload Coverage Report to Codecov (if using Codecov)
+      - name: Upload Coverage Report to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # Secret containing your Codecov token
+          files: ./reports/coverage.xml # Path to the coverage report generated by pytest
+          flags: backend # Flag to distinguish backend coverage in Codecov
+          name: backend-coverage-report
+          fail_ci_if_error: true # Fail CI job if Codecov upload fails (optional)

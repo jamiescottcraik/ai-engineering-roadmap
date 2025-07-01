@@ -13,7 +13,7 @@ export function useLocalStorage<T>(
     serialize?: (value: T) => string;
     deserialize?: (value: string) => T;
     validateValue?: (value: unknown) => value is T;
-  } = {}
+  } = {},
 ): [
   T,
   (value: T | ((prev: T) => T)) => void,
@@ -86,7 +86,7 @@ export function useLocalStorage<T>(
         setError(err instanceof Error ? err.message : 'Failed to save to localStorage');
       }
     },
-    [key, serialize, storedValue, validateValue]
+    [key, serialize, storedValue, validateValue],
   );
 
   // Remove item from localStorage
@@ -154,7 +154,7 @@ export function useRoadmapProgress() {
     (taskId: string) => {
       setCompletedTasks((prev) => new Set([...prev, taskId]));
     },
-    [setCompletedTasks]
+    [setCompletedTasks],
   );
 
   const markIncomplete = useCallback(
@@ -165,7 +165,7 @@ export function useRoadmapProgress() {
         return newSet;
       });
     },
-    [setCompletedTasks]
+    [setCompletedTasks],
   );
 
   const toggleComplete = useCallback(
@@ -180,14 +180,14 @@ export function useRoadmapProgress() {
         return newSet;
       });
     },
-    [setCompletedTasks]
+    [setCompletedTasks],
   );
 
   const isComplete = useCallback(
     (taskId: string) => {
       return completedTasks.has(taskId);
     },
-    [completedTasks]
+    [completedTasks],
   );
 
   const getCompletionStats = useCallback(() => {
@@ -257,7 +257,7 @@ export function useUserPreferences() {
     <K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => {
       setPreferences((prev) => ({ ...prev, [key]: value }));
     },
-    [setPreferences]
+    [setPreferences],
   );
 
   return {
@@ -324,14 +324,14 @@ export function useLearningSession() {
         lastActiveDate: new Date().toISOString(),
       }));
     },
-    [setSession]
+    [setSession],
   );
 
   const updateWeek = useCallback(
     (week: number) => {
       setSession((prev) => ({ ...prev, currentWeek: week }));
     },
-    [setSession]
+    [setSession],
   );
 
   const updateStreak = useCallback(() => {

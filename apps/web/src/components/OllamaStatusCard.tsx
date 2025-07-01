@@ -1,36 +1,34 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle, AlertCircle, Loader2, Terminal } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { CheckCircle, AlertCircle, Loader2, Terminal } from 'lucide-react';
 
 const checkOllamaSync = async () => {
-  const res = await fetch("http://localhost:8000/ollama/sync", {
-    method: "POST",
+  const res = await fetch('http://localhost:8000/ollama/sync', {
+    method: 'POST',
   });
 
   if (!res.ok) {
-    throw new Error("Sync failed");
+    throw new Error('Sync failed');
   }
 
   return res.json();
 };
 
 export const OllamaStatusCard = () => {
-  const [syncStatus, setSyncStatus] = useState<"checking" | "synced" | "error">(
-    "checking",
-  );
-  const [activeModel, setActiveModel] = useState("");
+  const [syncStatus, setSyncStatus] = useState<'checking' | 'synced' | 'error'>('checking');
+  const [activeModel, setActiveModel] = useState('');
   const [progress, setProgress] = useState<Record<string, number>>({});
 
   useEffect(() => {
     checkOllamaSync()
       .then((res) => {
-        setSyncStatus(res.status as "synced");
+        setSyncStatus(res.status as 'synced');
         setActiveModel(res.activeModel);
         setProgress(res.progress);
       })
-      .catch(() => setSyncStatus("error"));
+      .catch(() => setSyncStatus('error'));
   }, []);
 
   return (
@@ -44,12 +42,12 @@ export const OllamaStatusCard = () => {
           <Terminal className="w-5 h-5 text-purple-400" />
           Ollama AI Assistant
         </h3>
-        {syncStatus === "synced" ? (
+        {syncStatus === 'synced' ? (
           <span className="flex items-center gap-1 text-green-400 text-sm">
             <CheckCircle className="w-4 h-4" />
             Synced
           </span>
-        ) : syncStatus === "error" ? (
+        ) : syncStatus === 'error' ? (
           <span className="flex items-center gap-1 text-red-400 text-sm">
             <AlertCircle className="w-4 h-4" />
             Error
@@ -83,7 +81,7 @@ export const OllamaStatusCard = () => {
       ))}
 
       <button
-        onClick={() => window.open("http://localhost:11434", "_blank")}
+        onClick={() => window.open('http://localhost:11434', '_blank')}
         className="mt-4 w-full px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-lg text-white text-sm transition-all"
       >
         Open Ollama Dashboard

@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/agent-config.schema.json",
+  "agent": "github_copilot",
+  "version": "latest",
+  "enabled": true,
+  "authority_level": "contributor",
+  "capabilities": [
+    "code_generation",
+    "test_generation",
+    "documentation",
+    "refactoring"
+  ],
+  "integration": {
+    "type": "native",
+    "auth": "github_token"
+  },
+  "limits": {
+    "max_file_size": "100KB",
+    "timeout": "30s"
+  },
+  "task_preferences": ["code_generation", "test_generation"]
+}

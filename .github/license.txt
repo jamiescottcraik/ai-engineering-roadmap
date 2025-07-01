@@ -1,3 +1,9 @@
+The brAInwav MAS Platform is licensed under the MIT License.
+
+This permissive license was chosen to align with our core pillar of "Ethical AI Automation" and our goal of being "open-source aligned." It grants maximum freedom to the community to use, study, modify, and share the software, fostering an environment of collaboration and open innovation.
+
+---
+
 MIT License
 
 Copyright (c) 2025 Jamie Scott Craik

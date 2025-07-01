@@ -42,7 +42,7 @@ self.addEventListener('install', (event) => {
 
       // Force activation of the new service worker
       await self.skipWaiting();
-    })()
+    })(),
   );
 });
 
@@ -55,12 +55,12 @@ self.addEventListener('activate', (event) => {
       // Clean up old caches
       const cacheNames = await caches.keys();
       await Promise.all(
-        cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name))
+        cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name)),
       );
 
       // Take control of all clients
       await self.clients.claim();
-    })()
+    })(),
   );
 });
 
@@ -151,7 +151,7 @@ async function handleApiRequest(request) {
       {
         status: 503,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   }
 }
@@ -238,7 +238,7 @@ async function handleOfflineFallback(request) {
     {
       status: 503,
       headers: { 'Content-Type': 'application/json' },
-    }
+    },
   );
 }
 

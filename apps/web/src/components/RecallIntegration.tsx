@@ -319,8 +319,8 @@ export default function RecallIntegration() {
               lastReviewed: new Date().toISOString(),
               mastery: Math.min((item.mastery || 0) + 10, 100),
             }
-          : item
-      )
+          : item,
+      ),
     );
   };
 

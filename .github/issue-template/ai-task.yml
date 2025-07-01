@@ -1,0 +1,91 @@
+# /.github/ISSUE_TEMPLATE/ai_task.yml
+#
+# This file defines the issue form for assigning new, specific tasks to an AI agent.
+# It ensures that all necessary information is captured in a structured format,
+# making the task directly machine-readable for the orchestration engine.
+
+name: "🤖 New AI Agent Task"
+description: "Define a new, specific task for an AI agent to execute."
+title: "[Task]: "
+labels: ["ai-task", "enhancement"]
+assignees:
+  - jamiescottcraik
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for defining a new task for the brAInwav MAS Platform.**
+        Please provide as much detail as possible to ensure our AI agents can execute the task accurately and efficiently. All tasks must adhere to `/RULES_OF_AI.md` and the `AI Governance Manual`.
+
+  - type: dropdown
+    id: task-type
+    attributes:
+      label: Task Type
+      description: "What type of task is this? This will influence the Conventional Commit type."
+      options:
+        - feat (A new feature)
+        - fix (A bug fix)
+        - docs (Documentation only changes)
+        - refactor (A code change that neither fixes a bug nor adds a feature)
+        - perf (A code change that improves performance)
+        - test (Adding missing tests or correcting existing tests)
+        - chore (Changes to the build process or auxiliary tools)
+    validations:
+      required: true
+
+  - type: textarea
+    id: task-description
+    attributes:
+      label: Task Description
+      description: "Describe the task in detail. What is the goal? What should be changed or created? Be explicit and reference the user story or business requirement."
+      placeholder: "e.g., 'Implement a new Pydantic model for user settings that includes `theme` and `notification_preferences` fields...'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria (Definition of Done)
+      description: "Provide a clear, verifiable checklist for when this task is considered complete. This is critical for automated validation."
+      value: |
+        - [ ]
+        - [ ]
+        - [ ]
+      placeholder: |
+        - [ ] A new file `user_settings.py` is created in `apps/api/src/models/`.
+        - [ ] The model includes `theme: str` and `notification_preferences: bool`.
+        - [ ] Unit tests are created in `apps/api/tests/models/` that validate the new model.
+        - [ ] The `scripts/validate_pr.sh` script passes successfully.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affected-components
+    attributes:
+      label: Affected Components
+      description: "Select all components of the monorepo that this task will affect."
+      options:
+        - label: Backend API (`/apps/api`)
+        - label: Frontend Web App (`/apps/web`)
+        - label: Shared Contracts (`/shared/contracts`)
+        - label: CI/CD Workflows (`/.github/workflows`)
+        - label: Documentation (`/docs`)
+
+  - type: input
+    id: related-adr
+    attributes:
+      label: Related Architecture Decision Record (ADR)
+      description: "If this task implements an architectural decision, link to the relevant ADR file here."
+      placeholder: "e.g., `docs/adr/003-user-settings-model.md`"
+
+  - type: dropdown
+    id: agent-assignment
+    attributes:
+      label: Preferred Agent (Optional)
+      description: "Suggest an agent best suited for this task. The orchestrator will make the final decision based on the `registry.yml`."
+      options:
+        - Any
+        - openai_codex_platform (Best for feature implementation, bug fixes)
+        - google_jules_architect (Best for architecture review)
+        - github_copilot_contributor (Suggest only; not a task-based agent)

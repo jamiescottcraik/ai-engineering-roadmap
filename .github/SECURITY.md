@@ -1,102 +1,65 @@
----
-Governed by `RULES_OF_AI.md`. See repository root for supreme policy.  
-Last updated: 2025-06-23 by @jamiescottcraik
----
+# Security Policy for the brAInwav MAS Platform
 
-# Security Policy for brAInwav UV Project
+This document outlines the security policy and vulnerability reporting process for all projects under the brAInwav MAS Platform umbrella. We take the security of our systems seriously and deeply appreciate the vital role that security researchers play in keeping our community safe.
 
-This document defines security requirements and best practices for the brAInwav UV Project, including all code, documentation, CI/CD, and infrastructure—especially as deployed and developed within a [devcontainer](https://containers.dev/) environment.
+## 1. Supported Versions
 
-## 📣 Reporting Security Vulnerabilities
+Security updates are applied only to the most recent versions of our software. We encourage all users to stay on the latest version of the `main` or `develop` branches.
 
-If you discover a security vulnerability, **do not open a public issue**.  
-Instead, please report it privately by emailing **security@brainwav.ai** or by opening a [GitHub Security Advisory](https://github.com/[OWNER]/[REPO]/security/advisories/new).  
-All reports will be acknowledged within 72 hours and handled according to our [Coordinated Disclosure Policy](#coordinated-disclosure-policy).
+| Version | Branch  | Supported          |
+| ------- | ------- | ------------------ |
+| latest  | main    | :white_check_mark: |
+| next    | develop | :white_check_mark: |
 
----
+## 2. Reporting a Vulnerability
 
-## 🔐 Security Principles
+> **IMPORTANT**
+> Please do not report security vulnerabilities through public GitHub issues.
 
-- **Least Privilege:** All services, containers, and users must run with the minimum privileges necessary.
-- **Zero Secrets in Code:** **No secrets, API keys, or credentials** are permitted in source code, configuration files, or devcontainer images.  
-  All secrets management must use the 1Password CLI (`op`).
-- **Provider Neutrality:** No hardcoded provider credentials or logic in business modules—see `/.ai/RULES_OF_AI.md`.
-- **Automated Scanning:** All code and containers must pass automated vulnerability, secret, and dependency scans before merge.
-- **Immutable Infrastructure:** Infrastructure definitions (Dockerfiles, devcontainer.json, IaC) must be reproducible and version-controlled.
+We ask that you report all potential vulnerabilities privately. This helps us ensure that we can validate the issue and release a patch before it is disclosed to the public, protecting all users of the platform.
 
----
+### How to Report
 
-## 🐳 Devcontainer-specific Security
+- **Primary Method (Recommended):** Use [GitHub's private vulnerability reporting feature](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability). This is the most secure and preferred method.
+- **Secondary Method:** If you cannot use GitHub's private reporting, please email a detailed report to the project owner, Jamie Scott Craik, at the dedicated security alias: [security@brainwav.io](mailto:security@brainwav.io).
 
-- **Image Origin:** Only use base images from trusted, verified sources (`mcr.microsoft.com/devcontainers/*`, `python:`, etc.).
-- **No Privileged Containers:** `privileged: true` is prohibited in `.devcontainer/devcontainer.json` and related configs.
-- **No Build-time Secrets:** Do not pass secrets via build args, ENV, or Dockerfile instructions.
-- **User Context:** The default user in the devcontainer must be non-root, unless absolutely required and justified in ADR.
-- **Volume Mounts:** Mount only necessary volumes; avoid mounting sensitive host directories.
-- **Network Isolation:** Limit network exposure (no open ports unless required for development and documented).
-- **Automated Updates:** Base images and dependencies must be updated regularly and scanned for vulnerabilities.
+### What to Include in Your Report
 
----
+To help us triage and validate your finding as quickly as possible, please include:
 
-## ☁️ Dependency & Package Management
+- Type of vulnerability (e.g., Cross-Site Scripting, Insecure Direct Object Reference, etc.).
+- A detailed, step-by-step description of how to reproduce the vulnerability.
+- The affected component or module (e.g., `apps/api/src/services/auth.py`).
+- Proof-of-concept, exploit code, or screenshots, if available.
+- Any potential impact of the vulnerability.
 
-- **Approved Sources:** Only install packages from official package managers (PyPI, npm, apt, etc.)—never via curl/bash or from untrusted URLs.
-- **Lockfiles:** Always use lockfiles (`requirements.txt`, `poetry.lock`, `package-lock.json`); do not bypass.
-- **Vulnerability Audits:** All dependencies must pass automated vulnerability checks (e.g., `pip-audit`, `npm audit`).
-- **No Outdated/Abandoned Packages:** Monitor and upgrade dependencies promptly.
+You can expect an initial acknowledgment of your report within 48 hours.
 
----
+## 3. Security Philosophy & Scope
 
-## 🔑 Secrets Management
+Our security model is built on the principles of least privilege, defense-in-depth, and our core pillar of "Ethical AI Automation."
 
-- **1Password CLI Only:** All secrets must be managed and accessed via the 1Password CLI (`op`).  
-  Never store secrets in `.env`, source, Dockerfiles, or devcontainer configs.
-- **No Logging of Secrets:** Never log, print, or output secrets to the console, logs, or error messages.
-- **CI/CD Secrets:** Inject secrets into CI/CD jobs only via secure mechanisms (GitHub Actions secrets, 1Password integrations).
+- **Secrets Management:** All secrets and credentials are managed exclusively via 1Password CLI and are never present in source code, logs, or CI/CD environments outside of secure contexts.
+- **Automated Scanning:** Our CI/CD pipelines perform automated vulnerability scanning on application dependencies and infrastructure as part of the `validate_pr.sh` quality gate.
+- **AI Agent Governance:** Our AI agents operate under the strict, machine-readable policies defined in `/.ai/registry.yml`. They are considered part of our threat model. Vulnerabilities related to agent governance, prompt injection that leads to privilege escalation, or policy bypass are within scope.
 
----
+### In Scope
 
-## 🔎 CI/CD Security
+- Vulnerabilities in the latest versions of our code on the `main` or `develop` branches.
+- Vulnerabilities in our CI/CD workflows (`.github/workflows/`).
+- Vulnerabilities in our core governance documents that could lead to a security bypass (`RULES_OF_AI.md`, `/.ai/registry.yml`).
 
-- **Branch Protection:** All protected branches enforce required reviews, status checks, and cannot be force-pushed.
-- **Automated Scanning:** All PRs and merges trigger secret scanning, dependency audits, and container vulnerability scans.
-- **No Unreviewed Code:** All code must be peer-reviewed before merge.
-- **Build Isolation:** CI jobs must not share state, secrets, or artifacts between unrelated jobs.
+### Out of Scope
+
+- **Third-Party Dependencies:** Vulnerabilities in third-party libraries should be reported directly to the respective project maintainers. However, we welcome reports on how a known third-party vulnerability specifically impacts our application.
+- **Social Engineering:** Social engineering or phishing attacks against project members.
+- **Automated Scanner Noise:** Findings from automated tools that have not been manually validated to demonstrate a real-world impact.
+- **Outdated Versions:** Vulnerabilities affecting unsupported or older versions of the software.
+
+## 4. Safe Harbor
+
+We consider security research and responsible disclosure to be a vital and legitimate activity. We will not take legal action against you for activities conducted in good faith and in accordance with this policy.
 
 ---
 
-## 🛡️ Runtime & Production Security
-
-- **No Debug Mode:** Never deploy with debug/profiling tools enabled or with default credentials.
-- **Environment Hardening:** Containers and VMs must disable unused services, restrict open ports, and minimize installed packages.
-- **Logging:** All logs must be structured (JSON), sanitized, and not contain sensitive information.
-- **Incident Response:** Security incidents are escalated per RULES_OF_AI.md §8.
-
----
-
-## 👩‍💻 Developer Responsibilities
-
-- **Stay Up To Date:** Regularly review security advisories for dependencies and tools used in the project.
-- **Lock Workstations:** Never leave devcontainers or cloud shells unattended while logged in.
-- **Phishing & Social Engineering:** Be vigilant for suspicious links, emails, or requests for credentials.
-
----
-
-## 🤝 Coordinated Disclosure Policy
-
-We support responsible disclosure. If you discover a vulnerability, please contact us privately as described above.  
-We will investigate, respond, and coordinate a fix and public advisory where appropriate.
-
----
-
-## 📚 References
-
-- [RULES_OF_AI.md](./.ai/RULES_OF_AI.md)
-- [GitHub Security Advisories](https://docs.github.com/en/code-security/security-advisories/repository-security-advisories/about-repository-security-advisories)
-- [1Password CLI](https://developer.1password.com/docs/cli/)
-- [Dev Container Security Best Practices](https://containers.dev/implementors/security/)
-- [OWASP Docker Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html)
-
----
-
-_Last updated: 2025-06-23 by @jamiescottcraik_
+Thank you for helping keep the brAInwav MAS Platform secure.

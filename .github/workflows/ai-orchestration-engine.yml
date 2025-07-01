@@ -1,0 +1,117 @@
+# /.github/workflows/ai-orchestration-engine.yml
+#
+# This is the master workflow for the brAInwav Multi-Agent System.
+# It acts as the central brain, dispatching tasks to AI agents based on
+# repository events (e.g., pull requests) and specific labels.
+#
+
+name: "brAInwav MAS - AI Orchestration Engine"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "Manually trigger a specific task (e.g., 'architecture_review')."
+        required: false
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  # ============================================================================
+  #  JOB 1: DISPATCHER
+  #  Determines which job should run based on the event context. This avoids
+  #  running unnecessary jobs and makes the workflow logic clear.
+  # ============================================================================
+  dispatcher:
+    runs-on: ubuntu-latest
+    outputs:
+      run_full_pr_check: ${{ steps.check.outputs.run_full_pr_check }}
+      run_on_demand_task: ${{ steps.check.outputs.run_on_demand_task }}
+      task_name: ${{ steps.check.outputs.task_name }}
+    steps:
+      - name: Check Event Context for Task Routing
+        id: check
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.task }}" != "" ]]; then
+            echo "run_on_demand_task=true" >> $GITHUB_OUTPUT
+            echo "task_name=${{ github.event.inputs.task }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            if [[ "${{ github.event.action }}" == "labeled" && "${{ github.event.label.name }}" == "ai-review" ]]; then
+              echo "run_on_demand_task=true" >> $GITHUB_OUTPUT
+              echo "task_name=architecture_review" >> $GITHUB_OUTPUT
+            elif [[ "${{ github.event.action }}" == "labeled" && "${{ github.event.label.name }}" == "ai-security-scan" ]]; then
+              echo "run_on_demand_task=true" >> $GITHUB_OUTPUT
+              echo "task_name=security_analysis" >> $GITHUB_OUTPUT
+            elif [[ "${{ github.event.action }}" != "labeled" && "${{ github.event.action }}" != "unlabeled" ]]; then
+              echo "run_full_pr_check=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+  # ============================================================================
+  #  JOB 2: STANDARD PULL REQUEST CHECK
+  #  Runs a comprehensive validation suite on every PR commit.
+  # ============================================================================
+  standard_pr_check:
+    name: "Standard Pull Request Check"
+    needs: dispatcher
+    if: needs.dispatcher.outputs.run_full_pr_check == 'true'
+    uses: ./.github/workflows/reusable_validation.yml
+    secrets:
+      op-service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+  # ============================================================================
+  #  JOB 3: ON-DEMAND AI TASK EXECUTION
+  #  Runs a specific task triggered by a label or manual dispatch. This job
+  #  delegates to the orchestration script, which uses registry.yml to find
+  #  the correct agent for the given task.
+  # ============================================================================
+  on_demand_task:
+    name: "On-Demand AI Task (${{ needs.dispatcher.outputs.task_name }})"
+    needs: dispatcher
+    if: needs.dispatcher.outputs.run_on_demand_task == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Monorepo Environment
+        uses: ./.github/actions/setup-environment
+        with:
+          op-service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+      - name: Run Orchestration for Specific Task
+        id: run-task
+        run: |
+          python3 scripts/ai/run-orchestration.py \
+            --task "${{ needs.dispatcher.outputs.task_name }}" \
+            --pr-number ${{ github.event.pull_request.number }} \
+            --output-dir .ai/logs/
+
+      - name: Post Task Summary to PR
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const task = "${{ needs.dispatcher.outputs.task_name }}".replace(/_/g, ' ');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ AI task complete: **${task}**. See logs for details.`
+            });
+
+      - name: Upload Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-task-logs-${{ needs.dispatcher.outputs.task_name }}-${{ github.run_id }}
+          path: .ai/logs/
+# Fix YAML syntax issues, ensure valid workflow structure and remove any schema or syntax errors
