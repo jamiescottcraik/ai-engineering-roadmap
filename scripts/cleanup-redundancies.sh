@@ -12,22 +12,25 @@ echo "Removing empty Python files..."
 echo "Removing backup files..."
 [ -f "scripts/check-kebab-case.py.backup" ] && rm scripts/check-kebab-case.py.backup && echo "Removed scripts/check-kebab-case.py.backup"
 [ -f "apps/web/src/app/globals.css.backup" ] && rm apps/web/src/app/globals.css.backup && echo "Removed apps/web/src/app/globals.css.backup"
+[ -f ".vscode/tasks.json.bak" ] && rm .vscode/tasks.json.bak && echo "Removed .vscode/tasks.json.bak"
 
 # 3. Update Docker Compose references
 echo "Updating Docker Compose references..."
-if [ -f "docker-compose.mcp-consolidated.yml" ]; then
-  echo "Please note that docker-compose.db.yml and docker-compose.mcp.yml have been consolidated into docker-compose.mcp-consolidated.yml"
+if [ -f "docker-compose-mcp-consolidated.yml" ]; then
+  echo "Please note that docker-compose-db.yml and docker-compose-mcp.yml have been consolidated into docker-compose-mcp-consolidated.yml"
   echo "You should update any scripts or documentation that reference these files."
 
   # Update the VS Code tasks that reference these files
   if [ -f ".vscode/tasks.json" ]; then
-    sed -i.bak 's/docker-compose -f docker-compose.db.yml/docker-compose -f docker-compose.mcp-consolidated.yml/g' .vscode/tasks.json
+    sed -i.bak 's/docker-compose -f docker-compose-db.yml/docker-compose -f docker-compose-mcp-consolidated.yml/g' .vscode/tasks.json
     echo "Updated Docker Compose references in .vscode/tasks.json"
+    # Don't leave another backup
+    rm -f .vscode/tasks.json.bak
   fi
 fi
 
 echo "Done cleaning up redundant files."
 echo "NOTE: This script does not remove the original Docker Compose files."
 echo "After verifying the consolidated file works correctly, you can manually remove:"
-echo "  - docker-compose.db.yml"
-echo "  - docker-compose.mcp.yml"
+echo "  - docker-compose-db.yml"
+echo "  - docker-compose-mcp.yml"
