@@ -93,9 +93,9 @@ class RoadmapProgressTracker:
         # Calculate phase progress
         for phase in roadmap_data["phases"]:
             if phase["nodes"]:
-                phase["progress"] = sum(
-                    node.get("progress", 0) for node in phase["nodes"]
-                ) / len(phase["nodes"])
+                phase["progress"] = sum(node.get("progress", 0) for node in phase["nodes"]) / len(
+                    phase["nodes"]
+                )
 
                 # Update phase status
                 if phase["progress"] == 100:

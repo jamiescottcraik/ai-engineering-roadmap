@@ -41,9 +41,7 @@ def generate_mermaid_graph(data: dict[str, Any]) -> str:
         if current_phase_nodes and next_phase_nodes:
             last_node_of_current_phase = current_phase_nodes[-1].get("id")
             first_node_of_next_phase = next_phase_nodes[0].get("id")
-            mermaid_lines.append(
-                f"    {last_node_of_current_phase} --> {first_node_of_next_phase}"
-            )
+            mermaid_lines.append(f"    {last_node_of_current_phase} --> {first_node_of_next_phase}")
 
     return "\n".join(mermaid_lines)
 
@@ -73,9 +71,7 @@ def main() -> None:
     # Generate SVG from Mermaid file
     svg_file = output_file.with_suffix(".svg")
     try:
-        subprocess.run(
-            ["mmdc", "-i", str(output_file), "-o", str(svg_file)], check=True
-        )
+        subprocess.run(["mmdc", "-i", str(output_file), "-o", str(svg_file)], check=True)
         print(f"✅ SVG roadmap generated at {svg_file}")
     except subprocess.CalledProcessError as e:
         print(f"⚠️ Failed to generate SVG: {e}")

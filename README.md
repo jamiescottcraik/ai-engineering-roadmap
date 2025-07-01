@@ -4,13 +4,13 @@
 <img src="assets/brAInwav.png" alt="brAInwav Logo" width="120" height="120" />
 ```
 
-## A 34-Week, Self-Directed Journey to Master the Skills of a Modern AI Architect and Product Leader
+## A 48-Week, Self-Directed Journey to Master the Skills of a Modern AI Architect and Product Leader
 
 > "The future belongs to those who can navigate the intersection of artificial intelligence, human insight, and ethical responsibility."
 
 [![Roadmap Status](https://img.shields.io/badge/Status-Phase%201%20Active-1f4e79?style=for-the-badge&logo=github)](https://github.com/jamiescottcraik/ai-engineering-roadmap)
-[![Progress](https://img.shields.io/badge/Progress-25%25-4b8a36?style=for-the-badge&logo=target)](https://jamiescottcraik.github.io/ai-engineering-roadmap/)
-[![Duration](https://img.shields.io/badge/Duration-12--18%20Months-7030a0?style=for-the-badge&logo=calendar)](https://github.com/jamiescottcraik/ai-engineering-roadmap/blob/main/frontend/public/roadmap.json)
+[![Progress](https://img.shields.io/badge/Progress-3%25-4b8a36?style=for-the-badge&logo=target)](https://jamiescottcraik.github.io/ai-engineering-roadmap/)
+[![Duration](https://img.shields.io/badge/Duration-12%20Months-7030a0?style=for-the-badge&logo=calendar)](https://github.com/jamiescottcraik/ai-engineering-roadmap/blob/main/frontend/public/roadmap.json)
 [![Focus Project](https://img.shields.io/badge/Focus-P.A.R.A.gon%20AI-c00000?style=for-the-badge&logo=rocket)](https://github.com/jamiescottcraik/ai-engineering-roadmap#project-focus)
 
 // cSpell:ignore architecting deeplearning Kleppmann Aurélien Géron Forsgren
@@ -47,11 +47,11 @@ Explore the complete roadmap with progress tracking, detailed descriptions, and 
 
 ## 📊 Current Status
 
-**🚀 Current Phase:** 1 - Advanced Technical Foundations  
-**🎯 Current Focus:** Environment setup and Python fundamentals  
-**📅 Week:** 1 of 34  
-**🏆 Next Deliverable:** GitHub Stats Generator (target: July 5, 2025)  
-**⏰ Start Date:** June 22, 2025
+**🚀 Current Phase:** 1 - Advanced Technical Foundations
+**🎯 Current Focus:** Environment setup and Python fundamentals
+**📅 Week:** 1 of 48
+**🏆 Next Deliverable:** GitHub Stats Generator (target: January 11, 2025)
+**⏰ Start Date:** December 29, 2024
 
 ### This Week's Progress
 
@@ -126,7 +126,7 @@ This journey builds on a foundation of military leadership experience, translati
 
 ---
 
-**Last Updated:** June 22, 2025 &nbsp;|&nbsp; **Next Update:** June 29, 2025
+**Last Updated:** December 29, 2024 &nbsp;|&nbsp; **Next Update:** January 5, 2025
 
 ## 📊 Repository Structure
 
@@ -177,11 +177,11 @@ ai-engineering-roadmap/
 
 ### Backend API Endpoints
 
-| Method | Endpoint                | Description                                   |
-| ------ | ----------------------- | --------------------------------------------- |
-| `GET`  | `/`                     | Basic API health message                      |
-| `GET`  | `/health`               | Service health status                        |
-| `POST` | `/roadmap/fix-sequence` | Reorder roadmap weeks and update progress     |
+| Method | Endpoint                | Description                                     |
+| ------ | ----------------------- | ----------------------------------------------- |
+| `GET`  | `/`                     | Basic API health message                        |
+| `GET`  | `/health`               | Service health status                           |
+| `POST` | `/roadmap/fix-sequence` | Reorder roadmap weeks and update progress       |
 | `POST` | `/ollama/sync`          | Sync Ollama models for the current roadmap week |
 
 ---
@@ -230,14 +230,14 @@ A comprehensive AI system that helps users organize knowledge, discover learning
 
 ## 🏆 Milestones & Checkpoints
 
-| Checkpoint | Deliverable | Target Date | Status |
-|------------|-------------|-------------|---------|
-| **Python Fundamentals** | GitHub Stats Generator | July 5, 2025 | ⏳ Planned |
-| **Professional Engineering** | Data Analysis API | August 16, 2025 | ⏳ Planned |
-| **Production AI** | Cognitive Load Reducer | October 25, 2025 | ⏳ Planned |
-| **AI Architecture** | Ethical AI Guardian | December 20, 2025 | ⏳ Planned |
-| **Product Leadership** | P.A.R.A.gon AI Strategy | February 14, 2026 | ⏳ Planned |
-| **Industry Recognition** | P.A.R.A.gon AI v1.0 Launch | March 15, 2026 | ⏳ Planned |
+| Checkpoint                   | Deliverable                | Target Date       | Status    |
+| ---------------------------- | -------------------------- | ----------------- | --------- |
+| **Python Fundamentals**      | GitHub Stats Generator     | January 11, 2025  | ⏳ Planned |
+| **Professional Engineering** | Data Analysis API          | February 23, 2025 | ⏳ Planned |
+| **Production AI**            | Cognitive Load Reducer     | May 3, 2025       | ⏳ Planned |
+| **AI Architecture**          | Ethical AI Guardian        | June 28, 2025     | ⏳ Planned |
+| **Product Leadership**       | P.A.R.A.gon AI Strategy    | September 6, 2025 | ⏳ Planned |
+| **Industry Recognition**     | P.A.R.A.gon AI v1.0 Launch | December 20, 2025 | ⏳ Planned |
 
 ---
 
@@ -248,7 +248,7 @@ This roadmap is a living document that evolves with real progress and insights:
 ### Recent Updates
 
 - **Week 1:** Roadmap launch, environment setup, planning phase
-- **June 22:** Official start date and repository launch  
+- **December 29:** Official start date and repository launch
 - **Planning:** GitHub Stats Generator mini-project design
 - **Next:** Python 3 Programming Specialization begins
 

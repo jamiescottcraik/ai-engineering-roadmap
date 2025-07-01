@@ -10,7 +10,7 @@ jobs:
   validate-roadmap:
     runs-on: ubuntu-latest
     name: 📊 Validate JSON Structure & URLs
-    
+
     steps:
       - name: 🛎️ Checkout repository
         uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
   lint-check:
     runs-on: ubuntu-latest
     name: 🧹 Lint & Format Check
-    
+
     steps:
       - name: 🛎️ Checkout repository
         uses: actions/checkout@v4
@@ -68,7 +68,7 @@ jobs:
   markdown-check:
     runs-on: ubuntu-latest
     name: 📝 Markdown Lint Check
-    
+
     steps:
       - name: 🛎️ Checkout repository
         uses: actions/checkout@v4
@@ -89,7 +89,7 @@ jobs:
   link-check:
     runs-on: ubuntu-latest
     name: 🔗 External Link Check
-    
+
     steps:
       - name: 🛎️ Checkout repository
         uses: actions/checkout@v4
@@ -114,7 +114,7 @@ jobs:
   security-check:
     runs-on: ubuntu-latest
     name: 🔒 Security Scan
-    
+
     steps:
       - name: 🛎️ Checkout repository
         uses: actions/checkout@v4

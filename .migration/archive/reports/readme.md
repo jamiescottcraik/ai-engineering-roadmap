@@ -3,7 +3,7 @@
 This directory contains CI/CD generated reports including:
 
 - Test coverage reports
-- Lint reports  
+- Lint reports
 - Build artifacts
 - Security scan results
 

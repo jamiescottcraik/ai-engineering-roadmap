@@ -6,8 +6,8 @@ This file provides project context for AI agents. Update as needed for your MAS 
 
 ## Project: ai-engineering-roadmap
 
-**Description:**  
-A canonical, production-grade scaffold and knowledge base for brAInwav Multi-Agent System (MAS) projects.  
+**Description:**
+A canonical, production-grade scaffold and knowledge base for brAInwav Multi-Agent System (MAS) projects.
 Enforces strict AI governance, automated auditability, and reproducibility for both human and AI contributors.
 
 **Key Features:**
@@ -33,8 +33,8 @@ Enforces strict AI governance, automated auditability, and reproducibility for b
 - Strict separation of concerns and provider abstraction in all core logic
 - Security, accessibility, and documentation are non-negotiable
 
-**Project Status:**  
-Production-ready template, maintained by @jamiescottcraik.  
+**Project Status:**
+Production-ready template, maintained by @jamiescottcraik.
 All project context, requirements, and latest decisions must be kept up-to-date in this file for complete agent awareness.
 
 ---
