@@ -1,12 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { OllamaStatusCard } from '../OllamaStatusCard';
-import { EveningOllamaAssistant } from '../EveningOllamaAssistant';
 
-jest.mock('../OllamaStatusCard', () => ({
+import { EveningOllamaAssistant } from '../evening-ollama-assistant';
+import { OllamaStatusCard } from '../ollama-status-card';
+
+jest.mock('../ollama-status-card', () => ({
   OllamaStatusCard: () => <div>status</div>,
 }));
 
-jest.mock('../EveningOllamaAssistant', () => ({
+jest.mock('../evening-ollama-assistant', () => ({
   EveningOllamaAssistant: () => <div>assistant</div>,
 }));
 

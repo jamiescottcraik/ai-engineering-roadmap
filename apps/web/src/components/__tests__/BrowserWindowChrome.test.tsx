@@ -4,7 +4,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
-import { BrowserWindowChrome } from '../BrowserWindowChrome';
+import { BrowserWindowChrome } from '../browser-window-chrome';
 
 describe('BrowserWindowChrome', () => {
   const mockOnMinimize = jest.fn();

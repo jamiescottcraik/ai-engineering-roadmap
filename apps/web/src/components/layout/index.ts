@@ -10,6 +10,6 @@
  * with composable, reusable components.
  */
 
-export { HeaderNav } from './HeaderNav';
-export { PageContainer } from './PageContainer';
-export { Footer } from './Footer';
+export { HeaderNav } from './header-nav';
+export { PageContainer } from './page-container';
+export { Footer } from './footer';

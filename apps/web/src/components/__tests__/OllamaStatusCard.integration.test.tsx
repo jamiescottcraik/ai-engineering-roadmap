@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { OllamaStatusCard } from '../OllamaStatusCard';
+
+import { OllamaStatusCard } from '../ollama-status-card';
 
 describe('OllamaStatusCard integration', () => {
   beforeEach(() => {

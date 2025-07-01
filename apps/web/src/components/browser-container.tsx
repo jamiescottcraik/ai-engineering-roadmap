@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { BrowserWindowChrome, DeviceSize } from './BrowserWindowChrome';
+import { BrowserWindowChrome, DeviceSize } from './browser-window-chrome';
 
 /**
  * Browser Container - OpenUI-Style Browser Experience

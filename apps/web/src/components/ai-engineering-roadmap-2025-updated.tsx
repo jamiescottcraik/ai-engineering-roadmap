@@ -28,7 +28,7 @@ import {
 import { useEffect, useState } from 'react';
 
 import { GlassCard } from './enhanced/GlassComponents';
-import RecallIntegration from './RecallIntegration';
+import RecallIntegration from './recall-integration';
 
 interface RoadmapConfig {
   metadata: {

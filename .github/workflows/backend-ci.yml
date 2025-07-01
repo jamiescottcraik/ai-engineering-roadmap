@@ -21,11 +21,11 @@ on:
       - main # Or 'develop' if you use a development branch
     types: [opened, synchronize, reopened, ready_for_review] # Run on PR open, updates, or when ready
     paths:
-      - "apps/api/**" # Trigger only if changes are within the apps/api directory
-      - "pyproject.toml" # Trigger if root pyproject.toml changes
-      - "uv.lock" # Trigger if uv lockfile changes
-      - "alembic/**" # Trigger if migration files change
-      - "scripts/**" # Trigger if any scripts change (especially validate_pr.sh, fetch_secrets.py, etc.)
+      - 'apps/api/**' # Trigger only if changes are within the apps/api directory
+      - 'pyproject.toml' # Trigger if root pyproject.toml changes
+      - 'uv.lock' # Trigger if uv lockfile changes
+      - 'alembic/**' # Trigger if migration files change
+      - 'scripts/**' # Trigger if any scripts change (especially validate_pr.sh, fetch_secrets.py, etc.)
 
 jobs:
   build_and_test_backend:
@@ -42,8 +42,8 @@ jobs:
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-          cache: "uv" # Cache uv dependencies to speed up dependency installation
+          python-version: '3.11'
+          cache: 'uv' # Cache uv dependencies to speed up dependency installation
 
       - name: Install uv
         run: |
@@ -66,7 +66,7 @@ jobs:
         shell: bash
         env:
           # Ensure PYTHONPATH is correctly set for tests and type checkers
-          PYTHONPATH: "${{ github.workspace }}/apps/api/src:${{ github.workspace }}"
+          PYTHONPATH: '${{ github.workspace }}/apps/api/src:${{ github.workspace }}'
 
       # Optional: Build Docker Image (for later security scanning/deployment preparation)
       # This step is critical if you want to perform a Trivy scan.
@@ -83,21 +83,21 @@ jobs:
       # Optional: Backend Dependency Vulnerability Scan (Trivy)
       # This requires the Docker image to be built in the previous step.
       - name: Run Trivy Scan on Backend Docker Image
-        uses: aquasecurity/trivy-action@v0.19.0
+        uses: aquasecurity/trivy-action@0.31.0
         if: always() # Run even if previous steps fail, to get scan results
         with:
-          image-ref: "brainwav-backend-ci:${{ github.sha }}"
-          format: "sarif"
-          output: "trivy-results.sarif"
-          severity: "HIGH,CRITICAL" # Fail CI for High and Critical vulnerabilities
-          exit-code: "1" # Exit with 1 if vulnerabilities are found
+          image-ref: 'brainwav-backend-ci:${{ github.sha }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'HIGH,CRITICAL' # Fail CI for High and Critical vulnerabilities
+          exit-code: '1' # Exit with 1 if vulnerabilities are found
           ignore-unfixed: true # Only report on fixed vulnerabilities
           # You might want to upload SARIF results to GitHub Security tab
       - name: Upload Trivy Scan Results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
         if: always() # Upload even if the Trivy scan itself had issues
         with:
-          sarif_file: "trivy-results.sarif"
+          sarif_file: 'trivy-results.sarif'
 
       # Upload Coverage Report to Codecov (if using Codecov)
       - name: Upload Coverage Report to Codecov

@@ -24,7 +24,7 @@ repos:
       - id: check-yaml # Checks YAML file syntax
       - id: check-json # Checks JSON file syntax (useful for .ai/config, package.json etc.)
       - id: check-added-large-files # Prevents committing excessively large files
-        args: ['--maxkb=1000'] # Allow up to 1MB for logo/asset files
+        args: ["--maxkb=1000"] # Allow up to 1MB for logo/asset files
       - id: check-merge-conflict # Checks for unresolved merge conflict markers
       - id: debug-statements # Disallows common debug statements (e.g., pdb.set_trace())
 
@@ -83,7 +83,7 @@ repos:
       # with specific exceptions for AGENT.md and RULES_OF_AI.md.
       - id: check-kebab-case
         name: Check kebab-case naming convention
-        entry: python scripts/check-kebab-case.py
+        entry: python scripts/check_kebab_case.py
         language: system
         stages: [commit]
         pass_filenames: true

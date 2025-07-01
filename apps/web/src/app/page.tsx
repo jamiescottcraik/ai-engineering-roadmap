@@ -18,9 +18,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { BrowserContainer } from '@/components/BrowserContainer';
+import { BrowserContainer } from '@/components/browser-container';
 import { GlassCard } from '@/components/enhanced/GlassComponents';
-import { LearningDashboard } from '@/components/LearningDashboard';
+import { LearningDashboard } from '@/components/learning-dashboard';
 
 interface TimeInfo {
   currentTime: string;
