@@ -8,6 +8,7 @@
       "extensions": [
         "github.copilot",
         "github.copilot-chat",
+        "github.copilot-mcp",
         "eamodio.gitlens",
         "editorconfig.editorconfig",
         "streetsidesoftware.code-spell-checker",
@@ -31,27 +32,20 @@
         "74th.monokai-charcoal-high-contrast"
       ],
       "settings": {
-        // Global
         "editor.formatOnSave": true,
-
-        // Python — Ruff handles both format & lint
         "[python]": {
           "editor.defaultFormatter": "charliermarsh.ruff",
           "editor.codeActionsOnSave": {
-            "source.fixAll": true,
-            "source.organizeImports": true
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
           }
         },
-
-        // Front‑end: Prettier
         "[typescript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
         "[typescriptreact]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
-
-        // Interpreter path *inside* the container
         "python.defaultInterpreterPath": "/usr/local/bin/python"
       }
     }
@@ -63,4 +57,6 @@
   },
   "postCreateCommand": "bash /workspace/scripts/dev/one_command_start.sh",
   "mounts": [
-    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+  ]
+}

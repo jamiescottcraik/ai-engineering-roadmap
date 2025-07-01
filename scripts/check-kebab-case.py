@@ -1,0 +1,261 @@
+#!/usr/bin/env python3
+"""
+Kebab-case enforcement script for brAInwav MAS project.
+This script checks that all new files follow kebab-case naming convention,
+with specific exceptions for AGENT.md and RULES_OF_AI.md.
+
+Usage:
+    python scripts/check-kebab-case.py [file1] [file2] ...
+
+Exit codes:
+    0: All files follow kebab-case convention
+    1: One or more files violate kebab-case convention
+"""
+
+import re
+import sys
+from pathlib import Path
+from typing import List, Set
+
+# Files that are explicitly allowed to not follow kebab-case
+ALLOWED_EXCEPTIONS: Set[str] = {
+    "AGENT.md",
+    "AGENTS.md",  # AI agent configuration and behavior
+    "RULES_OF_AI.md",
+    "README.md",  # Common convention
+    "CHANGELOG.md",  # Common convention
+    "LICENSE",  # Common convention
+    "CONTRIBUTING.md",  # Common convention
+    "CODE_OF_CONDUCT.md",  # Common convention
+    "SECURITY.md",  # Common convention
+    "SUPPORT.md",  # Common convention
+    ".gitkeep",  # Special git file
+    ".gitignore",  # Special git file
+    ".gitattributes",  # Special git file
+    ".DS_Store",  # macOS system file
+    ".pre-commit-config.yaml",  # Pre-commit configuration (kebab-case)
+    "docker-compose.dev.yml",  # Docker compose (kebab-case)
+    "docker-compose.yml",  # Docker compose (kebab-case)
+    "Dockerfile",  # Docker convention
+    "Makefile",  # Make convention
+    "Vagrantfile",  # Vagrant convention
+    "package.json",  # Node.js convention
+    "package-lock.json",  # Node.js convention
+    "pnpm-lock.yaml",  # pnpm convention
+    "yarn.lock",  # Yarn convention
+    "composer.json",  # PHP convention
+    "composer.lock",  # PHP convention
+    "pyproject.toml",  # Python convention
+    "requirements.txt",  # Python convention
+    "uv.lock",  # uv convention
+}
+
+# Directory patterns that are allowed to not follow kebab-case
+ALLOWED_DIR_PATTERNS: Set[str] = {
+    "__pycache__",
+    ".git",
+    ".vscode",
+    ".devcontainer",
+    ".github",
+    ".next",
+    "node_modules",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".mypy_cache",
+    ".turbo",
+    "dist",
+    "build",
+    "coverage",
+    ".venv",
+    ".env",
+    ".idea",
+    "reports",
+    "alembic",  # Database migration tool
+}
+
+# File extension patterns that typically don't follow kebab-case
+ALLOWED_EXTENSIONS: Set[str] = {
+    ".pyc",
+    ".pyo",
+    ".pyd",
+    ".so",
+    ".dll",
+    ".egg",
+    ".whl",
+    ".log",
+    ".tmp",
+    ".temp",
+    ".cache",
+    ".lock",
+    ".swp",
+    ".swo",
+    ".bak",
+    ".orig",
+    ".DS_Store",
+}
+
+
+def is_kebab_case(name: str) -> bool:
+    """
+    Check if a string follows kebab-case convention.
+
+    Kebab-case rules:
+    - Lowercase letters, numbers, and hyphens only
+    - Cannot start or end with a hyphen
+    - Cannot have consecutive hyphens
+    - Must have at least one character
+    """
+    if not name:
+        return False
+
+    # Check basic pattern: lowercase letters, numbers, hyphens
+    if not re.match(r"^[a-z0-9]+(-[a-z0-9]+)*$", name):
+        return False
+
+    return True
+
+
+def should_check_file(file_path: Path) -> bool:
+    """
+    Determine if a file should be checked for kebab-case convention.
+
+    Args:
+        file_path: Path to the file to check
+
+    Returns:
+        True if the file should be checked, False otherwise
+    """
+    # Check if any part of the path contains excluded directories
+    for part in file_path.parts:
+        if part in ALLOWED_DIR_PATTERNS:
+            return False
+
+    # Check if the file has an excluded extension
+    if file_path.suffix in ALLOWED_EXTENSIONS:
+        return False
+
+    # Check if the filename is in the exceptions list
+    if file_path.name in ALLOWED_EXCEPTIONS:
+        return False
+
+    return True
+
+
+def check_file_naming(file_path: Path) -> List[str]:
+    """
+    Check if a file follows kebab-case naming convention.
+
+    Args:
+        file_path: Path to the file to check
+
+    Returns:
+        List of error messages (empty if no errors)
+    """
+    errors: List[str] = []
+
+    if not should_check_file(file_path):
+        return errors
+
+    # Check each directory component
+    for i, part in enumerate(file_path.parts[:-1]):  # Exclude the filename
+        if not is_kebab_case(part):
+            errors.append(
+                f"Directory '{part}' in path '{file_path}' does not follow kebab-case convention"
+            )
+
+    # Check the filename (without extension)
+    filename = file_path.name
+    stem = file_path.stem
+
+    # For files with extensions, check the stem
+    if file_path.suffix:
+        if not is_kebab_case(stem):
+            errors.append(
+                f"Filename '{filename}' does not follow kebab-case convention. "
+                f"Expected something like '{convert_to_kebab_case(stem)}{file_path.suffix}'"
+            )
+    else:
+        # For files without extensions, check the whole name
+        if not is_kebab_case(filename):
+            errors.append(
+                f"Filename '{filename}' does not follow kebab-case convention. "
+                f"Expected something like '{convert_to_kebab_case(filename)}'"
+            )
+
+    return errors
+
+
+def convert_to_kebab_case(text: str) -> str:
+    """
+    Convert a string to kebab-case.
+
+    Args:
+        text: String to convert
+
+    Returns:
+        Kebab-case version of the string
+    """
+    # Replace underscores and spaces with hyphens
+    text = re.sub(r"[_\s]+", "-", text)
+
+    # Insert hyphens before capital letters (camelCase -> camel-Case)
+    text = re.sub(r"([a-z0-9])([A-Z])", r"\1-\2", text)
+
+    # Convert to lowercase
+    text = text.lower()
+
+    # Remove any leading/trailing hyphens
+    text = text.strip("-")
+
+    # Replace multiple consecutive hyphens with single hyphens
+    text = re.sub(r"-+", "-", text)
+
+    return text
+
+
+def main() -> int:
+    """
+    Main function to check kebab-case convention for given files.
+
+    Returns:
+        Exit code (0 for success, 1 for violations found)
+    """
+    if len(sys.argv) < 2:
+        print("Usage: python scripts/check-kebab-case.py [file1] [file2] ...")
+        return 0
+
+    files_to_check = sys.argv[1:]
+    all_errors = []
+
+    for file_str in files_to_check:
+        file_path = Path(file_str)
+
+        # Skip non-existent files (they might be deleted files in git)
+        if not file_path.exists():
+            continue
+
+        errors = check_file_naming(file_path)
+        all_errors.extend(errors)
+
+    if all_errors:
+        print("❌ Kebab-case naming convention violations found:")
+        print()
+        for error in all_errors:
+            print(f"  • {error}")
+        print()
+        print("💡 To fix these issues:")
+        print("  1. Rename files/directories to follow kebab-case convention")
+        print("  2. Update any imports or references to the renamed files")
+        print("  3. Run 'git add' for the renamed files")
+        print()
+        print("📖 For more information, see:")
+        print("  • ai/RULES_OF_AI.md - Project naming conventions")
+        print("  • .github/copilot-instructions.md - Coding standards")
+        return 1
+
+    print("✅ All files follow kebab-case naming convention")
+    return 0
+
+
+if __name__ == "__main__":
+    exit(main())

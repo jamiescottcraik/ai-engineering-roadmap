@@ -35,7 +35,7 @@ jobs:
         run: |
           cp -r frontend/dist/* docs/
           cp frontend/public/roadmap.json docs/
-          cp frontend/public/brAInwav.png docs/
+          cp frontend/public/brainwav.png docs/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

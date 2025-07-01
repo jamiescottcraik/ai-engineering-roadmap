@@ -1,7 +1,7 @@
 # AI Leadership Engineering Roadmap
 
 ```html
-<img src="assets/brAInwav.png" alt="brAInwav Logo" width="120" height="120" />
+<img src="assets/brainwav.png" alt="brAInwav Logo" width="120" height="120" />
 ```
 
 ## A 48-Week, Self-Directed Journey to Master the Skills of a Modern AI Architect and Product Leader
