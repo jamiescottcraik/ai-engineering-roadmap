@@ -2,7 +2,6 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Combine with the base file:
 #   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
-version: "3.8"
 
 services:
   api:
@@ -11,11 +10,11 @@ services:
       - ./:/workspace
     working_dir: /workspace/apps/api
     environment:
-      PYTHONUNBUFFERED: "1" # flush logs immediately
+      PYTHONUNBUFFERED: '1' # flush logs immediately
     command: >-
       uv run uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
-      - "8000:8000"
+      - '8000:8000'
     networks: [brainwav-net]
 
   # Optional: Next.js dev server
@@ -25,10 +24,10 @@ services:
       context: apps/web
       dockerfile: Dockerfile.dev # lightweight Node image
     volumes:
-      - ./apps/web:/workspace
-    working_dir: /workspace
+      - ./:/workspace
+    working_dir: /workspace/apps/web
     command: pnpm dev --host 0.0.0.0
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on: [api]
     networks: [brainwav-net]
