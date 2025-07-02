@@ -154,7 +154,21 @@ def is_kebab_case(name: str) -> bool:
     """Check if a string follows kebab-case convention."""
     if not name:
         return False
-    return bool(re.match(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$", name))
+    # For compound extensions like .schema.json, check if the base name is kebab-case
+    # Split on dots and check each part separately
+    parts = name.split(".")
+    base_name = parts[0]
+
+    # Check if the base name follows kebab-case
+    if not re.match(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$", base_name):
+        return False
+
+    # For compound extensions, check that additional parts are lowercase
+    for part in parts[1:]:
+        if not re.match(r"^[a-z][a-z0-9]*$", part):
+            return False
+
+    return True
 
 
 def is_snake_case(name: str) -> bool:

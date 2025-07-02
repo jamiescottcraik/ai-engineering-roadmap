@@ -1,20 +1,11 @@
 {
-  // "$schema" points to the validation schema, ensuring all agent configs are consistent.
   "$schema": "../schemas/agent-config.schema.json",
-
-  // "agent_id" is a unique identifier for this specific agent configuration.
   "agent_id": "openai_codex_platform",
-
-  // "description" provides human-readable context for the agent's purpose.
   "description": "Configuration for the OpenAI Codex agent platform, a specialized, sandboxed environment for complex software engineering tasks.",
-
-  // "model_identifier" specifies the exact model to be used by the platform.
   "model_identifier": "codex-1",
   "version": "1.0.0",
   "enabled": true,
-
-  // "authority_level" aligns with the Governance Manual (§1). "ASSISTANT" is appropriate for a task-based agent.
-  "authority_level": "assistant",
+  "authority_level": "ASSISTANT",
   "capabilities": [
     "feature_implementation",
     "bug_fixing",
@@ -22,8 +13,6 @@
     "automated_refactoring",
     "pull_request_proposal"
   ],
-
-  // "integration" specifies how the MAS interacts with this agent.
   "integration": {
     "type": "platform",
     "environment": "sandboxed_cloud_container",
@@ -32,13 +21,9 @@
       "secret_path": "op://Development/OPENAI_CODEX_API_KEY"
     }
   },
-
-  // Operational limits for cost and performance control.
   "limits": {
     "max_task_duration_minutes": 30,
     "parallel_tasks": 5
   },
-
-  // "task_preferences" helps the orchestration engine delegate tasks more effectively.
   "task_preferences": ["bug_fixing", "feature_implementation"]
 }
