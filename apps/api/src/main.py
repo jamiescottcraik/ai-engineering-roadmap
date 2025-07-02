@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI
+
 from integrations.providers.ollama import (
     OllamaIntegrationService,
     RoadmapConfig,

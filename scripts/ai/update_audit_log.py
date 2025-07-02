@@ -12,7 +12,7 @@ to the repository, conforming to the schema defined in
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import yaml  # Requires PyYAML: uv pip install pyyaml
 
@@ -39,10 +39,10 @@ def update_log_entry(
     summary: str,
     citation_details: List[Dict[str, Any]],
     log_file_path: Path = AUDIT_LOG_FILE,
-    log_id: str = None,
+    log_id: Optional[str] = None,
     task_id: str = "N/A",
-    confidence_data: Dict[str, Any] = None,
-    flags_data: Dict[str, bool] = None,
+    confidence_data: Optional[Dict[str, Any]] = None,
+    flags_data: Optional[Dict[str, bool]] = None,
 ) -> None:
     """
     Appends a new, schema-compliant entry to the AI_CONTRIB_LOG.yaml file.

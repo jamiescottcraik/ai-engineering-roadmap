@@ -23,12 +23,19 @@ from pathlib import Path
 from typing import Any, Dict
 
 # Import the AI provider manager to get AI service instances
-from apps.api.src.core.integrations.providers.ai_provider_manager import (
-    AIProviderError,
-    BaseAIProvider,
-    InvalidProviderError,
-    ai_provider_manager,
-)
+try:
+    from apps.api.src.integrations.providers.ai_provider_manager import (
+        AIProviderError,
+        BaseAIProvider,
+        InvalidProviderError,
+        ai_provider_manager,
+    )
+except ImportError:
+    # AI provider manager not yet implemented
+    AIProviderError = Exception
+    BaseAIProvider = object
+    InvalidProviderError = Exception
+    ai_provider_manager = None
 
 # --- Configuration ---
 # Assumes the script is in /scripts/ai/, so resolves to the project root.

@@ -37,7 +37,8 @@ try:
     )
 except ImportError as e:
     logging.getLogger("alembic.env").error(
-        f"ERROR: Could not import Base from apps.api.src.core.models.base. Please ensure the path is correct and your models are defined: {e}"
+        f"ERROR: Could not import Base from apps.api.src.core.models.base. "
+        f"Please ensure the path is correct and your models are defined: {e}"
     )
     target_metadata = (
         None  # Set to None to prevent immediate failure, but migrations won't work correctly
@@ -52,7 +53,8 @@ config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers from the .ini file.
-fileConfig(config.config_filepath(), disable_existing_loggers=False)
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 logger = logging.getLogger("alembic.env")
 
 # Retrieve the database URL from environment variables.

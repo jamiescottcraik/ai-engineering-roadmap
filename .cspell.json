@@ -1,0 +1,31 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "brainwav",
+    "Inwav",
+    "nextjs",
+    "addgroup",
+    "adduser",
+    "fastapi",
+    "uvicorn",
+    "sqlalchemy",
+    "pydantic",
+    "passlib",
+    "dotenv",
+    "httpx",
+    "generativeai",
+    "pytest",
+    "asyncio",
+    "isort",
+    "mypy",
+    "testpaths",
+    "pycodestyle",
+    "Pyflakes",
+    "pyupgrade",
+    "mccabe",
+    "pyyaml",
+    "ollama"
+  ],
+  "ignorePaths": ["node_modules", ".git", ".venv", "*.log", "pnpm-lock.yaml", "uv.lock"]
+}

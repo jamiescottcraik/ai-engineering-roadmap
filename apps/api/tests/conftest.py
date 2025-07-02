@@ -12,7 +12,8 @@ backend_root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(backend_root))
 sys.path.insert(0, str(backend_root / "src"))
 
-from src.main import app
+# Import must be after path manipulation
+from src.main import app  # noqa: E402
 
 
 @pytest.fixture

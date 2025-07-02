@@ -15,11 +15,18 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Import AI provider manager to get AI service instances
-from apps.api.src.core.integrations.providers.ai_provider_manager import (
-    AIProviderError,
-    InvalidProviderError,
-    ai_provider_manager,
-)
+try:
+    from apps.api.src.integrations.providers.ai_provider_manager import (
+        AIProviderError,
+        InvalidProviderError,
+        ai_provider_manager,
+    )
+except ImportError:
+    # AI provider manager not yet implemented
+    print("⚠️  AI provider manager not available. Running in mock mode.")
+    AIProviderError = Exception
+    InvalidProviderError = Exception
+    ai_provider_manager = None
 
 # Mocking governance components for demonstration.
 # In a real setup, these would be imported from apps.api.src.governance

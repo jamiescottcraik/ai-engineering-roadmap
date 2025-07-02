@@ -24,11 +24,10 @@ import {
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
+import MCPAIAssistant from '@/components/ai/mcp-ai-assistant';
 import ProgressAnalytics from '@/components/analytics/ProgressAnalytics';
 import LearningKanban from '@/components/kanban/LearningKanban';
 import RecallIntegration from '@/components/recall-integration';
-
-import MCPAIAssistant from '@/components/ai/MCPAIAssistant';
 
 // Type definitions
 interface RoadmapConfig {

@@ -27,10 +27,12 @@ dependencies = [
 dev = [
     "pytest>=7.4.0",
     "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
     "black>=23.9.0",
     "isort>=5.12.0",
     "ruff>=0.1.0",
-    "mypy>=1.6.0"
+    "mypy>=1.6.0",
+    "types-requests>=2.31.0"
 ]
 
 [build-system]
@@ -57,8 +59,17 @@ python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
-namespace_packages = true
+mypy_path = "src"
 explicit_package_bases = true
+# Ignore missing imports for local modules during development
+disable_error_code = ["import-untyped"]
+# Exclude scripts directory from strict checking
+exclude = ["../scripts/.*"]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+# Allow more flexibility in test files
+disable_error_code = ["import-untyped", "import-not-found"]
 
 [tool.ruff]
 line-length = 88

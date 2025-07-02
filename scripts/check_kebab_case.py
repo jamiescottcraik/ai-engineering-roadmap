@@ -38,6 +38,7 @@ EXEMPTED_FILES: Set[str] = {
     "CODE_OF_CONDUCT.md",
     "SECURITY.md",
     "SUPPORT.md",
+    "PROJECT_STRUCTURE.md",  # Core project documentation
     # Next.js special files (standard naming)
     "layout.tsx",
     "page.tsx",
@@ -79,6 +80,8 @@ EXEMPTED_FILES: Set[str] = {
     "tsconfig.json",
     "tsconfig.node.json",
     "vite.config.ts",
+    ".cspell.json",
+    ".mypy.ini",
     # Git and system files
     ".gitkeep",
     ".gitignore",

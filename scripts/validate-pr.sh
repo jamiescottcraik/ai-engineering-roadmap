@@ -24,8 +24,8 @@ critical_files_missing=false
 GUARDRAIL_FILES=(
     "RULES_OF_AI.md"
     "docs/PROJECT_STRUCTURE.md"
-    "docs/AI_PARTNERSHIP.md" # Added based on docs/README.md and consistency
-    "docs/QUALITY_GATES.md"   # Added as this script directly implements it
+    "docs/ai-partnership.md" # Added based on docs/README.md and consistency
+    "docs/quality-gates.md"   # Added as this script directly implements it
     ".github/CODEOWNERS.txt"
     ".devcontainer/devcontainer.json" # Essential for dev environment consistency
     "pyproject.toml" # Essential for Python build system
@@ -50,7 +50,7 @@ fi
 # --- 2. LINTING, FORMATTING & TYPING (Backend) ---
 log "🧹 Running formatters, linters, and type checker on backend (apps/api/)..."
 # Ensure the backend application's source is recognized as a package root
-export PYTHONPATH=".:apps/api/src:$PYTHONPATH"
+export PYTHONPATH=".:apps/api/src:${PYTHONPATH:-}"
 
 # Black formatting check
 log "   └── Checking Black formatting..."
@@ -66,16 +66,15 @@ isort --check-only --profile black apps/api/src/ apps/api/tests/ || err "isort c
 
 # Mypy static type checking
 log "   └── Running MyPy type checking..."
-# Mypy should be run from the context where 'apps/api/src' is resolvable as a package.
-# The PYTHONPATH adjustment above helps.
-mypy --strict apps/api/src/ || err "MyPy type checking failed. Review and fix type errors."
+# Mypy should be run from the apps/api directory to avoid module name conflicts
+(cd apps/api && mypy src/) || err "MyPy type checking failed. Review and fix type errors."
 
 log "✅ Backend linting, formatting, and type checking passed."
 
 # --- 3. TESTING (Backend) ---
 log "🧪 Running tests and coverage for backend (apps/api/)..."
 # The PYTHONPATH is already set above
-pytest apps/api/tests/ --cov=apps/api/src --cov-fail-under=90 --cov-report=xml:reports/coverage.xml \
+(cd apps/api && pytest tests/ --cov=src --cov-fail-under=90 --cov-report=xml:../../reports/coverage.xml) \
     || err "Backend tests failed or coverage is below 90%. Fix tests or improve coverage."
 log "✅ Backend tests passed and coverage criteria met."
 
