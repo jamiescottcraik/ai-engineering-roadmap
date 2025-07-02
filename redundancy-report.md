@@ -3,7 +3,7 @@
 ## Docker Compose Files
 
 - docker-compose-db.yml and docker-compose-mcp.yml both define the same database service
-- These have been consolidated into docker-compose-mcp-consolidated.yml
+- These have been consolidated into the main docker-compose.yml
 - Both redundant files have been removed
 
 ## Script Files
@@ -16,7 +16,7 @@
 
 ## Completed Actions
 
-1. Consolidated Docker Compose files into docker-compose-mcp-consolidated.yml
+1. Consolidated Docker Compose files into the main docker-compose.yml
 2. Removed empty and backup scripts
 3. Updated scripts to reference new Docker Compose file names
 4. Fixed naming convention issues by renaming files to use kebab-case

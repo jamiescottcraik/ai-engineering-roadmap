@@ -30,7 +30,8 @@ def fetch_secret(op_uri: str) -> str:
         print(f"❌ Error fetching secret for URI: {op_uri}", file=sys.stderr)
         print(f"   Error details: {e.stderr.strip()}", file=sys.stderr)
         print(
-            "   Please ensure you are logged into the 1Password CLI (`op signin`) and have access to this vault.",
+            "   Please ensure you are logged into the 1Password CLI "
+            "(`op signin`) and have access to this vault.",
             file=sys.stderr,
         )
         sys.exit(1)
