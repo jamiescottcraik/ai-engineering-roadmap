@@ -1,4 +1,21 @@
 services:
+  # FastAPI backend service
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: brainwav-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://brainwav_user:brainwav_password@brainwav-db:5432/brainwav_db
+    ports:
+      - '8000:8000'
+    depends_on:
+      brainwav-db:
+        condition: service_healthy
+    networks:
+      - brainwav-net
+
   # Database service for brAInwav
   brainwav-db:
     image: postgres:16-alpine
