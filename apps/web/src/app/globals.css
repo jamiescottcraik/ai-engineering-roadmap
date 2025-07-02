@@ -389,15 +389,10 @@
   background-size: 200% 200%;
   animation: gradient 3s ease infinite;
 }
-    background: transparent !important;
-    color: black !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
 
-  .no-print {
-    display: none !important;
-  }
+.no-print {
+  display: none !important;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
