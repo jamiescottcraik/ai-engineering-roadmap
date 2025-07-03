@@ -7,18 +7,18 @@
 # As per GitHub documentation, this file MUST be named 'copilot-setup-steps.yml'
 # and the primary job MUST be named 'copilot-setup-steps'.
 
-name: "Copilot Agent Environment Setup"
+name: 'Copilot Agent Environment Setup'
 
 on:
   workflow_dispatch:
   push:
     paths:
       # Re-validate if this setup file itself changes.
-      - ".github/workflows/copilot-setup-steps.yml"
+      - '.github/workflows/copilot-setup-steps.yml'
       # Re-validate if core dependencies for either app change.
-      - "apps/api/pyproject.toml"
-      - "pnpm-lock.yaml"
-      - "mcp-servers/**/package.json"
+      - 'apps/api/pyproject.toml'
+      - 'pnpm-lock.yaml'
+      - 'mcp-servers/**/package.json'
 
 jobs:
   # The job MUST be called `copilot-setup-steps` or it will not be picked up by Copilot.
@@ -35,11 +35,32 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # --- 0.1. Ensure python and python3 are always available (symlink for CI robustness) ---
+      - name: Ensure python and python3 are available
+        run: |
+          if ! command -v python3 >/dev/null; then echo 'python3 missing!'; exit 1; fi
+          if ! command -v python >/dev/null; then sudo ln -s $(which python3) /usr/bin/python; fi
+          echo "python3: $(which python3)"
+          echo "python: $(which python)"
+          # If .venv/bin/python exists, print it for diagnostics
+          if [ -f "./apps/api/.venv/bin/python" ]; then
+            echo "Found venv python: ./apps/api/.venv/bin/python"
+          fi
+        shell: bash
+
+      # --- 0.2. Print working directory and PATH for diagnostics ---
+      - name: Print working directory and PATH
+        run: |
+          echo "PWD: $PWD"
+          echo "PATH: $PATH"
+          ls -la
+        shell: bash
+
       # --- 1. Backend Setup (Python & uv) ---
       - name: Set up Python v3.11
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Install uv (Python Package Installer)
         run: pipx install uv
@@ -69,8 +90,8 @@ jobs:
       - name: Set up Node.js v20 with pnpm Caching
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "pnpm"
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install Frontend Dependencies
         run: pnpm install --frozen-lockfile
@@ -95,7 +116,7 @@ jobs:
           uv run python -c "import pytest; print(f'pytest available')" || echo "pytest not available"
         shell: bash
 
-      - name: Validate Node.js Environment  
+      - name: Validate Node.js Environment
         run: |
           echo "Node.js toolchain validation:"
           which node && which pnpm && which npm
@@ -121,3 +142,14 @@ jobs:
           echo ""
           echo "--- Environment Setup Complete ---"
         shell: bash
+
+      # --- 6. Upload runtime logs if present (robust, avoids artifact errors) ---
+      - name: Upload runtime logs (if present)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-logs
+          path: |
+            /home/runner/work/_temp/runtime-logs/blocked.jsonl
+            /home/runner/work/_temp/runtime-logs/blocked.md
+        continue-on-error: true
