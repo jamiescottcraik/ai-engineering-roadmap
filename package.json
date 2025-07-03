@@ -7,7 +7,8 @@
     "__comment__": "--- DOCKER ---",
     "dev": "concurrently --names 'API,WEB' -c 'bgBlue.bold,bgMagenta.bold' 'pnpm:dev:api' 'pnpm:dev:web'",
     "dev:api": "cd ./apps/api && uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload",
-    "dev:web": "pnpm --filter @brainwav/web dev",
+    "dev:web": "pnpm --filter frontend-next dev",
+    "build:socket": "mkdir -p dist && cp -f dist/socket.js dist/socket.js.bak 2>/dev/null || true",
     "install:all": "pnpm install && (cd ./apps/api && uv pip install -e .[dev])",
     "clean": "pnpm -r exec rm -rf node_modules .next .turbo && rm -rf node_modules .venv .ruff_cache __pycache__",
     "__comment2__": "--- VALIDATION & QUALITY ---",
@@ -20,8 +21,8 @@
     "test": "pnpm --parallel test",
     "test:api": "cd ./apps/api && pytest tests/",
     "__comment3__": "--- BUILD & DEPLOY ---",
-    "build": "pnpm --filter \"./packages/**\" build",
-    "build:web": "pnpm --filter @brainwav/web build",
+    "build": "pnpm run build:socket && pnpm --filter \"./packages/**\" build",
+    "build:web": "pnpm --filter frontend-next build",
     "__comment4__": "--- DOCKER OPERATIONS ---",
     "up": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans",
     "down": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down",
@@ -39,5 +40,8 @@
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@10.12.4"
+  "packageManager": "pnpm@10.12.4",
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
 }

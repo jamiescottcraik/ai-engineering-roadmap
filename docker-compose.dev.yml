@@ -25,9 +25,20 @@ services:
       dockerfile: Dockerfile.dev # lightweight Node image
     volumes:
       - ./:/workspace
+      - ./dist:/workspace/dist
     working_dir: /workspace/apps/web
     command: pnpm dev --host 0.0.0.0
     ports:
       - '3000:3000'
     depends_on: [api]
     networks: [brainwav-net]
+
+  # MCP Custom Server Dev
+  mcp-custom:
+    volumes:
+      - ./mcp-servers/custom:/app
+      - ./dist:/app/dist
+      - /app/node_modules
+    command: npm run dev
+    environment:
+      NODE_ENV: development
