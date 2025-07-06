@@ -2,11 +2,12 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI
-from integrations.providers.ollama import (
+
+from .integrations.providers.ollama import (
     OllamaIntegrationService,
     RoadmapConfig,
 )
-from services.roadmap_sequence import RoadmapSequenceFixer
+from .services.roadmap_sequence import RoadmapSequenceFixer
 
 app = FastAPI(
     title="brAInwav API",

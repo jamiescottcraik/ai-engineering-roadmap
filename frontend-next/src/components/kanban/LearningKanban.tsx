@@ -92,37 +92,6 @@ export default function LearningKanban() {
   const [selectedTask, setSelectedTask] = useState<LearningTask | null>(null);
   const [isAddingTask, setIsAddingTask] = useState<string | null>(null);
 
-  // Load tasks from localStorage
-  useEffect(() => {
-    const loadTasks = () => {
-      try {
-        const savedColumns = localStorage.getItem('brainwav-kanban-columns');
-        if (savedColumns) {
-          setColumns(JSON.parse(savedColumns));
-        } else {
-          // Initialize with sample tasks
-          initializeSampleTasks();
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Failed to load kanban tasks:', error);
-        initializeSampleTasks();
-      }
-    };
-
-    loadTasks();
-  }, [initializeSampleTasks]); // Added initializeSampleTasks to dependency array
-
-  // Save tasks to localStorage whenever columns change
-  useEffect(() => {
-    try {
-      localStorage.setItem('brainwav-kanban-columns', JSON.stringify(columns));
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to save kanban tasks:', error);
-    }
-  }, [columns]);
-
   // Initialize with sample learning tasks
   const initializeSampleTasks = useCallback(() => {
     const sampleTasks: LearningTask[] = [
@@ -203,18 +172,30 @@ export default function LearningKanban() {
       },
     ];
 
-    const updatedColumns = columns.map((column) => {
-      if (column.id === 'to-learn') {
-        return { ...column, tasks: [sampleTasks[0], sampleTasks[2]] };
-      } else if (column.id === 'learning') {
-        return { ...column, tasks: [sampleTasks[1]] };
-      }
-      return column;
-    });
-
-    setColumns(updatedColumns);
-
-  }, [columns]);
+    setColumns([
+      {
+        id: 'to-learn',
+        title: 'To Learn',
+        color: 'blue',
+        limit: undefined,
+        tasks: [sampleTasks[0], sampleTasks[2]],
+      },
+      {
+        id: 'learning',
+        title: 'In Progress',
+        color: 'orange',
+        limit: 3,
+        tasks: [sampleTasks[1]],
+      },
+      {
+        id: 'learned',
+        title: 'Completed',
+        color: 'green',
+        limit: undefined,
+        tasks: [],
+      },
+    ]);
+  }, []);
 
   // Load tasks from localStorage
   useEffect(() => {
@@ -235,7 +216,7 @@ export default function LearningKanban() {
     };
 
     loadTasks();
-  }, [initializeSampleTasks]);
+  }, [initializeSampleTasks]); // Include initializeSampleTasks in dependency array
 
   // Save tasks to localStorage whenever columns change
   useEffect(() => {
@@ -246,7 +227,6 @@ export default function LearningKanban() {
       console.error('Failed to save kanban tasks:', error);
     }
   }, [columns]);
-
 
   // Handle drag end
   const handleDragEnd = useCallback(
@@ -404,7 +384,9 @@ const KanbanColumn: React.FC<{
   };
 
   return (
-    <div className={`rounded-xl border ${colorClasses[column.color as keyof typeof colorClasses]} p-4`}>
+    <div
+      className={`rounded-xl border ${colorClasses[column.color as keyof typeof colorClasses]} p-4`}
+    >
       {/* Column Header */}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -417,6 +399,7 @@ const KanbanColumn: React.FC<{
         <button
           onClick={() => setIsAddingTask(column.id)}
           className="rounded p-1 text-white/60 hover:text-white/80"
+          aria-label={`Add task to ${column.title}`}
         >
           <Plus className="h-4 w-4" />
         </button>
@@ -535,6 +518,7 @@ const TaskCard: React.FC<{
             <span>{task.progress}%</span>
           </div>
           <div className="h-1 w-full rounded-full bg-white/10">
+            {/* Dynamic width for progress bar */}
             <div
               className="h-1 rounded-full bg-blue-500 transition-all"
               style={{ width: `${task.progress}%` }}
@@ -627,8 +611,14 @@ const TaskDetailModal: React.FC<{
         <div className="space-y-6">
           {/* Description */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-white/80">Description</label>
+            <label
+              htmlFor="task-description"
+              className="mb-2 block text-sm font-medium text-white/80"
+            >
+              Description
+            </label>
             <textarea
+              id="task-description"
               value={editedTask.description}
               onChange={(e) => updateTask({ description: e.target.value })}
               className="w-full rounded border border-white/20 bg-white/10 p-3 text-white"
@@ -639,10 +629,14 @@ const TaskDetailModal: React.FC<{
           {/* Progress and Time */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="mb-2 block text-sm font-medium text-white/80">
+              <label
+                htmlFor="task-progress"
+                className="mb-2 block text-sm font-medium text-white/80"
+              >
                 Progress ({editedTask.progress}%)
               </label>
               <input
+                id="task-progress"
                 type="range"
                 min="0"
                 max="100"
@@ -652,8 +646,14 @@ const TaskDetailModal: React.FC<{
               />
             </div>
             <div>
-              <label className="mb-2 block text-sm font-medium text-white/80">Time Estimate</label>
+              <label
+                htmlFor="task-time-estimate"
+                className="mb-2 block text-sm font-medium text-white/80"
+              >
+                Time Estimate
+              </label>
               <input
+                id="task-time-estimate"
                 type="number"
                 value={editedTask.timeEstimate}
                 onChange={(e) => updateTask({ timeEstimate: parseInt(e.target.value) })}
