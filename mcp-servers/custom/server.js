@@ -281,57 +281,49 @@ try {
 
 // Function to spawn Python processes with the correct executable
 function spawnPython(args, options = {}) {
-  const { spawn, spawnSync } = require('child_process');
-  const fs = require('fs');
-  const path = require('path');
+  const { spawn } = require('child_process');
+  let pythonExecutable = null;
 
-  // Use the configured Python executable if available, fall back to system Python
-  let pythonExecutable;
-  const tried = [];
-
-  // Try config
+  // 1. Try config
   if (pythonConfig?.python_executable && fs.existsSync(pythonConfig.python_executable)) {
     pythonExecutable = pythonConfig.python_executable;
-    tried.push(pythonExecutable);
   }
 
-  // Try python3 in PATH
+  // 2. Try .venv/bin/python relative to repo root
   if (!pythonExecutable) {
-    try {
-      const result = spawnSync('python3', ['--version'], { encoding: 'utf8' });
-      if (result.status === 0) {
-        pythonExecutable = 'python3';
-        tried.push('python3');
-      }
-    } catch {}
+    const repoRoot = path.resolve(__dirname, '../../..');
+    const venvPython = path.join(repoRoot, '.venv/bin/python');
+    if (fs.existsSync(venvPython)) {
+      pythonExecutable = venvPython;
+    }
   }
 
-  // Try python in PATH
+  // 3. Try absolute path (for extension host edge case)
   if (!pythonExecutable) {
-    try {
-      const result = spawnSync('python', ['--version'], { encoding: 'utf8' });
-      if (result.status === 0) {
-        pythonExecutable = 'python';
-        tried.push('python');
-      }
-    } catch {}
+    const absVenvPython = '/Users/jamiecraik/repos/ai-engineering-roadmap/.venv/bin/python';
+    if (fs.existsSync(absVenvPython)) {
+      pythonExecutable = absVenvPython;
+    }
   }
 
-  // Final fallback
-  if (!pythonExecutable) {
-    pythonExecutable = pythonConfig?.python_executable || 'python3';
-    tried.push(pythonExecutable);
-    console.warn('All python detection strategies failed, using fallback:', pythonExecutable);
-  }
+  // 4. Try python3, then python
+  if (!pythonExecutable && fs.existsSync('/usr/bin/python3')) pythonExecutable = '/usr/bin/python3';
+  if (!pythonExecutable && fs.existsSync('/usr/bin/python')) pythonExecutable = '/usr/bin/python';
+  if (!pythonExecutable) pythonExecutable = 'python3';
+  if (!pythonExecutable) pythonExecutable = 'python';
 
-  console.log('spawnPython: will try', pythonExecutable, 'args:', args, 'tried:', tried);
+  // Log for diagnostics
+  console.log(`[MCP] CWD: ${process.cwd()}`);
+  console.log(`[MCP] PATH: ${process.env.PATH}`);
+  console.log(`[MCP] Attempting Python executable paths:`, [
+    "/Users/jamiecraik/repos/ai-engineering-roadmap/.venv/bin/python",
+    "/usr/bin/python3",
+    "/usr/bin/python",
+    "python3",
+    "python"
+  ]);
 
-  try {
-    return spawn(pythonExecutable, args, options);
-  } catch (error) {
-    console.error(`Failed to spawn Python process: ${error.message}`);
-    throw error;
-  }
+  return spawn(pythonExecutable, args, options);
 }
 
 // Python API helpers with extensive diagnostics
